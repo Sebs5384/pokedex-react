@@ -9,7 +9,7 @@ const PokemonName = styled.strong`
 function Card({ cardKey, image, className }) {
     return (
         <div key={cardKey} className={className}>
-            <PokemonName>{cardKey}</PokemonName>
+            <PokemonName className="card-body text-center">{cardKey}</PokemonName>
             <ImageContainer src={image} alt={cardKey} className={""} />
         </div>
     );
