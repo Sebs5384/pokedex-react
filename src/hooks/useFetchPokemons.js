@@ -1,9 +1,9 @@
 import { useReducer, useEffect } from "react";
 import { pokemonReducer, intialState } from "../reducers/pokemonReducer";
-import { getPokemons } from "../api/pokemon";
+import getPokemons from "../api/pokemon";
 
-function useFetchPokemons(offset, limit) {
-    const [state, dispatch] = pokemonReducer(pokemonReducer, intialState);
+function useFetchPokemons(limit, offset) {
+    const [state, dispatch] = useReducer(pokemonReducer, intialState);
 
     useEffect(() => {
         const fetchPokemonsData = async () => {
@@ -20,7 +20,11 @@ function useFetchPokemons(offset, limit) {
         fetchPokemonsData();
     }, [offset, limit]);
 
-    return state;
+    return {
+        loading: state.loading,
+        pokemons: state.data,
+        error: state.error
+    };
 };
 
 export default useFetchPokemons;
