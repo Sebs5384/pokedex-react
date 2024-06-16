@@ -9,7 +9,7 @@ const Section = styled.section`
 
 const Wrapper = styled.div`
     width: 100%;
-    max-width: 1480px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 1rem;
     background-color: #fff8dc;
@@ -35,14 +35,7 @@ function Grid({ cards }){
             <Wrapper>
                 <Body>
                     <Board>
-                        <Card cardKey={"bulbasaur"} className={"card col-2"}/>
-                        <Card cardKey={"bulbasaur"} className={"card col-2"}/>
-                        <Card cardKey={"bulbasaur"} className={"card col-2"}/>
-                        <Card cardKey={"bulbasaur"} className={"card col-2"}/>
-                        <Card cardKey={"bulbasaur"} className={"card col-2"}/>
-                        <Card cardKey={"bulbasaur"} className={"card col-2"}/>
-                        <Card cardKey={"bulbasaur"} className={"card col-2"}/>
-                        <Card cardKey={"bulbasaur"} className={"card col-2"}/>
+                        {cards && cards.results.map(({ name, url }) => <Card key={name} cardKey={name} image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${url.split("/")[url.split("/").length - 2]}.png`}/>)}
                     </Board>
                 </Body>
             </Wrapper>
