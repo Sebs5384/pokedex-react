@@ -1,17 +1,23 @@
 import styled from "@emotion/styled";
 import ImageContainer from "./ImageContainer";
 
-const PokemonName = styled.strong`
-    font-size: 1.5rem;
-    font-family: "Roboto", sans-serif;
+const PokemonCard = styled.div`
+    border: 3px solid #dc143c;
+    border-style: outset;
+    border-radius: 5px;
+    height: 270px
 `;
 
-function Card({ cardKey, image, className }) {
+const PokemonName = styled.strong`
+    font-size: 1.5rem;
+`;
+
+function Card({ cardKey, image }) {
     return (
-        <div key={cardKey} className={className}>
-            <PokemonName className="card-body text-center">{cardKey}</PokemonName>
-            <ImageContainer src={image} alt={cardKey} className={""} />
-        </div>
+        <PokemonCard key={cardKey} className={"col-2 card-body text-center"}>
+            <PokemonName>{cardKey}</PokemonName>
+            <ImageContainer src={image} alt={cardKey} className="card-img-top" />
+        </PokemonCard>
     );
 };
 
