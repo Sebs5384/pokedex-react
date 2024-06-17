@@ -1,5 +1,7 @@
 import useFetchPokemons from "../hooks/useFetchPokemons";
+import Banner from "../components/Banner";
 import Grid from "../components/Grid";
+import Paginator from "../components/Paginator";
 import { useEffect } from "react";
 
 function Pokedex() {
@@ -10,13 +12,9 @@ function Pokedex() {
 
     return (
         <>
-            <div>
-                <h1>Banner</h1>
-            </div>
+            <Banner />
             <Grid cards={pokemons}/>
-            <div>
-                <h1>Paginator</h1>
-            </div>
+            <Paginator />
         </>
     );
 };
