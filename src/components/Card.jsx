@@ -5,7 +5,7 @@ const PokemonCard = styled.div`
     border: 3px solid #dc143c;
     border-style: outset;
     border-radius: 5px;
-    height: 270px
+    height: 280px
 `;
 
 const PokemonName = styled.strong`

@@ -9,7 +9,7 @@ const Section = styled.section`
 
 const Wrapper = styled.div`
     width: 100%;
-    max-width: 1280px;
+    max-width: 1320px;
     margin: 0 auto;
     padding: 1rem;
     background-color: #fff8dc;
