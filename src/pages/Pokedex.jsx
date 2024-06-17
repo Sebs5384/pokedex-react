@@ -1,7 +1,7 @@
 import useFetchPokemons from "../hooks/useFetchPokemons";
-import Banner from "../components/Banner";
-import Grid from "../components/Grid";
-import Paginator from "../components/Paginator";
+import Banner from "../components/Banner/Banner";
+import Grid from "../components/Grid/Grid";
+import Paginator from "../components/Paginator/Paginator";
 import { useEffect } from "react";
 
 function Pokedex() {

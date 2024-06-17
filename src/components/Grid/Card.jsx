@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import ImageContainer from "./ImageContainer";
+import ImageContainer from "../shared/ImageContainer";
 
 const PokemonCard = styled.div`
     border: 3px solid #dc143c;
