@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 const PaginationLink = styled.a`
     margin: 0.1rem;
     color: black;
+    &:focus,
     &:hover {
         color: black;
         border-color: #dc143c;

@@ -4,8 +4,10 @@ const Navbar = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem;
+    padding: 0.6rem;
     background-color: #dc143c;
+    border: 2px solid #dc143c;
+    border-style: outset;
     color: #fff;
 `;
 
