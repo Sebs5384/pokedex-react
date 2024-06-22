@@ -1,10 +1,10 @@
-const intialState = {
+const initialPokemonState = {
     loading: false,
     data: null,
     error: null
 };
 
-const pokemonReducer = (state = intialState, action) => {
+const pokemonReducer = (state = initialPokemonState, action) => {
     const { type, payload } = action;
 
     switch(type) {
@@ -36,5 +36,5 @@ const pokemonReducer = (state = intialState, action) => {
 
 export {
     pokemonReducer,
-    intialState
+    initialPokemonState
 };
