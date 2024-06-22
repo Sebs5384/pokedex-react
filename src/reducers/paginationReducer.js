@@ -1,11 +1,11 @@
-const intialState = {
+const initialPaginationState = {
     currentPage: 1,
     totalPages: 0,
-    limit: 0,
-    offset: 0
+    ITEMS_PER_PAGE: 20,
+    INITIAL_PAGE_INDEX: 1
 };
 
-function paginationReducer(state = intialState, action) {
+function paginationReducer(state = initialPaginationState, action) {
     const { type, payload } = action;
 
     switch(type) {
@@ -19,16 +19,6 @@ function paginationReducer(state = intialState, action) {
                 ...state,
                 totalPages: payload
             };
-        case "SET_LIMIT":
-            return {
-                ...state,
-                limit: payload
-            };
-        case "SET_OFFSET":
-            return {
-                ...state,
-                offset: payload
-            };
         default: 
             return state
     };
@@ -36,5 +26,5 @@ function paginationReducer(state = intialState, action) {
 
 export {
     paginationReducer,
-    intialState
+    initialPaginationState
 };
