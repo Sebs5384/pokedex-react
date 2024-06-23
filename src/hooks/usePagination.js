@@ -10,7 +10,7 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, ) {
 
     const setCurrentPage = (pageIndex) => {
         const currentPage = pageIndex + 1;
-        dispatch({ type: "SET_CURRENT_PAGE", payload: pageIndex });
+        dispatch({ type: "SET_CURRENT_PAGE", payload: currentPage });
     };
     
     const offset = (state.currentPage - 1) * ITEMS_PER_PAGE;

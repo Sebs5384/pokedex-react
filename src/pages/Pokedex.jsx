@@ -13,6 +13,11 @@ function Pokedex() {
     
 
     useEffect(() => {
+        const totalPokemons = pokemons.count.length;
+        setTotalPages(totalPokemons);
+    }, [pokemons])
+    
+    useEffect(() => {
         console.log(pokemons);
     })
 
@@ -20,7 +25,7 @@ function Pokedex() {
         <>
             <Banner />
             <Grid cards={pokemons}/>
-            <Paginator />
+            <Paginator totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} setTotalPages={setTotalPages}/>
         </>
     );
 };

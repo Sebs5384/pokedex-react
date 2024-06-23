@@ -14,14 +14,22 @@ const Pagination = styled.nav`
     align-items: center;
 `;
 
-function Paginator() {
+function Paginator({ totalPages, currentPage, setCurrentPage, setTotalPages }) {
+    const generatePageNumbers = () => {
+        return Array.from({ length: totalPages }, (_, index) => index + 1);
+    };
+
+    const pageNumbers = generatePageNumbers();
+
     return (
         <PaginatorContainer className="pagination justify-content-center">
             <Pagination className="page-item">
                 <PaginatorButton>Previous</PaginatorButton>
-                <PaginatorButton>1</PaginatorButton>
-                <PaginatorButton>2</PaginatorButton>
-                <PaginatorButton>3</PaginatorButton>
+                {pageNumbers.map((pageNumber) => (
+                    <PaginatorButton key={pageNumber}>
+                        {pageNumber}
+                    </PaginatorButton>
+                ))};
                 <PaginatorButton>Next</PaginatorButton>
             </Pagination>
         </PaginatorContainer>
