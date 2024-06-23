@@ -1,22 +1,27 @@
 import { useReducer, useEffect } from "react";
 import { paginationReducer, initialPaginationState } from "../reducers/index";
-import useFetchPokemons from "./useFetchPokemons";
 
-function usePagination() {
-    const initialPageIndex = initialPaginationState.INITIAL_PAGE_INDEX;
-    const POKEMONS_PER_PAGE = initialPaginationState.ITEMS_PER_PAGE;
-
+function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, ) {
     const [state, dispatch] = useReducer(paginationReducer, initialPaginationState);
-    const currentPage = state.currentPage;
-    const offset = ( currentPage - initialPageIndex) * POKEMONS_PER_PAGE;
-    const { loading, pokemons, error } = useFetchPokemons(POKEMONS_PER_PAGE, offset);
-
-    return {
-        loading,
-        pokemons,
-        error,
+    const setTotalPages = (totalCount) => {
+        const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
+        dispatch({ type: "SET_TOTAL_PAGES", payload: totalPages });
     };
 
+    const setCurrentPage = (pageIndex) => {
+        const currentPage = pageIndex + 1;
+        dispatch({ type: "SET_CURRENT_PAGE", payload: pageIndex });
+    };
+    
+    const offset = (state.currentPage - 1) * ITEMS_PER_PAGE;
+
+    return {
+        currentPage: state.currentPage,
+        totalPages: state.totalPages,
+        offset,
+        setCurrentPage,
+        setTotalPages
+    };
 };
 
 export default usePagination;
