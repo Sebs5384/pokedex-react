@@ -1,8 +1,6 @@
 const initialPaginationState = {
     currentPage: 1,
     totalPages: 0,
-    ITEMS_PER_PAGE: 20,
-    INITIAL_PAGE_INDEX: 1
 };
 
 function paginationReducer(state = initialPaginationState, action) {
