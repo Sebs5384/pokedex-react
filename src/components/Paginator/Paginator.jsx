@@ -24,13 +24,11 @@ function Paginator({ totalPages, currentPage, setCurrentPage, setTotalPages }) {
     return (
         <PaginatorContainer className="pagination justify-content-center">
             <Pagination className="page-item">
-                <PaginatorButton>Previous</PaginatorButton>
+                <PaginatorButton onClick={() => setCurrentPage(currentPage - 1)}>Previous</PaginatorButton>
                 {pageNumbers.map((pageNumber) => (
-                    <PaginatorButton key={pageNumber}>
-                        {pageNumber}
-                    </PaginatorButton>
-                ))};
-                <PaginatorButton>Next</PaginatorButton>
+                    <PaginatorButton key={pageNumber} isHidden={!(pageNumber >= currentPage - 1 && pageNumber <= currentPage + 2)} onClick={() => setCurrentPage(pageNumber)}>{pageNumber}</PaginatorButton>   
+                ))}
+                <PaginatorButton onClick={() => setCurrentPage(currentPage + 1)}>Next</PaginatorButton>
             </Pagination>
         </PaginatorContainer>
     );
