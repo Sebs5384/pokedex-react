@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import cx from "classnames";
 
 const PaginationLink = styled.a`
     margin: 0.1rem;
@@ -9,12 +10,22 @@ const PaginationLink = styled.a`
         border-color: #dc143c;
         box-shadow: 0 0 10px #dc143c;
     }
+    &.hidden {
+        display: none;
+    }
 `;
 
-function PaginationButton({ children, onClick = () => {} }) {
+function PaginatorButton({ children, isHidden, onClick = () => {} }) {
     return (
-        <PaginationLink className="page-link" href="#" onClick={onClick}>{children}</PaginationLink>
+        <PaginationLink 
+            className={cx("page-link", 
+                { "hidden": isHidden }
+            )} 
+            href="#" 
+            onClick={onClick}>
+            {children}
+        </PaginationLink>
     );
 };
 
-export default PaginationButton;
+export default PaginatorButton;
