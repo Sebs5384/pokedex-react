@@ -13,8 +13,11 @@ function Pokedex() {
     
 
     useEffect(() => {
-        const totalPokemons = pokemons.count.length;
-        setTotalPages(totalPokemons);
+        if(pokemons) {
+            const totalPokemons = pokemons.count;
+            setTotalPages(totalPokemons);
+        };
+        
     }, [pokemons])
     
     useEffect(() => {
