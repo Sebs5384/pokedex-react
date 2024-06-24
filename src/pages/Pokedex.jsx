@@ -20,10 +20,6 @@ function Pokedex() {
         
     }, [pokemons])
     
-    useEffect(() => {
-        console.log(pokemons);
-    })
-
     return (
         <>
             <Banner />
