@@ -9,7 +9,7 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, ) {
     };
 
     const setCurrentPage = (pageIndex) => {
-        const currentPage = pageIndex + 1;
+        const currentPage = pageIndex;
         dispatch({ type: "SET_CURRENT_PAGE", payload: currentPage });
     };
     
