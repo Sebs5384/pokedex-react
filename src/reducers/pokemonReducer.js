@@ -4,7 +4,7 @@ const initialPokemonState = {
     error: null
 };
 
-const pokemonReducer = (state = initialPokemonState, action) => {
+function pokemonReducer(state = initialPokemonState, action) {
     const { type, payload } = action;
 
     switch(type) {
