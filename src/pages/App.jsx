@@ -1,9 +1,12 @@
 import Pokedex from "./Pokedex";
 
 function App() {
+    const POKEMONS_PER_PAGE = 20;
+    const INITIAL_PAGE_INDEX = 1;
+
     return (
         <>
-            <Pokedex/>
+            <Pokedex pokemonsPerPage={POKEMONS_PER_PAGE} initialPageIndex={INITIAL_PAGE_INDEX}/>
         </>
     );
 };
