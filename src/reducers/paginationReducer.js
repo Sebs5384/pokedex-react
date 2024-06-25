@@ -12,11 +12,6 @@ function paginationReducer(state = initialPaginationState, action) {
                 ...state,
                 currentPage: payload
             };
-        case "SET_TOTAL_PAGES":
-            return {
-                ...state,
-                totalPages: payload
-            };
         default: 
             return state
     };
