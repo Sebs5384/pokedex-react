@@ -1,6 +1,6 @@
 const initialPaginationState = {
     currentPage: 1,
-    totalPages: 0,
+    nextPageItems: 0
 };
 
 function paginationReducer(state = initialPaginationState, action) {
@@ -11,6 +11,11 @@ function paginationReducer(state = initialPaginationState, action) {
             return {
                 ...state,
                 currentPage: payload
+            };
+        case "SET_NEXT_PAGE_ITEMS": 
+            return {
+                ...state,
+                nextPageItems: payload
             };
         default: 
             return state
