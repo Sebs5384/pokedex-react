@@ -3,11 +3,14 @@ import Banner from "../components/Banner/Banner";
 import Grid from "../components/Grid/Grid";
 import Paginator from "../components/Paginator/Paginator";
 
-function Pokedex(pokemonsPerPage, initialPageIndex) {
-    const { currentPage, nextPageItems, setCurrentPage } = usePagination(pokemonsPerPage, initialPageIndex);
-    const { loading, pokemons, error } = useFetchPokemons(pokemonsPerPage, nextPageItems);
-    const { totalPages } = useTotalPages(pokemonsPerPage, pokemons);
-    
+function Pokedex() {
+    const POKEMONS_PER_PAGE = 20;
+    const INITIAL_PAGE_INDEX = 1;
+
+    const { currentPage, nextPageItems, setCurrentPage } = usePagination(POKEMONS_PER_PAGE, INITIAL_PAGE_INDEX);
+    const { loading, pokemons, error } = useFetchPokemons(POKEMONS_PER_PAGE, nextPageItems);
+    const { totalPages } = useTotalPages(POKEMONS_PER_PAGE, pokemons);
+
     return (
         <>
             <Banner />
