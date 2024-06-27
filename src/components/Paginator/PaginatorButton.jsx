@@ -13,13 +13,18 @@ const PaginationLink = styled.a`
     &.hidden {
         display: none;
     }
+    &.disabled {
+        cursor: not-allowed;
+    }
 `;
 
-function PaginatorButton({ children, isHidden, onClick = () => {} }) {
+function PaginatorButton({ children, isHidden, isDisabled, onClick = () => {} }) {
     return (
         <PaginationLink 
             className={cx("page-link", 
-                { "hidden": isHidden }
+                { "hidden": isHidden,
+                  "disabled": isDisabled
+                }
             )} 
             href="#" 
             onClick={onClick}>
