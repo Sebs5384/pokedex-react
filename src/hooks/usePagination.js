@@ -9,6 +9,16 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
         dispatch({ type: "SET_CURRENT_PAGE", payload: currentPage });
     };
 
+    const setNextPage = () => {
+        const nextPage = state.currentPage + 1;
+        dispatch({ type: "SET_CURRENT_PAGE", payload: nextPage });
+    };
+
+    const setPreviousPage = () => {
+        const previousPage = state.currentPage - 1;
+        dispatch({ type: "SET_CURRENT_PAGE", payload: previousPage });
+    };
+
     useEffect(() => {
         const nextOffset = (state.currentPage - INITIAL_PAGE_INDEX) * ITEMS_PER_PAGE;
         dispatch({ type: "SET_NEXT_PAGE_ITEMS", payload: nextOffset });
@@ -17,6 +27,8 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
     return {
         currentPage: state.currentPage,
         nextPageItems: state.nextPageItems,
+        setNextPage,
+        setPreviousPage,
         setCurrentPage,
     };
 };
