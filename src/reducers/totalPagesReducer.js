@@ -1,5 +1,7 @@
 const initialTotalPagesState = {
-    totalPages: []
+    totalPages: [],
+    firstPage: 1,
+    lastPage: 0
 };
 
 function totalPagesReducer(state = initialTotalPagesState, action) {
@@ -10,6 +12,11 @@ function totalPagesReducer(state = initialTotalPagesState, action) {
             return {
                 ...state,
                 totalPages: payload
+            };
+        case "SET_LAST_PAGE": 
+            return {
+                ...state,
+                lastPage: payload
             };
         default:
             return state;

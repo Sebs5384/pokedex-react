@@ -4,12 +4,15 @@ import { totalPagesReducer, initialTotalPagesState } from "../reducers/index";
 function useTotalPages(ITEMS_PER_PAGE, items) {
     const [state, dispatch] = useReducer(totalPagesReducer, initialTotalPagesState);
 
-    useEffect(() => {
-        const setTotalPages = (totalCount) => {
-            const totalPages = Array.from({ length: Math.ceil(totalCount / ITEMS_PER_PAGE) }, (_, index) => index + 1);
-            dispatch({ type: "SET_TOTAL_PAGES", payload: totalPages });
-        };
+    const setTotalPages = (totalCount) => {
+        const totalPages = Array.from({ length: Math.ceil(totalCount / ITEMS_PER_PAGE) }, (_, index) => index + 1);
+        const lastPage = totalPages[totalPages.length - 1];
+        
+        dispatch({ type: "SET_TOTAL_PAGES", payload: totalPages });
+        dispatch({ type: "SET_LAST_PAGE", payload: lastPage });
+    };
 
+    useEffect(() => {
         if (items) {
             const totalItems = items.count;
             setTotalPages(totalItems);
@@ -18,6 +21,8 @@ function useTotalPages(ITEMS_PER_PAGE, items) {
 
     return {
         totalPages: state.totalPages,
+        firstPage: state.firstPage,
+        lastPage: state.lastPage
     };
 };
 
