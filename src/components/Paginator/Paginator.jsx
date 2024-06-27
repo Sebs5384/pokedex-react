@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import PaginatorButton from "./PaginatorButton";
-import { setHiddenRange } from "../../utils/general";
 
 const PaginatorContainer = styled.div`
     display: flex;
@@ -15,7 +14,7 @@ const Pagination = styled.nav`
     align-items: center;
 `;
 
-function Paginator({ totalPages, currentPage, firstPage, lastPage, nextPage, previousPage, setCurrentPage }) {  
+function Paginator({ totalPages, currentPage, firstPage, lastPage, nextPage, previousPage, setCurrentPage, setHiddenRange }) {  
     return (
         <PaginatorContainer className="pagination justify-content-center">
             <Pagination className="page-item">

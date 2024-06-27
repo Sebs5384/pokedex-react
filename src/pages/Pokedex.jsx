@@ -1,4 +1,5 @@
 import { useFetchPokemons, usePagination, useTotalPages } from "../hooks/index";
+import { setItemRange } from "../utils/general";
 import Banner from "../components/Banner/Banner";
 import Grid from "../components/Grid/Grid";
 import Paginator from "../components/Paginator/Paginator";
@@ -24,6 +25,7 @@ function Pokedex() {
                 previousPage={setPreviousPage} 
                 setCurrentPage={setCurrentPage}
                 setPaginatorPages={renderPages}
+                setHiddenRange={setItemRange}
             />
         </>
     );
