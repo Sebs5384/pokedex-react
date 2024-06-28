@@ -22,12 +22,13 @@ function Paginator({ totalPages, currentPage, firstPage, lastPage, nextPage, pre
                 {totalPages.map((pageNumber) => (
                     <PaginatorButton 
                         key={pageNumber} 
-                        isHidden={setHiddenRange(pageNumber, currentPage)} 
+                        isHidden={setHiddenRange(pageNumber, currentPage)}
+                        isActive={pageNumber === currentPage} 
                         onClick={() => setCurrentPage(pageNumber)}>
                         {pageNumber}
                     </PaginatorButton>   
                 ))}
-                <PaginatorButton onClick={() => nextPage()} isDisabled={currentPage === lastPage    }>Next</PaginatorButton>
+                <PaginatorButton onClick={() => nextPage()} isDisabled={currentPage === lastPage}>Next</PaginatorButton>
             </Pagination>
         </PaginatorContainer>
     );

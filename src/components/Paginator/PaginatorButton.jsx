@@ -22,7 +22,8 @@ function PaginatorButton({ children, isHidden, isDisabled, onClick = () => {} })
     return (
         <PaginationLink 
             className={cx("page-link", 
-                { "hidden": isHidden,
+                { 
+                  "hidden": isHidden,
                   "disabled": isDisabled
                 }
             )} 
