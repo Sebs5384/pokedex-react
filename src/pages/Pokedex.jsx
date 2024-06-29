@@ -1,4 +1,4 @@
-import { usePagination, useTotalPages } from "../hooks/index";
+import { usePagination } from "../hooks/index";
 import { setItemRange } from "../utils/general";
 import Banner from "../components/Banner/Banner";
 import Grid from "../components/Grid/Grid";
@@ -8,15 +8,25 @@ function Pokedex() {
     const POKEMONS_PER_PAGE = 20;
     const INITIAL_PAGE_INDEX = 1;
 
-    const { currentPage, setNextPage, setPreviousPage, setCurrentPage } = usePagination(POKEMONS_PER_PAGE, INITIAL_PAGE_INDEX);
-    const { totalPages, firstPage, lastPage, renderPages } = useTotalPages(POKEMONS_PER_PAGE, pokemons);
+    const { 
+        currentPage, 
+        loadingPokemons, 
+        pokemonsInPage, 
+        errorWhileLoading, 
+        totalPages, 
+        firstPage, 
+        lastPage, 
+        renderPages,
+        setNextPage, 
+        setPreviousPage, 
+        setCurrentPage 
+    } = usePagination(POKEMONS_PER_PAGE, INITIAL_PAGE_INDEX);
 
     return (
         <>
             <Banner />
             <Grid 
-                cards={pokemons}
-                
+                cards={pokemonsInPage}
             />
             <Paginator 
                 totalPages={totalPages} 
