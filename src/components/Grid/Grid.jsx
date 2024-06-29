@@ -30,12 +30,23 @@ const Board = styled.div`
 `;
 
 function Grid({ cards }){
+    const onClick = () => {
+        console.log("click");
+    };
+
     return(
         <Section>
             <Wrapper>
                 <Body>
                     <Board>
-                        {cards && cards.results.map(({ name, url }) => <Card key={name} cardKey={name} image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${url.split("/")[url.split("/").length - 2]}.png`}/>)}
+                        {cards && cards.results.map(({ name, url }) => 
+                            <Card 
+                                key={name} 
+                                cardKey={name} 
+                                image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${url.split("/")[url.split("/").length - 2]}.png`}
+                                onClick={onClick}
+                            />
+                        )}
                     </Board>
                 </Body>
             </Wrapper>

@@ -14,9 +14,9 @@ const PokemonName = styled.strong`
     font-size: 1.5rem;
 `;
 
-function Card({ cardKey, image }) {
+function Card({ cardKey, image, onClick = () => {} }) {
     return (
-        <PokemonCard key={cardKey} className={"col-2 card-body text-center"} backgroundImage={pokeballImage}>
+        <PokemonCard key={cardKey} className={"col-2 card-body text-center"} backgroundImage={pokeballImage} onClick={onClick}>
             <PokemonName>{cardKey}</PokemonName>
             <ImageContainer src={image} alt={cardKey} className="card-img-top" />
         </PokemonCard>
