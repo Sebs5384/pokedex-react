@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from "react";
 import { paginationReducer, initialPaginationState } from "../reducers/index";
-import { useFetchPokemons, useTotalPages } from "../hooks/index";
+import { useFetchPokemons, useTotalPages } from "./index";
 
 function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
     const [state, dispatch] = useReducer(paginationReducer, initialPaginationState);
