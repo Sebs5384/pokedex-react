@@ -1,9 +1,9 @@
 import { useEffect, useReducer } from "react";
 import { selectedCardReducer, initialSelectedCardState } from "../reducers/index";
-import { useFetchPokemon } from "./useFetchPokemon";
+import { useFetchPokemon } from "./index";
 
 function useSelectedCard() {
-    const { state, dispatch } = useReducer(selectedCardReducer, initialSelectedCardState);
+    const [state, dispatch] = useReducer(selectedCardReducer, initialSelectedCardState);
     const { pokemon } = useFetchPokemon(state.id);
     
     const setSelectedCard = (id) => {
@@ -15,3 +15,5 @@ function useSelectedCard() {
         setSelectedCard
     };
 };
+
+export default useSelectedCard;
