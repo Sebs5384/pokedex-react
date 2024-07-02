@@ -29,11 +29,7 @@ const Board = styled.div`
     justify-content: center;
 `;
 
-function Grid({ cards }){
-    const onClick = () => {
-        console.log("click");
-    };
-
+function Grid({ cards, pokemonSprite, selectCard }) {
     return(
         <Section>
             <Wrapper>
@@ -42,9 +38,9 @@ function Grid({ cards }){
                         {cards && cards.results.map(({ name, url }) => 
                             <Card 
                                 key={name} 
-                                cardKey={name} 
-                                image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${url.split("/")[url.split("/").length - 2]}.png`}
-                                onClick={onClick}
+                                pokemonName={name} 
+                                image={pokemonSprite(url)}
+                                selectCard={selectCard}
                             />
                         )}
                     </Board>

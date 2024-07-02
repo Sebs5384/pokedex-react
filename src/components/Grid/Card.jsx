@@ -14,11 +14,20 @@ const PokemonName = styled.strong`
     font-size: 1.5rem;
 `;
 
-function Card({ cardKey, image, onClick = () => {} }) {
+function Card({ pokemonName, image, selectCard = () => {} }) {
+    const handleClick = () => {
+        selectCard(pokemonName);
+    };
+
     return (
-        <PokemonCard key={cardKey} className={"col-2 card-body text-center"} backgroundImage={pokeballImage} onClick={onClick}>
-            <PokemonName>{cardKey}</PokemonName>
-            <ImageContainer src={image} alt={cardKey} className="card-img-top" />
+        <PokemonCard 
+            key={pokemonName} 
+            className={"col-2 card-body text-center"} 
+            backgroundImage={pokeballImage} 
+            onClick={handleClick}
+        >
+            <PokemonName>{pokemonName}</PokemonName>
+            <ImageContainer src={image} alt={pokemonName} className="card-img-top" />
         </PokemonCard>
     );
 };

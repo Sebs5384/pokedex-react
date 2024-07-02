@@ -1,5 +1,5 @@
-import { usePagination } from "../hooks/index";
-import { setItemRange } from "../utils/general";
+import { usePagination, useSelectedCard } from "../hooks/index";
+import { setItemRange, getPokemonSpriteUrl } from "../utils/general";
 import Banner from "../components/Banner/Banner";
 import Grid from "../components/Grid/Grid";
 import Paginator from "../components/Paginator/Paginator";
@@ -8,6 +8,7 @@ function Pokedex() {
     const POKEMONS_PER_PAGE = 20;
     const INITIAL_PAGE_INDEX = 1;
 
+    const { selectedPokemon, setSelectedCard } = useSelectedCard();
     const { 
         currentPage, 
         loadingPokemons, 
@@ -27,6 +28,8 @@ function Pokedex() {
             <Banner />
             <Grid 
                 cards={pokemonsInPage}
+                pokemonSprite={getPokemonSpriteUrl}
+                selectCard={setSelectedCard}
             />
             <Paginator 
                 totalPages={totalPages} 
