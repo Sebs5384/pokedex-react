@@ -6,6 +6,13 @@ function setItemRange(itemNumber, currentItem) {
     return isInRange;
 };
 
+function getPokemonSpriteUrl(url) {
+    const pokemonSpriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${url.split("/")[url.split("/").length - 2]}.png`;
+
+    return pokemonSpriteUrl;
+};
+
 export {
-    setItemRange
+    setItemRange,
+    getPokemonSpriteUrl,
 };
