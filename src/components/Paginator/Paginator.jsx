@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import PaginatorButton from "./PaginatorButton";
+import PropTypes from "prop-types";
 
 const PaginatorContainer = styled.div`
     display: flex;
@@ -32,6 +33,16 @@ function Paginator({ totalPages, currentPage, firstPage, lastPage, nextPage, pre
             </Pagination>
         </PaginatorContainer>
     );
+};
+PropTypes.Paginator = {
+    totalPages: PropTypes.array,
+    currentPage: PropTypes.number,
+    firstPage: PropTypes.number,
+    lastPage: PropTypes.number,
+    nextPage: PropTypes.func,
+    previousPage: PropTypes.func,
+    setCurrentPage: PropTypes.func,
+    setHiddenRange: PropTypes.func
 };
 
 export default Paginator;

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import cx from "classnames";
+import PropTypes from "prop-types";
 
 const PaginationLink = styled.a`
     margin: 0.1rem;
@@ -33,5 +34,12 @@ function PaginatorButton({ children, isHidden, isDisabled, onClick = () => {} })
         </PaginationLink>
     );
 };
+PropTypes.PaginatorButton = {
+    children: PropTypes.node,
+    isHidden: PropTypes.bool,
+    isDisabled: PropTypes.bool,
+    onClick: PropTypes.func
+};
+
 
 export default PaginatorButton;
