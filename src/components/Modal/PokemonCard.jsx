@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 
 const PokemonModal = styled(Modal)`
     .modal-content {
-        border: solid gold 18px;
+        border: solid gold 12px;
         border-radius: 10px;
         border-style: outset;
     }
@@ -19,9 +19,28 @@ const PokemonModal = styled(Modal)`
     .modal-body {
         background-color: #ffffff;
     }
+
+    .btn-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
 `;
 
-const ModalWrapper = styled(Modal)``;
+const PokemonSpeciesWrapper = styled.section`
+    margin-top: -15px;
+`;
+
+const PokemonCardSeparator = styled.div`
+    margin-top: -10px
+`
+
+const PokemonMainDataWrapper = styled.div`
+    font-size: 12px;
+    margin-bottom: 10px;
+`;
+
+const PokemonDataText = styled.strong``;
 
 function PokemonCard({show, handleClose, selectedCard}) {
     if(selectedCard === null) {
@@ -31,16 +50,19 @@ function PokemonCard({show, handleClose, selectedCard}) {
     return(
         <PokemonModal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
-                <section className="container-fluid">
-                    <div className="row" style={{"font-size": "10px"}}>
-                        <strong className="col-2 align-self-end">P.STAGE</strong>
-                        <strong className="col-5 align-self-end text-center">Evolves From Wartortle</strong>
-                        <strong className="col-4 align-self-end text-end">Turtle Pokemon</strong>
-                    </div>
+                <PokemonSpeciesWrapper className="container-fluid">
+                    <PokemonMainDataWrapper className="row">
+                        <PokemonDataText className="col-2 align-self-end">P.STAGE</PokemonDataText>
+                        <PokemonDataText className="col-5 align-self-end text-center">Evolves From Wartortle</PokemonDataText>
+                        <PokemonDataText className="col-4 align-self-end text-end">Turtle Pokemon</PokemonDataText>
+                    </PokemonMainDataWrapper>
+                    <PokemonCardSeparator className="row justify-content-center">
+                        <hr className="border col-11 border-warning border-1 opacity-50"></hr>
+                    </PokemonCardSeparator>
                     <Modal.Title>
                     {selectedCard.name}
                     </Modal.Title>
-                </section>
+                </PokemonSpeciesWrapper>
             </Modal.Header>
             <Modal.Body>
                 {"Modal Body"}
