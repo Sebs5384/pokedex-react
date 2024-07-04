@@ -15,16 +15,12 @@ const PokemonName = styled.strong`
 `;
 
 function Card({ pokemonName, image, selectCard = () => {} }) {
-    const handleClick = () => {
-        selectCard(pokemonName);
-    };
-
     return (
         <PokemonCard 
             key={pokemonName} 
             className={"col-2 card-body text-center"} 
             backgroundImage={pokeballImage} 
-            onClick={handleClick}
+            onClick={() => selectCard(pokemonName)}
         >
             <PokemonName>{pokemonName}</PokemonName>
             <ImageContainer src={image} alt={pokemonName} className="card-img-top" />

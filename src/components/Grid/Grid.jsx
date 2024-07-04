@@ -29,7 +29,7 @@ const Board = styled.div`
     justify-content: center;
 `;
 
-function Grid({ cards, pokemonSprite, selectCard }) {
+function Grid({ cards, selectedCard, pokemonSprite, selectCard }) {
     return(
         <Section>
             <Wrapper>

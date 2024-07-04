@@ -1,8 +1,10 @@
 import { usePagination, useSelectedCard } from "../hooks/index";
 import { setItemRange, getPokemonSpriteUrl } from "../utils/general";
+import { useState } from "react";
 import Banner from "../components/Banner/Banner";
 import Grid from "../components/Grid/Grid";
 import Paginator from "../components/Paginator/Paginator";
+import PokemonCard from "../components/Modal/PokemonCard";
 
 function Pokedex() {
     const POKEMONS_PER_PAGE = 20;
@@ -23,13 +25,24 @@ function Pokedex() {
         setCurrentPage 
     } = usePagination(POKEMONS_PER_PAGE, INITIAL_PAGE_INDEX);
 
+    const [showModal, setShowModal] = useState(false);
+
+    const handleCardClick = (pokemonId) => {
+        console.log("Card clicked: ", pokemonId);
+        setSelectedCard(pokemonId);
+        setShowModal(true);
+    };
+
+    const handleClose = () => setShowModal(false);
+
     return (
         <>
             <Banner />
             <Grid 
                 cards={pokemonsInPage}
+                selectedCard={selectedPokemon}
                 pokemonSprite={getPokemonSpriteUrl}
-                selectCard={setSelectedCard}
+                selectCard={handleCardClick}
             />
             <Paginator 
                 totalPages={totalPages} 
@@ -42,6 +55,7 @@ function Pokedex() {
                 setPaginatorPages={renderPages}
                 setHiddenRange={setItemRange}
             />
+            <PokemonCard show={showModal} handleClose={handleClose} selectedCard={selectedPokemon} />
         </>
     );
 };
