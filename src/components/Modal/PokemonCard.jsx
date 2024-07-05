@@ -1,7 +1,14 @@
 import { Modal, Button } from "react-bootstrap";
+import ImageContainer from "../shared/ImageContainer";
 import styled from "@emotion/styled";
 
 const PokemonModal = styled(Modal)`
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        border: none;
+    }
+
     .modal-content {
         border: solid gold 12px;
         border-radius: 10px;
@@ -28,12 +35,14 @@ const PokemonModal = styled(Modal)`
     }
 `;
 
-const PokemonContainer = styled.div`
+const CardSection = styled.section`
     .species-wrapper {
         margin-top: 10px;
     }
+`;
 
-    .species-data-wrapper {
+const PokemonContainer = styled.div`
+    &.species-data-wrapper {
         font-size: 12px;
         margin-top: -15px;
     }
@@ -50,14 +59,12 @@ const CardTopSeparator = styled.hr`
 `;
 
 function PokemonCard({show, handleClose, selectedCard}) {
-    if(selectedCard === null) {
-        return null;
-    };
+    if(selectedCard === null) return;
 
     return(
         <PokemonModal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
-                <PokemonContainer className="container-fluid species-wrapper">
+                <CardSection className="container-fluid species-wrapper">
                     <PokemonContainer className="row species-data-wrapper">
                         <PokemonCardText className="col-2 align-self-end">P.STAGE</PokemonCardText>
                         <PokemonCardText className="col-5 align-self-end text-center">Evolves From Wartortle</PokemonCardText>
@@ -66,14 +73,26 @@ function PokemonCard({show, handleClose, selectedCard}) {
                     <PokemonContainer className="row justify-content-center">
                         <CardTopSeparator className="col-11" />
                     </PokemonContainer>
-                    <Modal.Title>
-                    {selectedCard.name}
+                    <Modal.Title className="row">
+                        <PokemonCardText className="col-2 align-self-center">Image</PokemonCardText>
+                        <PokemonCardText className="col-4 align-self-center">{selectedCard.name}</PokemonCardText>
+                        <PokemonCardText className="col-4 align-self-center text-end">80 HP</PokemonCardText>
+                        <PokemonCardText className="col-2 align-self-center">Type</PokemonCardText>
                     </Modal.Title>
-                </PokemonContainer>
+                </CardSection>
             </Modal.Header>
             <Modal.Body>
-                {"Modal Body"}
+                <CardSection className="container-fluid">
+                    <PokemonContainer className="card">
+                        <PokemonContainer className="row card-body justify-content-center">
+                            <ImageContainer src={selectedCard.id} alt={selectedCard.name} className="col-6" />
+                        </PokemonContainer>
+                    </PokemonContainer>
+                </CardSection>
             </Modal.Body>  
+            <Modal.Footer>
+
+            </Modal.Footer>
         </PokemonModal>
     );
 };
