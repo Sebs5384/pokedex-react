@@ -22,47 +22,54 @@ const PokemonModal = styled(Modal)`
 
     .btn-close {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 2px;
+        right: 12px;
+        font-size: 15px
     }
 `;
 
-const PokemonSpeciesWrapper = styled.section`
-    margin-top: -15px;
+const PokemonContainer = styled.div`
+    .species-wrapper {
+        margin-top: 10px;
+    }
+
+    .species-data-wrapper {
+        font-size: 12px;
+        margin-top: -15px;
+    }
 `;
 
-const PokemonCardSeparator = styled.div`
-    margin-top: -10px
-`
-
-const PokemonMainDataWrapper = styled.div`
-    font-size: 12px;
-    margin-bottom: 10px;
+const PokemonCardText = styled.strong`
+    
 `;
 
-const PokemonDataText = styled.strong``;
+const CardTopSeparator = styled.hr`
+    border: 1px solid var(--bs-warning);
+    opacity: 0.5;
+    margin: auto;
+`;
 
 function PokemonCard({show, handleClose, selectedCard}) {
     if(selectedCard === null) {
         return null;
-    }
+    };
 
     return(
         <PokemonModal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
-                <PokemonSpeciesWrapper className="container-fluid">
-                    <PokemonMainDataWrapper className="row">
-                        <PokemonDataText className="col-2 align-self-end">P.STAGE</PokemonDataText>
-                        <PokemonDataText className="col-5 align-self-end text-center">Evolves From Wartortle</PokemonDataText>
-                        <PokemonDataText className="col-4 align-self-end text-end">Turtle Pokemon</PokemonDataText>
-                    </PokemonMainDataWrapper>
-                    <PokemonCardSeparator className="row justify-content-center">
-                        <hr className="border col-11 border-warning border-1 opacity-50"></hr>
-                    </PokemonCardSeparator>
+                <PokemonContainer className="container-fluid species-wrapper">
+                    <PokemonContainer className="row species-data-wrapper">
+                        <PokemonCardText className="col-2 align-self-end">P.STAGE</PokemonCardText>
+                        <PokemonCardText className="col-5 align-self-end text-center">Evolves From Wartortle</PokemonCardText>
+                        <PokemonCardText className="col-4 align-self-end text-end">Turtle Pokemon</PokemonCardText>
+                    </PokemonContainer>
+                    <PokemonContainer className="row justify-content-center">
+                        <CardTopSeparator className="col-11" />
+                    </PokemonContainer>
                     <Modal.Title>
                     {selectedCard.name}
                     </Modal.Title>
-                </PokemonSpeciesWrapper>
+                </PokemonContainer>
             </Modal.Header>
             <Modal.Body>
                 {"Modal Body"}
