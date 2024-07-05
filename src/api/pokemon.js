@@ -26,7 +26,12 @@ async function getPokemon(id) {
         });
 };
 
+async function getPokemonSprite(id, artwork = "") {
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${artwork}${pokemonId}.png`;
+};
+
 export {
     getPokemons,
-    getPokemon
+    getPokemon,
+    getPokemonSprite
 };
