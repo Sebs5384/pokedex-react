@@ -27,7 +27,7 @@ async function getPokemon(id) {
 };
 
 async function getPokemonSprite(id, artwork = "") {
-    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${artwork}${pokemonId}.png`;
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${artwork}${id}.png`;
 };
 
 export {
