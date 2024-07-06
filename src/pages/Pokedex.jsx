@@ -11,7 +11,10 @@ function Pokedex() {
     const INITIAL_PAGE_INDEX = 1;
     const artwork = "other/official-artwork/";
 
-    const { selectedPokemon, setSelectedCard } = useSelectedCard();
+    const { 
+        selectedPokemon, 
+        setSelectedCard 
+    } = useSelectedCard();
     const { 
         currentPage, 
         loadingPokemons, 
@@ -25,7 +28,11 @@ function Pokedex() {
         setPreviousPage, 
         setCurrentPage 
     } = usePagination(POKEMONS_PER_PAGE, INITIAL_PAGE_INDEX);
-    const { errorSprite, pokemonSprite, loadingSprite } = useGetPokemonSprite(selectedPokemon, artwork);
+    const { 
+        errorSprite, 
+        pokemonSprite, 
+        loadingSprite 
+    } = useGetPokemonSprite(selectedPokemon, artwork);
 
 
     const [showModal, setShowModal] = useState(false);
@@ -56,7 +63,12 @@ function Pokedex() {
                 setPaginatorPages={renderPages}
                 setHiddenRange={setItemRange}
             />
-            <PokemonCard show={showModal} handleClose={handleClose} selectedCard={selectedPokemon} pokemonSprite={pokemonSprite}/>
+            <PokemonCard 
+                show={showModal} 
+                handleClose={handleClose} 
+                selectedCard={selectedPokemon} 
+                pokemonSprite={pokemonSprite}
+            />
         </>
     );
 };

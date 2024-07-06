@@ -58,6 +58,10 @@ const CardTopSeparator = styled.hr`
     margin: auto;
 `;
 
+const CardSeparator = styled.hr`
+    border: 1px solid black;
+`;
+
 function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
     if(selectedCard === null) return;
 
@@ -95,8 +99,14 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                     <PokemonCardText className="col-4 text-end">Length</PokemonCardText>
                     <PokemonCardText className="col-4 text-end">Height</PokemonCardText>
                 </CardSection>
-                <CardSection>
-                    
+                <CardSection className="container-fluid mt-2">
+                    <PokemonContainer className="row modal-font">
+                        <PokemonContainer className="col-12">
+                            <ImageContainer>Image</ImageContainer>
+                            <PokemonCardText>Pokemon Skills</PokemonCardText>
+                        </PokemonContainer>
+                        <CardSeparator className="col-12"></CardSeparator>
+                    </PokemonContainer>
                 </CardSection>
             </Modal.Body>  
             <Modal.Footer>
