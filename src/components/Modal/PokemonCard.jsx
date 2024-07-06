@@ -58,7 +58,7 @@ const CardTopSeparator = styled.hr`
     margin: auto;
 `;
 
-function PokemonCard({show, handleClose, selectedCard}) {
+function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
     if(selectedCard === null) return;
 
     return(
@@ -85,7 +85,7 @@ function PokemonCard({show, handleClose, selectedCard}) {
                 <CardSection className="container-fluid">
                     <PokemonContainer className="card">
                         <PokemonContainer className="row card-body justify-content-center">
-                            <ImageContainer src={selectedCard.id} alt={selectedCard.name} className="col-6" />
+                            <ImageContainer src={pokemonSprite} alt={selectedCard.name} className="col-6" />
                         </PokemonContainer>
                     </PokemonContainer>
                 </CardSection>
