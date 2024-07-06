@@ -106,11 +106,62 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                             <PokemonCardText>Pokemon Skills</PokemonCardText>
                         </PokemonContainer>
                         <CardSeparator className="col-12"></CardSeparator>
+                        <PokemonContainer className="col-6">
+                            <ImageContainer>Leaf image</ImageContainer>
+                            <PokemonCardText>Overgrow</PokemonCardText>
+                        </PokemonContainer>
+                        <PokemonContainer className="col-6">
+                            <ImageContainer>Leaf image</ImageContainer>
+                            <PokemonCardText>Chlorophyll</PokemonCardText>
+                        </PokemonContainer>
+                    </PokemonContainer>
+                </CardSection>
+                <CardSection className="container-fluid mt-2">
+                    <PokemonContainer className="row modal-font">
+                        <PokemonContainer className="text-start col-12">
+                            <ImageContainer>Image</ImageContainer>
+                            <PokemonCardText>Pokemon Status</PokemonCardText>
+                        </PokemonContainer>
+                        <CardSeparator className="col-12"></CardSeparator>
+                        <PokemonContainer className="col-4">
+                            <ImageContainer>ATK Image</ImageContainer>
+                            <PokemonCardText>ATTACK</PokemonCardText>
+                        </PokemonContainer>
+                        <PokemonContainer className="col-4">
+                            <ImageContainer>ATK Image</ImageContainer>
+                            <PokemonCardText>ATTACK</PokemonCardText>
+                        </PokemonContainer>
+                        <PokemonContainer className="col-4">
+                            <ImageContainer>ATK Image</ImageContainer>
+                            <PokemonCardText>ATTACK</PokemonCardText>
+                        </PokemonContainer>
+                        <PokemonContainer className="col-4">
+                            <ImageContainer>ATK Image</ImageContainer>
+                            <PokemonCardText>ATTACK</PokemonCardText>
+                        </PokemonContainer>
+                        <PokemonContainer className="col-4">
+                            <ImageContainer>ATK Image</ImageContainer>
+                            <PokemonCardText>ATTACK</PokemonCardText>
+                        </PokemonContainer>
                     </PokemonContainer>
                 </CardSection>
             </Modal.Body>  
             <Modal.Footer>
-
+                <CardSection className="container-fluid mt-2">
+                    <PokemonContainer className="row">
+                        <CardSeparator className="col-12"></CardSeparator>
+                        <PokemonCardText className="col-4 text-start">Weakness</PokemonCardText>
+                        <PokemonCardText className="col-4 text-center">Resistance</PokemonCardText>
+                        <PokemonCardText className="col-4 text-end">Retreat Cost</PokemonCardText>
+                    </PokemonContainer>
+                </CardSection>
+                <CardSection className="container-fluid mt-2">
+                    <PokemonContainer className="card text-center">
+                        <PokemonCardText>
+                            A brutal POKéMON with pressurized water jets on its shell. They are used for high speed tackles.
+                        </PokemonCardText>
+                    </PokemonContainer>
+                </CardSection>
             </Modal.Footer>
         </PokemonModal>
     );
