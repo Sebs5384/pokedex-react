@@ -89,6 +89,15 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                         </PokemonContainer>
                     </PokemonContainer>
                 </CardSection>
+                <CardSection className="row col-11 mt-2 mx-auto">
+                    <ImageContainer className="col-2">Water</ImageContainer>
+                    <ImageContainer className="col-2">Water</ImageContainer>
+                    <PokemonCardText className="col-4 text-end">Length</PokemonCardText>
+                    <PokemonCardText className="col-4 text-end">Height</PokemonCardText>
+                </CardSection>
+                <CardSection>
+                    
+                </CardSection>
             </Modal.Body>  
             <Modal.Footer>
 
