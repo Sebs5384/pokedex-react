@@ -1,30 +1,21 @@
 import { Modal, Button } from "react-bootstrap";
 import ImageContainer from "../shared/ImageContainer";
 import styled from "@emotion/styled";
+import waterType from "../../assets/img/modal-texture/water-texture.png"
 
 const PokemonModal = styled(Modal)`
-    .modal-header,
-    .modal-body,
-    .modal-footer {
-        border: none;
-    }
-
     .modal-content {
         border: solid gold 12px;
         border-radius: 10px;
         border-style: outset;
+        background-image: url(${waterType});
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
-
-    .modal-header {
-        background-color: #f8f9fa;
-    }
-
+        
     .modal-title {
-        color: #343a40;
-    }
-
-    .modal-body {
-        background-color: #ffffff;
+        margin-bottom: 0px;
     }
 
     .btn-close {
@@ -36,15 +27,11 @@ const PokemonModal = styled(Modal)`
 `;
 
 const CardSection = styled.section`
-    .species-wrapper {
-        margin-top: 10px;
-    }
 `;
 
 const PokemonContainer = styled.div`
     &.species-data-wrapper {
         font-size: 12px;
-        margin-top: -15px;
     }
 `;
 
@@ -66,8 +53,8 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
     if(selectedCard === null) return;
 
     return(
-        <PokemonModal show={show} onHide={handleClose} centered>
-            <Modal.Header closeButton>
+        <PokemonModal show={show} onHide={handleClose}>
+            <PokemonContainer closeButton>
                 <CardSection className="container-fluid species-wrapper">
                     <PokemonContainer className="row species-data-wrapper">
                         <PokemonCardText className="col-2 align-self-end">P.STAGE</PokemonCardText>
@@ -84,8 +71,8 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                         <PokemonCardText className="col-2 align-self-center">Type</PokemonCardText>
                     </Modal.Title>
                 </CardSection>
-            </Modal.Header>
-            <Modal.Body>
+            </PokemonContainer>
+            <PokemonContainer>
                 <CardSection className="container-fluid">
                     <PokemonContainer className="card">
                         <PokemonContainer className="row card-body justify-content-center">
@@ -145,8 +132,8 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                         </PokemonContainer>
                     </PokemonContainer>
                 </CardSection>
-            </Modal.Body>  
-            <Modal.Footer>
+            </PokemonContainer>  
+            <PokemonContainer>
                 <CardSection className="container-fluid mt-2">
                     <PokemonContainer className="row">
                         <CardSeparator className="col-12"></CardSeparator>
@@ -162,7 +149,7 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                         </PokemonCardText>
                     </PokemonContainer>
                 </CardSection>
-            </Modal.Footer>
+            </PokemonContainer>
         </PokemonModal>
     );
 };
