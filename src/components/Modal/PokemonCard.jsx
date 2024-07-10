@@ -2,6 +2,8 @@ import { Modal, Button } from "react-bootstrap";
 import ImageContainer from "../shared/ImageContainer";
 import styled from "@emotion/styled";
 import waterType from "../../assets/img/modal-texture/water-texture.png"
+import waterIcon from "../../assets/img/pokemon-type/icon/water-type-icon.png"
+import waterLogo from "../../assets/img/pokemon-type/logo/water-type.png"
 
 const PokemonModal = styled(Modal)`
     .modal-content {
@@ -15,7 +17,14 @@ const PokemonModal = styled(Modal)`
     }
         
     .modal-title {
-        margin-bottom: 0px;
+        margin-top: -12px;
+        font-size: 30px;
+    }
+
+    .pokemon-species-image {
+        width: 11%;
+        height: 11%;
+        margin: 0 auto;
     }
 
     .btn-close {
@@ -36,7 +45,6 @@ const PokemonContainer = styled.div`
 `;
 
 const PokemonCardText = styled.strong`
-    
 `;
 
 const CardTopSeparator = styled.hr`
@@ -57,18 +65,18 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
             <PokemonContainer closeButton>
                 <CardSection className="container-fluid species-wrapper">
                     <PokemonContainer className="row species-data-wrapper">
-                        <PokemonCardText className="col-2 align-self-end">P.STAGE</PokemonCardText>
+                        <PokemonCardText className="col-2 align-self-end text-end">P.STAGE</PokemonCardText>
                         <PokemonCardText className="col-5 align-self-end text-center">Evolves From Wartortle</PokemonCardText>
-                        <PokemonCardText className="col-4 align-self-end text-end">Turtle Pokemon</PokemonCardText>
+                        <PokemonCardText className="col-4 align-self-end text-end">Shellfish Pokemon</PokemonCardText>
                     </PokemonContainer>
                     <PokemonContainer className="row justify-content-center">
                         <CardTopSeparator className="col-11" />
                     </PokemonContainer>
                     <Modal.Title className="row">
-                        <PokemonCardText className="col-2 align-self-center">Image</PokemonCardText>
-                        <PokemonCardText className="col-4 align-self-center">{selectedCard.name}</PokemonCardText>
+                        <ImageContainer src={pokemonSprite} className="col-2 align-self-center text-center pokemon-species-image" />
+                        <PokemonCardText className="col-4 align-self-center text-center">{selectedCard.name}</PokemonCardText>
                         <PokemonCardText className="col-4 align-self-center text-end">80 HP</PokemonCardText>
-                        <PokemonCardText className="col-2 align-self-center">Type</PokemonCardText>
+                        <ImageContainer src={waterIcon} className="col-1 align-self-center pokemon-species-image text-start" />
                     </Modal.Title>
                 </CardSection>
             </PokemonContainer>
