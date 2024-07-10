@@ -17,8 +17,12 @@ const PokemonModal = styled(Modal)`
     }
         
     .modal-title {
-        margin-top: -12px;
+        margin-top: -10px;
         font-size: 30px;
+    }
+
+    .hp-text {
+        color: red;
     }
 
     .pokemon-species-image {
@@ -42,9 +46,19 @@ const PokemonContainer = styled.div`
     &.species-data-wrapper {
         font-size: 12px;
     }
+
+    .card-border {
+        border: 8px solid rgb(254, 230, 98);
+        margin-top: -5px;
+        border-style: outset;
+        border-radius: 0px;
+    }
 `;
 
 const PokemonCardText = styled.strong`
+    &.capitalize {
+        text-transform: capitalize;
+    }
 `;
 
 const CardTopSeparator = styled.hr`
@@ -74,17 +88,17 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                     </PokemonContainer>
                     <Modal.Title className="row">
                         <ImageContainer src={pokemonSprite} className="col-2 align-self-center text-center pokemon-species-image" />
-                        <PokemonCardText className="col-4 align-self-center text-center">{selectedCard.name}</PokemonCardText>
-                        <PokemonCardText className="col-4 align-self-center text-end">80 HP</PokemonCardText>
+                        <PokemonCardText className="col-4 align-self-center text-center capitalize">{selectedCard.name}</PokemonCardText>
+                        <PokemonCardText className="col-4 align-self-center text-end hp-text">80 HP</PokemonCardText>
                         <ImageContainer src={waterIcon} className="col-1 align-self-center pokemon-species-image text-start" />
                     </Modal.Title>
                 </CardSection>
             </PokemonContainer>
             <PokemonContainer>
                 <CardSection className="container-fluid">
-                    <PokemonContainer className="card">
+                    <PokemonContainer className="card card-border col-11 mx-auto">
                         <PokemonContainer className="row card-body justify-content-center">
-                            <ImageContainer src={pokemonSprite} alt={selectedCard.name} className="col-6" />
+                            <ImageContainer src={pokemonSprite} alt={selectedCard.name} className="col-8" />
                         </PokemonContainer>
                     </PokemonContainer>
                 </CardSection>
