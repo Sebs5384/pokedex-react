@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import waterType from "../../assets/img/modal-texture/water-texture.png"
 import waterIcon from "../../assets/img/pokemon-type/icon/water-type-icon.png"
 import waterLogo from "../../assets/img/pokemon-type/logo/water-type.png"
+import skillIcon from "../../assets/img/pokemon-stats/skill-icon-png.png"
 
 const PokemonModal = styled(Modal)`
     .modal-content {
@@ -40,6 +41,12 @@ const PokemonModal = styled(Modal)`
 `;
 
 const CardSection = styled.section`
+    &.card-banner {
+        font-size: 11px;
+        border: 2px solid rgb(254, 230, 98);
+        background: content-box radial-gradient(rgb(250, 232, 130), rgb(193, 187, 26));
+        border-style: inset;
+    }
 `;
 
 const PokemonContainer = styled.div`
@@ -53,11 +60,19 @@ const PokemonContainer = styled.div`
         border-style: outset;
         border-radius: 0px;
     }
+
+    .stats-icon {
+        width: 20px;
+        height: 20px;
+        margin-top: -5px;
+    }
 `;
 
 const PokemonCardText = styled.strong`
-    &.capitalize {
-        text-transform: capitalize;
+    text-transform: capitalize;
+
+    &.status-font {
+        font-size: 12px;
     }
 `;
 
@@ -102,17 +117,17 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                         </PokemonContainer>
                     </PokemonContainer>
                 </CardSection>
-                <CardSection className="row col-11 mt-2 mx-auto">
-                    <ImageContainer className="col-2">Water</ImageContainer>
-                    <ImageContainer className="col-2">Water</ImageContainer>
-                    <PokemonCardText className="col-4 text-end">Length</PokemonCardText>
-                    <PokemonCardText className="col-4 text-end">Height</PokemonCardText>
+                <CardSection className="row col-10 mt-2 mx-auto card-banner">
+                    <ImageContainer src={waterLogo} className="col-2" />
+                    <ImageContainer src={waterLogo} className="col-2" />
+                    <PokemonCardText className="col-4 text-end">Length: 5'25"</PokemonCardText>
+                    <PokemonCardText className="col-4 text-start">Weight: 1.88 lbs</PokemonCardText>
                 </CardSection>
                 <CardSection className="container-fluid mt-2">
                     <PokemonContainer className="row modal-font">
                         <PokemonContainer className="col-12">
-                            <ImageContainer>Image</ImageContainer>
-                            <PokemonCardText>Pokemon Skills</PokemonCardText>
+                            <ImageContainer src={skillIcon} className="stats-icon"/>
+                            <PokemonCardText className="status-font">Pokemon Skills</PokemonCardText>
                         </PokemonContainer>
                         <CardSeparator className="col-12"></CardSeparator>
                         <PokemonContainer className="col-6">
