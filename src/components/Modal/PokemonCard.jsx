@@ -54,6 +54,13 @@ const PokemonContainer = styled.div`
         border-radius: 0px;
     }
 
+    .description-border {
+        border: 2px solid rgb(254, 230, 98);
+        border-style: outset;
+        border-radius: 0px;
+        background-color: transparent;
+    }
+
     .stats-icon {
         width: 20px;
         height: 20px;
@@ -70,7 +77,7 @@ const PokemonCardText = styled.strong`
     }
 
     &.title-font {
-        font-size: 30px;
+        font-size: 33px;
     }
 
     &.banner-font {
@@ -156,13 +163,13 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                         </PokemonContainer>
                     </PokemonContainer>
                 </CardSection>
-                <CardSection className="container-fluid col-11 mt-2">
+                <CardSection className="container-fluid col-11">
                     <PokemonContainer className="row modal-font">
-                        <PokemonContainer className="text-start col-12">
+                        <PokemonContainer className="text-start col-12 mt-2">
                             <ImageContainer src={statusIcon} className="stats-icon" />
                             <PokemonCardText className="status-font">Pokemon Status</PokemonCardText>
                         </PokemonContainer>
-                        <CardSeparator className="col-12"></CardSeparator>
+                        <CardSeparator className="col-12 mb-2"></CardSeparator>
                         <PokemonContainer className="col-4">
                             <ImageContainer src={atkIcon} className="stats-icon" />
                             <PokemonCardText className="status-font">ATTACK: 82</PokemonCardText>
@@ -187,9 +194,9 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                 </CardSection>
             </PokemonContainer>  
             <PokemonContainer>
-                <CardSection className="container-fluid col-11 mt-2">
-                    <PokemonContainer className="row">
-                        <CardSeparator className="col-12"></CardSeparator>
+                <CardSection className="container-fluid col-11">
+                    <PokemonContainer className="row mb-2">
+                        <CardSeparator className="col-12 mt-1"></CardSeparator>
                         <PokemonCardText className="col-4 text-start status-font">Weakness</PokemonCardText>
                         <PokemonCardText className="col-4 text-center status-font">Resistance</PokemonCardText>
                         <PokemonCardText className="col-4 text-end status-font">Retreat Cost</PokemonCardText>
@@ -204,9 +211,9 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                         </PokemonContainer>
                     </PokemonContainer>
                 </CardSection>
-                <CardSection className="container-fluid mt-2">
-                    <PokemonContainer className="card text-center">
-                        <PokemonCardText>
+                <CardSection className="container-fluid mb-2 col-11">
+                    <PokemonContainer className="card text-center description-border">
+                        <PokemonCardText className="footer-font">
                             A brutal POKéMON with pressurized water jets on its shell. They are used for high speed tackles.
                         </PokemonCardText>
                     </PokemonContainer>
