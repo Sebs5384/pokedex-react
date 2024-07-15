@@ -1,6 +1,6 @@
 import { usePagination, useSelectedCard, useGetPokemonSprite } from "../hooks/index";
 import { setItemRange, getPokemonSpriteUrl } from "../utils/general";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Banner from "../components/Banner/Banner";
 import Grid from "../components/Grid/Grid";
 import Paginator from "../components/Paginator/Paginator";
@@ -12,7 +12,7 @@ function Pokedex() {
     const artwork = "other/official-artwork/";
 
     const { 
-        selectedPokemon, 
+        pokemonData,
         setSelectedCard 
     } = useSelectedCard();
     const { 
@@ -32,7 +32,7 @@ function Pokedex() {
         errorSprite, 
         pokemonSprite, 
         loadingSprite 
-    } = useGetPokemonSprite(selectedPokemon, artwork);
+    } = useGetPokemonSprite(pokemonData, artwork);
 
 
     const [showModal, setShowModal] = useState(false);
@@ -48,7 +48,6 @@ function Pokedex() {
             <Banner />
             <Grid 
                 cards={pokemonsInPage}
-                selectedCard={selectedPokemon}
                 pokemonSprite={getPokemonSpriteUrl}
                 selectCard={handleCardClick}
             />
@@ -66,7 +65,7 @@ function Pokedex() {
             <PokemonCard 
                 show={showModal} 
                 handleClose={handleClose} 
-                selectedCard={selectedPokemon} 
+                selectedCard={pokemonData} 
                 pokemonSprite={pokemonSprite}
             />
         </>
