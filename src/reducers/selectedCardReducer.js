@@ -6,8 +6,6 @@ const initialSelectedCardState = {
 function selectedCardReducer(state = initialSelectedCardState, action) {
     const { type, payload } = action;
 
-    if(payload.pokemon && payload.species === null) throw new Error("No species found for selected pokemon");
-
     switch(type) {
         case "SET_SELECTED_CARD":
             return {
@@ -19,7 +17,7 @@ function selectedCardReducer(state = initialSelectedCardState, action) {
                 ...state,
                 data: {
                     ...state.data,
-                    previousEvolution: payload.species.evolves_from_species.name,
+                    previousEvolution: payload.species.evolves_from_species.name ? payload.species.evolves_from_species.name : "",
                     genus: payload.species.genera[7].genus,
                     name: payload.pokemon.name,
                     hp: payload.pokemon.stats[0].base_stat,
@@ -36,6 +34,11 @@ function selectedCardReducer(state = initialSelectedCardState, action) {
                     id: payload.pokemon.id,
                     type: payload.pokemon.types[0].type.name
                 }
+            };
+        case "RESET_CARD_DATA": 
+            return {
+                ...state,
+                data: null
             };
         default:
             return state;

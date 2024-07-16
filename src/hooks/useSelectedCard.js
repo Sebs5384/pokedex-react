@@ -8,16 +8,13 @@ function useSelectedCard() {
     const { species } = useFetchSpecies(state.name);
 
     const setSelectedCard = (name) => {
+        dispatch({ type: "RESET_CARD_DATA" });
         dispatch({ type: "SET_SELECTED_CARD", payload: name });
     };
 
     useEffect(() => {
         if(pokemon && species) {
-            try {
-                dispatch({ type: "SET_CARD_DATA", payload: { pokemon, species } });
-            } catch(error) {
-                console.error(error);
-            };
+            dispatch({ type: "SET_CARD_DATA", payload: { pokemon, species } }); 
         };
     }, [pokemon, species]);
 

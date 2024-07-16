@@ -8,6 +8,7 @@ function useGetPokemonSprite(pokemon, artwork) {
     useEffect(() => {
         const fetchPokemonSprite = async () => {
             dispatch({ type: "FETCH_REQUEST" });
+            
             try {
                 const pokemonSprite = await getPokemonSprite(pokemon.id, artwork);
                 dispatch({ type: "FETCH_SUCCESS", payload: pokemonSprite });
