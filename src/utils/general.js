@@ -6,12 +6,6 @@ function setItemRange(itemNumber, currentItem) {
     return isInRange;
 };
 
-function getPokemonSpriteUrl(url) {
-    const pokemonSpriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${url.split("/")[url.split("/").length - 2]}.png`;
-
-    return pokemonSpriteUrl;
-};
-
 function convertGramToLb(grams) {
     return (grams * 0.00220462).toFixed(2);
 };
@@ -22,5 +16,6 @@ function convertDecimeterToFeet(meters) {
 
 export {
     setItemRange,
-    getPokemonSpriteUrl,
+    convertDecimeterToFeet,
+    convertGramToLb,
 };

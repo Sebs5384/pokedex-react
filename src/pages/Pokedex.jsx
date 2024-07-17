@@ -1,5 +1,6 @@
 import { usePagination, useSelectedCard, useGetPokemonSprite } from "../hooks/index";
-import { setItemRange, getPokemonSpriteUrl } from "../utils/general";
+import { setItemRange } from "../utils/general";
+import { getPokemonSpriteUrl } from "../utils/pokemon";
 import { useState, useEffect } from "react";
 import Banner from "../components/Banner/Banner";
 import Grid from "../components/Grid/Grid";
