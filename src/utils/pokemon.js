@@ -1,32 +1,4 @@
-function parsePokemonData(data) {
-    const { pokemon, species } = data;
-    
-    const id = pokemon.id;
-    const name = parsePokemonName(pokemon.name);
-    const skills = getPokemonSkills(pokemon.abilities);
-    const stats = getPokemonStats(pokemon.stats);
-    const types = getPokemonTypes(pokemon.types);
-    const height = convertDecimeterToFeet(pokemon.height);
-    const weight = convertGramToLb(pokemon.weight);
-    const typeAdvantage = getPokemonAdvantage(types.mainType, advantageChart);
-    const previousEvolutions = getPreviousEvolutionString(species);
-    const description = getDescription(species.flavor_text_entries, "en");
-
-    const pokemonData = {
-        id,
-        name,
-        skills,
-        stats,
-        types,
-        height,
-        weight,
-        typeAdvantage,
-        previousEvolutions,
-        description
-    };
-
-    return pokemonData;
-};
+import { convertDecimeterToFeet, convertGramToLb } from "./general";
 
 function parsePokemonName(name) {
     const words = name.split('-');
@@ -66,6 +38,12 @@ function getPokemonTypes(types) {
     return pokemonTypes;
 };
 
+function getPokemonAdvantage(type, advantageChart) {
+    const pokemonAdvantage = advantageChart[type];
+
+    return pokemonAdvantage;
+};
+
 function getPreviousEvolutionString(species) {
     const previousEvolutions = {
         name: species.evolves_from_species ? `Evolves from ${species.evolves_from_species.name}` : 'Basic Pokemon',
@@ -78,11 +56,126 @@ function getPreviousEvolutionString(species) {
 
 function getDescription(entry, language) {
     const pokemonTextEntry = entry;
-    const entry = pokemonTextEntry.find((pokemonEntry) => pokemonEntry.language.name === "en");
+    const textEntry = pokemonTextEntry.find((pokemonEntry) => pokemonEntry.language.name === "en");
     
-    const pokemonEntry = entry ? entry.flavor_text.replace(/\u000c/g, ' ') : '';
+    const pokemonEntry = textEntry ? textEntry.flavor_text.replace(/\u000c/g, ' ') : '';
     
     return pokemonEntry;
 };
 
-export default parsePokemonData;
+function getPokemonSpriteUrl(url) {
+    const pokemonId = `${url.split("/")[url.split("/").length - 2]}`;
+    const pokemonSpriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
+
+    return pokemonSpriteUrl;
+};
+
+const advantageChart = {
+    fire: {
+      resistance: 'grass',
+      weakness: 'water',
+    },
+    water: {
+      resistance: 'fire',
+      weakness: 'electric',
+    },
+    grass: {
+      resistance: 'water',
+      weakness: 'fire',
+    },
+    electric: {
+      resistance: 'water',
+      weakness: 'ground',
+    },
+    normal: {
+      resistance: 'ghost',
+      weakness: 'fighting',
+    },
+    fighting: {
+      resistance: 'normal',
+      weakness: 'flying',
+    },
+    flying: {
+      resistance: 'fighting',
+      weakness: 'rock',
+    },
+    poison: {
+      resistance: 'fairy',
+      weakness: 'ground',
+    },
+    ground: {
+      resistance: 'electric',
+      weakness: 'grass',
+    },
+    rock: {
+      resistance: 'fire',
+      weakness: 'water',
+    },
+    bug: {
+      resistance: 'grass',
+      weakness: 'fire',
+    },
+    ghost: {
+      resistance: 'normal',
+      weakness: 'dark',
+    },
+    steel: {
+      resistance: 'fairy',
+      weakness: 'fire',
+    },
+    psychic: {
+      resistance: 'fighting',
+      weakness: 'dark',
+    },
+    ice: {
+      resistance: 'ice',
+      weakness: 'fire',
+    },
+    dragon: {
+      resistance: 'dragon',
+      weakness: 'fairy',
+    },
+    fairy: {
+      resistance: 'dark',
+      weakness: 'poison',
+    },
+    dark: {
+      resistance: 'ghost',
+      weakness: 'fairy',
+    },
+};
+
+function parsePokemonData(data) {
+    const { pokemon, species } = data;
+    
+    const id = pokemon.id;
+    const name = parsePokemonName(pokemon.name);
+    const skills = getPokemonSkills(pokemon.abilities);
+    const stats = getPokemonStats(pokemon.stats);
+    const types = getPokemonTypes(pokemon.types);
+    const height = convertDecimeterToFeet(pokemon.height);
+    const weight = convertGramToLb(pokemon.weight);
+    const typeAdvantage = getPokemonAdvantage(types.mainType, advantageChart);
+    const previousEvolutions = getPreviousEvolutionString(species);
+    const description = getDescription(species.flavor_text_entries, "en");
+
+    const pokemonData = {
+        id,
+        name,
+        skills,
+        stats,
+        types,
+        height,
+        weight,
+        typeAdvantage,
+        previousEvolutions,
+        description
+    };
+
+    return pokemonData;
+};
+
+export {
+    parsePokemonData,
+    getPokemonSpriteUrl
+}
