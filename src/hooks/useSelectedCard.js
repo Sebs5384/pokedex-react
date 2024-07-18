@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from "react";
 import { selectedCardReducer, initialSelectedCardState } from "../reducers/index";
 import { useFetchPokemon, useFetchSpecies } from "./index";
+import { parsePokemonData } from "../utils/pokemon";
 
 function useSelectedCard() {
     const [state, dispatch] = useReducer(selectedCardReducer, initialSelectedCardState);
@@ -14,7 +15,7 @@ function useSelectedCard() {
 
     useEffect(() => {
         if(pokemon && species) {
-            dispatch({ type: "SET_CARD_DATA", payload: { pokemon, species } }); 
+            dispatch({ type: "SET_CARD_DATA", payload: parsePokemonData(pokemon, species) }); 
         };
     }, [pokemon, species]);
 
