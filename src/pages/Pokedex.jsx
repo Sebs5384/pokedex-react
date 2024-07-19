@@ -13,7 +13,7 @@ function Pokedex() {
     const artwork = "other/official-artwork/";
 
     const { 
-        pokemonData,
+        cardData,
         setSelectedCard 
     } = useSelectedCard();
     const { 
@@ -33,16 +33,18 @@ function Pokedex() {
         errorSprite, 
         pokemonSprite, 
         loadingSprite 
-    } = useGetPokemonSprite(pokemonData, artwork);
-
+    } = useGetPokemonSprite(cardData, artwork);
 
     const [showModal, setShowModal] = useState(false);
-    const handleCardClick = (pokemonId) => {
-        console.log("Card clicked: ", pokemonId);
-        setSelectedCard(pokemonId);
+    const handleCardClick = (pokemonName) => {
+        console.log("Card clicked: ", pokemonName);
+        setSelectedCard(pokemonName);
         setShowModal(true);
     };
-    const handleClose = () => setShowModal(false);
+    const closeModal = () => {  
+        setSelectedCard(null);
+        setShowModal(false);
+    }
 
     return (
         <>
@@ -65,8 +67,8 @@ function Pokedex() {
             />
             <PokemonCard 
                 show={showModal} 
-                handleClose={handleClose} 
-                selectedCard={pokemonData} 
+                handleClose={closeModal} 
+                selectedCard={cardData} 
                 pokemonSprite={pokemonSprite}
             />
         </>
