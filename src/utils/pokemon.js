@@ -18,12 +18,12 @@ function getPokemonSkills(skills) {
 
 function getPokemonStats(stats) {
   const pokemonStats = {
-    hp: stats[0].base_stat,
-    attack: stats[1].base_stat,
-    defense: stats[2].base_stat,
-    spAtk: stats[3].base_stat,
-    spDef: stats[4].base_stat,
-    speed: stats[5].base_stat
+    hp: `${stats[0].base_stat} HP`,
+    atk: `ATTACK: ${stats[1].base_stat}`,
+    def: `DEFENSE: ${stats[2].base_stat}`,
+    spAtk: `SP ATK: ${stats[3].base_stat}`,
+    spDef: `SP DEF: ${stats[4].base_stat}`,
+    speed: `SPEED: ${stats[5].base_stat}`
   };
 
   return pokemonStats; 
@@ -32,7 +32,7 @@ function getPokemonStats(stats) {
 function getPokemonTypes(types) {
   const pokemonTypes = {
     mainType: types[0].type.name,
-    secondaryType: types[1].type.name ? types[1].type.name : undefined
+    secondaryType: types[1] ? types[1].type.name : undefined
   };
     
   return pokemonTypes;
@@ -44,14 +44,14 @@ function getPokemonAdvantage(type, advantageChart) {
   return pokemonAdvantage;
 };
 
-function getPreviousEvolutionString(species) {
-  const previousEvolutions = {
+function getPokemonGenus(species) {
+  const pokemonGenus = {
     name: species.evolves_from_species ? `Evolves from ${species.evolves_from_species.name}` : 'Basic Pokemon',
     id: species.evolves_from_species ? species.evolves_from_species.url.split('/')[6] : 'None',
     genus: species.genera.length ? species.genera.find((genus) => genus.language.name === 'en').genus : '',
   };
 
-  return previousEvolutions;
+  return pokemonGenus;
 };
 
 function getDescription(entry, language) {
@@ -146,9 +146,6 @@ const advantageChart = {
 };
 
 function parsePokemonData(pokemon, species) {
-  console.log(pokemon.types[0].type.name);
-  console.log(species);
-
   const id = pokemon.id;
   const name = parsePokemonName(pokemon.name);
   const skills = getPokemonSkills(pokemon.abilities);
@@ -157,7 +154,7 @@ function parsePokemonData(pokemon, species) {
   const height = convertDecimeterToFeet(pokemon.height);
   const weight = convertGramToLb(pokemon.weight);
   const typeAdvantage = getPokemonAdvantage(types.mainType, advantageChart);
-  const previousEvolutions = getPreviousEvolutionString(species);
+  const evolutionGenus = getPokemonGenus(species);
   const description = getDescription(species.flavor_text_entries, "en");
 
   const pokemonData = {
@@ -169,7 +166,7 @@ function parsePokemonData(pokemon, species) {
     height,
     weight,
     typeAdvantage,
-    previousEvolutions,
+    evolutionGenus,
     description
   };
 
