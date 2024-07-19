@@ -1,16 +1,9 @@
 import { Modal, Button } from "react-bootstrap";
+import { skillIcon, statusIcon, atkIcon, defIcon, speedIcon, spAtkIcon, spDefIcon } from "../../assets/img/pokemon-stats";
+import pokemonTypeImage from "../../assets/img/pokemon-type";
+import waterType from "../../assets/img/modal-texture/water-texture.png";
 import ImageContainer from "../shared/ImageContainer";
 import styled from "@emotion/styled";
-import waterType from "../../assets/img/modal-texture/water-texture.png";
-import waterIcon from "../../assets/img/pokemon-type/icon/water-type-icon.png";
-import waterLogo from "../../assets/img/pokemon-type/logo/water-type.png";
-import skillIcon from "../../assets/img/pokemon-stats/skill-icon-png.png";
-import statusIcon from "../../assets/img/pokemon-stats/status-icon.png";
-import atkIcon from "../../assets/img/pokemon-stats/atk-icon.png";
-import defIcon from "../../assets/img/pokemon-stats/def-icon.png";
-import speedIcon from "../../assets/img/pokemon-stats/speed-icon.png";
-import spAtkIcon from "../../assets/img/pokemon-stats/sp-atk-icon.png";
-import spDefIcon from "../../assets/img/pokemon-stats/sp-def-icon.png";
 
 const PokemonModal = styled(Modal)`
     .modal-content {
@@ -110,7 +103,7 @@ const CardSeparator = styled.hr`
 `;
 
 function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
-    if(selectedCard === null) return;
+    if(!selectedCard) return null;
 
     return(
         <PokemonModal show={show} onHide={handleClose}>
@@ -118,8 +111,8 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                 <CardSection className="container-fluid species-wrapper">
                     <PokemonContainer className="row species-data-wrapper">
                         <PokemonCardText className="col-2 align-self-end text-end species-font">P.STAGE</PokemonCardText>
-                        <PokemonCardText className="col-5 align-self-end text-center species-font">Evolves From Wartortle</PokemonCardText>
-                        <PokemonCardText className="col-4 align-self-end text-end species-font">Shellfish Pokemon</PokemonCardText>
+                        <PokemonCardText className="col-5 align-self-end text-center species-font">{selectedCard.evolutionGenus.name}</PokemonCardText>
+                        <PokemonCardText className="col-4 align-self-end text-end species-font">{selectedCard.evolutionGenus.genus}</PokemonCardText>
                     </PokemonContainer>
                     <PokemonContainer className="row justify-content-center">
                         <CardTopSeparator className="col-11" />
@@ -127,7 +120,7 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                     <Modal.Title className="row">
                         <ImageContainer src={pokemonSprite} className="col-2 align-self-center text-center pokemon-species-image" />
                         <PokemonCardText className="col-4 align-self-center text-center title-font capitalize">{selectedCard.name}</PokemonCardText>
-                        <PokemonCardText className="col-4 align-self-center text-end title-font hp-text">80 HP</PokemonCardText>
+                        <PokemonCardText className="col-4 align-self-center text-end title-font hp-text">{selectedCard.stats.hp}</PokemonCardText>
                         <ImageContainer src={waterIcon} className="col-1 align-self-center pokemon-species-image text-start" />
                     </Modal.Title>
                 </CardSection>
@@ -143,8 +136,8 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                 <CardSection className="row col-10 mt-2 mx-auto card-banner">
                     <ImageContainer src={waterLogo} className="col-2" />
                     <ImageContainer src={waterLogo} className="col-2" />
-                    <PokemonCardText className="col-4 text-end banner-font">Length: 5'25"</PokemonCardText>
-                    <PokemonCardText className="col-4 text-start banner-font">Weight: 1.88 lbs</PokemonCardText>
+                    <PokemonCardText className="col-4 text-end banner-font">Lenght: {selectedCard.height}"</PokemonCardText>
+                    <PokemonCardText className="col-4 text-start banner-font">Weight: {selectedCard.weight} lbs</PokemonCardText>
                 </CardSection>
                 <CardSection className="container-fluid col-11 mt-2">
                     <PokemonContainer className="row modal-font">
@@ -155,11 +148,11 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                         <CardSeparator className="col-12"></CardSeparator>
                         <PokemonContainer className="col-6">
                             <ImageContainer src={waterIcon} className="stats-icon" />
-                            <PokemonCardText className="skill-font">Overgrow</PokemonCardText>
+                            <PokemonCardText className="skill-font">{selectedCard.skills.firstSkill}</PokemonCardText>
                         </PokemonContainer>
                         <PokemonContainer className="col-6 text-center">
                             <ImageContainer src={waterIcon} className="stats-icon" />
-                            <PokemonCardText className="skill-font">Chlorophyll</PokemonCardText>
+                            <PokemonCardText className="skill-font">{selectedCard.skills.secondSkill}</PokemonCardText>
                         </PokemonContainer>
                     </PokemonContainer>
                 </CardSection>
@@ -172,23 +165,23 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                         <CardSeparator className="col-12 mb-2"></CardSeparator>
                         <PokemonContainer className="col-4">
                             <ImageContainer src={atkIcon} className="stats-icon" />
-                            <PokemonCardText className="status-font">ATTACK: 82</PokemonCardText>
+                            <PokemonCardText className="status-font">{selectedCard.stats.atk}</PokemonCardText>
                         </PokemonContainer>
                         <PokemonContainer className="col-4">
                             <ImageContainer src={defIcon} className="stats-icon"/>
-                            <PokemonCardText className="status-font">DEFENSE: 83</PokemonCardText>
+                            <PokemonCardText className="status-font">{selectedCard.stats.def}</PokemonCardText>
                         </PokemonContainer>
                         <PokemonContainer className="col-4">
                             <ImageContainer src={speedIcon} className="stats-icon"/>
-                            <PokemonCardText className="status-font">SPEED: 80</PokemonCardText>
+                            <PokemonCardText className="status-font">{selectedCard.stats.speed}</PokemonCardText>
                         </PokemonContainer>
                         <PokemonContainer className="col-4">
                             <ImageContainer src={spAtkIcon} className="stats-icon"/>
-                            <PokemonCardText className="status-font">SP ATK: 100</PokemonCardText>
+                            <PokemonCardText className="status-font">{selectedCard.stats.spAtk}</PokemonCardText>
                         </PokemonContainer>
                         <PokemonContainer className="col-4">
                             <ImageContainer src={spDefIcon} className="stats-icon"/>
-                            <PokemonCardText className="status-font">SP DEF: 100</PokemonCardText>
+                            <PokemonCardText className="status-font">{selectedCard.stats.spDef}</PokemonCardText>
                         </PokemonContainer>
                     </PokemonContainer>
                 </CardSection>
@@ -213,9 +206,7 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                 </CardSection>
                 <CardSection className="container-fluid mb-2 col-11">
                     <PokemonContainer className="card text-center description-border">
-                        <PokemonCardText className="footer-font">
-                            A brutal POKéMON with pressurized water jets on its shell. They are used for high speed tackles.
-                        </PokemonCardText>
+                        <PokemonCardText className="footer-font">{selectedCard.description}</PokemonCardText>
                     </PokemonContainer>
                 </CardSection>
             </PokemonContainer>
