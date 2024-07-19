@@ -20,7 +20,7 @@ function useSelectedCard() {
     }, [pokemon, species]);
 
     return {
-        pokemonData: state.data,
+        cardData: state.data,
         setSelectedCard
     };
 };
