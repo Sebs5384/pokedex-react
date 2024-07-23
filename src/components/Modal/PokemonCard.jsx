@@ -121,7 +121,7 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                         <ImageContainer src={pokemonSprite} className="col-2 align-self-center text-center pokemon-species-image" />
                         <PokemonCardText className="col-4 align-self-center text-center title-font capitalize">{selectedCard.name}</PokemonCardText>
                         <PokemonCardText className="col-4 align-self-center text-end title-font hp-text">{selectedCard.stats.hp}</PokemonCardText>
-                        <ImageContainer src={} className="col-1 align-self-center pokemon-species-image text-start" />
+                        <ImageContainer className="col-1 align-self-center pokemon-species-image text-start" />
                     </Modal.Title>
                 </CardSection>
             </PokemonContainer>
@@ -134,8 +134,8 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                     </PokemonContainer>
                 </CardSection>
                 <CardSection className="row col-10 mt-2 mx-auto card-banner">
-                    <ImageContainer src={} className="col-2" />
-                    <ImageContainer src={} className="col-2" />
+                    <ImageContainer className="col-2" />
+                    <ImageContainer className="col-2" />
                     <PokemonCardText className="col-4 text-end banner-font">Lenght: {selectedCard.height}"</PokemonCardText>
                     <PokemonCardText className="col-4 text-start banner-font">Weight: {selectedCard.weight} lbs</PokemonCardText>
                 </CardSection>
@@ -147,11 +147,11 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                         </PokemonContainer>
                         <CardSeparator className="col-12"></CardSeparator>
                         <PokemonContainer className="col-6">
-                            <ImageContainer src={} className="stats-icon" />
+                            <ImageContainer className="stats-icon" />
                             <PokemonCardText className="skill-font">{selectedCard.skills.firstSkill}</PokemonCardText>
                         </PokemonContainer>
                         <PokemonContainer className="col-6 text-center">
-                            <ImageContainer src={} className="stats-icon" />
+                            <ImageContainer className="stats-icon" />
                             <PokemonCardText className="skill-font">{selectedCard.skills.secondSkill}</PokemonCardText>
                         </PokemonContainer>
                     </PokemonContainer>
@@ -194,13 +194,13 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                         <PokemonCardText className="col-4 text-center status-font">Resistance</PokemonCardText>
                         <PokemonCardText className="col-4 text-end status-font">Retreat Cost</PokemonCardText>
                         <PokemonContainer className="col-4 text-start">
-                            <ImageContainer src={} className="stats-icon" />
+                            <ImageContainer className="stats-icon" />
                         </PokemonContainer>
                         <PokemonContainer className="col-4 text-center">
-                            <ImageContainer src={} className="stats-icon" />
+                            <ImageContainer className="stats-icon" />
                         </PokemonContainer>
                         <PokemonContainer className="col-4 text-end">
-                            <ImageContainer src={} className="stats-icon" />
+                            <ImageContainer className="stats-icon" />
                         </PokemonContainer>
                     </PokemonContainer>
                 </CardSection>
