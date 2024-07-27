@@ -17,23 +17,25 @@ import rockTexture from "./rock-texture.png";
 import steelTexture from "./steel-texture.png";
 import waterTexture from "./water-texture.png";
 
-export { 
-    bugTexture, 
-    darkTexture, 
-    dargonTexture, 
-    electricTexture, 
-    fairyTexture, 
-    fighthingTexture, 
-    fireTexture, 
-    flyingTexture, 
-    ghostTexture, 
-    grassTexture, 
-    groundTexture, 
-    iceTexture, 
-    normalTexture, 
-    poisonTexture, 
-    psychicTexture, 
-    rockTexture, 
-    steelTexture, 
-    waterTexture
+const textures = {
+    bug: bugTexture,
+    dark: darkTexture,
+    dragon: dargonTexture,
+    electric: electricTexture,
+    fairy: fairyTexture,
+    fighting: fighthingTexture,
+    fire: fireTexture,
+    flying: flyingTexture,
+    ghost: ghostTexture,
+    grass: grassTexture,
+    ground: groundTexture,
+    ice: iceTexture,
+    normal: normalTexture,
+    poison: poisonTexture,
+    psychic: psychicTexture,
+    rock: rockTexture,
+    steel: steelTexture,
+    water: waterTexture
 };
+
+export default textures;

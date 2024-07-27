@@ -1,7 +1,7 @@
 import { Modal, Button } from "react-bootstrap";
 import { skillIcon, statusIcon, atkIcon, defIcon, speedIcon, spAtkIcon, spDefIcon } from "../../assets/img/pokemon-stats";
 import pokemonTypeImage from "../../assets/img/pokemon-type";
-import waterType from "../../assets/img/modal-texture/water-texture.png";
+import textures from "../../assets/img/modal-texture/index";
 import ImageContainer from "../shared/ImageContainer";
 import styled from "@emotion/styled";
 
@@ -10,7 +10,7 @@ const PokemonModal = styled(Modal)`
         border: solid gold 12px;
         border-radius: 10px;
         border-style: outset;
-        background-image: url(${waterType});
+        background-image: url(${props => props.backgroundImage});
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
@@ -106,7 +106,7 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
     if(!selectedCard) return null;
 
     return(
-        <PokemonModal show={show} onHide={handleClose}>
+        <PokemonModal show={show} onHide={handleClose} backgroundImage={textures[selectedCard.types.mainType]}> 
             <PokemonContainer closeButton>
                 <CardSection className="container-fluid species-wrapper">
                     <PokemonContainer className="row species-data-wrapper">
