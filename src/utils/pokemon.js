@@ -175,5 +175,6 @@ function parsePokemonData(pokemon, species) {
 
 export {
   parsePokemonData,
-  getPokemonSpriteUrl
+  getPokemonSpriteUrl,
+  advantageChart,
 }

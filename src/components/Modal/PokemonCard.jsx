@@ -1,5 +1,6 @@
 import { Modal, Button } from "react-bootstrap";
 import { skillIcon, statusIcon, atkIcon, defIcon, speedIcon, spAtkIcon, spDefIcon } from "../../assets/img/pokemon-stats";
+import { useEffect } from "react";
 import pokemonTypeImage from "../../assets/img/pokemon-type";
 import textures from "../../assets/img/modal-texture/index";
 import ImageContainer from "../shared/ImageContainer";
@@ -102,7 +103,7 @@ const CardSeparator = styled.hr`
     border: 1px solid black;
 `;
 
-function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {    
+function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) { 
     if(!selectedCard) return null;
 
     return(
@@ -194,13 +195,13 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
                         <PokemonCardText className="col-4 text-center status-font">Resistance</PokemonCardText>
                         <PokemonCardText className="col-4 text-end status-font">Retreat Cost</PokemonCardText>
                         <PokemonContainer className="col-4 text-start">
-                            <ImageContainer className="stats-icon" />
+                            <ImageContainer src={pokemonTypeImage[selectedCard.typeAdvantage.weakness].icon}  className="stats-icon" />
                         </PokemonContainer>
                         <PokemonContainer className="col-4 text-center">
-                            <ImageContainer className="stats-icon" />
+                            <ImageContainer src={pokemonTypeImage[selectedCard.typeAdvantage.resistance].icon} className="stats-icon" />
                         </PokemonContainer>
                         <PokemonContainer className="col-4 text-end">
-                            <ImageContainer className="stats-icon" />
+                            <ImageContainer src={pokemonTypeImage.retreat.icon} className="stats-icon" />
                         </PokemonContainer>
                     </PokemonContainer>
                 </CardSection>
