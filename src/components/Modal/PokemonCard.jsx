@@ -128,7 +128,7 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
             </PokemonContainer>
             <PokemonContainer>
                 <CardSection className="container-fluid">
-                    <PokemonContainer className="card card-border col-11 mx-auto">
+                    <PokemonContainer className="card card-border col-11 mx-auto" style={{background: selectedCard.backgroundStyle}}>
                         <PokemonContainer className="row card-body justify-content-center">
                             <ImageContainer src={pokemonSprite} alt={selectedCard.name} className="col-8" />
                         </PokemonContainer>
