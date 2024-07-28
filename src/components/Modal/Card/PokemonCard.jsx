@@ -1,0 +1,20 @@
+import PokemonCardHeader from "./PokemonCardHeader";
+import PokemonCardBody from "./PokemonCardBody";
+import PokemonCardFooter from "./PokemonCardFooter";
+import PokemonModal from "./PokemonModal";
+
+
+
+function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) { 
+    if(!selectedCard) return null;
+
+    return(
+        <PokemonModal show={show} onHide={handleClose} backgroundImage={selectedCard.backgroundTexture}>   
+            <PokemonCardHeader selectedCard={selectedCard} pokemonSprite={pokemonSprite}/>
+            <PokemonCardBody selectedCard={selectedCard} pokemonSprite={pokemonSprite}/>
+            <PokemonCardFooter selectedCard={selectedCard} pokemonSprite={pokemonSprite}/>
+        </PokemonModal>
+    );
+};
+
+export default PokemonCard;
