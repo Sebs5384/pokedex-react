@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import Banner from "../components/Banner/Banner";
 import Grid from "../components/Grid/Grid";
 import Paginator from "../components/Paginator/Paginator";
-import PokemonCard from "../components/Modal/PokemonCard";
+import PokemonCard from "../components/Modal/Card/PokemonCard";
 
 function Pokedex() {
     const POKEMONS_PER_PAGE = 20;

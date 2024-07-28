@@ -1,4 +1,6 @@
 import { convertDecimeterToFeet, convertGramToLb } from "./general";
+import pokemonTypeImage from "../assets/img/pokemon-type/index";
+import textures from "../../../assets/img/modal-texture/index";
 
 function parsePokemonName(name) {
   const words = name.split('-');
@@ -74,6 +76,31 @@ function getBackgroundStyle(type) {
   const backgroundStyle = typeBackground[type];
 
   return backgroundStyle;
+};
+
+function getBackgroundTexture(types) {
+  const texture = textures[types];
+
+  return texture;
+};
+
+function getAdvantageImage(typeAdvantage) {
+  const advantageImage = {
+    weakness: pokemonTypeImage[typeAdvantage.weakness].icon,
+    resistance: pokemonTypeImage[typeAdvantage.resistance].icon
+  };
+
+  return advantageImage;
+};
+
+function getTypeImage(types) {
+  const typeImage = {
+    mainTypeLogo: pokemonTypeImage[types.mainType].logo,
+    secondaryTypeLogo: types.secondaryType ? pokemonTypeImage[types.secondaryType].logo : undefined,
+    mainTypeIcon: pokemonTypeImage[types.mainType].icon
+  };
+
+  return typeImage;
 };
 
 const advantageChart = {
@@ -184,6 +211,9 @@ function parsePokemonData(pokemon, species) {
   const evolutionGenus = getPokemonGenus(species);
   const description = getDescription(species.flavor_text_entries, "en");
   const backgroundStyle = getBackgroundStyle(types.mainType);
+  const backgroundTexture = getBackgroundTexture(types);
+  const advantageImage = getAdvantageImage(typeAdvantage);
+  const typeImage = getTypeImage(types);
 
   const pokemonData = {
     id,
@@ -196,7 +226,10 @@ function parsePokemonData(pokemon, species) {
     typeAdvantage,
     evolutionGenus,
     description,
-    backgroundStyle
+    backgroundStyle,
+    backgroundTexture,
+    advantageImage,
+    typeImage
   };
 
   return pokemonData;
