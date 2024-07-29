@@ -1,5 +1,5 @@
 import { PokemonContainer, CardSection, CardSeparator, PokemonCardText } from "./Pokemon";
-import { ImageContainer } from "../shared/ImageContainer";
+import ImageContainer from "../../shared/ImageContainer";
 
 
 function PokemonCardFooter({ selectedCard }) {
@@ -12,13 +12,13 @@ function PokemonCardFooter({ selectedCard }) {
                     <PokemonCardText className="col-4 text-center status-font">Resistance</PokemonCardText>
                     <PokemonCardText className="col-4 text-end status-font">Retreat Cost</PokemonCardText>
                     <PokemonContainer className="col-4 text-start">
-                        <ImageContainer src={pokemonTypeImage[selectedCard.typeAdvantage.weakness].icon}  className="stats-icon" />
+                        <ImageContainer src={selectedCard.advantageImage.weakness}  className="stats-icon" />
                     </PokemonContainer>
                     <PokemonContainer className="col-4 text-center">
-                        <ImageContainer src={pokemonTypeImage[selectedCard.typeAdvantage.resistance].icon} className="stats-icon" />
+                        <ImageContainer src={selectedCard.advantageImage.resistance} className="stats-icon" />
                     </PokemonContainer>
                     <PokemonContainer className="col-4 text-end">
-                        <ImageContainer src={pokemonTypeImage.retreat.icon} className="stats-icon" />
+                        <ImageContainer src={selectedCard.advantageImage.retreat} className="stats-icon" />
                     </PokemonContainer>
                 </PokemonContainer>
             </CardSection>

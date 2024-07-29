@@ -1,5 +1,6 @@
-import { PokemonContainer, CardSection, ImageContainer, PokemonCardText, CardSeparator  } from "./Pokemon";
+import { PokemonContainer, CardSection, PokemonCardText, CardSeparator  } from "./Pokemon";
 import { skillIcon, statusIcon, atkIcon, defIcon, speedIcon, spAtkIcon, spDefIcon } from "../../../assets/img/pokemon-stats";
+import ImageContainer from "../../shared/ImageContainer";
 
 function PokemonCardBody({ selectedCard, pokemonSprite }) {
     return(
@@ -12,8 +13,8 @@ function PokemonCardBody({ selectedCard, pokemonSprite }) {
                 </PokemonContainer>
             </CardSection>
             <CardSection className="row col-10 mt-2 mx-auto card-banner">
-                <ImageContainer src={pokemonTypeImage[selectedCard.types.mainType].logo} className="col-2" />
-                <ImageContainer src={pokemonTypeImage[selectedCard.types.secondType].logo} className="col-2" />
+                <ImageContainer src={selectedCard.typeImage.mainTypeLogo} className="col-2" />
+                <ImageContainer src={selectedCard.typeImage.secondaryTypeLogo} className="col-2" />
                 <PokemonCardText className="col-4 text-end banner-font">Lenght: {selectedCard.height}"</PokemonCardText>
                 <PokemonCardText className="col-4 text-start banner-font">Weight: {selectedCard.weight} lbs</PokemonCardText>
             </CardSection>
@@ -25,11 +26,11 @@ function PokemonCardBody({ selectedCard, pokemonSprite }) {
                     </PokemonContainer>
                     <CardSeparator className="col-12"></CardSeparator>
                     <PokemonContainer className="col-6">
-                        <ImageContainer src={pokemonTypeImage[selectedCard.types.mainType].icon} className="stats-icon" />
+                        <ImageContainer src={selectedCard.typeImage.mainTypeIcon} className="stats-icon" />
                         <PokemonCardText className="skill-font">{selectedCard.skills.firstSkill}</PokemonCardText>
                     </PokemonContainer>
                     <PokemonContainer className="col-6 text-center">
-                        <ImageContainer src={pokemonTypeImage[selectedCard.types.mainType].icon} className="stats-icon" />
+                        <ImageContainer src={selectedCard.typeImage.mainTypeIcon} className="stats-icon" />
                         <PokemonCardText className="skill-font">{selectedCard.skills.secondSkill}</PokemonCardText>
                     </PokemonContainer>
                 </PokemonContainer>

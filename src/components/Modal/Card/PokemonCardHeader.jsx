@@ -1,7 +1,6 @@
 import { Modal } from "react-bootstrap";
 import { PokemonContainer, CardSection, PokemonCardText, CardTopSeparator } from "./Pokemon";
-import { ImageContainer } from "../../shared/ImageContainer";
-import { pokemonTypeImage } from "../../../assets/img/pokemon-type";
+import ImageContainer from "../../shared/ImageContainer";
 
 function PokemonCardHeader({ selectedCard, pokemonSprite }) {
     return(
@@ -19,7 +18,7 @@ function PokemonCardHeader({ selectedCard, pokemonSprite }) {
                     <ImageContainer src={pokemonSprite} className="col-2 align-self-center text-center pokemon-species-image" />
                     <PokemonCardText className="col-4 align-self-center text-center title-font capitalize">{selectedCard.name}</PokemonCardText>
                     <PokemonCardText className="col-4 align-self-center text-end title-font hp-text">{selectedCard.stats.hp}</PokemonCardText>
-                    <ImageContainer src={pokemonTypeImage[selectedCard.types.mainType].icon} className="col-1 align-self-center pokemon-species-image text-start" />
+                    <ImageContainer src={selectedCard.typeImage.mainTypeIcon} className="col-1 align-self-center pokemon-species-image text-start" />
                 </Modal.Title>
             </CardSection>
         </PokemonContainer>
