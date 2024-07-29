@@ -6,7 +6,7 @@ const PokemonModal = styled(Modal)`
         border: solid gold 12px;
         border-radius: 10px;
         border-style: outset;
-        background-image: url(${props => props.backgroundImage});
+        background-image: url(${props => props.backgroundTexture});
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
