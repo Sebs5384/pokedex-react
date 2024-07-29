@@ -28,6 +28,9 @@ const PokemonModal = styled(Modal)`
 `;
 
 const PokemonCloseButton = styled(CloseButton)`
+    font-size: 0.7rem;
+    position: relative;
+    right: -20px;
 `;
 
 const PokemonTitle = styled(Modal.Title)`
