@@ -1,5 +1,4 @@
-import { Modal } from "react-bootstrap";
-import { PokemonContainer, CardSection, PokemonCardText, CardTopSeparator } from "./Pokemon";
+import { PokemonContainer, CardSection, PokemonCardText, CardTopSeparator, PokemonCloseButton, PokemonTitle } from "./Pokemon";
 import ImageContainer from "../../shared/ImageContainer";
 
 function PokemonCardHeader({ selectedCard, pokemonSprite }) {
@@ -10,16 +9,17 @@ function PokemonCardHeader({ selectedCard, pokemonSprite }) {
                     <PokemonCardText className="col-2 align-self-end text-end species-font">P.STAGE</PokemonCardText>
                     <PokemonCardText className="col-5 align-self-end text-center species-font">{selectedCard.evolutionGenus.name}</PokemonCardText>
                     <PokemonCardText className="col-4 align-self-end text-end species-font">{selectedCard.evolutionGenus.genus}</PokemonCardText>
+                    <PokemonCloseButton />
                 </PokemonContainer>
                 <PokemonContainer className="row justify-content-center">
                     <CardTopSeparator className="col-11" />
                 </PokemonContainer>
-                <Modal.Title className="row">
+                <PokemonTitle className="row">
                     <ImageContainer src={pokemonSprite} className="col-2 align-self-center text-center pokemon-species-image" />
                     <PokemonCardText className="col-4 align-self-center text-center title-font capitalize">{selectedCard.name}</PokemonCardText>
                     <PokemonCardText className="col-4 align-self-center text-end title-font hp-text">{selectedCard.stats.hp}</PokemonCardText>
                     <ImageContainer src={selectedCard.typeImage.mainTypeIcon} className="col-1 align-self-center pokemon-species-image text-start" />
-                </Modal.Title>
+                </PokemonTitle>
             </CardSection>
         </PokemonContainer>
     );

@@ -1,4 +1,4 @@
-import { Modal } from "react-bootstrap";
+import { Modal, CloseButton } from "react-bootstrap";
 import styled from "@emotion/styled";
 
 const PokemonModal = styled(Modal)`
@@ -25,6 +25,12 @@ const PokemonModal = styled(Modal)`
         height: 11%;
         margin: 0 auto;
     }
+`;
+
+const PokemonCloseButton = styled(CloseButton)`
+`;
+
+const PokemonTitle = styled(Modal.Title)`
 `;
 
 const CardSection = styled.section`
@@ -100,6 +106,8 @@ const CardSeparator = styled.hr`
 
 export {
     PokemonModal,
+    PokemonCloseButton,
+    PokemonTitle,
     CardSection,
     PokemonContainer,
     PokemonCardText,
