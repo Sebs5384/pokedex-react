@@ -3,9 +3,6 @@ import PokemonCardHeader from "./PokemonCardHeader";
 import PokemonCardBody from "./PokemonCardBody";
 import PokemonCardFooter from "./PokemonCardFooter";
 
-
-
-
 function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) { 
     if(!selectedCard) return null;
 
