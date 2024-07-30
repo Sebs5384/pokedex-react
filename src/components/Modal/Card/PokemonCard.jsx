@@ -11,7 +11,7 @@ function PokemonCard({show, handleClose, selectedCard, pokemonSprite}) {
 
     return(
         <PokemonModal show={show} onHide={handleClose} backgroundTexture={selectedCard.backgroundTexture}>   
-            <PokemonCardHeader selectedCard={selectedCard} pokemonSprite={pokemonSprite}/>
+            <PokemonCardHeader selectedCard={selectedCard} pokemonSprite={pokemonSprite} closeModal={handleClose}/>
             <PokemonCardBody selectedCard={selectedCard} pokemonSprite={pokemonSprite}/>
             <PokemonCardFooter selectedCard={selectedCard} pokemonSprite={pokemonSprite}/>
         </PokemonModal>
