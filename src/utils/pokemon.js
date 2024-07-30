@@ -12,7 +12,7 @@ function parsePokemonName(name) {
 function getPokemonSkills(skills) {
   const pokemonSkills = {
     firstSkill: skills[0].ability.name,
-    secondSkill: skills[1].ability.name ? skills[1].ability.name : ''
+    secondSkill: skills[1] ? skills[1].ability.name : undefined
   };
     
   return pokemonSkills; 
