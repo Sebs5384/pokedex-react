@@ -1,7 +1,6 @@
-import { usePagination, useSelectedCard, useGetPokemonSprite } from "../hooks/index";
+import { usePagination, useSelectedCard, useGetPokemonSprite, useHandleCard } from "../hooks/index";
 import { setItemRange } from "../utils/general";
 import { getPokemonSpriteUrl } from "../utils/pokemon";
-import { useState, useEffect } from "react";
 import Banner from "../components/Banner/Banner";
 import Grid from "../components/Grid/Grid";
 import Paginator from "../components/Paginator/Paginator";
@@ -34,17 +33,11 @@ function Pokedex() {
         pokemonSprite, 
         loadingSprite 
     } = useGetPokemonSprite(cardData, artwork);
-
-    const [showModal, setShowModal] = useState(false);
-    const handleCardClick = (pokemonName) => {
-        console.log("Card clicked: ", pokemonName);
-        setSelectedCard(pokemonName);
-        setShowModal(true);
-    };
-    const closeModal = () => {  
-        setSelectedCard(null);
-        setShowModal(false);
-    }
+    const {
+        modalVisibility,
+        handleSelectedCard,
+        handleCloseCard,
+    } = useHandleCard(setSelectedCard);
 
     return (
         <>
@@ -52,7 +45,7 @@ function Pokedex() {
             <Grid 
                 cards={pokemonsInPage}
                 pokemonSprite={getPokemonSpriteUrl}
-                selectCard={handleCardClick}
+                selectCard={handleSelectedCard}
             />
             <Paginator 
                 totalPages={totalPages} 
@@ -66,8 +59,8 @@ function Pokedex() {
                 setHiddenRange={setItemRange}
             />
             <PokemonCard 
-                show={showModal} 
-                handleClose={closeModal} 
+                show={modalVisibility} 
+                handleClose={handleCloseCard} 
                 selectedCard={cardData} 
                 pokemonSprite={pokemonSprite}
             />
