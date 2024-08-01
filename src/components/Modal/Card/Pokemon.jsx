@@ -27,6 +27,12 @@ const PokemonModal = styled(Modal)`
     }
 `;
 
+const LoadingPokemonCardModal = styled(Modal)`
+    .modal-content {
+        background-color: rgb(60, 59, 59);
+    }
+`;
+
 const PokemonCloseButton = styled(CloseButton)`
     font-size: 0.7rem;
     position: relative;
@@ -64,6 +70,22 @@ const PokemonContainer = styled.div`
         height: 20px;
         margin-top: -5px;
         margin-right: 5px;
+    }
+    
+    .loading-background {
+        border-style: outset;
+        border-color: rgb(243, 60, 9);
+        border-radius: 8px;
+        background-color: rgb(243, 60, 9);
+        border-left: 15px solid rgb(243, 60, 9);
+        border-right: 15px solid rgb(243, 60, 9);
+    }
+
+    .loading-text-background {
+        background-color: rgb(24, 184, 142);
+        font-size: 50px;
+        border-radius: 8px;
+        color: white;
     }
 `;
 
@@ -115,5 +137,6 @@ export {
     PokemonContainer,
     PokemonCardText,
     CardTopSeparator,
-    CardSeparator
-}
+    CardSeparator,
+    LoadingPokemonCardModal     
+};
