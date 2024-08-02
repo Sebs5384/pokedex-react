@@ -40,7 +40,17 @@ async function getPokemonSpecies(name) {
 };
 
 async function getPokemonSprite(id, artwork = "") {
-    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${artwork}${id}.png`;
+    return new Promise((resolve, reject) => {
+        const pokemonSpriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${artwork}/${id}.png`;
+        const pokemonSprite = new Image();
+        pokemonSprite.onload = () => {
+            resolve(pokemonSpriteUrl);
+        };
+        pokemonSprite.onerror = () => {
+            reject(new Error("Pokemon Sprite Error"));
+        };
+        pokemonSprite.src = pokemonSpriteUrl;
+    });
 };
 
 export {
