@@ -13,6 +13,7 @@ function Pokedex() {
 
     const { 
         cardData,
+        loadingCard,
         setSelectedCard 
     } = useSelectedCard();
     const { 
@@ -34,10 +35,11 @@ function Pokedex() {
         loadingSprite 
     } = useGetPokemonSprite(cardData, artwork);
     const {
+        loading,
         modalVisibility,
         handleSelectedCard,
         handleCloseCard,
-    } = useHandleCard(setSelectedCard);
+    } = useHandleCard(setSelectedCard, loadingCard, loadingSprite);
 
     return (
         <>
@@ -59,11 +61,11 @@ function Pokedex() {
                 setHiddenRange={setItemRange}
             />
             <PokemonCard 
-                show={modalVisibility} 
+                visibility={modalVisibility} 
                 handleClose={handleCloseCard} 
                 selectedCard={cardData} 
                 pokemonSprite={pokemonSprite}
-                loading={loadingSprite}
+                loading={loading}
             />
         </>
     );

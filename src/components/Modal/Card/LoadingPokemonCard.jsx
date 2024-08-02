@@ -1,8 +1,8 @@
 import { LoadingPokemonCardModal, PokemonCardText, PokemonContainer } from "./Pokemon";
 
-function LoadingPokemonCard({ show, onHide }) {
+function LoadingPokemonCard({ showModal }) {
     return (
-        <LoadingPokemonCardModal show={show} onHide={onHide} size="s" aria-labelledby="contained-modal-title-vcenter" centered>
+        <LoadingPokemonCardModal show={showModal} size="s" aria-labelledby="contained-modal-title-vcenter" centered>
             <PokemonContainer className="modal-body">
                 <PokemonContainer className="loading-background d-flex justify-content-center align-items-center">
                     <PokemonContainer className="row w-100 justify-content-center">
