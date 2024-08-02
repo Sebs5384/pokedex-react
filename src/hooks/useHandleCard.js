@@ -1,7 +1,7 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { handleCardReducer, initialHandleCardState } from "../reducers/handleCardReducer";
 
-function useHandleCard(setSelectedCard) {
+function useHandleCard(setSelectedCard, loadingCard, loadingSprite) {
     const [state, dispatch] = useReducer(handleCardReducer, initialHandleCardState);
 
     const handleSelectedCard = (card) => {
@@ -14,7 +14,14 @@ function useHandleCard(setSelectedCard) {
         dispatch({ type: "SET_MODAL_VISIBILITY", payload: false });
     };
 
+    useEffect(() => {
+        const isLoading = loadingCard || loadingSprite;
+
+        dispatch({ type: "SET_DEBOUNCE_LOADING", payload: isLoading });
+    }, [loadingCard, loadingSprite]);
+
     return {
+        loading: state.debounceLoading,
         modalVisibility: state.modalVisibility,
         handleSelectedCard,
         handleCloseCard

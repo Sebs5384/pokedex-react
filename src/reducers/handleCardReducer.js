@@ -11,6 +11,11 @@ function handleCardReducer(state = initialHandleCardState, action) {
                 ...state,
                 modalVisibility: payload
             };
+        case "SET_DEBOUNCE_LOADING":
+            return {
+                ...state,
+                debounceLoading: payload
+            };
         default:
             return state;
     };
