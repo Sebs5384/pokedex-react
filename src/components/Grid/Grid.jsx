@@ -39,7 +39,7 @@ function Grid({ cards, pokemonSprite, selectCard }) {
                             <Card 
                                 key={name}
                                 id={index} 
-                                pokemonName={`#${index + 1} - ${name}`} 
+                                pokemonName={name} 
                                 image={pokemonSprite(url)}
                                 selectCard={selectCard}
                             />

@@ -26,7 +26,7 @@ const PokemonName = styled.strong`
     font-family: "pokemon-emerald";
 `;
 
-function Card({ pokemonName, image, selectCard = () => {} }) {
+function Card({ id, pokemonName, image, selectCard = () => {} }) {
     return (
         <PokemonCard 
             key={pokemonName} 
@@ -34,7 +34,7 @@ function Card({ pokemonName, image, selectCard = () => {} }) {
             backgroundImage={pokeballImage} 
             onClick={() => selectCard(pokemonName)}
         >
-            <PokemonName>{pokemonName}</PokemonName>
+            <PokemonName>{`#${id + 1} ${pokemonName}`}</PokemonName>
             <ImageContainer src={image} alt={pokemonName} className="card-img-top" />
         </PokemonCard>
     );
