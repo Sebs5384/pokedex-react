@@ -1,6 +1,15 @@
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 import ImageContainer from "../shared/ImageContainer";
 import pokeballImage from "../../assets/img/misc/pokeball.png"
+import emeraldFont from "../../assets/fonts/pokemon-emerald.ttf";
+
+const emeraldFontFace = css`
+    @font-face{
+        font-family: "pokemon-emerald";
+        src: url(${emeraldFont});
+    }
+`;
 
 const PokemonCard = styled.div`
     border: 3px solid #dc143c;
@@ -11,7 +20,10 @@ const PokemonCard = styled.div`
 `;
 
 const PokemonName = styled.strong`
+    text-transform: capitalize;
     font-size: 1.5rem;
+    ${emeraldFontFace}
+    font-family: "pokemon-emerald";
 `;
 
 function Card({ pokemonName, image, selectCard = () => {} }) {
