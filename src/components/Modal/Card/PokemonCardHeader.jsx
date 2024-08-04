@@ -1,7 +1,7 @@
 import { PokemonContainer, CardSection, PokemonCardText, CardTopSeparator, PokemonCloseButton, PokemonTitle } from "./Pokemon";
 import ImageContainer from "../../shared/ImageContainer";
 
-function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal }) {
+function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPreviousEvolution }) {
     return(
         <PokemonContainer closeButton>
             <CardSection className="container-fluid species-wrapper">
@@ -15,7 +15,7 @@ function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal }) {
                     <CardTopSeparator className="col-11" />
                 </PokemonContainer>
                 <PokemonTitle className="row">
-                    <ImageContainer src={pokemonSprite} className="col-2 align-self-center text-center pokemon-species-image" />
+                    <ImageContainer src={pokemonSprite} onClick={() => selectPreviousEvolution(selectedCard.evolutionGenus.id)} className="col-2 align-self-center text-center pokemon-species-image" />
                     <PokemonCardText className="col-4 align-self-center text-center title-font capitalize">{selectedCard.name}</PokemonCardText>
                     <PokemonCardText className="col-4 align-self-center text-end title-font hp-text">{selectedCard.stats.hp}</PokemonCardText>
                     <ImageContainer src={selectedCard.typeImage.mainTypeIcon} className="col-1 align-self-center pokemon-species-image text-start" />

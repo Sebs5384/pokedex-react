@@ -66,6 +66,7 @@ function Pokedex() {
                 selectedCard={cardData} 
                 pokemonSprite={pokemonSprite}
                 loadingCard={loading}
+                selectPreviousEvolution={handleSelectedCard}
             />
         </>
     );
