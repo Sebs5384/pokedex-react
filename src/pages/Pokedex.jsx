@@ -65,7 +65,7 @@ function Pokedex() {
                 handleClose={handleCloseCard} 
                 selectedCard={cardData} 
                 pokemonSprite={pokemonSprite}
-                loading={loading}
+                loadingCard={loading}
             />
         </>
     );
