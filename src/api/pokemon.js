@@ -39,18 +39,37 @@ async function getPokemonSpecies(name) {
         });
 };
 
-async function getPokemonSprite(id, artwork = "") {
-    return new Promise((resolve, reject) => {
-        const pokemonSpriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${artwork}/${id}.png`;
-        const pokemonSprite = new Image();
-        pokemonSprite.onload = () => {
-            resolve(pokemonSpriteUrl);
+async function getPokemonSprite(pokemon, artwork = "") {
+    const getSpriteUrl = (id) => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${artwork}/${id}.png`; 
+
+    const loadSprite = (url) => 
+        new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(url);
+            img.onerror = () => resolve(null);
+            img.src = url;
+        });
+    
+    try {
+        const currentSpriteUrl = getSpriteUrl(pokemon.id);
+        const currentSpritePromise = loadSprite(currentSpriteUrl);
+
+        let previousSpritePromise = Promise.resolve(null);
+        
+        if(pokemon.evolutionGenus && pokemon.evolutionGenus.id) {
+            const previousSpriteUrl = getSpriteUrl(pokemon.evolutionGenus.id);
+            previousSpritePromise = loadSprite(previousSpriteUrl);
         };
-        pokemonSprite.onerror = () => {
-            reject(new Error("Pokemon Sprite Error"));
-        };
-        pokemonSprite.src = pokemonSpriteUrl;
-    });
+
+        const [currentSprite, previousSprite] = await Promise.all([currentSpritePromise, previousSpritePromise]);
+
+        return {
+            current: currentSprite,
+            previous: previousSprite
+        }
+    } catch (error) {
+        throw new Error(`Error loading sprite: ${error.message}`);
+    };
 };
 
 export {
