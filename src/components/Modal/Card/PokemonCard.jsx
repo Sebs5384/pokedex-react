@@ -18,7 +18,7 @@ function PokemonCard({visibility, handleClose, selectedCard, pokemonSprite, load
                         selectPreviousEvolution={selectPreviousEvolution}
                     />
                     <PokemonCardBody selectedCard={selectedCard} pokemonSprite={pokemonSprite}/>
-                    <PokemonCardFooter selectedCard={selectedCard} pokemonSprite={pokemonSprite}/>
+                    <PokemonCardFooter selectedCard={selectedCard}/>
                 </PokemonModal>
             }
         </>

@@ -10,11 +10,11 @@ function useGetPokemonSprite(pokemon, artwork) {
             dispatch({ type: "FETCH_REQUEST" });
             
             try {
-                const pokemonSprite = await getPokemonSprite(pokemon.id, artwork);
+                const pokemonSprite = await getPokemonSprite(pokemon, artwork);
                 dispatch({ type: "FETCH_SUCCESS", payload: pokemonSprite });
             } catch (error) {
                 dispatch({ type: "FETCH_FAILURE", payload: error });
-            }
+            };
         };
         fetchPokemonSprite();
     }, [pokemon, artwork]);

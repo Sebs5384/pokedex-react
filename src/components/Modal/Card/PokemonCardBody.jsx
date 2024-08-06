@@ -8,7 +8,7 @@ function PokemonCardBody({ selectedCard, pokemonSprite }) {
             <CardSection className="container-fluid">
                 <PokemonContainer className="card card-border col-11 mx-auto" style={{background: selectedCard.backgroundStyle}}>
                     <PokemonContainer className="row card-body justify-content-center">
-                        <ImageContainer src={pokemonSprite} alt={selectedCard.name} className="col-8" />
+                        <ImageContainer src={pokemonSprite?.current} alt={selectedCard.name} className="col-8" />
                     </PokemonContainer>
                 </PokemonContainer>
             </CardSection>
