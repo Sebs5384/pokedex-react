@@ -6,4 +6,11 @@ function ImageContainer({ src, alt, className, onClick = () => {} }) {
     );
 };
 
+ImageContainer.propTypes = {
+    src: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired,
+    className: PropTypes.string,
+    onClick: PropTypes.func
+};
+
 export default ImageContainer;
