@@ -1,7 +1,7 @@
 import { usePagination, useSelectedCard, useGetPokemonSprite, useHandleCard } from "../hooks/index";
 import { setItemRange } from "../utils/general";
 import { getPokemonSpriteUrl } from "../utils/pokemon";
-import Banner from "../components/Banner/Banner";
+import Navbar from "../components/Navbar/Navbar";
 import Grid from "../components/Grid/Grid";
 import Paginator from "../components/Paginator/Paginator";
 import PokemonCard from "../components/Modal/Card/PokemonCard";
@@ -43,7 +43,7 @@ function Pokedex() {
 
     return (
         <>
-            <Banner />
+            <Navbar />
             <Grid 
                 cards={pokemonsInPage}
                 pokemonSprite={getPokemonSpriteUrl}
