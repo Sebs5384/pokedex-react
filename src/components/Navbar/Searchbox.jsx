@@ -1,12 +1,20 @@
-import { PokemonSearchInput, NavContainer } from "./Pokemon";
+import { NavInputGroup, NavContainer, NavInputGroupText, NavForm } from "./Pokemon";
+import ImageContainer from "../shared/ImageContainer";
+import magnifier from "../../assets/img/misc/magnifier.png"
 
 function Searchbox() {
     return(
         <NavContainer >
-            <PokemonSearchInput
-                type="search"
-                placeholder="Search"
-            />
+            <NavInputGroup>
+                <NavInputGroupText className="magnifier">
+                    <ImageContainer src={magnifier} alt="magnifier" />
+                </NavInputGroupText>
+                <NavForm 
+                    type="search"
+                    placeholder="Search Pokemon"
+                    className="search-input"
+                />
+            </NavInputGroup>
         </NavContainer>
     );
 };
