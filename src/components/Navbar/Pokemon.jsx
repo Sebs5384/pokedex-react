@@ -1,9 +1,9 @@
-import { Form } from "react-bootstrap";
+import { Form, InputGroup } from "react-bootstrap";
 import styled from "@emotion/styled";
 
 const Bar = styled.nav`
     display: flex;
-    justify-content: space-between;
+    padding: 0.5rem;
     align-items: center;
     background-color: #dc143c;
     border: 2px solid #dc143c;
@@ -11,23 +11,43 @@ const Bar = styled.nav`
     color: #fff;
 `;
 
-const NavContainer = styled.div`  
+const NavSection = styled.section`
+`;
+
+const NavContainer = styled.div`
     &.poke-logo {
         img {
-            width: 100%;
+            width: 225px;
+            height: 60px;
         }
     }
 `;
 
-const NavSection = styled.section``;
+const NavInputGroup = styled(InputGroup)`
+`;
 
-const PokemonSearchInput = styled(Form.Control)`
-    
+const NavInputGroupText = styled(InputGroup.Text)`
+    &.magnifier {
+        img {
+            width: 35px;
+            height: 35px;
+        }
+    }
+`;
+
+const NavForm = styled(Form.Control)`
+    &.search-input:focus {
+        color: black;
+        box-shadow: none;
+        border-color: white;
+    }
 `;
 
 export {
     Bar,
     NavContainer,
     NavSection,
-    PokemonSearchInput
-}
+    NavInputGroup,
+    NavInputGroupText,
+    NavForm
+};
