@@ -41,6 +41,10 @@ const NavForm = styled(Form.Control)`
         box-shadow: none;
         border-color: white;
     }
+
+    &.pokedex-search-box {
+        width: 400px;
+    }
 `;
 
 export {

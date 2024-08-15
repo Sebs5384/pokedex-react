@@ -12,7 +12,7 @@ function Searchbox() {
                 <NavForm 
                     type="search"
                     placeholder="Search Pokemon"
-                    className="search-input"
+                    className="search-input form-control pokedex-search-box"
                 />
             </NavInputGroup>
         </NavContainer>
