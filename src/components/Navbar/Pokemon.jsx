@@ -19,6 +19,26 @@ const NavContainer = styled.div`
         img {
             width: 225px;
             height: 60px;
+            margin-right: 50px;
+        }
+    }
+
+    &.poke-slot {
+        img {
+            background-size: cover;
+            background-repeat: no-repeat;
+            filter: drop-shadow(3px 1px 3px black);
+            width: 55px;
+            height: 55px;
+            margin-right: 50px;
+        }
+    }
+
+    &.catch-pokemon {
+        img {
+            width: 150px;
+            height: 50px;
+            margin-right: 100px;
         }
     }
 `;
@@ -44,6 +64,7 @@ const NavForm = styled(Form.Control)`
 
     &.pokedex-search-box {
         width: 400px;
+        margin-right: 20px;
     }
 `;
 
