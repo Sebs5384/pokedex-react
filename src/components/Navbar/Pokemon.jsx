@@ -1,4 +1,4 @@
-import { Form, InputGroup } from "react-bootstrap";
+import { Form, InputGroup, Button } from "react-bootstrap";
 import styled from "@emotion/styled";
 
 const Bar = styled.nav`
@@ -68,11 +68,25 @@ const NavForm = styled(Form.Control)`
     }
 `;
 
+const PokeballButton = styled(Button)`
+    background-image: url(${props => props.backgroundImage});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: drop-shadow(3px 1px 3px black);
+    border-color: black;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    margin-right: 50px;
+`;
+
 export {
     Bar,
     NavContainer,
     NavSection,
     NavInputGroup,
     NavInputGroupText,
-    NavForm
+    NavForm,
+    PokeballButton,
 };
