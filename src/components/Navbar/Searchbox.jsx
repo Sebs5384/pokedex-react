@@ -2,7 +2,7 @@ import { NavInputGroup, NavContainer, NavInputGroupText, NavForm } from "./Pokem
 import ImageContainer from "../shared/ImageContainer";
 import magnifier from "../../assets/img/misc/magnifier.png"
 
-function Searchbox() {
+function Searchbox({ pokemonList }) {
     return(
         <NavContainer >
             <NavInputGroup>
@@ -13,7 +13,11 @@ function Searchbox() {
                     type="search"
                     placeholder="Search Pokemon"
                     className="search-input form-control pokedex-search-box"
-                />
+                >
+                    {pokemonList.map((pokemon) => {
+                         
+                    })}
+                </NavForm>
             </NavInputGroup>
         </NavContainer>
     );
