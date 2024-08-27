@@ -2,6 +2,14 @@ import { convertDecimeterToFeet, convertGramToLb } from "./general";
 import pokemonTypeImage from "../assets/img/pokemon-type/index";
 import textures from "../assets/img/modal-texture/index";
 
+function getPokemonNames(pokemons) {
+  const pokemonNames = pokemons.map((pokemon) => {
+    return pokemon.name;
+  });
+
+  return pokemonNames;
+};
+
 function parsePokemonName(name) {
   const words = name.split('-');
   const pokemonName = words[0].lenght === 2 ? `${words[0]}${words[1]}` : words[0];
@@ -239,4 +247,5 @@ function parsePokemonData(pokemon, species) {
 export {
   parsePokemonData,
   getPokemonSpriteUrl,
+  getPokemonNames,
 };
