@@ -3,11 +3,11 @@ import Logo from "./Logo";
 import Searchbox from "./Searchbox";
 import CatchPokemon from "./CatchPokemon";
 
-function Navbar() {
+function Navbar({ list }) {
     return (
         <Bar>
             <Logo />
-            <Searchbox />
+            <Searchbox pokemonList={list} />
             <CatchPokemon />
         </Bar>
     );

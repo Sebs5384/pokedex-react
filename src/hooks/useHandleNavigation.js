@@ -1,11 +1,11 @@
 import { useReducer, useEffect } from "react";
 import { navigationReducer, initialNavigationState } from "../reducers/navigationReducer";
 import { useFetchPokemons } from "./index";
-import { randomizeNumber } from "../utils/general";
+import { getPokemonNames, randomizeNumber } from "../utils/index";
 
 function useHandleNavigation(limit, offset) {
     const [state, dispatch] = useReducer(navigationReducer, initialNavigationState);
-    const { loading, pokemons } = useFetchPokemons(limit, offset);
+    const { loading, pokemons, error } = useFetchPokemons(limit, offset);
 
     const setRandomPokemon = () => {
         const randomPokemonId = randomizeNumber(pokemons.count);
@@ -13,13 +13,15 @@ function useHandleNavigation(limit, offset) {
         dispatch({ type: "SET_RANDOM_POKEMON", payload: randomPokemonId });
     };
 
-    const setSearchBoxItems = () => {
-
-    };
-
     useEffect(() => {
-        console.log(pokemons)
-    }, [limit, offset]);
+        if(state.searchBoxItems) {
+            dispatch({ type: "SET_SEARCHED_POKEMONS", payload: getPokemonNames(state.searchBoxItems) });
+        };
+    }, [state.searchBoxItems]);
+    
+    return {
+        pokemonList: state.searchBoxItems,
+    }
 };
 
 export default useHandleNavigation;

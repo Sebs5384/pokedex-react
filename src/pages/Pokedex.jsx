@@ -1,4 +1,4 @@
-import { usePagination, useSelectedCard, useGetPokemonSprite, useHandleCard } from "../hooks/index";
+import { usePagination, useSelectedCard, useGetPokemonSprite, useHandleCard, useHandleNavigation } from "../hooks/index";
 import { setItemRange } from "../utils/general";
 import { getPokemonSpriteUrl } from "../utils/pokemon";
 import Navbar from "../components/Navbar/Navbar";
@@ -7,6 +7,8 @@ import Paginator from "../components/Paginator/Paginator";
 import PokemonCard from "../components/Modal/Card/PokemonCard";
 
 function Pokedex() {
+    const MAX_LIMIT = 100000;
+    const OFFSET = 0;
     const POKEMONS_PER_PAGE = 20;
     const INITIAL_PAGE_INDEX = 1;
     const artwork = "other/official-artwork/";
@@ -40,10 +42,11 @@ function Pokedex() {
         handleSelectedCard,
         handleCloseCard,
     } = useHandleCard(setSelectedCard, loadingCard, loadingSprite);
+    const { pokemonList } = useHandleNavigation(MAX_LIMIT, OFFSET);
 
     return (
         <>
-            <Navbar />
+            <Navbar list={pokemonList}  />
             <Grid 
                 cards={pokemonsInPage}
                 pokemonSprite={getPokemonSpriteUrl}
