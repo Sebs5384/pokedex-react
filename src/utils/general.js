@@ -14,8 +14,13 @@ function convertDecimeterToFeet(meters) {
     return (meters * 0.328084).toFixed(2).replace('.', "'");
 };
 
+function randomizeNumber(number) {
+    return Math.floor(Math.random() * number);
+};
+
 export {
     setItemRange,
     convertDecimeterToFeet,
     convertGramToLb,
+    randomizeNumber
 };
