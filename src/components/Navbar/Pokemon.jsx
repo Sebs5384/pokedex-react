@@ -17,8 +17,8 @@ const NavSection = styled.section`
 const NavContainer = styled.div`
     &.poke-logo {
         img {
-            width: 225px;
-            height: 60px;
+            width: 150px;
+            height: 50px;
             margin-right: 50px;
         }
     }
@@ -28,17 +28,17 @@ const NavContainer = styled.div`
             background-size: cover;
             background-repeat: no-repeat;
             filter: drop-shadow(3px 1px 3px black);
-            width: 55px;
-            height: 55px;
+            width: 45px;
+            height: 45px;
             margin-right: 50px;
         }
     }
 
     &.catch-pokemon {
         img {
-            width: 150px;
-            height: 50px;
-            margin-right: 100px;
+            width: 120px;
+            height: 30px;
+            margin-right: 75px;
         }
     }
 `;
@@ -76,9 +76,9 @@ const PokeballButton = styled(Button)`
     filter: drop-shadow(3px 1px 3px black);
     border-color: black;
     border-radius: 50%;
-    width: 55px;
-    height: 55px;
-    margin-right: 50px;
+    width: 50px;
+    height: 50px;
+    margin-right: 25px;
 `;
 
 export {

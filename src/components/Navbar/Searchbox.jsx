@@ -14,9 +14,6 @@ function Searchbox({ pokemonList }) {
                     placeholder="Search Pokemon"
                     className="search-input form-control pokedex-search-box"
                 >
-                    {pokemonList.map((pokemon) => {
-                         
-                    })}
                 </NavForm>
             </NavInputGroup>
         </NavContainer>
