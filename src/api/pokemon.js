@@ -26,9 +26,9 @@ async function getPokemon(name) {
         });
 };
 
-async function getPokemonSpecies(name) {
+async function getPokemonSpecies(species) {
     
-    const speciesURL = `${URL}/pokemon-species/${name}`;
+    const speciesURL = `${URL}/pokemon-species/${species}`;
     return await fetch(speciesURL)
         .then(response => response.json())
         .catch((error) => {

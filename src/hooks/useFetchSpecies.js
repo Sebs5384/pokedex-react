@@ -2,7 +2,7 @@ import { useEffect, useReducer } from "react";
 import { pokemonReducer, initialPokemonState } from "../reducers";
 import { getPokemonSpecies } from "../api/pokemon";
 
-function useFetchSpecies(name) {
+function useFetchSpecies(species) {
     const [state, dispatch] = useReducer(pokemonReducer, initialPokemonState);
 
     useEffect(() => {
@@ -10,7 +10,8 @@ function useFetchSpecies(name) {
             dispatch({ type: "FETCH_REQUEST" });
 
             try {
-                const speciesData = await getPokemonSpecies(name);
+                const speciesName = species.split('-')[0];
+                const speciesData = await getPokemonSpecies(speciesName);
                 dispatch({ type: "FETCH_SUCCESS", payload: speciesData });
             } catch (error) {
                 dispatch({ type: "FETCH_FAILURE", payload: error });
@@ -18,7 +19,7 @@ function useFetchSpecies(name) {
         };
 
         fetchSpeciesData();
-    }, [name]);
+    }, [species]);
 
     return {
         loading: state.loading,
