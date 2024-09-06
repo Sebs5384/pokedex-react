@@ -6,7 +6,7 @@ import useTotalPages from "./useTotalPages";
 import useSelectedCard from "./useSelectedCard";
 import useGetPokemonSprite from "./useGetPokemonSprite";
 import useHandleCard from "./useHandleCard";
-import useHandleNavigation from "./useHandleNavigation";
+import useHandleSearchbox from "./useHandleSearchbox";
 
 export {
     useFetchPokemons,
@@ -17,5 +17,5 @@ export {
     useTotalPages,
     useSelectedCard,
     useHandleCard,
-    useHandleNavigation
+    useHandleSearchbox
 };
