@@ -1,4 +1,4 @@
-import { usePagination, useSelectedCard, useGetPokemonSprite, useHandleCard, useHandleNavigation } from "../hooks/index";
+import { usePagination, useSelectedCard, useGetPokemonSprite, useHandleCard, useHandleNavigation, useHandleSearchbox } from "../hooks/index";
 import { setItemRange } from "../utils/general";
 import { getPokemonSpriteUrl } from "../utils/pokemon";
 import Navbar from "../components/Navbar/Navbar";
@@ -42,11 +42,29 @@ function Pokedex() {
         handleSelectedCard,
         handleCloseCard,
     } = useHandleCard(setSelectedCard, loadingCard, loadingSprite);
-    const { pokemonList } = useHandleNavigation(MAX_LIMIT, OFFSET);
+    const { 
+        pokemonList,
+        searchBoxPokemon,
+        dropdownVisibility,
+        filteredPokemons,
+        handleSearchPokemon,
+        handleInputFocus,
+        handleInputOnBlur,
+        selectPokemonFromList
+    } = useHandleSearchbox(MAX_LIMIT, OFFSET, setSelectedCard);
 
     return (
         <>
-            <Navbar list={pokemonList}  />
+            <Navbar 
+                list={pokemonList}
+                searchItem={searchBoxPokemon}
+                listVisibility={dropdownVisibility}
+                handleSearchbox={handleSearchPokemon}
+                handleInput={handleInputFocus}
+                handleInputOnBlur={handleInputOnBlur}
+                selectPokemon={handleSelectedCard}
+                filteredPokemons={filteredPokemons}
+            />
             <Grid 
                 cards={pokemonsInPage}
                 pokemonSprite={getPokemonSpriteUrl}
