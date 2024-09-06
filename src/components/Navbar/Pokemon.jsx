@@ -1,4 +1,4 @@
-import { Form, InputGroup, Button } from "react-bootstrap";
+import { Form, InputGroup, Button, Dropdown } from "react-bootstrap";
 import styled from "@emotion/styled";
 
 const Bar = styled.nav`
@@ -81,6 +81,18 @@ const PokeballButton = styled(Button)`
     margin-right: 25px;
 `;
 
+const NavDropdown = styled(Dropdown)`
+`;
+
+const NavDropdownMenu = styled(Dropdown.Menu)`
+    max-height: 250px;
+    width: 96%;
+    overflow-y: scroll;
+`;
+
+const NavDropdownItem = styled(Dropdown.Item)`
+`;
+
 export {
     Bar,
     NavContainer,
@@ -89,4 +101,7 @@ export {
     NavInputGroupText,
     NavForm,
     PokeballButton,
+    NavDropdown,
+    NavDropdownMenu,
+    NavDropdownItem
 };

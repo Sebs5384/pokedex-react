@@ -1,6 +1,5 @@
 import { usePagination, useSelectedCard, useGetPokemonSprite, useHandleCard, useHandleNavigation, useHandleSearchbox } from "../hooks/index";
-import { setItemRange } from "../utils/general";
-import { getPokemonSpriteUrl } from "../utils/pokemon";
+import { setItemRange, getPokemonSpriteUrl } from "../utils/index";
 import Navbar from "../components/Navbar/Navbar";
 import Grid from "../components/Grid/Grid";
 import Paginator from "../components/Paginator/Paginator";
