@@ -5,7 +5,7 @@ import { getPokemonNames } from "../utils/index";
 
 function useHandleSearchbox(limit, offset) {
     const [state, dispatch] = useReducer(searchboxReducer, initialSearchboxState);
-    const { loading, pokemons, error } = useFetchPokemons(limit, offset);
+    const { pokemons } = useFetchPokemons(limit, offset);
 
     const handleSearchPokemon = (pokemon) => {
         dispatch({ type: "SET_SEARCH_BOX_POKEMON", payload: pokemon.target.value });

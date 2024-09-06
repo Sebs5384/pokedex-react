@@ -1,4 +1,4 @@
-import { usePagination, useSelectedCard, useGetPokemonSprite, useHandleCard, useHandleNavigation, useHandleSearchbox } from "../hooks/index";
+import { usePagination, useSelectedCard, useGetPokemonSprite, useHandleCard, useHandleSearchbox } from "../hooks/index";
 import { setItemRange, getPokemonSpriteUrl } from "../utils/index";
 import Navbar from "../components/Navbar/Navbar";
 import Grid from "../components/Grid/Grid";
@@ -49,7 +49,6 @@ function Pokedex() {
         handleSearchPokemon,
         handleInputFocus,
         handleInputOnBlur,
-        selectPokemonFromList
     } = useHandleSearchbox(MAX_LIMIT, OFFSET, setSelectedCard);
 
     return (
