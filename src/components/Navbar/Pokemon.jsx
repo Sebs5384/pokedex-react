@@ -79,6 +79,46 @@ const PokeballButton = styled(Button)`
     width: 50px;
     height: 50px;
     margin-right: 25px;
+
+    &.poke-shake {
+        animation: poke-shake 5s;
+    }
+
+    @keyFrames poke-shake {
+        0% {
+            transform: translateX(0);
+        }
+        10% {
+            transform: translateX(-15px) rotateZ(-15deg);
+        }
+        20% {
+            transform: translateX(15px) rotateZ(15deg);
+        }
+        30% {
+            transform: translateX(-10px) rotateZ(-10deg);
+        }
+        40% {
+            transform: translateX(10px) rotateZ(10deg);
+        }
+        50% {
+            transform: translateX(-5px) rotateZ(-5deg);
+        }
+        60% {
+            transform: translateX(10px) rotateZ(10deg);
+        }
+        70% {
+            transform: translateX(-10px) rotateZ(-10deg);
+        }
+        80% {
+            transform: translateX(15px) rotateZ(15deg);
+        }
+        90% {
+            transform: translateX(-15px) rotateZ(-15deg);
+        }
+        100% {
+            transform: translateX(0) rotateZ(0);
+        }
+    }
 `;
 
 const NavDropdown = styled(Dropdown)`
