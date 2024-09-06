@@ -18,7 +18,9 @@ function Navbar({ list, searchItem, listVisibility, handleSearchbox, handleInput
                 selectPokemon={selectPokemon}
                 filteredPokemons={filteredPokemons}
             />
-            <CatchPokemon />
+            <CatchPokemon 
+                selectPokemon={selectPokemon} 
+            />
         </Bar>
     );
 };
