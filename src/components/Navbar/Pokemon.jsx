@@ -91,6 +91,7 @@ const NavDropdownMenu = styled(Dropdown.Menu)`
 `;
 
 const NavDropdownItem = styled(Dropdown.Item)`
+    text-transform: capitalize;
 `;
 
 export {
