@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from "react";
 import { catchPokemonReducer, initialCatchPokemonState } from "../reducers/index";
 import { useFetchPokemon } from "./index";
-import { randomizeNumber, replaceNullItem } from "../utils/index";
+import { getRandomPokemon, replaceNullItem } from "../utils/index";
 
 function useHandleCatchPokemon(pokemonsCount, pokemonList) {
     const [state, dispatch] = useReducer(catchPokemonReducer, initialCatchPokemonState);
@@ -9,8 +9,10 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
 
     const handlePokeballClick = () => {
         if(state.caughtPokemons.includes(null)) { 
+            const randomPokemon = getRandomPokemon(pokemonsCount, pokemonList);
+
             dispatch({ type: "SET_SHAKING_EFFECT", payload: true });
-            dispatch({ type: "SET_RANDOM_POKEMON", payload: randomizeNumber(pokemonsCount) });
+            dispatch({ type: "SET_RANDOM_POKEMON", payload: randomPokemon });
             setTimeout(() => {
                 dispatch({ type: "SET_SHAKING_EFFECT", payload: false });
             }, 6000);
