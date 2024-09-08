@@ -1,4 +1,4 @@
-import { PokemonModal } from "./Pokemon";
+import { PokemonModal } from "../Pokemon";
 import PokemonCardHeader from "./PokemonCardHeader";
 import PokemonCardBody from "./PokemonCardBody";
 import PokemonCardFooter from "./PokemonCardFooter";

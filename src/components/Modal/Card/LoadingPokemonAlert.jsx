@@ -1,4 +1,4 @@
-import { LoadingPokemonCardModal, PokemonCardText, PokemonContainer } from "./Pokemon";
+import { LoadingPokemonCardModal, PokemonCardText, PokemonContainer } from "../Pokemon";
 
 function LoadingPokemonAlert({ showModal }) {
     return (

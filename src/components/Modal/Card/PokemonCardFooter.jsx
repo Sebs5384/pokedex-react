@@ -1,4 +1,4 @@
-import { PokemonContainer, CardSection, CardSeparator, PokemonCardText } from "./Pokemon";
+import { PokemonContainer, CardSection, CardSeparator, PokemonCardText } from "../Pokemon";
 import ImageContainer from "../../shared/ImageContainer";
 
 

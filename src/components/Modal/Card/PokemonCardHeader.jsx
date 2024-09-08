@@ -1,4 +1,4 @@
-import { PokemonContainer, CardSection, PokemonCardText, CardTopSeparator, PokemonCloseButton, PokemonTitle } from "./Pokemon";
+import { PokemonContainer, CardSection, PokemonCardText, CardTopSeparator, PokemonCloseButton, PokemonTitle } from "../Pokemon";
 import ImageContainer from "../../shared/ImageContainer";
 
 function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPreviousEvolution }) {

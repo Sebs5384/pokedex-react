@@ -1,4 +1,4 @@
-import { PokemonContainer, CardSection, PokemonCardText, CardSeparator  } from "./Pokemon";
+import { PokemonContainer, CardSection, PokemonCardText, CardSeparator  } from "../Pokemon";
 import { skillIcon, statusIcon, atkIcon, defIcon, speedIcon, spAtkIcon, spDefIcon } from "../../../assets/img/pokemon-stats";
 import ImageContainer from "../../shared/ImageContainer";
 
