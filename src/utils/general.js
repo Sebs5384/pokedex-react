@@ -18,9 +18,19 @@ function randomizeNumber(number) {
     return Math.floor(Math.random() * number);
 };
 
+function replaceNullItem(array, item) {
+    const nextIndex = array.findIndex((index) => index === null);
+    if(nextIndex !== -1) {
+        const updatedArray = [...array];
+        updatedArray[nextIndex] = item;
+        return updatedArray;
+    };
+};
+
 export {
     setItemRange,
     convertDecimeterToFeet,
     convertGramToLb,
-    randomizeNumber
+    randomizeNumber,
+    replaceNullItem,
 };
