@@ -1,4 +1,4 @@
-import { usePagination, useSelectedCard, useGetPokemonSprite, useHandleCard, useHandleSearchbox } from "../hooks/index";
+import { usePagination, useSelectedCard, useGetPokemonSprite, useHandleCard, useHandleSearchbox, useHandleCatchPokemon } from "../hooks/index";
 import { setItemRange, getPokemonSpriteUrl } from "../utils/index";
 import Navbar from "../components/Navbar/Navbar";
 import Grid from "../components/Grid/Grid";
@@ -31,7 +31,6 @@ function Pokedex() {
         setCurrentPage 
     } = usePagination(POKEMONS_PER_PAGE, INITIAL_PAGE_INDEX);
     const { 
-        errorSprite, 
         pokemonSprite, 
         loadingSprite 
     } = useGetPokemonSprite(cardData, artwork);
@@ -46,10 +45,16 @@ function Pokedex() {
         searchBoxPokemon,
         dropdownVisibility,
         filteredPokemons,
+        pokemonsCount,
         handleSearchPokemon,
         handleInputFocus,
         handleInputOnBlur,
     } = useHandleSearchbox(MAX_LIMIT, OFFSET, setSelectedCard);
+    const {
+        caughtPokemons,
+        isShaking,
+        handlePokeballClick
+    } = useHandleCatchPokemon(pokemonsCount, pokemonList);
 
     return (
         <>
@@ -62,6 +67,9 @@ function Pokedex() {
                 handleInputOnBlur={handleInputOnBlur}
                 selectPokemon={handleSelectedCard}
                 filteredPokemons={filteredPokemons}
+                handlePokeballClick={handlePokeballClick}
+                isShaking={isShaking}
+                caughtPokemons={caughtPokemons}
             />
             <Grid 
                 cards={pokemonsInPage}

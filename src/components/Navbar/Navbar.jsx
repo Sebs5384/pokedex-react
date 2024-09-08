@@ -4,7 +4,7 @@ import Searchbox from "./Searchbox";
 import CatchPokemon from "./CatchPokemon";
 import { useEffect} from "react";
 
-function Navbar({ list, searchItem, listVisibility, handleSearchbox, handleInput, handleInputOnBlur, selectPokemon, filteredPokemons }) {
+function Navbar({ list, searchItem, listVisibility, handleSearchbox, handleInput, handleInputOnBlur, selectPokemon, filteredPokemons, handlePokeballClick, isShaking, caughtPokemons }) {
     return (
         <Bar>
             <Logo />
@@ -19,7 +19,10 @@ function Navbar({ list, searchItem, listVisibility, handleSearchbox, handleInput
                 filteredPokemons={filteredPokemons}
             />
             <CatchPokemon 
-                selectPokemon={selectPokemon} 
+                selectPokemon={selectPokemon}
+                isShaking={isShaking}
+                caughtPokemons={caughtPokemons}
+                handlePokeballClick={handlePokeballClick}
             />
         </Bar>
     );
