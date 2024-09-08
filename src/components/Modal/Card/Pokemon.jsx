@@ -1,5 +1,14 @@
 import { Modal, CloseButton } from "react-bootstrap";
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
+import emeraldFont from "../../../assets/fonts/pokemon-emerald.ttf";
+
+const emeraldFontFace = css`
+    @font-face{
+        font-family: "pokemon-emerald";
+        src: url(${emeraldFont});
+    }
+`;
 
 const PokemonModal = styled(Modal)`
     .modal-content {
@@ -116,6 +125,12 @@ const PokemonCardText = styled.strong`
 
     &.footer-font {
         font-size: 10px;
+    }
+
+    &.emerald-font {
+        font-size: 3rem;
+        ${emeraldFontFace}
+        font-family: "pokemon-emerald";
     }
 `;
 
