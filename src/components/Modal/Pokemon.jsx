@@ -36,7 +36,7 @@ const PokemonModal = styled(Modal)`
     }
 `;
 
-const LoadingPokemonCardModal = styled(Modal)`
+const LoadingPokemonAlertModal = styled(Modal)`
     .modal-content {
         background-color: rgb(60, 59, 59);
     }
@@ -153,5 +153,5 @@ export {
     PokemonCardText,
     CardTopSeparator,
     CardSeparator,
-    LoadingPokemonCardModal     
+    LoadingPokemonAlertModal     
 };

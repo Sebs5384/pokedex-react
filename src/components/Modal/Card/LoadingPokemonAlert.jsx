@@ -1,8 +1,8 @@
-import { LoadingPokemonCardModal, PokemonCardText, PokemonContainer } from "../Pokemon";
+import { LoadingPokemonAlertModal, PokemonCardText, PokemonContainer } from "../Pokemon";
 
 function LoadingPokemonAlert({ showModal }) {
     return (
-        <LoadingPokemonCardModal show={showModal} size="s" aria-labelledby="contained-modal-title-vcenter" centered>
+        <LoadingPokemonAlertModal show={showModal} size="s" aria-labelledby="contained-modal-title-vcenter" centered>
             <PokemonContainer className="modal-body">
                 <PokemonContainer className="loading-background d-flex justify-content-center align-items-center">
                     <PokemonContainer className="row w-100 justify-content-center">
@@ -12,7 +12,7 @@ function LoadingPokemonAlert({ showModal }) {
                     </PokemonContainer>
                 </PokemonContainer>
             </PokemonContainer>
-        </LoadingPokemonCardModal>
+        </LoadingPokemonAlertModal>
     );
 };
 
