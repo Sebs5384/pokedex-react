@@ -1,4 +1,4 @@
-import { convertDecimeterToFeet, convertGramToLb } from "./general";
+import { convertDecimeterToFeet, convertGramToLb, randomizeNumber } from "./general";
 import pokemonTypeImage from "../assets/img/pokemon-type/index";
 import textures from "../assets/img/modal-texture/index";
 
@@ -110,6 +110,12 @@ function getTypeImage(types) {
   };
 
   return typeImage;
+};
+
+function getRandomPokemon(pokemonsCount, pokemonList) {
+  const randomNumber = randomizeNumber(pokemonsCount);
+
+  return pokemonList[randomNumber];
 };
 
 const advantageChart = {
@@ -248,4 +254,5 @@ export {
   parsePokemonData,
   getPokemonSpriteUrl,
   getPokemonNames,
+  getRandomPokemon,
 };
