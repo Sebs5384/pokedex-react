@@ -3,6 +3,7 @@ import { paginationReducer, initialPaginationState } from "./paginationReducer";
 import { totalPagesReducer, initialTotalPagesState } from "./totalPagesReducer";
 import { selectedCardReducer, initialSelectedCardState } from "./selectedCardReducer";
 import { searchboxReducer, initialSearchboxState } from "./searchboxReducer";
+import { catchPokemonReducer, initialCatchPokemonState } from "./catchPokemonReducer";
 
 export {
     pokemonReducer,
@@ -14,5 +15,7 @@ export {
     selectedCardReducer,
     initialSelectedCardState,
     searchboxReducer,
-    initialSearchboxState
+    initialSearchboxState,
+    catchPokemonReducer,
+    initialCatchPokemonState
 };
