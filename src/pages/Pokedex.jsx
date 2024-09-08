@@ -30,16 +30,13 @@ function Pokedex() {
         setPreviousPage, 
         setCurrentPage 
     } = usePagination(POKEMONS_PER_PAGE, INITIAL_PAGE_INDEX);
-    const { 
-        pokemonSprite, 
-        loadingSprite 
-    } = useGetPokemonSprite(cardData, artwork);
     const {
         loading,
         modalVisibility,
+        pokemonSprite,
         handleSelectedCard,
         handleCloseCard,
-    } = useHandleCard(setSelectedCard, loadingCard, loadingSprite);
+    } = useHandleCard(setSelectedCard, loadingCard, cardData, artwork);
     const { 
         pokemonList,
         searchBoxPokemon,
