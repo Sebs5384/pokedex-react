@@ -23,6 +23,7 @@ function useHandleSearchbox(limit, offset) {
     useEffect(() => {
         if(!state.searchBoxItems && pokemons) {
             dispatch({ type: "SET_SEARCH_BOX_ITEMS", payload: getPokemonNames(pokemons.results) });
+            dispatch({ type: "SET_POKEMON_COUNT", payload: pokemons.count });
         };
     }, [pokemons, state.searchBoxItems]);
     
@@ -35,6 +36,7 @@ function useHandleSearchbox(limit, offset) {
         searchBoxPokemon: state.searchBoxPokemon,
         dropdownVisibility: state.dropdownVisibility,
         filteredPokemons: filteredPokemons,
+        pokemonsCount: state.pokemonCount,
         handleSearchPokemon,
         handleInputFocus,
         handleInputOnBlur,

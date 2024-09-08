@@ -23,6 +23,11 @@ function searchboxReducer(state = initialSearchboxState, action) {
                 ...state,
                 dropdownVisibility: payload
             };
+        case "SET_POKEMON_COUNT": 
+            return {
+                ...state,
+                pokemonCount: payload
+            };
         default:
             return state;
     };
