@@ -1,6 +1,6 @@
 import { LoadingPokemonCardModal, PokemonCardText, PokemonContainer } from "./Pokemon";
 
-function LoadingPokemonCard({ showModal }) {
+function LoadingPokemonAlert({ showModal }) {
     return (
         <LoadingPokemonCardModal show={showModal} size="s" aria-labelledby="contained-modal-title-vcenter" centered>
             <PokemonContainer className="modal-body">
@@ -16,4 +16,4 @@ function LoadingPokemonCard({ showModal }) {
     );
 };
 
-export default LoadingPokemonCard;
+export default LoadingPokemonAlert;
