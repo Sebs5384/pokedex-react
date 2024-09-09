@@ -10,7 +10,7 @@ const emeraldFontFace = css`
     }
 `;
 
-const PokemonModal = styled(Modal)`
+const PokemonCardModal = styled(Modal)`
     .modal-content {
         border: solid gold 12px;
         border-radius: 10px;
@@ -36,7 +36,7 @@ const PokemonModal = styled(Modal)`
     }
 `;
 
-const LoadingPokemonAlertModal = styled(Modal)`
+const PokemonAlertModal = styled(Modal)`
     .modal-content {
         background-color: rgb(60, 59, 59);
     }
@@ -81,7 +81,7 @@ const PokemonContainer = styled.div`
         margin-right: 5px;
     }
     
-    .loading-background {
+    .alert-background {
         border-style: outset;
         border-color: rgb(243, 60, 9);
         border-radius: 8px;
@@ -90,7 +90,7 @@ const PokemonContainer = styled.div`
         border-right: 15px solid rgb(243, 60, 9);
     }
 
-    .loading-text-background {
+    .alert-text-background {
         background-color: rgb(24, 184, 142);
         font-size: 50px;
         border-radius: 8px;
@@ -132,6 +132,37 @@ const PokemonCardText = styled.strong`
         ${emeraldFontFace}
         font-family: "pokemon-emerald";
     }
+
+    &.typewriter-effect {
+        overflow: hidden;
+        border-right: 0.15em solid transparent;
+        white-space: nowrap;
+        letter-spacing: 0.15em;
+        animation: typing 1s steps(40), cursor 0.75s step-end forwards;
+    }
+
+    &.typewriter-effect-delayed {
+        overflow: hidden;
+        border-right: 0.15em solid transparent;
+        white-space: nowrap;
+        letter-spacing: 0.15em;
+        animation: typing 1s steps(40), cursor 0.75s step-end forwards;
+        animation-fill-mode: forwards;
+        animation-delay: 1s;
+    }
+
+    @keyframes typing {
+        0% {
+            width: 0;
+        }
+        1% {
+            opacity: 1;
+        }
+        100% {
+            width: 100%;
+            opacity: 1;
+        }
+    }
 `;
 
 const CardTopSeparator = styled.hr`
@@ -145,7 +176,7 @@ const CardSeparator = styled.hr`
 `;
 
 export {
-    PokemonModal,
+    PokemonCardModal,
     PokemonCloseButton,
     PokemonTitle,
     CardSection,
@@ -153,5 +184,5 @@ export {
     PokemonCardText,
     CardTopSeparator,
     CardSeparator,
-    LoadingPokemonAlertModal     
+    PokemonAlertModal,     
 };
