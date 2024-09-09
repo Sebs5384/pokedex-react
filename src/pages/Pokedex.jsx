@@ -51,6 +51,10 @@ function Pokedex() {
     const {
         caughtPokemons,
         isShaking,
+        caughtModalVisibility,
+        topText,
+        bottomText,
+        textChange,
         handlePokeballClick
     } = useHandleCatchPokemon(pokemonsCount, pokemonList);
 
@@ -93,7 +97,12 @@ function Pokedex() {
                 loadingCard={loading}
                 selectPreviousEvolution={handleSelectedCard}
             />
-            <CaughtPokemonAlert showModal={true} />
+            <CaughtPokemonAlert 
+                showModal={caughtModalVisibility}
+                textChange={textChange} 
+                topText={topText} 
+                bottomText={bottomText} 
+            />
         </>
     );
 };

@@ -12,6 +12,7 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
             const randomPokemon = getRandomPokemon(pokemonsCount, pokemonList);
 
             dispatch({ type: "SET_SHAKING_EFFECT", payload: true });
+            dispatch({ type: "SET_MODAL_VISIBILITY", payload: true });
             dispatch({ type: "SET_RANDOM_POKEMON", payload: randomPokemon });
             setTimeout(() => {
                 dispatch({ type: "SET_SHAKING_EFFECT", payload: false });
@@ -26,9 +27,40 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
         };
     }, [pokemon]);
 
+    useEffect(() => {
+        if(state.isShaking) {
+            dispatch({type: "SET_TOP_TEXT", payload: "Gotcha !"});
+            dispatch({type: "SET_BOTTOM_TEXT", payload: `${state.randomPokemon.split('-')[0].toUpperCase()} was caught`});
+
+            const firstTimeout = setTimeout(() => {
+                dispatch({type: "SET_TOP_TEXT", payload: ""});
+                dispatch({type: "SET_BOTTOM_TEXT", payload: ""});
+                dispatch({type: "TEXT_CHANGE", payload: false});
+
+                setTimeout(() => {
+                    dispatch({type: "TEXT_CHANGE", payload: true});
+                    dispatch({type: "SET_TOP_TEXT", payload: `${state.randomPokemon.split('-')[0].toUpperCase()}'S data was`})
+                    dispatch({type: "SET_BOTTOM_TEXT", payload: "added to the POKéDEX"});
+
+                    setTimeout(() => {
+                        dispatch({type: "SET_MODAL_VISIBILITY", payload: false});
+                    }, 3000);
+                }, 500);
+            }, 3000);
+
+            return () => {
+                clearTimeout(firstTimeout);
+            };
+        }
+    }, [state.isShaking]);
+
     return {
         caughtPokemons: state.caughtPokemons,
         isShaking: state.isShaking,
+        caughtModalVisibility: state.modalVisibility,
+        topText: state.topText,
+        bottomText: state.bottomText,
+        textChange: state.textChange,
         handlePokeballClick
     };
 };
