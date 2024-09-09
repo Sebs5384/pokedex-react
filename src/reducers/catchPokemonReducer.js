@@ -1,7 +1,11 @@
 const initialCatchPokemonState = {
     randomNumber: null,
     caughtPokemons: [null, null, null],
-    isShaking: false
+    isShaking: false,
+    modalVisibility: false,
+    topText: "",
+    bottomText: "",
+    textChange: true
 };
 
 function catchPokemonReducer(state = initialCatchPokemonState, action) {
@@ -23,6 +27,26 @@ function catchPokemonReducer(state = initialCatchPokemonState, action) {
                 ...state,
                 isShaking: payload
             };
+        case "SET_MODAL_VISIBILITY": 
+            return {
+                ...state,
+                modalVisibility: payload
+            }
+        case "SET_TOP_TEXT": 
+            return {
+                ...state,
+                topText: payload
+            };
+        case "SET_BOTTOM_TEXT": 
+            return {
+                ...state,
+                bottomText: payload
+            };
+        case "TEXT_CHANGE": 
+            return {
+                ...state,
+                textChange: payload
+            }
         default:
             return state;
     };
