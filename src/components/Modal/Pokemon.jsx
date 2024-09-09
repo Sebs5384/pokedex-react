@@ -96,6 +96,10 @@ const PokemonContainer = styled.div`
         border-radius: 8px;
         color: white;
     }
+
+    .fixed-height {
+        min-height: 150px;
+    }
 `;
 
 const PokemonCardText = styled.strong`
@@ -145,6 +149,7 @@ const PokemonCardText = styled.strong`
         overflow: hidden;
         border-right: 0.15em solid transparent;
         white-space: nowrap;
+        opacity: 0;
         letter-spacing: 0.15em;
         animation: typing 1s steps(40), cursor 0.75s step-end forwards;
         animation-fill-mode: forwards;
