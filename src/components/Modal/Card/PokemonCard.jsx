@@ -1,4 +1,4 @@
-import { PokemonModal } from "../Pokemon";
+import { PokemonCardModal } from "../Pokemon";
 import PokemonCardHeader from "./PokemonCardHeader";
 import PokemonCardBody from "./PokemonCardBody";
 import PokemonCardFooter from "./PokemonCardFooter";
@@ -10,7 +10,7 @@ function PokemonCard({visibility, handleClose, selectedCard, pokemonSprite, load
     return(
         <>
             {loadingCard ? <LoadingPokemonAlert showModal={loadingCard} /> : 
-                <PokemonModal show={visibility} onHide={handleClose} backgroundTexture={selectedCard.backgroundTexture}>   
+                <PokemonCardModal show={visibility} onHide={handleClose} backgroundTexture={selectedCard.backgroundTexture}>   
                     <PokemonCardHeader 
                         selectedCard={selectedCard} 
                         pokemonSprite={pokemonSprite} 
@@ -19,7 +19,7 @@ function PokemonCard({visibility, handleClose, selectedCard, pokemonSprite, load
                     />
                     <PokemonCardBody selectedCard={selectedCard} pokemonSprite={pokemonSprite}/>
                     <PokemonCardFooter selectedCard={selectedCard}/>
-                </PokemonModal>
+                </PokemonCardModal>
             }
         </>
     );

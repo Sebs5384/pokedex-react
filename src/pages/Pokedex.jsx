@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar/Navbar";
 import Grid from "../components/Grid/Grid";
 import Paginator from "../components/Paginator/Paginator";
 import PokemonCard from "../components/Modal/Card/PokemonCard";
+import CaughtPokemonAlert from "../components/Modal/CatchPokemon/CaughtPokemonAlert";
 
 function Pokedex() {
     const MAX_LIMIT = 100000;
@@ -92,6 +93,7 @@ function Pokedex() {
                 loadingCard={loading}
                 selectPreviousEvolution={handleSelectedCard}
             />
+            <CaughtPokemonAlert showModal={true} />
         </>
     );
 };
