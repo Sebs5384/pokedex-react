@@ -16,7 +16,7 @@ function CatchPokemon({ selectPokemon, isShaking, caughtPokemons, handlePokeball
                 <ImageContainer src={catchPokemon}></ImageContainer>
             </NavContainer>
             <NavContainer className="poke-slot">
-                    {caughtPokemons.map((pokemon, index) => (
+                    {caughtPokemons && caughtPokemons.map((pokemon, index) => (
                         pokemon ? 
                         <ImageContainer 
                             key={index}
