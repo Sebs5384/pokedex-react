@@ -42,6 +42,12 @@ const PokemonAlertModal = styled(Modal)`
     }
 `;
 
+const PokemonSummaryModal = styled(Modal)`
+    .modal-content {
+        border: 3px solid rgb(82, 82, 82)
+    }
+`;
+
 const PokemonCloseButton = styled(CloseButton)`
     font-size: 0.7rem;
     position: relative;
@@ -99,6 +105,56 @@ const PokemonContainer = styled.div`
 
     .fixed-height {
         min-height: 150px;
+    }
+
+    &.registration-screen-background {
+        background-image: repeating-linear-gradient(0deg, #8dff9e, #0c5010, transparent 6px, transparent 6px);
+        background-size: 5px 100%;
+        margin: 0px 0px;
+    }
+
+    &.registration-details-background {
+        background-color: white;
+        border-radius: 8px;
+        border-bottom-right-radius: 60px;
+    }
+
+    &.registration-screen {
+        border-style: outset;
+        border-radius: 8px;
+        border: 3px solid rgb(82, 82, 82);
+        border-bottom-right-radius: 60px;
+    }
+
+    .registration-image-background {
+        background-color: rgb(198, 198, 198);
+        border: 4px solid white;
+        border-right: 5px gray;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .registration-image img {
+        width: 190px;
+        height: 190px;
+    }
+
+    .registration-info-background {
+        background-color: rgb(198, 198, 198);
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .genus-registration-font {
+        padding-left: 20px;
+    }
+    
+    .footprint-background {
+        background-color: rgb(198, 198, 198);
+        border-radius: 50%;
+        height: 65px;
+        width: 65px;
     }
 `;
 
@@ -189,5 +245,6 @@ export {
     PokemonCardText,
     CardTopSeparator,
     CardSeparator,
-    PokemonAlertModal,     
+    PokemonAlertModal,
+    PokemonSummaryModal     
 };

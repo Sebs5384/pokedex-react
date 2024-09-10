@@ -5,6 +5,7 @@ import Grid from "../components/Grid/Grid";
 import Paginator from "../components/Paginator/Paginator";
 import PokemonCard from "../components/Modal/Card/PokemonCard";
 import CaughtPokemonAlert from "../components/Modal/CatchPokemon/CaughtPokemonAlert";
+import CaughtPokemonRegistration from "../components/Modal/CatchPokemon/CaughtPokemonRegistration";
 
 function Pokedex() {
     const MAX_LIMIT = 100000;
@@ -102,6 +103,9 @@ function Pokedex() {
                 textChange={textChange} 
                 topText={topText} 
                 bottomText={bottomText} 
+            />
+            <CaughtPokemonRegistration 
+                 
             />
         </>
     );
