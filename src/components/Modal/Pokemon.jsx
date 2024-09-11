@@ -40,11 +40,22 @@ const PokemonAlertModal = styled(Modal)`
     .modal-content {
         background-color: rgb(60, 59, 59);
     }
+
+    &.emerald-font {
+        font-size: 3rem;
+        ${emeraldFontFace};
+        font-family: "pokemon-emerald";
+    }
 `;
 
 const PokemonSummaryModal = styled(Modal)`
     .modal-content {
         border: 3px solid rgb(82, 82, 82)
+    }
+    
+    &.emerald-font {
+        ${emeraldFontFace}
+        font-family: "pokemon-emerald";
     }
 `;
 
@@ -104,7 +115,7 @@ const PokemonContainer = styled.div`
     }
 
     .fixed-height {
-        min-height: 150px;
+        min-height: 190px;
     }
 
     &.registration-screen-background {
@@ -156,6 +167,56 @@ const PokemonContainer = styled.div`
         height: 65px;
         width: 65px;
     }
+
+    &.registration-corner {
+        position: relative;
+        display: inline-block;
+        padding: 2px;
+        border: 3px solid;
+        border-color: rgb(82, 82, 82);
+        border-radius: 4px;
+    }
+
+    &.registration-corner::before,
+    &.registration-corner::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 10px;
+    }
+
+    &.registration-corner:: before {
+        animation: tickAnimationLeft 0.7s alternate infinite;
+    }
+
+    &.registration-corner::after {
+        animation: tickAnimationRight 0.7s alternate infinite;
+    }
+
+    &.registration-corner::before {
+        left: 0;
+        border-radius: 1.7px;
+        background-image: linear-gradient(to left, rgb(255, 202, 44), rgb(255, 137, 2));
+    }
+
+    &.registration-corner::after {
+        right: 0;
+        border-radius: 1.7px;
+        background-image: linear-gradient(to right, rgb(255, 202, 44), rgb(255, 137, 2));
+    }
+
+    @keyframes tickAnimationLeft {
+        0% {
+            background-image: linear-gradient(to left, rgb(211, 211, 211), rgb(57, 57, 57));
+        }
+    }
+
+    @keyframes tickAnimationRight {
+        0% {
+            background-image: linear-gradient(to right, rgb(211, 211, 211), rgb(57, 57, 57));
+        }
+    }
 `;
 
 const PokemonCardText = styled.strong`
@@ -191,6 +252,12 @@ const PokemonCardText = styled.strong`
         font-size: 3rem;
         ${emeraldFontFace}
         font-family: "pokemon-emerald";
+    }
+`;
+
+const PokemonRegistrationText = styled.p`
+    &.registration-title-font {
+        font-size: 2rem;
     }
 
     &.typewriter-effect {
@@ -243,6 +310,7 @@ export {
     CardSection,
     PokemonContainer,
     PokemonCardText,
+    PokemonRegistrationText,
     CardTopSeparator,
     CardSeparator,
     PokemonAlertModal,
