@@ -1,12 +1,11 @@
+import { PokemonRegistrationText, PokemonContainer, PokemonSummaryModal } from "../Pokemon";
 import ImageContainer from "../../shared/ImageContainer";
-import { PokemonContainer, PokemonSummaryModal } from "../Pokemon";
-import { Modal } from "react-bootstrap";
 
 function CaughtPokemonRegistration({ pokemon }) {
     return (
-        <PokemonSummaryModal show={true} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-            <PokemonContainer className="text-center" style={{ fontSize: "18px" }}>
-                POKéDEX registration completed.
+        <PokemonSummaryModal show={true} className="emerald-font" size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+            <PokemonContainer className="registration-corner text-center w-100">
+                <PokemonRegistrationText className="registration-title-font mt-1 h2">POKéDEX registration completed.</PokemonRegistrationText>
             </PokemonContainer>
             <PokemonContainer className="modal-body row justify-content-center registration-screen-background">
                 <PokemonContainer className="col-11 registration-details-background">
@@ -27,7 +26,7 @@ function CaughtPokemonRegistration({ pokemon }) {
                                 <PokemonContainer className="col-8">
                                     <PokemonContainer className="row">
                                         <PokemonContainer className="mt-2 col-3 text-center description-underline h3">HT</PokemonContainer>
-                                        <PokemonContainer className="mt-2 col-7 text-end description-underline">7'55"</PokemonContainer>
+                                        <PokemonContainer className="mt-2 col-7 text-end description-underline h3">7'55"</PokemonContainer>
                                         <PokemonContainer className="col-3 text-center description-underline h3">WT</PokemonContainer>
                                         <PokemonContainer className="col-7 text-end description-underline h3">1.96 lbs.</PokemonContainer>
                                     </PokemonContainer>
@@ -42,10 +41,10 @@ function CaughtPokemonRegistration({ pokemon }) {
                     </PokemonContainer>
                 </PokemonContainer>
             </PokemonContainer>
-            <PokemonContainer className="text-center w-100 h1">
-                <PokemonContainer>
+            <PokemonContainer className="registration-corner text-center w-100">
+                <PokemonRegistrationText className="mt-2 h1">
                     When it bites with its massive and powerful jaws, it shakes its head and savagely tears its victim up.
-                </PokemonContainer>
+                </PokemonRegistrationText>
             </PokemonContainer>
         </PokemonSummaryModal>
     );
