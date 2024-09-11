@@ -3,9 +3,9 @@ import RegistrationHeader from "./RegistrationHeader";
 import RegistrationBody from "./RegistrationBody";
 import RegistrationFooter from "./RegistrationFooter";
 
-function CaughtPokemonRegistration({ pokemon }) {
+function CaughtPokemonRegistration({ showModal, pokemon }) {
     return (
-        <PokemonSummaryModal show={true} className="emerald-font" size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+        <PokemonSummaryModal show={showModal} className="emerald-font" size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
             <RegistrationHeader />
             <RegistrationBody pokemon={pokemon} />
             <RegistrationFooter />

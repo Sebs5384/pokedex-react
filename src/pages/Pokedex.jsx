@@ -53,6 +53,7 @@ function Pokedex() {
         caughtPokemons,
         isShaking,
         caughtModalVisibility,
+        registrationModalVisibility,
         topText,
         bottomText,
         textChange,
@@ -105,7 +106,7 @@ function Pokedex() {
                 bottomText={bottomText} 
             />
             <CaughtPokemonRegistration 
-                 
+                showModal={registrationModalVisibility}
             />
         </>
     );

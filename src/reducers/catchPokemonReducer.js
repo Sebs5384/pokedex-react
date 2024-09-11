@@ -3,6 +3,7 @@ const initialCatchPokemonState = {
     caughtPokemons: [null, null, null],
     isShaking: false,
     modalVisibility: false,
+    registrationModalVisibility: false,
     topText: "",
     bottomText: "",
     textChange: true
@@ -32,6 +33,11 @@ function catchPokemonReducer(state = initialCatchPokemonState, action) {
                 ...state,
                 modalVisibility: payload
             }
+        case "SET_REGISTRATION_MODAL_VISIBILITY":
+            return {
+                ...state,
+                registrationModalVisibility: payload
+            };
         case "SET_TOP_TEXT": 
             return {
                 ...state,

@@ -44,6 +44,11 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
 
                     setTimeout(() => {
                         dispatch({type: "SET_MODAL_VISIBILITY", payload: false});
+                        dispatch({type: "SET_REGISTRATION_MODAL_VISIBILITY", payload: true});
+
+                        setTimeout(() => {
+                            dispatch({type: "SET_REGISTRATION_MODAL_VISIBILITY", payload: false});
+                        }, 10000);
                     }, 3000);
                 }, 500);
             }, 3000);
@@ -58,6 +63,7 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
         caughtPokemons: state.caughtPokemons,
         isShaking: state.isShaking,
         caughtModalVisibility: state.modalVisibility,
+        registrationModalVisibility: state.registrationModalVisibility,
         topText: state.topText,
         bottomText: state.bottomText,
         textChange: state.textChange,
