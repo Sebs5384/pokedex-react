@@ -1,11 +1,12 @@
 import { useReducer, useEffect } from "react";
 import { catchPokemonReducer, initialCatchPokemonState } from "../reducers/index";
-import { useFetchPokemon } from "./index";
-import { getRandomPokemon, replaceNullItem } from "../utils/index";
+import { useFetchPokemon, useFetchSpecies } from "./index";
+import { getRandomPokemon, replaceNullItem, parsePokemonData } from "../utils/index";
 
 function useHandleCatchPokemon(pokemonsCount, pokemonList) {
     const [state, dispatch] = useReducer(catchPokemonReducer, initialCatchPokemonState);
     const { pokemon } = useFetchPokemon(state.randomPokemon);
+    const { species } = useFetchSpecies(state.randomPokemon);
 
     const handlePokeballClick = () => {
         if(state.caughtPokemons.includes(null)) { 
@@ -21,11 +22,15 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
     };
 
     useEffect(() => {
-        if(state.randomPokemon && pokemon) {
-            const updatedCaughtPokemons = replaceNullItem(state.caughtPokemons, pokemon);
+        if(state.randomPokemon && pokemon && species) {
+            const parsedPokemon = parsePokemonData(pokemon, species);
+            dispatch({ type: "SET_CAUGHT_POKEMON", payload: parsedPokemon });
+
+            console.log(parsedPokemon.id);
+            const updatedCaughtPokemons = replaceNullItem(state.caughtPokemons, parsedPokemon);
             dispatch({ type: "SET_CAUGHT_POKEMONS", payload: updatedCaughtPokemons });
         };
-    }, [pokemon]);
+    }, [pokemon, species]);
 
     useEffect(() => {
         if(state.isShaking) {
@@ -61,6 +66,7 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
 
     return {
         caughtPokemons: state.caughtPokemons,
+        caughtPokemon: state.caughtPokemon,
         isShaking: state.isShaking,
         caughtModalVisibility: state.modalVisibility,
         registrationModalVisibility: state.registrationModalVisibility,
