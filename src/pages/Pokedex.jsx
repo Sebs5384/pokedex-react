@@ -51,6 +51,7 @@ function Pokedex() {
     } = useHandleSearchbox(MAX_LIMIT, OFFSET, setSelectedCard);
     const {
         caughtPokemons,
+        caughtPokemon,
         isShaking,
         caughtModalVisibility,
         registrationModalVisibility,
@@ -107,6 +108,7 @@ function Pokedex() {
             />
             <CaughtPokemonRegistration 
                 showModal={registrationModalVisibility}
+                caughtPokemon={caughtPokemon}
             />
         </>
     );
