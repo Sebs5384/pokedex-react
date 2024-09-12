@@ -68,7 +68,7 @@ const NavForm = styled(Form.Control)`
     }
 `;
 
-const PokeballButton = styled(Button)`
+const PokeballButton = styled(({ backgroundImage, ...rest}) => <Button {...rest}/>)`
     background-image: url(${props => props.backgroundImage});
     background-size: cover;
     background-position: center;

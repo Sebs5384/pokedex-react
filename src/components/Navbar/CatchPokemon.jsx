@@ -11,9 +11,13 @@ function CatchPokemon({ selectPokemon, isShaking, caughtPokemons, handlePokeball
                 className={isShaking ? "poke-shake" : ""}
                 backgroundImage={pokeBackground}
                 onClick={handlePokeballClick}
+                alt="Pokeball"
             />
             <NavContainer className="catch-pokemon">
-                <ImageContainer src={catchPokemon}></ImageContainer>
+                <ImageContainer 
+                    src={catchPokemon}
+                    alt="Catch a pokemon"
+                />
             </NavContainer>
             <NavContainer className="poke-slot">
                     {caughtPokemons && caughtPokemons.map((pokemon, index) => (
@@ -21,9 +25,13 @@ function CatchPokemon({ selectPokemon, isShaking, caughtPokemons, handlePokeball
                         <ImageContainer 
                             key={index}
                             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
-                            onClick={() => selectPokemon(pokemon.name)} 
+                            onClick={() => selectPokemon(pokemon.name)}
+                            alt={pokemon.name} 
                         /> :
-                        <ImageContainer src={pokemonLen} 
+                        <ImageContainer 
+                            key={index}
+                            src={pokemonLen}
+                            alt="PokeLen" 
                         />
                     ))}
             </NavContainer>
