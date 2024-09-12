@@ -158,7 +158,7 @@ const PokemonContainer = styled.div`
     }
 
     .genus-registration-font {
-        padding-left: 20px;
+        padding-left: 30px;
     }
     
     .footprint-background {
@@ -175,6 +175,21 @@ const PokemonContainer = styled.div`
         border: 3px solid;
         border-color: rgb(82, 82, 82);
         border-radius: 4px;
+    }
+
+    &.description-underline {
+        position: relative;
+    }
+
+    &.description-underline:: after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 22px;
+        width: 105%;
+        height: 3px;
+        border-radius: 10px;
+        background-color: rgb(198, 198, 198);
     }
 
     &.registration-corner::before,
