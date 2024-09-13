@@ -35,7 +35,7 @@ function Card({ id, pokemonName, image, selectCard = () => {} }) {
             onClick={() => selectCard(pokemonName)}
         >
             <PokemonName>
-                {`#${id + 1} ${pokemonName}`}
+                {`#${id} ${pokemonName}`}
             </PokemonName>
             <ImageContainer 
                 src={image} 

@@ -97,6 +97,7 @@ async function getPokemonsInPage(pokemons, getPokemonSpriteUrl) {
   return pokemons.results.map((pokemon, index) => {
       return {
           name: pokemon.name,
+          id: pokemon.url.split('/')[6],
           sprite: spriteUrls[index],
       };
   });

@@ -35,10 +35,10 @@ function Grid({ cards, selectCard }) {
             <Wrapper>
                 <Body>
                     <Board>
-                        {cards && cards.map(({ name, sprite }, index) => 
+                        {cards && cards.map(({ name, sprite, id }) => 
                             <Card 
                                 key={name}
-                                id={index} 
+                                id={id} 
                                 pokemonName={name} 
                                 image={sprite}
                                 selectCard={selectCard}
