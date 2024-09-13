@@ -1,4 +1,4 @@
-import { usePagination, useSelectedCard, useGetPokemonSprite, useHandleCard, useHandleSearchbox, useHandleCatchPokemon } from "../hooks/index";
+import { usePagination, useSelectedCard, useHandleCard, useHandleSearchbox, useHandleCatchPokemon } from "../hooks/index";
 import { setItemRange, getPokemonSpriteUrl } from "../utils/index";
 import Navbar from "../components/Navbar/Navbar";
 import Grid from "../components/Grid/Grid";

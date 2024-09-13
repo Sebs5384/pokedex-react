@@ -46,7 +46,10 @@ async function getPokemonSprite(pokemon, artwork = "") {
         new Promise((resolve, reject) => {
             const img = new Image();
             img.onload = () => resolve(url);
-            img.onerror = () => resolve(null);
+            img.onerror = async () => {
+                const fallbackImg = await import("../assets/img/misc/404-shocked.png");
+                resolve(fallbackImg.default);
+            };
             img.src = url;
         });
     
@@ -56,12 +59,18 @@ async function getPokemonSprite(pokemon, artwork = "") {
 
         let previousSpritePromise = Promise.resolve(null);
         
-        if(pokemon.evolutionGenus && pokemon.evolutionGenus.id) {
+        if(pokemon.evolutionGenus.id === "None") {
+
+            previousSpritePromise = Promise.resolve(null);
+        } else if(pokemon.evolutionGenus && pokemon.evolutionGenus.id) {
+            
             const previousSpriteUrl = getSpriteUrl(pokemon.evolutionGenus.id);
             previousSpritePromise = loadSprite(previousSpriteUrl);
         };
 
         const [currentSprite, previousSprite] = await Promise.all([currentSpritePromise, previousSpritePromise]);
+
+        console.log(currentSprite, previousSprite)
 
         return {
             current: currentSprite,
