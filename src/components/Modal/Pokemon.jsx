@@ -115,7 +115,7 @@ const PokemonContainer = styled.div`
     }
 
     .fixed-height {
-        min-height: 190px;
+        min-height: 185px;
     }
 
     &.registration-screen-background {

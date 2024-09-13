@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import ImageContainer from "../shared/ImageContainer";
-import pokeballImage from "../../assets/img/misc/pokeball.png"
+import pokeballImage from "../../assets/img/misc/pokeball.png";
 import emeraldFont from "../../assets/fonts/pokemon-emerald.ttf";
 
 const emeraldFontFace = css`
@@ -34,8 +34,14 @@ function Card({ id, pokemonName, image, selectCard = () => {} }) {
             backgroundImage={pokeballImage} 
             onClick={() => selectCard(pokemonName)}
         >
-            <PokemonName>{`#${id + 1} ${pokemonName}`}</PokemonName>
-            <ImageContainer src={image} alt={pokemonName} className="card-img-top" />
+            <PokemonName>
+                {`#${id + 1} ${pokemonName}`}
+            </PokemonName>
+            <ImageContainer 
+                src={image} 
+                alt={pokemonName} 
+                className="card-img-top"
+            />
         </PokemonCard>
     );
 };
