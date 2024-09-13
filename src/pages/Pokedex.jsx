@@ -21,9 +21,7 @@ function Pokedex() {
     } = useSelectedCard();
     const { 
         currentPage, 
-        loadingPokemons, 
         pokemonsInPage, 
-        errorWhileLoading, 
         totalPages, 
         firstPage, 
         lastPage, 
@@ -31,7 +29,7 @@ function Pokedex() {
         setNextPage, 
         setPreviousPage, 
         setCurrentPage 
-    } = usePagination(POKEMONS_PER_PAGE, INITIAL_PAGE_INDEX);
+    } = usePagination(POKEMONS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl);
     const {
         loading,
         modalVisibility,
@@ -78,7 +76,6 @@ function Pokedex() {
             />
             <Grid 
                 cards={pokemonsInPage}
-                pokemonSprite={getPokemonSpriteUrl}
                 selectCard={handleSelectedCard}
             />
             <Paginator 

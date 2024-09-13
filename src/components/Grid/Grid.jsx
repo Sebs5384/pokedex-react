@@ -29,18 +29,18 @@ const Board = styled.div`
     justify-content: center;
 `;
 
-function Grid({ cards, pokemonSprite, selectCard }) {
+function Grid({ cards, selectCard }) {
     return(
         <Section>
             <Wrapper>
                 <Body>
                     <Board>
-                        {cards && cards.results.map(({ name, url }, index) => 
+                        {cards && cards.map(({ name, sprite }, index) => 
                             <Card 
                                 key={name}
                                 id={index} 
                                 pokemonName={name} 
-                                image={pokemonSprite(url)}
+                                image={sprite}
                                 selectCard={selectCard}
                             />
                         )}

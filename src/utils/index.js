@@ -1,4 +1,4 @@
-import { parsePokemonData, getPokemonSpriteUrl, getPokemonNames, getRandomPokemon } from "./pokemon";
+import { parsePokemonData, getPokemonSpriteUrl, getPokemonNames, getRandomPokemon, getPokemonsInPage } from "./pokemon";
 import { setItemRange, convertDecimeterToFeet, convertGramToLb, randomizeNumber, replaceNullItem } from "./general";
 
 export {
@@ -10,4 +10,5 @@ export {
     convertGramToLb,
     replaceNullItem,
     getRandomPokemon,
+    getPokemonsInPage,
 };

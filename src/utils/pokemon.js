@@ -73,11 +73,34 @@ function getDescription(entry, language) {
   return pokemonEntry;
 };
 
-function getPokemonSpriteUrl(url) {
+async function getPokemonSpriteUrl(url) {
   const pokemonId = `${url.split("/")[url.split("/").length - 2]}`;
   const pokemonSpriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
 
-  return pokemonSpriteUrl;
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(pokemonSpriteUrl);
+    img.onerror = async () => {
+      const fallbackImg = await import("../assets/img/misc/404-shocked.png");
+      resolve(fallbackImg.default);
+    };
+    img.src = pokemonSpriteUrl;
+  });
+};
+
+async function getPokemonsInPage(pokemons, getPokemonSpriteUrl) {
+
+  const spriteUrls = await Promise.all(
+      pokemons.results.map(({ url }) => getPokemonSpriteUrl(url))
+  );
+
+  return pokemons.results.map((pokemon, index) => {
+      return {
+          name: pokemon.name,
+          sprite: spriteUrls[index],
+      };
+  });
+
 };
 
 function getBackgroundStyle(types) {
@@ -255,4 +278,5 @@ export {
   getPokemonSpriteUrl,
   getPokemonNames,
   getRandomPokemon,
+  getPokemonsInPage,
 };
