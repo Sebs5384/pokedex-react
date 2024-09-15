@@ -1,5 +1,6 @@
-import styled from "@emotion/styled";
+import { usePokedexContext } from "../../context/PokedexContext";
 import PaginatorButton from "./PaginatorButton";
+import styled from "@emotion/styled";
 import PropTypes from "prop-types";
 
 const PaginatorContainer = styled.div`
@@ -15,21 +16,32 @@ const Pagination = styled.nav`
     align-items: center;
 `;
 
-function Paginator({ totalPages, currentPage, firstPage, lastPage, nextPage, previousPage, setCurrentPage, setHiddenRange }) {  
+function Paginator() { 
+    const {
+        totalPages,
+        currentPage,
+        firstPage,
+        lastPage,
+        setNextPage,
+        setPreviousPage,
+        setCurrentPage,
+        setItemRange
+    } = usePokedexContext();
+    
     return (
         <PaginatorContainer className="pagination justify-content-center">
             <Pagination className="page-item">
-                <PaginatorButton onClick={() => previousPage()} isDisabled={currentPage === firstPage}>Previous</PaginatorButton>
+                <PaginatorButton onClick={() => setPreviousPage()} isDisabled={currentPage === firstPage}>Previous</PaginatorButton>
                 {totalPages.map((pageNumber) => (
                     <PaginatorButton 
                         key={pageNumber} 
-                        isHidden={setHiddenRange(pageNumber, currentPage)}
+                        isHidden={setItemRange(pageNumber, currentPage)}
                         isActive={pageNumber === currentPage} 
                         onClick={() => setCurrentPage(pageNumber)}>
                         {pageNumber}
                     </PaginatorButton>   
                 ))}
-                <PaginatorButton onClick={() => nextPage()} isDisabled={currentPage === lastPage}>Next</PaginatorButton>
+                <PaginatorButton onClick={() => setNextPage()} isDisabled={currentPage === lastPage}>Next</PaginatorButton>
             </Pagination>
         </PaginatorContainer>
     );

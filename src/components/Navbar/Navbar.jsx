@@ -1,25 +1,39 @@
+import { usePokedexContext } from "../../context/PokedexContext";
 import { Bar } from "./Pokemon";
 import Logo from "./Logo";
 import Searchbox from "./Searchbox";
 import CatchPokemon from "./CatchPokemon";
-import { useEffect} from "react";
 
-function Navbar({ list, searchItem, listVisibility, handleSearchbox, handleInput, handleInputOnBlur, selectPokemon, filteredPokemons, handlePokeballClick, isShaking, caughtPokemons }) {
+function Navbar() {
+    const {
+        pokemonList,
+        searchBoxPokemon,
+        dropdownVisibility,
+        handleSearchPokemon,
+        handleInputFocus,
+        handleInputOnBlur,
+        handleSelectedCard,
+        filteredPokemons,
+        handlePokeballClick,
+        isShaking,
+        caughtPokemons
+    } = usePokedexContext();
+
     return (
         <Bar>
             <Logo />
             <Searchbox 
-                pokemonList={list}  
-                searchItem={searchItem}
-                dropdownVisibility={listVisibility}
-                handleSearchPokemon={handleSearchbox}
-                handleInputFocus={handleInput}
+                pokemonList={pokemonList}  
+                searchItem={searchBoxPokemon}
+                dropdownVisibility={dropdownVisibility}
+                handleSearchPokemon={handleSearchPokemon}
+                handleInputFocus={handleInputFocus}
                 handleInputOnBlur={handleInputOnBlur}
-                selectPokemon={selectPokemon}
+                selectPokemon={handleSelectedCard}
                 filteredPokemons={filteredPokemons}
             />
             <CatchPokemon 
-                selectPokemon={selectPokemon}
+                selectPokemon={handleSelectedCard}
                 isShaking={isShaking}
                 caughtPokemons={caughtPokemons}
                 handlePokeballClick={handlePokeballClick}

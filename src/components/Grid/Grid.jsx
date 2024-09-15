@@ -1,5 +1,6 @@
-import styled from "@emotion/styled";
+import { usePokedexContext } from "../../context/PokedexContext";
 import Card from "./Card";
+import styled from "@emotion/styled";
 
 const Section = styled.section`
     display: flex;
@@ -29,19 +30,24 @@ const Board = styled.div`
     justify-content: center;
 `;
 
-function Grid({ cards, selectCard }) {
+function Grid() {
+    const {
+        pokemonsInPage,
+        handleSelectedCard
+    } = usePokedexContext();
+
     return(
         <Section>
             <Wrapper>
                 <Body>
                     <Board>
-                        {cards && cards.map(({ name, sprite, id }) => 
+                        {pokemonsInPage && pokemonsInPage.map(({ name, sprite, id }) => 
                             <Card 
                                 key={name}
                                 id={id} 
                                 pokemonName={name} 
                                 image={sprite}
-                                selectCard={selectCard}
+                                selectCard={handleSelectedCard}
                             />
                         )}
                     </Board>

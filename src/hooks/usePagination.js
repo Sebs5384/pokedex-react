@@ -8,7 +8,7 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) 
     const nextOffset = (state.currentPage - INITIAL_PAGE_INDEX) * ITEMS_PER_PAGE;
 
     const { loading, pokemons, error } = useFetchPokemons(ITEMS_PER_PAGE, nextOffset);
-    const { totalPages, firstPage, lastPage, renderPages } = useTotalPages(ITEMS_PER_PAGE, pokemons);
+    const { totalPages, firstPage, lastPage } = useTotalPages(ITEMS_PER_PAGE, pokemons);
 
     const setCurrentPage = (pageIndex) => {
         const currentPage = pageIndex;
@@ -46,7 +46,6 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) 
         totalPages,
         firstPage,
         lastPage,
-        renderPages,
         setNextPage,
         setPreviousPage,
         setCurrentPage,
