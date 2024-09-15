@@ -17,6 +17,11 @@ const PokemonCard = styled.div`
     border-radius: 5px;
     height: 280px;
     background-image: url(${props => props.backgroundImage});
+    
+    &.image-size img {
+        height: 200px;
+        width: 200px;
+    }
 `;
 
 const PokemonName = styled.strong`
@@ -30,7 +35,7 @@ function Card({ id, pokemonName, image, selectCard = () => {} }) {
     return (
         <PokemonCard 
             key={pokemonName} 
-            className={"col-2 card-body text-center"} 
+            className={"col-2 card-body text-center image-size"} 
             backgroundImage={pokeballImage} 
             onClick={() => selectCard(pokemonName)}
         >
