@@ -1,5 +1,5 @@
 import { usePokedexContext } from "../../context/PokedexContext";
-import Card from "./Card";
+import GridCard from "./GridCard";
 import styled from "@emotion/styled";
 
 const Section = styled.section`
@@ -42,7 +42,7 @@ function Grid() {
                 <Body>
                     <Board>
                         {pokemonsInPage && pokemonsInPage.map(({ name, sprite, id }) => 
-                            <Card 
+                            <GridCard 
                                 key={name}
                                 id={id} 
                                 pokemonName={name} 

@@ -31,7 +31,7 @@ const PokemonName = styled.strong`
     font-family: "pokemon-emerald";
 `;
 
-function Card({ id, pokemonName, image, selectCard = () => {} }) {
+function GridCard({ id, pokemonName, image, selectCard = () => {} }) {
     return (
         <PokemonCard 
             key={pokemonName} 
@@ -51,4 +51,4 @@ function Card({ id, pokemonName, image, selectCard = () => {} }) {
     );
 };
 
-export default Card;
+export default GridCard;
