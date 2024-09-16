@@ -1,5 +1,6 @@
 import { usePokedexContext } from "../../context/PokedexContext";
 import PaginatorButton from "./PaginatorButton";
+import PaginatorSearchbox from "./PaginatorSearchbox";
 import styled from "@emotion/styled";
 import PropTypes from "prop-types";
 
@@ -8,6 +9,7 @@ const PaginatorContainer = styled.div`
     justify-content: center;
     align-items: center;
     padding: 0.5rem;
+    margin-left: 135px;
 `;
 
 const Pagination = styled.nav`
@@ -43,6 +45,7 @@ function Paginator() {
                 ))}
                 <PaginatorButton onClick={() => setNextPage()} isDisabled={currentPage === lastPage}>Next</PaginatorButton>
             </Pagination>
+            <PaginatorSearchbox />
         </PaginatorContainer>
     );
 };
