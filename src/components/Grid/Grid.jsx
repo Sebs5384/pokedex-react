@@ -39,16 +39,13 @@ function Grid() {
         loadingPokemons
     } = usePokedexContext();
 
-    useEffect(() => {
-        console.log(loadingPokemons);
-    })
-
     return(
         <Section>
             <Wrapper>
                 <Body>
                     <Board>
-                        {loadingPokemons ? <LoadingGrid /> : pokemonsInPage && pokemonsInPage.map(({ name, sprite, id }) => 
+                        {loadingPokemons ? <LoadingGrid /> : 
+                            pokemonsInPage && pokemonsInPage.map(({ name, sprite, id }) => 
                             <GridCard 
                                 key={name}
                                 id={id} 
