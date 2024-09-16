@@ -29,7 +29,6 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) 
         const fetchPokemonsInPage = async () => {
             if(pokemons) {
                 const pokemonsInPage = await getPokemonsInPage(pokemons, getPokemonSpriteUrl);
-                console.log(pokemonsInPage);
                 dispatch({ type: "SET_POKEMONS_IN_PAGE", payload: pokemonsInPage });
             };  
         };

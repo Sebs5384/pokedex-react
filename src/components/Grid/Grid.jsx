@@ -1,6 +1,8 @@
 import { usePokedexContext } from "../../context/PokedexContext";
+import LoadingGrid from "./LoadingGrid";
 import GridCard from "./GridCard";
 import styled from "@emotion/styled";
+import { useEffect } from "react";
 
 const Section = styled.section`
     display: flex;
@@ -33,15 +35,20 @@ const Board = styled.div`
 function Grid() {
     const {
         pokemonsInPage,
-        handleSelectedCard
+        handleSelectedCard,
+        loadingPokemons
     } = usePokedexContext();
+
+    useEffect(() => {
+        console.log(loadingPokemons);
+    })
 
     return(
         <Section>
             <Wrapper>
                 <Body>
                     <Board>
-                        {pokemonsInPage && pokemonsInPage.map(({ name, sprite, id }) => 
+                        {loadingPokemons ? <LoadingGrid /> : pokemonsInPage && pokemonsInPage.map(({ name, sprite, id }) => 
                             <GridCard 
                                 key={name}
                                 id={id} 
