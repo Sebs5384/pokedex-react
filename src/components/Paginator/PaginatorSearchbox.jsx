@@ -24,13 +24,14 @@ const PaginatorSearchboxInput = styled(Form.Control)`
     }
 `;
 
-function PaginatorSearchbox({ onSearch = () => {} }) {
+function PaginatorSearchbox({ onChange, onKeyDown }) {
     return (
         <PaginatorSearchboxInput
             type="search"
             placeholder="Go"
             className="search-input form-control pokedex-search-box text-center"
-            onChange={onSearch}
+            onChange={onChange}
+            onKeyDown={onKeyDown}
         />
     );
 };

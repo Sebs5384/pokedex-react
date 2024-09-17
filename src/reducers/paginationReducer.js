@@ -1,7 +1,8 @@
 const initialPaginationState = {
     currentPage: 1,
     nextPageItems: 0,
-    pokemonsInPage: []
+    pokemonsInPage: [],
+    searchboxValue: ""
 };
 
 function paginationReducer(state = initialPaginationState, action) {
@@ -22,6 +23,11 @@ function paginationReducer(state = initialPaginationState, action) {
             return {
                 ...state,
                 pokemonsInPage: payload
+            };
+        case "SET_SEARCHBOX_VALUE":
+            return {
+                ...state,
+                searchboxValue: payload
             };
         default: 
             return state

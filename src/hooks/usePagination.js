@@ -25,6 +25,20 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) 
         dispatch({ type: "SET_CURRENT_PAGE", payload: previousPage });
     };
 
+    const setSearchboxValue = (event) => {
+        const inputValue = event.target.value;
+        dispatch({ type: "SET_SEARCHBOX_VALUE", payload: inputValue });
+    };
+
+    const handleKeyDown = (event) => {
+        if(event.key === "Enter") {
+            const pageNumber = parseInt(state.searchboxValue);
+
+            dispatch({ type: "SET_CURRENT_PAGE", payload: pageNumber });
+            dispatch({ type: "SET_SEARCHBOX_VALUE", payload: "" });
+        };
+    };
+
     useEffect(() => {
         const fetchPokemonsInPage = async () => {
             if(pokemons) {
@@ -48,6 +62,8 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) 
         setNextPage,
         setPreviousPage,
         setCurrentPage,
+        setSearchboxValue,
+        handleKeyDown,
     };
 };
 
