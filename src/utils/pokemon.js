@@ -1,4 +1,4 @@
-import { convertDecimeterToFeet, convertGramToLb, randomizeNumber } from "./general";
+import { convertDecimeterToFeet, convertGramToLb, randomizeNumber } from "./index";
 import pokemonTypeImage from "../assets/img/pokemon-type/index";
 import textures from "../assets/img/modal-texture/index";
 

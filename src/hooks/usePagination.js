@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from "react";
 import { paginationReducer, initialPaginationState } from "../reducers/index";
 import { useFetchPokemons, useTotalPages } from "./index";
-import { getPokemonsInPage } from "../utils/index";
+import { getPokemonsInPage, validatePageSearchbox } from "../utils/index";
 
 function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) {
     const [state, dispatch] = useReducer(paginationReducer, initialPaginationState);
@@ -33,9 +33,15 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) 
     const handleKeyDown = (event) => {
         if(event.key === "Enter") {
             const pageNumber = parseInt(state.searchboxValue);
+            const validPage = validatePageSearchbox(pageNumber, totalPages);
 
-            dispatch({ type: "SET_CURRENT_PAGE", payload: pageNumber });
-            dispatch({ type: "SET_SEARCHBOX_VALUE", payload: "" });
+            if(validPage === true) {
+                dispatch({ type: "SET_CURRENT_PAGE", payload: pageNumber });
+                dispatch({ type: "SET_SEARCHBOX_VALUE", payload: "" });
+            } else {
+                dispatch({ type: "SET_INVALID_PAGE_WARNING", payload: true });
+                dispatch({ type: "SET_SEARCHBOX_VALUE", payload: "" });
+            };
         };
     };
 
@@ -55,6 +61,7 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) 
         currentPage: state.currentPage,
         loadingPokemons: loading,
         pokemonsInPage: state.pokemonsInPage,
+        invalidPageWarning: state.invalidPageWarning,
         errorWhileLoading: error,
         totalPages,
         firstPage,

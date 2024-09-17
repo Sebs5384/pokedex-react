@@ -24,7 +24,7 @@ const PaginatorSearchboxInput = styled(Form.Control)`
     }
 `;
 
-function PaginatorSearchbox({ onChange, onKeyDown }) {
+function PaginatorSearchbox({ onChange, onKeyDown, validatePageSearchbox }) {
     return (
         <PaginatorSearchboxInput
             type="search"

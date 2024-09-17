@@ -29,7 +29,7 @@ function Paginator() {
         setCurrentPage,
         setItemRange,
         setSearchboxValue,
-        handleKeyDown
+        handleKeyDown,
     } = usePokedexContext();
     
     return (
@@ -47,7 +47,10 @@ function Paginator() {
                 ))}
                 <PaginatorButton onClick={() => setNextPage()} isDisabled={currentPage === lastPage}>Next</PaginatorButton>
             </Pagination>
-            <PaginatorSearchbox onChange={(event) => setSearchboxValue(event)} onKeyDown={(event) => handleKeyDown(event)} />
+            <PaginatorSearchbox 
+                onChange={(event) => setSearchboxValue(event)} 
+                onKeyDown={(event) => handleKeyDown(event)} 
+            />
         </PaginatorContainer>
     );
 };
