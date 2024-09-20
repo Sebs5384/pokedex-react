@@ -70,8 +70,6 @@ async function getPokemonSprite(pokemon, artwork = "") {
 
         const [currentSprite, previousSprite] = await Promise.all([currentSpritePromise, previousSpritePromise]);
 
-        console.log(currentSprite, previousSprite)
-
         return {
             current: currentSprite,
             previous: previousSprite

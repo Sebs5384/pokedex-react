@@ -2,7 +2,6 @@ import { usePokedexContext } from "../../context/PokedexContext";
 import LoadingGrid from "./LoadingGrid";
 import GridCard from "./GridCard";
 import styled from "@emotion/styled";
-import { useEffect } from "react";
 
 const Section = styled.section`
     display: flex;
