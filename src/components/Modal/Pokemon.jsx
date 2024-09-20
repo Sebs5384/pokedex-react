@@ -1,6 +1,6 @@
 import { Modal, CloseButton } from "react-bootstrap";
-import styled from "@emotion/styled";
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import emeraldFont from "../../assets/fonts/pokemon-emerald.ttf";
 
 const emeraldFontFace = css`

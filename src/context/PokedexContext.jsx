@@ -23,7 +23,8 @@ export function PokedexProvider({ children }) {
         firstPage,
         lastPage,
         loadingPokemons,
-        invalidPageWarning,
+        popupMessage,
+        invalidPagePopup,
         setNextPage,
         setPreviousPage,
         setCurrentPage,
@@ -64,7 +65,7 @@ export function PokedexProvider({ children }) {
             value={
                 {
                     cardData, loadingCard, setSelectedCard,
-                    currentPage, pokemonsInPage, totalPages, firstPage, lastPage, loadingPokemons, invalidPageWarning,
+                    currentPage, pokemonsInPage, totalPages, firstPage, lastPage, loadingPokemons, popupMessage, invalidPagePopup,
                     setNextPage, setPreviousPage, setCurrentPage, setItemRange, setSearchboxValue, handleKeyDown,
                     loading, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,
                     pokemonList, searchBoxPokemon, dropdownVisibility, filteredPokemons, pokemonsCount, handleSearchPokemon, handleInputFocus, handleInputOnBlur,

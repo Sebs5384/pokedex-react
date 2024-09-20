@@ -3,7 +3,8 @@ const initialPaginationState = {
     nextPageItems: 0,
     pokemonsInPage: [],
     searchboxValue: "",
-    invalidPageWarning: false
+    popupMessage: "",
+    invalidPagePopup: false
 };
 
 function paginationReducer(state = initialPaginationState, action) {
@@ -30,10 +31,15 @@ function paginationReducer(state = initialPaginationState, action) {
                 ...state,
                 searchboxValue: payload
             };
-        case "SET_INVALID_PAGE_WARNING":
+        case "SET_POPUP_VISIBILITY":
             return {
                 ...state,
-                invalidPageWarning: payload
+                invalidPagePopup: payload
+            };
+        case "SET_POPUP_MESSAGE":
+            return {
+                ...state,
+                popupMessage: payload
             };
         default: 
             return state

@@ -1,22 +1,8 @@
 import { usePokedexContext } from "../../context/PokedexContext";
+import { Pagination, PaginatorContainer } from "./Pokemon";
 import PaginatorButton from "./PaginatorButton";
 import PaginatorSearchbox from "./PaginatorSearchbox";
-import styled from "@emotion/styled";
 import PropTypes from "prop-types";
-
-const PaginatorContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5rem;
-    margin-left: 135px;
-`;
-
-const Pagination = styled.nav`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
 
 function Paginator() { 
     const {
@@ -30,6 +16,8 @@ function Paginator() {
         setItemRange,
         setSearchboxValue,
         handleKeyDown,
+        popupMessage,
+        invalidPagePopup
     } = usePokedexContext();
     
     return (
@@ -49,7 +37,9 @@ function Paginator() {
             </Pagination>
             <PaginatorSearchbox 
                 onChange={(event) => setSearchboxValue(event)} 
-                onKeyDown={(event) => handleKeyDown(event)} 
+                onKeyDown={(event) => handleKeyDown(event)}
+                validationMessage={popupMessage}
+                validationPopup={invalidPagePopup}
             />
         </PaginatorContainer>
     );

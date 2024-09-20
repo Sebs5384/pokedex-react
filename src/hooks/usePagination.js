@@ -39,8 +39,13 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) 
                 dispatch({ type: "SET_CURRENT_PAGE", payload: pageNumber });
                 dispatch({ type: "SET_SEARCHBOX_VALUE", payload: "" });
             } else {
-                dispatch({ type: "SET_INVALID_PAGE_WARNING", payload: true });
+                dispatch({ type: "SET_POPUP_MESSAGE", payload: validPage })
+                dispatch({ type: "SET_POPUP_VISIBILITY", payload: true });
                 dispatch({ type: "SET_SEARCHBOX_VALUE", payload: "" });
+
+                setTimeout(() => {
+                    dispatch({ type: "SET_POPUP_VISIBILITY", payload: false });
+                }, 2000);
             };
         };
     };
@@ -61,7 +66,8 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) 
         currentPage: state.currentPage,
         loadingPokemons: loading,
         pokemonsInPage: state.pokemonsInPage,
-        invalidPageWarning: state.invalidPageWarning,
+        popupMessage: state.popupMessage,
+        invalidPagePopup: state.invalidPagePopup,
         errorWhileLoading: error,
         totalPages,
         firstPage,

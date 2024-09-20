@@ -6,6 +6,7 @@ import PokemonCard from "../components/Modal/Card/PokemonCard";
 import CaughtPokemonAlert from "../components/Modal/CatchPokemon/CaughtPokemonAlert";
 import CaughtPokemonRegistration from "../components/Modal/CatchPokemon/CaughtPokemonRegistration";
 
+
 function Pokedex() {
     return (
         <PokedexProvider>

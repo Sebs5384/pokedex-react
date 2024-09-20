@@ -2,9 +2,7 @@ import Pokedex from "./Pokedex";
 
 function App() {
     return (
-
         <Pokedex/>
-
     );
 };
 
