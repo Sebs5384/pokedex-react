@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from "react";
 import { pokemonReducer, initialPokemonState } from "../reducers";
-import { getPokemonSprite } from "../api/pokemon";
+import { getPokemonSprite } from "../service/pokemon";
 
 function useGetPokemonSprite(pokemon, artwork) {
     const [state, dispatch] = useReducer(pokemonReducer, initialPokemonState);

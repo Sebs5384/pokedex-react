@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from "react";
 import { pokemonReducer, initialPokemonState } from "../reducers/pokemonReducer";
-import { getPokemons } from "../api/pokemon";
+import { getPokemons } from "../service/pokemon";
 
 function useFetchPokemons(limit, offset) {
     const [state, dispatch] = useReducer(pokemonReducer, initialPokemonState);
