@@ -1,6 +1,7 @@
 const URL = "https://pokeapi.co/api/v2";
 
 async function getPokemons(limit, offset) {
+    if(limit === null || offset === null) return;
 
     const pokemonsURL = `${URL}/pokemon?limit=${limit}&offset=${offset}`;
     return await fetch(pokemonsURL)
@@ -14,6 +15,7 @@ async function getPokemons(limit, offset) {
 };
 
 async function getPokemon(name) {
+    if(name === null) return;
 
     const pokemonURL = `${URL}/pokemon/${name}`;
     return await fetch(pokemonURL)
@@ -27,7 +29,8 @@ async function getPokemon(name) {
 };
 
 async function getPokemonSpecies(species) {
-    
+    if(species === null) return;
+
     const speciesURL = `${URL}/pokemon-species/${species}`;
     return await fetch(speciesURL)
         .then(response => response.json())
