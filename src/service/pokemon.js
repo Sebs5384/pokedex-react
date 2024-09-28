@@ -35,12 +35,12 @@ async function getPokemon(name) {
     };
 };
 
-async function getPokemonSpecies(name) {
+async function getPokemonSpecies(id) {
     try {
-        return loadPokemonSpeciesFromStorage(name);
+        return loadPokemonSpeciesFromStorage(id);
     } catch(error) {
-        const species = await getPokemonSpeciesFromApi(name);
-        storeSpecies(name, species);
+        const species = await getPokemonSpeciesFromApi(id);
+        storeSpecies(id, species);
         return species;
     };
 };
