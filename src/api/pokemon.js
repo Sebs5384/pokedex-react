@@ -15,7 +15,7 @@ async function getPokemons(limit, offset) {
 };
 
 async function getPokemon(name) {
-    if(name === null) return;
+    if(name === null || name === undefined) return;
 
     const pokemonURL = `${URL}/pokemon/${name}`;
     return await fetch(pokemonURL)
