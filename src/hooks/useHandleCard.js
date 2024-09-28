@@ -6,8 +6,8 @@ function useHandleCard(setSelectedCard, loadingCard, cardData, artwork) {
     const [state, dispatch] = useReducer(handleCardReducer, initialHandleCardState);
     const { loadingSprite, pokemonSprite } = useGetPokemonSprite(cardData, artwork);
 
-    const handleSelectedCard = (card) => {
-        setSelectedCard(card);
+    const handleSelectedCard = (card, id) => {
+        setSelectedCard(card, id);
         dispatch({ type: "SET_MODAL_VISIBILITY", payload: true });
     };
 

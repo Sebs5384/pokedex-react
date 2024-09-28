@@ -1,5 +1,6 @@
 const initialSelectedCardState = {
     name: null,
+    id: null,
     data: null
 };
 
@@ -7,10 +8,15 @@ function selectedCardReducer(state = initialSelectedCardState, action) {
     const { type, payload } = action;
 
     switch(type) {
-        case "SET_SELECTED_CARD":
+        case "SET_SELECTED_CARD_NAME":
             return {
                 ...state,
                 name: payload
+            };
+        case "SET_SELECTED_CARD_ID":
+            return {
+                ...state,
+                id: payload
             };
         case "SET_CARD_DATA": 
             return {
