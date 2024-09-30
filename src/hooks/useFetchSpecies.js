@@ -10,8 +10,9 @@ function useFetchSpecies(species) {
             dispatch({ type: "FETCH_REQUEST" });
 
             try {
-                const speciesId = species.split('-')[0];
-                const speciesData = await getPokemonSpecies(speciesId);
+                const speciesName = species.split('-')[0];
+                const completeName = species;
+                const speciesData = await getPokemonSpecies(speciesName, completeName);
                 dispatch({ type: "FETCH_SUCCESS", payload: speciesData });
             } catch (error) {
                 dispatch({ type: "FETCH_FAILURE", payload: error });

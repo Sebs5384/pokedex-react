@@ -28,18 +28,31 @@ async function getPokemon(name) {
         });
 };
 
-async function getPokemonSpecies(species) {
+async function getPokemonSpecies(species, completeName) {
     if(species === null) return;
 
     const speciesURL = `${URL}/pokemon-species/${species}`;
-    return await fetch(speciesURL)
-        .then(response => response.json())
-        .catch((error) => {
-            throw new Error(error);
-        })
-        .finally(() => {
-            console.error(`Warning, using API call URL: ${speciesURL}`);
-        });
+    const completeNameUrl = `${URL}/pokemon-species/${completeName}`;
+
+    try {
+        const response = await fetch(speciesURL);
+
+        if(response.ok) {
+            return await response.json();
+        } else if (response.status === 404 && completeName) {
+            const completeNameResponse = await fetch(completeNameUrl);
+            if(completeNameResponse.ok) {
+                return await completeNameResponse.json();
+            };
+        };
+
+        throw new Error(`Failed to fetch pokemon species: ${species}`);
+    } catch(error) {
+        console.error(error);
+        throw new Error(error.message);
+    } finally {
+        console.error(`Warning, using API call URL: ${speciesURL}`);
+    };
 };
 
 async function getPokemonSprite(pokemon, artwork = "") {

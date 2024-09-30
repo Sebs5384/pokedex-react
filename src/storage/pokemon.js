@@ -6,8 +6,8 @@ function getPokemonKey(name) {
     return `pokemon_${name}`;
 };
 
-function getPokemonSpeciesKey(id) {
-    return `pokemon_species_${id}`;  
+function getPokemonSpeciesKey(name) {
+    return `pokemon_species_${name}`;  
 };
 
 function getPokemonSpriteKey(pokemon, artwork = "classic") {
@@ -32,10 +32,10 @@ function loadPokemon(name) {
     return pokemon;
 };
 
-function loadPokemonSpecies(id) {
-    const species = JSON.parse(localStorage.getItem(getPokemonSpeciesKey(id)));
+function loadPokemonSpecies(name) {
+    const species = JSON.parse(localStorage.getItem(getPokemonSpeciesKey(name)));
     if(species === null) {
-        throw new Error(`Pokemon species with given name: ${id} not found`);
+        throw new Error(`Pokemon species with given name: ${name} not found`);
     };
 
     return species;
@@ -70,12 +70,12 @@ function storePokemon(name, pokemon) {
     localStorage.setItem(getPokemonKey(name), JSON.stringify(pokemon));
 };
 
-function storeSpecies(id, species) {
-    if(id === undefined || typeof species !== "object") {
-        throw new Error(`Name and species must be defined to be stored in localstorage, reading: name: ${id}, species: ${species}`);
+function storeSpecies(name, species) {
+    if(name === undefined || typeof species !== "object") {
+        throw new Error(`Name and species must be defined to be stored in localstorage, reading: name: ${name}, species: ${species}`);
     };
 
-    localStorage.setItem(getPokemonSpeciesKey(id), JSON.stringify(species));
+    localStorage.setItem(getPokemonSpeciesKey(name), JSON.stringify(species));
 };
 
 function storePokemonSprite(pokemon, sprite, artwork) {
