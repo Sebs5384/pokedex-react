@@ -240,6 +240,7 @@ const typeBackground = {
 
 function parsePokemonData(pokemon, species) {
   const id = pokemon.id;
+  const fullName = pokemon.name;
   const name = parsePokemonName(pokemon.name);
   const skills = getPokemonSkills(pokemon.abilities);
   const stats = getPokemonStats(pokemon.stats);
@@ -256,6 +257,7 @@ function parsePokemonData(pokemon, species) {
 
   const pokemonData = {
     id,
+    fullName,
     name,
     skills,
     stats,

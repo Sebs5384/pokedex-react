@@ -25,8 +25,8 @@ function CatchPokemon({ selectPokemon, isShaking, caughtPokemons, handlePokeball
                         <ImageContainer 
                             key={index}
                             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
-                            onClick={() => selectPokemon(pokemon.name)}
-                            alt={pokemon.name} 
+                            onClick={() => selectPokemon(pokemon.fullName)}
+                            alt={pokemon.fullName} 
                         /> :
                         <ImageContainer 
                             key={index}
