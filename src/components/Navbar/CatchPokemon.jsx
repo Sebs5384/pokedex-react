@@ -4,7 +4,7 @@ import pokeBackground from "../../assets/img/misc/poke-background.png";
 import pokemonLen from "../../assets/img/misc/pokedex-len.png";
 import catchPokemon from "../../assets/img/misc/catch-a-pokemon.png";
 
-function CatchPokemon({ selectPokemon, isShaking, caughtPokemons, handlePokeballClick }) {
+function CatchPokemon({ selectPokemon, isShaking, caughtPokemons, caughtPokemonSprite, handlePokeballClick }) {
     return(
         <>
             <PokeballButton 
@@ -24,7 +24,7 @@ function CatchPokemon({ selectPokemon, isShaking, caughtPokemons, handlePokeball
                         pokemon ? 
                         <ImageContainer 
                             key={index}
-                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
+                            src={caughtPokemonSprite[index]?.current || pokemonLen}
                             onClick={() => selectPokemon(pokemon.fullName)}
                             alt={pokemon.fullName} 
                         /> :

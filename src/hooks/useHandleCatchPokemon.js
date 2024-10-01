@@ -1,12 +1,13 @@
 import { useReducer, useEffect } from "react";
 import { catchPokemonReducer, initialCatchPokemonState } from "../reducers/index";
-import { useFetchPokemon, useFetchSpecies } from "./index";
+import { useFetchPokemon, useFetchSpecies, useGetPokemonSprite } from "./index";
 import { getRandomPokemon, replaceNullItem, parsePokemonData } from "../utils/index";
 
 function useHandleCatchPokemon(pokemonsCount, pokemonList) {
     const [state, dispatch] = useReducer(catchPokemonReducer, initialCatchPokemonState);
     const { pokemon } = useFetchPokemon(state.randomPokemon);
     const { species } = useFetchSpecies(state.randomPokemon);
+    const { loadingSprite, pokemonSprite } = useGetPokemonSprite(state.caughtPokemon);
 
     const handlePokeballClick = () => {
         if(state.caughtPokemons.includes(null)) { 
@@ -25,11 +26,17 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
         if(state.randomPokemon && pokemon && species) {
             const parsedPokemon = parsePokemonData(pokemon, species);
             dispatch({ type: "SET_CAUGHT_POKEMON", payload: parsedPokemon });
-            
+
             const updatedCaughtPokemons = replaceNullItem(state.caughtPokemons, parsedPokemon);
             dispatch({ type: "SET_CAUGHT_POKEMONS", payload: updatedCaughtPokemons });
         };
     }, [pokemon, species]);
+
+    useEffect(() => {
+        if(!loadingSprite && pokemonSprite) {
+            dispatch({ type: "SET_CAUGHT_POKEMON_SPRITE", payload: pokemonSprite });
+        };
+    }, [pokemonSprite, loadingSprite]);
 
     useEffect(() => {
         if(state.isShaking) {
@@ -66,6 +73,8 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
     return {
         caughtPokemons: state.caughtPokemons,
         caughtPokemon: state.caughtPokemon,
+        caughtPokemonSprite: state.caughtPokemonSprite,
+        loadingSprite: loadingSprite,
         isShaking: state.isShaking,
         caughtModalVisibility: state.modalVisibility,
         registrationModalVisibility: state.registrationModalVisibility,

@@ -16,7 +16,9 @@ function Navbar() {
         filteredPokemons,
         handlePokeballClick,
         isShaking,
-        caughtPokemons
+        caughtPokemons,
+        caughtPokemon,
+        caughtPokemonSprite,
     } = usePokedexContext();
 
     return (
@@ -36,6 +38,7 @@ function Navbar() {
                 selectPokemon={handleSelectedCard}
                 isShaking={isShaking}
                 caughtPokemons={caughtPokemons}
+                caughtPokemonSprite={caughtPokemonSprite}
                 handlePokeballClick={handlePokeballClick}
             />
         </Bar>

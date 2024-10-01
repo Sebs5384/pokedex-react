@@ -2,6 +2,7 @@ const initialCatchPokemonState = {
     randomNumber: null,
     caughtPokemons: [null, null, null],
     caughtPokemon: null,
+    caughtPokemonSprite: [],
     isShaking: false,
     modalVisibility: false,
     registrationModalVisibility: false,
@@ -28,6 +29,11 @@ function catchPokemonReducer(state = initialCatchPokemonState, action) {
             return {
                 ...state,
                 caughtPokemon: payload
+            };
+        case "SET_CAUGHT_POKEMON_SPRITE": 
+            return {
+                ...state,
+                caughtPokemonSprite: [...state.caughtPokemonSprite, payload]
             };
         case "SET_SHAKING_EFFECT":
             return {

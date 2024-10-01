@@ -51,6 +51,7 @@ export function PokedexProvider({ children }) {
     const {
         caughtPokemons,
         caughtPokemon,
+        caughtPokemonSprite,
         isShaking,
         caughtModalVisibility,
         registrationModalVisibility,
@@ -69,7 +70,7 @@ export function PokedexProvider({ children }) {
                     setNextPage, setPreviousPage, setCurrentPage, setItemRange, setSearchboxValue, handleKeyDown,
                     loading, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,
                     pokemonList, searchBoxPokemon, dropdownVisibility, filteredPokemons, pokemonsCount, handleSearchPokemon, handleInputFocus, handleInputOnBlur,
-                    caughtPokemons, caughtPokemon, isShaking, caughtModalVisibility, registrationModalVisibility, topText, bottomText, textChange, handlePokeballClick
+                    caughtPokemons, caughtPokemon, caughtPokemonSprite, isShaking, caughtModalVisibility, registrationModalVisibility, topText, bottomText, textChange, handlePokeballClick
                 }
             }
         >
