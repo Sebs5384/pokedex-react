@@ -29,7 +29,6 @@ async function getPokemon(name) {
     try {
         return loadPokemonFromStorage(name);
     } catch(error) {
-        console.error(error);
         const pokemon = await getPokemonFromApi(name);
 
         try {
@@ -37,8 +36,6 @@ async function getPokemon(name) {
         } catch(error) {
             if(error.name === "QuotaExceededError") {
                 localStorage.clear();
-            } else {
-                console.error(`Error storing ${name} in localstorage: ${error}`);
             };
         };
 
