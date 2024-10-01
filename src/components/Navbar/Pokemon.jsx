@@ -17,7 +17,7 @@ const NavSection = styled.section`
 const NavContainer = styled.div`
     &.poke-logo {
         img {
-            width: 150px;
+            width: 175px;
             height: 50px;
             margin-right: 50px;
         }
