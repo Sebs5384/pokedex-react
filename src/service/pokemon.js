@@ -47,7 +47,7 @@ async function getPokemonSpecies(name, completeName) {
 
 async function getPokemonSprite(pokemon, artwork = "") {
     try {
-        return loadPokemonSpriteFromStorage(pokemon.name, artwork);
+        return loadPokemonSpriteFromStorage(pokemon, artwork);
     } catch(error) {
         const sprite = await getPokemonSpriteFromApi(pokemon, artwork);
         storePokemonSprite(pokemon, sprite, artwork);
