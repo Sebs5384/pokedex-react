@@ -39,7 +39,7 @@ function CatchPokemon({ selectPokemon, isShaking, caughtPokemons, caughtPokemonS
         </>
     );
 };
-CatchPokemon.PropTypes = {
+CatchPokemon.propTypes = {
     selectPokemon: PropTypes.func,
     isShaking: PropTypes.bool,
     caughtPokemons: PropTypes.array,

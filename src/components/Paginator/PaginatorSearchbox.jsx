@@ -18,7 +18,7 @@ function PaginatorSearchbox({ onChange, onKeyDown, validationMessage, validation
         </PaginationOverlayTrigger>
     );
 };
-PaginatorSearchbox.PropTypes = {
+PaginatorSearchbox.propTypes = {
     onChange: PropTypes.func,
     onKeyDown: PropTypes.func,
     validationMessage: PropTypes.string,

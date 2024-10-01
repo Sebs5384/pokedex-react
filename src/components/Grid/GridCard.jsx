@@ -22,7 +22,7 @@ function GridCard({ id, pokemonName, image, selectCard = () => {} }) {
         </PokemonCard>
     );
 };
-GridCard.PropTypes = {
+GridCard.propTypes = {
     id: PropTypes.number,
     pokemonName: PropTypes.string,
     image: PropTypes.string,

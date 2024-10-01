@@ -32,7 +32,7 @@ function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPrev
         </PokemonContainer>
     );
 };
-PokemonCardHeader.PropTypes = {
+PokemonCardHeader.propTypes = {
     selectedCard: PropTypes.object,
     pokemonSprite: PropTypes.object,
     closeModal: PropTypes.func,

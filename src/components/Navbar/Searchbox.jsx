@@ -43,7 +43,7 @@ function Searchbox({ pokemonList, searchPokemon, dropdownVisibility, handleSearc
         </>
     );
 };
-Searchbox.PropTypes = {
+Searchbox.propTypes = {
     pokemonList: PropTypes.array,
     searchPokemon: PropTypes.func,
     dropdownVisibility: PropTypes.bool,

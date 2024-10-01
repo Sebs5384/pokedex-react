@@ -68,7 +68,7 @@ function PokemonCardBody({ selectedCard, pokemonSprite }) {
         </PokemonContainer>
     );
 };
-PokemonCardBody.PropTypes = {
+PokemonCardBody.propTypes = {
     selectedCard: PropTypes.object,
     pokemonSprite: PropTypes.object
 };
