@@ -3,6 +3,7 @@ import ImageContainer from "../shared/ImageContainer";
 import pokeBackground from "../../assets/img/misc/poke-background.png";
 import pokemonLen from "../../assets/img/misc/pokedex-len.png";
 import catchPokemon from "../../assets/img/misc/catch-a-pokemon.png";
+import PropTypes from "prop-types";
 
 function CatchPokemon({ selectPokemon, isShaking, caughtPokemons, caughtPokemonSprite, handlePokeballClick }) {
     return(
@@ -37,6 +38,13 @@ function CatchPokemon({ selectPokemon, isShaking, caughtPokemons, caughtPokemonS
             </NavContainer>
         </>
     );
+};
+CatchPokemon.PropTypes = {
+    selectPokemon: PropTypes.func,
+    isShaking: PropTypes.bool,
+    caughtPokemons: PropTypes.array,
+    caughtPokemonSprite: PropTypes.array,
+    handlePokeballClick: PropTypes.func
 };
 
 export default CatchPokemon;

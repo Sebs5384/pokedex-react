@@ -1,5 +1,6 @@
 import { PokemonContainer } from "../Pokemon";
 import ImageContainer from "../../shared/ImageContainer";
+import PropTypes from "prop-types";
 
 function RegistrationBody({ pokemon }) {
     return (
@@ -38,6 +39,9 @@ function RegistrationBody({ pokemon }) {
             </PokemonContainer>
         </PokemonContainer>
     );
+};
+RegistrationBody.propTypes = {
+    pokemon: PropTypes.object
 };
 
 export default RegistrationBody;

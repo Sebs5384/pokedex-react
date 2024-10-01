@@ -1,5 +1,6 @@
 import { PokemonContainer, CardSection, PokemonCardText, CardTopSeparator, PokemonCloseButton, PokemonTitle } from "../Pokemon";
 import ImageContainer from "../../shared/ImageContainer";
+import PropTypes from "prop-types";
 
 function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPreviousEvolution }) {
     return(
@@ -30,6 +31,12 @@ function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPrev
             </CardSection>
         </PokemonContainer>
     );
+};
+PokemonCardHeader.PropTypes = {
+    selectedCard: PropTypes.object,
+    pokemonSprite: PropTypes.object,
+    closeModal: PropTypes.func,
+    selectPreviousEvolution: PropTypes.func
 };
 
 export default PokemonCardHeader;

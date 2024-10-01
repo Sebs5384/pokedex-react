@@ -1,6 +1,7 @@
 import { PokemonContainer, CardSection, PokemonCardText, CardSeparator  } from "../Pokemon";
 import { skillIcon, statusIcon, atkIcon, defIcon, speedIcon, spAtkIcon, spDefIcon } from "../../../assets/img/pokemon-stats";
 import ImageContainer from "../../shared/ImageContainer";
+import PropTypes from "prop-types";
 
 function PokemonCardBody({ selectedCard, pokemonSprite }) {
     return(
@@ -66,6 +67,10 @@ function PokemonCardBody({ selectedCard, pokemonSprite }) {
             </CardSection>
         </PokemonContainer>
     );
+};
+PokemonCardBody.PropTypes = {
+    selectedCard: PropTypes.object,
+    pokemonSprite: PropTypes.object
 };
 
 export default PokemonCardBody;

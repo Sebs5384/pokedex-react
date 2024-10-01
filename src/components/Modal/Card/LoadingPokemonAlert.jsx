@@ -1,4 +1,5 @@
 import { PokemonAlertModal, PokemonCardText, PokemonContainer } from "../Pokemon";
+import PropTypes from "prop-types";
 
 function LoadingPokemonAlert({ showModal }) {
     return (
@@ -14,6 +15,9 @@ function LoadingPokemonAlert({ showModal }) {
             </PokemonContainer>
         </PokemonAlertModal>
     );
+};
+LoadingPokemonAlert.propTypes = {
+    showModal: PropTypes.bool
 };
 
 export default LoadingPokemonAlert;

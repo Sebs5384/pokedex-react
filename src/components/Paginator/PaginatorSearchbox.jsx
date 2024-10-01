@@ -1,4 +1,5 @@
 import { PaginationSearchboxPopover, PaginationSearchboxPopoverBody, PaginatorSearchboxInput, PaginationOverlayTrigger } from "./Pokemon";
+import PropTypes from "prop-types";
 
 function PaginatorSearchbox({ onChange, onKeyDown, validationMessage, validationPopup }) {
     return (
@@ -16,6 +17,12 @@ function PaginatorSearchbox({ onChange, onKeyDown, validationMessage, validation
             />
         </PaginationOverlayTrigger>
     );
+};
+PaginatorSearchbox.PropTypes = {
+    onChange: PropTypes.func,
+    onKeyDown: PropTypes.func,
+    validationMessage: PropTypes.string,
+    validationPopup: PropTypes.bool
 };
 
 export default PaginatorSearchbox;

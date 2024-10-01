@@ -1,4 +1,3 @@
-import { usePokedexContext } from "../../context/PokedexContext";
 import { LoadingWrapper, LoadingText, LoadingSpinner } from "./Pokemon";
 
 function LoadingGrid() {

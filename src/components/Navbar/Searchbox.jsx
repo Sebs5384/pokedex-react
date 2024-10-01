@@ -1,6 +1,7 @@
 import { NavInputGroup, NavContainer, NavInputGroupText, NavForm, NavDropdown, NavDropdownMenu, NavDropdownItem } from "./Pokemon";
 import ImageContainer from "../shared/ImageContainer";
 import magnifier from "../../assets/img/misc/magnifier.png"
+import PropTypes from "prop-types";
 
 function Searchbox({ pokemonList, searchPokemon, dropdownVisibility, handleSearchPokemon, handleInputFocus, handleInputOnBlur, selectPokemon, filteredPokemons }) {
     return(
@@ -41,6 +42,16 @@ function Searchbox({ pokemonList, searchPokemon, dropdownVisibility, handleSearc
             </NavContainer>
         </>
     );
+};
+Searchbox.PropTypes = {
+    pokemonList: PropTypes.array,
+    searchPokemon: PropTypes.func,
+    dropdownVisibility: PropTypes.bool,
+    handleSearchPokemon: PropTypes.func,
+    handleInputFocus: PropTypes.func,
+    handleInputOnBlur: PropTypes.func,
+    selectPokemon: PropTypes.func,
+    filteredPokemons: PropTypes.array
 };
 
 export default Searchbox;

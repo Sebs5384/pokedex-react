@@ -1,6 +1,7 @@
 import { PokemonCard, PokemonName } from "./Pokemon";
 import ImageContainer from "../shared/ImageContainer";
 import pokeballImage from "../../assets/img/misc/pokeball.png";
+import PropTypes from "prop-types";
 
 function GridCard({ id, pokemonName, image, selectCard = () => {} }) {
     return (
@@ -20,6 +21,12 @@ function GridCard({ id, pokemonName, image, selectCard = () => {} }) {
             />
         </PokemonCard>
     );
+};
+GridCard.PropTypes = {
+    id: PropTypes.number,
+    pokemonName: PropTypes.string,
+    image: PropTypes.string,
+    selectCard: PropTypes.func
 };
 
 export default GridCard;

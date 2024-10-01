@@ -1,6 +1,6 @@
 import { PokemonContainer, CardSection, CardSeparator, PokemonCardText } from "../Pokemon";
 import ImageContainer from "../../shared/ImageContainer";
-
+import PropTypes from "prop-types";
 
 function PokemonCardFooter({ selectedCard }) {
     return(
@@ -29,6 +29,9 @@ function PokemonCardFooter({ selectedCard }) {
             </CardSection>
         </PokemonContainer>
     );
+};
+PokemonCardFooter.propTypes = {
+    selectedCard: PropTypes.object
 };
 
 export default PokemonCardFooter;

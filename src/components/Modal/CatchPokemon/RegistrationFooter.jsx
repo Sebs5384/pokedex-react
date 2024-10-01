@@ -1,4 +1,5 @@
 import { PokemonContainer, PokemonRegistrationText } from "../Pokemon";
+import PropTypes from "prop-types";
 
 function RegistrationFooter({ pokemon }) {
     return (
@@ -8,6 +9,9 @@ function RegistrationFooter({ pokemon }) {
             </PokemonRegistrationText>
         </PokemonContainer>
     );
+};
+RegistrationFooter.propTypes = {
+    pokemon: PropTypes.object
 };
 
 export default RegistrationFooter;

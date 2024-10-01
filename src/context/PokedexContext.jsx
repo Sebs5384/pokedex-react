@@ -1,6 +1,7 @@
 import { useContext, createContext } from "react";
 import { usePagination, useSelectedCard, useHandleCard, useHandleSearchbox, useHandleCatchPokemon } from "../hooks/index";
 import { setItemRange, getPokemonSpriteUrl } from "../utils/index";
+import PropTypes from "prop-types";
 
 const PokedexContext = createContext();
 
@@ -77,6 +78,9 @@ export function PokedexProvider({ children }) {
             {children}
         </PokedexContext.Provider>
     )
+};
+PokedexProvider.propTypes = {
+    children: PropTypes.node
 };
 
 export const usePokedexContext = () => useContext(PokedexContext);
