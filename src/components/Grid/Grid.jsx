@@ -11,11 +11,11 @@ function Grid() {
     } = usePokedexContext();
 
     return(
-        <GridSection>
+        <GridSection data-cy={"grid-section"}>
             <GridWrapper>
                 <GridBody>
                     <GridBoard>
-                        {loadingPokemons ? <LoadingGrid /> : 
+                        {loadingPokemons ? <LoadingGrid data-cy={"loading-grid-spinner"} /> : 
                             pokemonsInPage && pokemonsInPage.map(({ name, sprite, id }) => 
                             <GridCard 
                                 key={name}

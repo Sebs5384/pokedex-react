@@ -11,7 +11,13 @@ function CaughtPokemonRegistration() {
     } = usePokedexContext();
     
     return (
-        <PokemonSummaryModal show={registrationModalVisibility} className="emerald-font" size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+        <PokemonSummaryModal 
+            show={registrationModalVisibility} 
+            className="emerald-font" size="lg" 
+            aria-labelledby="contained-modal-title-vcenter" 
+            centered
+            data-cy={"caught-pokemon-summary-modal"}
+        >
             <RegistrationHeader />
             <RegistrationBody pokemon={caughtPokemon} />
             <RegistrationFooter pokemon={caughtPokemon} />

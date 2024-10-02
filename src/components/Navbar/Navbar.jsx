@@ -22,7 +22,7 @@ function Navbar() {
     } = usePokedexContext();
 
     return (
-        <Bar>
+        <Bar data-cy={"navbar-section"}>
             <Logo />
             <Searchbox 
                 pokemonList={pokemonList}  
