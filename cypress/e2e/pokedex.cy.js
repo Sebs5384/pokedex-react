@@ -39,6 +39,7 @@ describe("Pokedex loading test", () => {
 
     cy.wait("@pokemonList").then((interception) => {
       expect(pokemonListResponseCounter).to.eq(1);
+      expect(pokemonListResponseCounter).to.eq(1);
       expect(interception.response.statusCode).to.eq(200);
       expect(interception.response.body.count).to.eq(1302);
     });
