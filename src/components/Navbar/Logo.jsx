@@ -4,7 +4,7 @@ import pokeballImage from "../../assets/img/misc/pokedex-logo.png";
 
 function Logo() {
     return(
-        <NavContainer className="poke-logo">
+        <NavContainer className="poke-logo" data-cy={"navbar-logo"}>
             <ImageContainer src={pokeballImage} alt="Logo" onClick={() => window.location.reload()} />
         </NavContainer>
     );

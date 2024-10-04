@@ -15,18 +15,21 @@ function Searchbox({ pokemonList, searchPokemon, dropdownVisibility, handleSearc
                         type="search"
                         placeholder="Search Pokemon"
                         className="search-input form-control pokedex-search-box"
+                        data-cy={"navbar-search-input"}
                         onChange={handleSearchPokemon}
                         onFocus={handleInputFocus}
                         onBlur={handleInputOnBlur}
                     />
                 </NavInputGroup>
-                { dropdownVisibility && <NavDropdown show>
-                        <NavDropdownMenu>
+                { dropdownVisibility && 
+                    <NavDropdown show>
+                        <NavDropdownMenu data-cy={"navbar-dropdown-menu"}>
                             {
                                 filteredPokemons.map((pokemon) => {
                                     return (
                                         <NavDropdownItem
                                             key={pokemon}
+                                            data-cy={pokemon}
                                             onMouseDown={() => {
                                                 selectPokemon(pokemon);
                                             }}

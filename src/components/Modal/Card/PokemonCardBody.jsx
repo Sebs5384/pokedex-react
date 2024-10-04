@@ -7,9 +7,9 @@ function PokemonCardBody({ selectedCard, pokemonSprite }) {
     return(
         <PokemonContainer>
             <CardSection className="container-fluid">
-                <PokemonContainer className="card card-border col-11 mx-auto" style={{background: selectedCard.backgroundStyle}}>
+                <PokemonContainer className="card card-border col-11 mx-auto" style={{background: selectedCard.backgroundStyle}} data-cy={"pokemon-card-modal-image-container"}>
                     <PokemonContainer className="row card-body justify-content-center">
-                        <ImageContainer src={pokemonSprite?.current} alt={selectedCard.name} className="col-8" />
+                        <ImageContainer src={pokemonSprite?.current} alt={selectedCard.name} className="col-8"/>
                     </PokemonContainer>
                 </PokemonContainer>
             </CardSection>

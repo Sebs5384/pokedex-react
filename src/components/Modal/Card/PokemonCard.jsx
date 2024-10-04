@@ -18,11 +18,11 @@ function PokemonCard() {
 
     return(
         <>
-            {loading ? <LoadingPokemonAlert showModal={loading} data-cy={"loading-pokemon-alert"} /> : 
+            {loading ? <LoadingPokemonAlert showModal={loading} /> : 
                 <PokemonCardModal 
                     show={modalVisibility} 
                     onHide={handleCloseCard} 
-                    backgroundTexture={cardData.backgroundTexture} 
+                    backgroundTexture={cardData.backgroundTexture}
                     data-cy={"pokemon-card-modal"}
                 >   
                     <PokemonCardHeader 
