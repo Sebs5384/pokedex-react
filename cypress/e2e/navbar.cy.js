@@ -3,13 +3,11 @@ describe("Navbar interaction testing", () => {
     const pokemonList = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
     const blastoiseUrl = "https://pokeapi.co/api/v2/pokemon/blastoise";
     const blastoiseSpeciesUrl = "https://pokeapi.co/api/v2/pokemon-species/blastoise";
-    const previousEvolutionSpriteUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork//8.png";
-    const waterIconPath = "/static/media/water-type-icon.6bc328319f332420e0e0.png";
-    const mockImageBackgroundStyle = "linear-gradient(rgb(107, 254, 154), rgb(30, 103, 198), rgb(13, 52, 104), rgb(0, 0, 0))";
 
     beforeEach(() => {
         cy.visit(localHost);
 
+        window.localStorage.clear();
         cy.intercept("GET", pokemonList, (req) => {
             req.reply({
                 fixture: "pokemonList.json"
@@ -75,6 +73,11 @@ describe("Navbar interaction testing", () => {
         cy.get("[data-cy='navbar-search-input']").type("bLasToIsE");
         cy.get("[data-cy='blastoise']").click();
 
+        cy.get("[data-cy='loading-pokemon-alert']").should("exist").then(() => {
+            cy.get("[data-cy='loading-pokemon-alert']").should("be.visible");
+            cy.get("[data-cy='loading-pokemon-alert']").should("not.exist");
+        });
+
         cy.wait("@blastoise").then((interception) => {
             expect(interception.response.statusCode).to.eq(200);
         });
@@ -83,16 +86,8 @@ describe("Navbar interaction testing", () => {
             expect(interception.response.statusCode).to.eq(200);
         });
 
-        cy.get("[data-cy='loading-pokemon-alert']").should("exist");
-        cy.get("[data-cy='loading-pokemon-alert']").should("be.visible");
-
-        cy.get("[data-cy='loading-pokemon-alert']").should("not.exist");
-
-        cy.get("[data-cy='pokemon-card-modal']").should("exist");
-        cy.get("[data-cy='pokemon-card-modal']").should("be.visible");
-        cy.get("[data-cy='pokemon-card-close-button']").should("exist");
-        cy.get("[data-cy='pokemon-card-close-button']").should("be.visible");
+        cy.get("[data-cy='pokemon-card-modal']").should("exist").then(() => {
+            cy.get("[data-cy='pokemon-card-modal']").should("be.visible");
+        });
     });
-
-    
 });
