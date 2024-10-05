@@ -1,4 +1,8 @@
 describe("Modal interaction testing", () => {
+    const previousEvolutionSpriteUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork//8.png";
+    const waterIconPath = "/static/media/water-type-icon.6bc328319f332420e0e0.png";
+    const mockImageBackgroundStyle = "linear-gradient(rgb(107, 254, 154), rgb(30, 103, 198), rgb(13, 52, 104), rgb(0, 0, 0))";
+
     it("Should search for a pokemon through typing in the searchbox and then displaying the card when selecting it", () => {
         cy.intercept("GET", blastoiseUrl, (req) => {
             req.reply({

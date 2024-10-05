@@ -15,7 +15,7 @@ describe("Navbar interaction testing", () => {
         }).as("pokemonList");
     });
 
-    it("Should reload the website when clicking on the logo", (done) => {
+    it("Should reload the website when clicking on the logo", () => {
         cy.get("[data-cy='navbar-logo']").should("exist");
         cy.get("[data-cy='navbar-section").should("be.visible");
         cy.get("[data-cy='grid-section']").should("be.visible");
@@ -27,12 +27,10 @@ describe("Navbar interaction testing", () => {
             cy.get("[data-cy='navbar-section']").should("be.visible");
             cy.get("[data-cy='grid-section']").should("be.visible");
             cy.get("[data-cy='pagination-section']").should("be.visible");
-
-            done();
         });
     });
 
-    it("Should display the list of pokemons in the searchbox when clicking on the search input", (done) => {
+    it("Should display the list of pokemons in the searchbox when clicking on the search input", () => {
         cy.wait(2000);
         cy.get("[data-cy='navbar-dropdown-menu']").should("not.exist");
         cy.get("[data-cy='navbar-search-input']").click();
@@ -46,8 +44,6 @@ describe("Navbar interaction testing", () => {
             cy.get("[data-cy='navbar-section']").click();
 
             cy.get("[data-cy='navbar-dropdown-menu']").should("not.exist");
-
-            done();
         });
     });
 
@@ -88,6 +84,36 @@ describe("Navbar interaction testing", () => {
 
         cy.get("[data-cy='pokemon-card-modal']").should("exist").then(() => {
             cy.get("[data-cy='pokemon-card-modal']").should("be.visible");
+        });
+    });
+
+    it("Should clear the input in the searchbox when simulating clicking on the native clear button in DOM", () => {
+        cy.get("[data-cy='navbar-search-input']").type("bLasToIsE");
+        cy.get("[data-cy='blastoise']").should("be.visible");
+
+        cy.get("[data-cy='navbar-search-input']").clear();
+        cy.get("[data-cy='navbar-search-input']").should("have.value", "");
+
+        cy.get("[data-cy='bulbasaur']").should("be.visible");
+        cy.get("[data-cy='navbar-section']").click();
+        cy.get("[data-cy='bulbasaur']").should("not.exist");
+    });
+
+    it("Should clear the input in the searchbox when simulating a backspace", () => {
+        cy.get("[data-cy='navbar-search-input']").type("asdsadsadsadadsad");
+
+        cy.get("[data-cy='navbar-search-input']").type('{selectall}{backspace}').then(() => {
+            cy.get("[data-cy='navbar-section']").click();
+            cy.get("[data-cy='navbar-dropdown-menu']").should("not.exist");
+            cy.get("[data-cy='navbar-search-input']").should("have.value", "");
+        });
+    });
+
+    it("Should display an empty list when a match is not found", () => {
+        cy.get("[data-cy='navbar-search-input']").type("asdsadsadsadadsad");
+
+        cy.get("[data-cy='navbar-dropdown-menu']").should("be.visible").then(() => {
+            cy.get("[data-cy='navbar-dropdown-menu']").find("a").should("have.length", 0);
         });
     });
 });
