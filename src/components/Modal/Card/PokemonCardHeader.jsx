@@ -26,7 +26,8 @@ function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPrev
                     <ImageContainer 
                         src={selectedCard.typeImage.mainTypeIcon}
                         alt={selectedCard.name} 
-                        className="col-1 align-self-center pokemon-species-image text-start" />
+                        className="col-1 align-self-center pokemon-species-image text-start" 
+                    />
                 </PokemonTitle>
             </CardSection>
         </PokemonContainer>

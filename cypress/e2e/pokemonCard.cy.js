@@ -8,9 +8,7 @@ describe("Modal interaction testing", () => {
     beforeEach(() => {
         cy.visit(localHost);
         window.localStorage.clear();
-    });
 
-    it("Should search for a pokemon through typing in the searchbox and then display the card when selecting it", () => {
         cy.intercept("GET", blastoiseUrl, (req) => {
             req.reply({
                 fixture: "blastoise.json"
@@ -22,8 +20,10 @@ describe("Modal interaction testing", () => {
                 fixture: "blastoiseSpecies.json"
             });
         }).as("blastoiseSpecies")
-        
-        cy.wait(2000);
+    });
+
+    it("Should search for a pokemon through typing in the searchbox and then display the card correctly when selecting it", () => {
+        cy.wait(1000);
 
         cy.get("[data-cy='loading-pokemon-alert']").should("not.exist");
         cy.get("[data-cy='pokemon-card-modal']").should("not.exist");
@@ -51,21 +51,6 @@ describe("Modal interaction testing", () => {
             cy.get("[data-cy='pokemon-card-modal-image-section']").as("cardImageSection").should("exist").then(() => {
                 cy.get("@cardImageSection").find("div").should("have.css", "background-image").and("eq", mockImageBackgroundStyle);
             })
-        });
-            
-        cy.wait("@blastoiseSpecies").then((interception) => {
-            expect(interception.response.statusCode).to.eq(200);
-            expect(interception.response.body.name).to.eq("blastoise");
-            expect(interception.response.body.evolves_from_species.name).to.eq("wartortle");
-
-            cy.get("[data-cy='pokemon-card-header-genus-section']").as("headerGenusSection").then(() => {
-                cy.get("@headerGenusSection").find("strong").eq(1).should("have.text", "Evolves from wartortle");
-                cy.get("@headerGenusSection").find("strong").eq(2).should("have.text", interception.response.body.genera[7].genus);
-            });
-
-            cy.get("[data-cy='pokemon-card-header-main-section']").as("headerMainSection").then(() => {
-                cy.get("@headerMainSection").find("img").eq(0).should("have.attr", "src", previousEvolutionSpriteUrl);
-            });
         });
 
         cy.wait("@blastoise").then((interception) => {
@@ -105,7 +90,51 @@ describe("Modal interaction testing", () => {
                 cy.get("@cardStatsSection").find("strong").eq(0).should("have.text", "Pokemon Status");
 
                 cy.get("@cardStatsSection").find("img").eq(1).should("have.attr", "src").and("include", "atk-icon");
+                cy.get("@cardStatsSection").find("strong").eq(1).should("have.text", `ATTACK: ${interception.response.body.stats[1].base_stat}`);
+                cy.get("@cardStatsSection").find("img").eq(2).should("have.attr", "src").and("include", "def-icon");
+                cy.get("@cardStatsSection").find("strong").eq(2).should("have.text", `DEFENSE: ${interception.response.body.stats[2].base_stat}`);
+                cy.get("@cardStatsSection").find("img").eq(3).should("have.attr", "src").and("include", "speed-icon");
+                cy.get("@cardStatsSection").find("strong").eq(3).should("have.text", `SPEED: ${interception.response.body.stats[5].base_stat}`);
+                cy.get("@cardStatsSection").find("img").eq(4).should("have.attr", "src").and("include", "sp-atk-icon");
+                cy.get("@cardStatsSection").find("strong").eq(4).should("have.text", `SP ATK: ${interception.response.body.stats[3].base_stat}`);
+                cy.get("@cardStatsSection").find("img").eq(5).should("have.attr", "src").and("include", "sp-def-icon");
+                cy.get("@cardStatsSection").find("strong").eq(5).should("have.text", `SP DEF: ${interception.response.body.stats[4].base_stat}`);
             });
+
+            cy.get("[data-cy='pokemon-card-footer-advantage-section']").as("cardAdvantageSection").should("exist").then(() => {
+                cy.get("@cardAdvantageSection").find("strong").eq(0).should("have.text", "Weakness");
+                cy.get("@cardAdvantageSection").find("img").eq(0).should("have.attr", "src").and("include", `${interception.response.body.weakness}`);
+                cy.get("@cardAdvantageSection").find("strong").eq(1).should("have.text", "Resistance");
+                cy.get("@cardAdvantageSection").find("img").eq(1).should("have.attr", "src").and("include", `${interception.response.body.resistance}`);
+                cy.get("@cardAdvantageSection").find("strong").eq(2).should("have.text", "Retreat Cost");
+                cy.get("@cardAdvantageSection").find("img").eq(2).should("have.attr", "src").and("include", "retreat-icon");
+            });
+        });
+
+        cy.wait("@blastoiseSpecies").then((interception) => {
+            expect(interception.response.statusCode).to.eq(200);
+            expect(interception.response.body.name).to.eq("blastoise");
+            expect(interception.response.body.evolves_from_species.name).to.eq("wartortle");
+
+            cy.get("[data-cy='pokemon-card-header-genus-section']").as("headerGenusSection").then(() => {
+                cy.get("@headerGenusSection").find("strong").eq(1).should("have.text", "Evolves from wartortle");
+                cy.get("@headerGenusSection").find("strong").eq(2).should("have.text", interception.response.body.genera[7].genus);
+            });
+
+            cy.get("[data-cy='pokemon-card-header-main-section']").as("headerMainSection").then(() => {
+                cy.get("@headerMainSection").find("img").eq(0).should("have.attr", "src", previousEvolutionSpriteUrl);
+            });
+
+            cy.get("[data-cy='pokemon-card-footer-description-section']").as("cardDescriptionSection").should("exist").then(() => {
+                cy.get("@cardDescriptionSection")
+                    .find("strong")
+                    .should("have.text", `${interception.response.body.flavor_text_entries[0].flavor_text.replace(/\u000c/g, ' ')}`);
+            });
+        });
+
+        cy.get("@headerGenusSection").find("button").should("exist").then(() => {
+            cy.get("@headerGenusSection").find("button").click();
+            cy.get("@pokemonCard").should("not.exist");
         });
     });
 })
