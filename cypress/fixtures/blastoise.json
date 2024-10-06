@@ -2292,5 +2292,7 @@
     { "base_stat": 78, "effort": 0, "stat": { "name": "speed", "url": "https://pokeapi.co/api/v2/stat/6/" } }
   ],
   "types": [{ "slot": 1, "type": { "name": "water", "url": "https://pokeapi.co/api/v2/type/11/" } }],
-  "weight": 855
+  "weight": 855,
+  "resistance": "fire",
+  "weakness": "electric"
 }
