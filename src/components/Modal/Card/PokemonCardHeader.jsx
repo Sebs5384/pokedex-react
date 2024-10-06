@@ -6,7 +6,7 @@ function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPrev
     return(
         <PokemonContainer closeButton>
             <CardSection className="container-fluid species-wrapper">
-                <PokemonContainer className="row species-data-wrapper" data-cy={"pokemon-card-header-genus"}>
+                <PokemonContainer className="row species-data-wrapper" data-cy={"pokemon-card-header-genus-section"}>
                     <PokemonCardText className="col-2 align-self-end text-end species-font">{pokemonSprite?.previous ? "P.STAGE" : ""}</PokemonCardText>
                     <PokemonCardText className="col-5 align-self-end text-center species-font">{selectedCard.evolutionGenus.name}</PokemonCardText>
                     <PokemonCardText className="col-4 align-self-end text-end species-font">{selectedCard.evolutionGenus.genus}</PokemonCardText>
@@ -15,7 +15,7 @@ function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPrev
                 <PokemonContainer className="row justify-content-center">
                     <CardTopSeparator className="col-11" />
                 </PokemonContainer>
-                <PokemonTitle className="row" data-cy={"pokemon-card-header-main"}>
+                <PokemonTitle className="row" data-cy={"pokemon-card-header-main-section"}>
                     <ImageContainer 
                         src={pokemonSprite?.previous} 
                         onClick={() => selectPreviousEvolution(selectedCard.evolutionGenus.id)} 
