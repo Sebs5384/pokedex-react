@@ -1,10 +1,9 @@
 describe("Modal interaction testing", () => {
     const localHost = "http://localhost:3000";
-    const blastoiseUrl = "https://pokeapi.co/api/v2/pokemon/blastoise";
-    const blastoiseSpeciesUrl = "https://pokeapi.co/api/v2/pokemon-species/blastoise";
-    const wartortleUrl = "https://pokeapi.co/api/v2/pokemon/8";
-    const wartortleSpeciesUrl = "https://pokeapi.co/api/v2/pokemon-species/8";
     const mockImageBackgroundStyle = "linear-gradient(rgb(107, 254, 154), rgb(30, 103, 198), rgb(13, 52, 104), rgb(0, 0, 0))";
+    const pokemonUrl = (category, pokemon) => {
+        return `https://pokeapi.co/api/v2/${category}/${pokemon}`;
+    };
     const previousEvolutionUrl = (id) => {
         return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork//${id}.png`;
     };
@@ -13,13 +12,13 @@ describe("Modal interaction testing", () => {
         cy.visit(localHost);
         window.localStorage.clear();
 
-        cy.intercept("GET", blastoiseUrl, (req) => {
+        cy.intercept("GET", pokemonUrl("pokemon", "blastoise"), (req) => {
             req.reply({
                 fixture: "blastoise.json"
             });
         }).as("blastoise");
 
-        cy.intercept("GET", blastoiseSpeciesUrl, (req) => {
+        cy.intercept("GET", pokemonUrl("pokemon-species", "blastoise"), (req) => {
             req.reply({
                 fixture: "blastoiseSpecies.json"
             });
@@ -145,13 +144,13 @@ describe("Modal interaction testing", () => {
     it("Should display the previous evolution card when clicking on the previous evolution button", () => {
         cy.wait(1000);
 
-        cy.intercept("GET", wartortleUrl, (req) => {
+        cy.intercept("GET", pokemonUrl("pokemon", "8"), (req) => {
             req.reply({
                 fixture: "wartortle.json"
             });
         }).as("wartortle");
 
-        cy.intercept("GET", wartortleSpeciesUrl, (req) => {
+        cy.intercept("GET", pokemonUrl("pokemon-species", "8"), (req) => {
             req.reply({
                 fixture: "wartortleSpecies.json"
             });
@@ -210,6 +209,48 @@ describe("Modal interaction testing", () => {
 
         cy.wait("@wartortleSpecies").then((interception) => {
             expect(interception.response.statusCode).to.eq(200);
+        });
+    });
+
+    it("Should not display the previous evolution button when the previous evolution doesn't exist", () => {
+        cy.wait(1000);
+
+        cy.intercept("GET", pokemonUrl("pokemon", "squirtle"), (req) => {
+            req.reply({
+                fixture: "squirtle.json"
+            });
+        }).as("squirtle");
+
+        cy.intercept("GET", pokemonUrl("pokemon-species", "squirtle"), (req) => {
+            req.reply({
+                fixture: "squirtleSpecies.json"
+            })
+        }).as("squirtleSpecies");
+
+        cy.get("[data-cy='squirtle-grid']").as("squirtleCard").should("exist").then(() => {
+            cy.get("@squirtleCard").click();
+            cy.get("[data-cy='pokemon-card-modal']").as("pokemonCard").should("exist");
+
+            cy.wait("@squirtle").then((interception) => {
+                expect(interception.response.statusCode).to.eq(200);
+
+                cy.get("[data-cy='pokemon-card-header-genus-section']").as("headerGenusSection").should("exist").then(() => {
+                    cy.get("@headerGenusSection").find("strong").eq(0).should("not.have.text", "P.STAGE");
+                });
+
+                cy.get("[data-cy='pokemon-card-header-main-section']").as("headerMainSection").should("exist").then(() => {
+                    cy.get("@headerMainSection").find("img").eq(0).should("not.have.attr", "src");
+                    cy.get("@headerMainSection").find("strong").eq(0).should("have.text", interception.response.body.name);
+                });
+            });
+
+            cy.wait("@squirtleSpecies").then((interception) => {
+                expect(interception.response.statusCode).to.eq(200);
+                expect(interception.response.body.evolves_from_species).to.eq(null);
+            });
+
+            cy.get("@headerGenusSection").find("button").click();
+            cy.get("@pokemonCard").should("not.exist");
         });
     });
 })
