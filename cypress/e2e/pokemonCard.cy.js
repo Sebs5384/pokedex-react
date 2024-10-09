@@ -4,7 +4,7 @@ describe("Modal interaction testing", () => {
     const pokemonUrl = (category, pokemon) => {
         return `https://pokeapi.co/api/v2/${category}/${pokemon}`;
     };
-    const previousEvolutionUrl = (id) => {
+    const previousEvolutionSpriteUrl = (id) => {
         return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork//${id}.png`;
     };
 
@@ -125,7 +125,7 @@ describe("Modal interaction testing", () => {
             });
 
             cy.get("[data-cy='pokemon-card-header-main-section']").as("headerMainSection").then(() => {
-                cy.get("@headerMainSection").find("img").eq(0).should("have.attr", "src", previousEvolutionUrl(interception.response.body.id - 1));
+                cy.get("@headerMainSection").find("img").eq(0).should("have.attr", "src", previousEvolutionSpriteUrl(interception.response.body.id - 1));
             });
 
             cy.get("[data-cy='pokemon-card-footer-description-section']").as("cardDescriptionSection").should("exist").then(() => {
@@ -176,7 +176,7 @@ describe("Modal interaction testing", () => {
     
                 cy.get("[data-cy='pokemon-card-header-main-section']").as("headerMainSection").should("exist").then(() => {
                     cy.get("@headerMainSection").find("strong").eq(0).should("have.text", interception.response.body.name);
-                    cy.get("@headerMainSection").find("img").eq(0).should("have.attr", "src", previousEvolutionUrl(interception.response.body.id - 1));
+                    cy.get("@headerMainSection").find("img").eq(0).should("have.attr", "src", previousEvolutionSpriteUrl(interception.response.body.id - 1));
                     cy.get("@headerMainSection").find("img").eq(0).click();
     
                     cy.get("@pokemonCard").should("not.exist");
@@ -202,7 +202,7 @@ describe("Modal interaction testing", () => {
     
                 cy.get("[data-cy='pokemon-card-header-main-section']").as("headerMainSection").should("exist").then(() => {
                     cy.get("@headerMainSection").find("strong").eq(0).should("have.text", interception.response.body.name);
-                    cy.get("@headerMainSection").find("img").eq(0).should("have.attr", "src", previousEvolutionUrl(interception.response.body.id - 1));
+                    cy.get("@headerMainSection").find("img").eq(0).should("have.attr", "src", previousEvolutionSpriteUrl(interception.response.body.id - 1));
                 });
             });
         });
