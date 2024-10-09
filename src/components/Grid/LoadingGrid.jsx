@@ -2,9 +2,9 @@ import { LoadingWrapper, LoadingText, LoadingSpinner } from "./Pokemon";
 
 function LoadingGrid() {
     return (
-        <LoadingWrapper>
+        <LoadingWrapper >
             <LoadingSpinner animation="border" variant="danger"/>
-            <LoadingText>Loading Pokemons...</LoadingText>
+            <LoadingText data-cy={"loading-grid-text"}>Loading Pokemons...</LoadingText>
         </LoadingWrapper>
     ); 
 };

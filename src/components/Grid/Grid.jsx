@@ -14,8 +14,8 @@ function Grid() {
         <GridSection data-cy={"grid-section"}>
             <GridWrapper>
                 <GridBody>
-                    <GridBoard>
-                        {loadingPokemons ? <LoadingGrid data-cy={"loading-grid-spinner"} /> : 
+                    <GridBoard data-cy={"grid-board"}>
+                        {loadingPokemons ? <LoadingGrid /> : 
                             pokemonsInPage && pokemonsInPage.map(({ name, sprite, id }) => 
                             <GridCard 
                                 key={name}

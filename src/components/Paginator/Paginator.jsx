@@ -26,7 +26,7 @@ function Paginator() {
             data-cy={"pagination-section"}
         >
             <Pagination className="page-item">
-                <PaginatorButton onClick={() => setPreviousPage()} isDisabled={currentPage === firstPage}>Previous</PaginatorButton>
+                <PaginatorButton onClick={() => setPreviousPage()} isDisabled={currentPage === firstPage} dataAttribute={"paginator-previous-button"}>Previous</PaginatorButton>
                 {totalPages.map((pageNumber) => (
                     <PaginatorButton 
                         key={pageNumber} 
@@ -36,7 +36,7 @@ function Paginator() {
                         {pageNumber}
                     </PaginatorButton>   
                 ))}
-                <PaginatorButton onClick={() => setNextPage()} isDisabled={currentPage === lastPage}>Next</PaginatorButton>
+                <PaginatorButton onClick={() => setNextPage()} isDisabled={currentPage === lastPage} dataAttribute={"paginator-next-button"}>Next</PaginatorButton>
             </Pagination>
             <PaginatorSearchbox 
                 onChange={(event) => setSearchboxValue(event)} 
