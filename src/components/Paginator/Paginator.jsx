@@ -32,7 +32,8 @@ function Paginator() {
                         key={pageNumber} 
                         isHidden={setItemRange(pageNumber, currentPage)}
                         isActive={pageNumber === currentPage} 
-                        onClick={() => setCurrentPage(pageNumber)}>
+                        onClick={() => setCurrentPage(pageNumber)}
+                        dataAttribute={`page-${pageNumber}`}>
                         {pageNumber}
                     </PaginatorButton>   
                 ))}
