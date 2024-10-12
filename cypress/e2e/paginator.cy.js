@@ -226,4 +226,62 @@ describe("Paginator interaction testing", () => {
             });
         });
     });
+
+    it("Should jump from one page to another by using the page buttons", () => {
+        cy.wait(1000);
+
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, getOffset(3, POKEMONS_PER_PAGE)), (req) => {
+            req.reply({
+                fixture: "pokedexThirdPage.json"
+            });
+        }).as("paginatorThirdPage");
+
+        cy.wait("@paginatorFirstPage").then((interception) => {
+            expect(interception.response.statusCode).to.eq(200);
+            expect(interception.response.body.next).to.eq(requestUrl(getOffset(2, POKEMONS_PER_PAGE), POKEMONS_PER_PAGE, "/"));
+            expect(interception.response.body.previous).to.eq(null);
+        });
+
+        cy.get("[data-cy='pagination-section']").as("paginationSection").should("exist").then(() => {
+            cy.get("[data-cy='paginator-next-button']").as("paginatorNextButton").should("exist");
+            cy.get("[data-cy='paginator-previous-button']").as("paginatorPreviousButton").should("exist").and("have.class", "disabled");
+            cy.get("[data-cy='page-1']").as("firstPage").should("exist").and("be.visible");
+            cy.get("[data-cy='page-2']").as("secondPage").should("exist").and("be.visible");
+            cy.get("[data-cy='page-3']").as("thirdPage").should("exist").and("be.visible");
+            cy.get("[data-cy='page-4']").as("fourthPage").should("exist").and("not.be.visible");
+            cy.get("[data-cy='page-5']").as("fifthPage").should("exist").and("not.be.visible");
+
+            cy.get("@thirdPage").click();
+
+            cy.wait("@paginatorThirdPage").then((interception) => {
+                expect(interception.response.statusCode).to.eq(200);
+                expect(interception.response.body.next).to.eq(requestUrl(getOffset(4, POKEMONS_PER_PAGE), POKEMONS_PER_PAGE));
+                expect(interception.response.body.previous).to.eq(requestUrl(getOffset(2, POKEMONS_PER_PAGE), POKEMONS_PER_PAGE));
+                
+                cy.get("@paginatorPreviousButton").should("not.have.class", "disabled");
+                cy.get("@firstPage").should("be.visible");
+                cy.get("@secondPage").should("be.visible");
+                cy.get("@thirdPage").should("be.visible");
+                cy.get("@fourthPage").should("be.visible"); 
+                cy.get("@fifthPage").should("be.visible");
+            });
+            
+            cy.get("@firstPage").click();
+
+            cy.wait("@paginatorFirstPage").then((interception) => {
+                const firstPageData = localStorage.getItem("pokemons_20_0");
+                const parsedFirstPageData = JSON.parse(firstPageData);
+                expect(firstPageData).not.to.be.null;
+                expect(parsedFirstPageData.next).to.eq(requestUrl(getOffset(2, POKEMONS_PER_PAGE), POKEMONS_PER_PAGE, "/"));
+                expect(parsedFirstPageData.previous).to.eq(null);
+                
+                cy.get("@paginatorPreviousButton").should("have.class", "disabled");
+                cy.get("@firstPage").should("be.visible");
+                cy.get("@secondPage").should("be.visible");
+                cy.get("@thirdPage").should("be.visible");
+                cy.get("@fourthPage").should("not.be.visible"); 
+                cy.get("@fifthPage").should("not.be.visible");
+            });
+        })
+    });
 });
