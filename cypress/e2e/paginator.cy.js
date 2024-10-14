@@ -296,6 +296,8 @@ describe("Paginator interaction testing", () => {
 
         cy.get("[data-cy='pagination-section']").as("paginationSection").should("exist").then(() => {
             cy.get("[data-cy='paginator-searchbox']").as("paginatorSearchbox").should("exist");
+            cy.get("[data-cy='paginator-previous-button']").as("paginatorPreviousButton").should("exist").and("have.class", "disabled");
+            cy.get("[data-cy='paginator-next-button']").as("paginatorNextButton").should("exist").and("not.have.class", "disabled");
             cy.get("[data-cy='page-1']").as("firstPage").should("exist").and("be.visible");
             cy.get("[data-cy='page-64']").as("sixtyFourthPage").should("exist").and("not.be.visible");
             cy.get("[data-cy='page-65']").as("sixtyFifthPage").should("exist").and("not.be.visible");
@@ -311,6 +313,8 @@ describe("Paginator interaction testing", () => {
                     expect(interception.response.body.results.length).to.eq(2);
                 });
 
+                cy.get("@paginatorPreviousButton").should("not.have.class", "disabled");
+                cy.get("@paginatorNextButton").should("have.class", "disabled");
                 cy.get("@firstPage").should("exist").and("not.be.visible");
                 cy.get("@sixtyFourthPage").should("exist").and("be.visible");
                 cy.get("@sixtyFifthPage").should("exist").and("be.visible");
@@ -329,6 +333,8 @@ describe("Paginator interaction testing", () => {
                     expect(interception.response.body.results.length).to.eq(20);
                 });
 
+                cy.get("@paginatorPreviousButton").should("have.class", "disabled");
+                cy.get("@paginatorNextButton").should("not.have.class", "disabled");
                 cy.get("@firstPage").should("exist").and("be.visible");
                 cy.get("@sixtyFourthPage").should("exist").and("not.be.visible");
                 cy.get("@sixtyFifthPage").should("exist").and("not.be.visible");
