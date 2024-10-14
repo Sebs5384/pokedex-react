@@ -284,4 +284,56 @@ describe("Paginator interaction testing", () => {
             });
         })
     });
+
+    it("Should jump to the last page using the paginator searchbox and then go back to the first page", () => {
+        cy.wait(1000);
+
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, getOffset(66, POKEMONS_PER_PAGE)), (req) => {
+            req.reply({
+                fixture: "pokedexLastPage.json"
+            });
+        }).as("paginatorLastPage");
+
+        cy.get("[data-cy='pagination-section']").as("paginationSection").should("exist").then(() => {
+            cy.get("[data-cy='paginator-searchbox']").as("paginatorSearchbox").should("exist");
+            cy.get("[data-cy='page-1']").as("firstPage").should("exist").and("be.visible");
+            cy.get("[data-cy='page-64']").as("sixtyFourthPage").should("exist").and("not.be.visible");
+            cy.get("[data-cy='page-65']").as("sixtyFifthPage").should("exist").and("not.be.visible");
+            cy.get("[data-cy='page-66']").as("lastPage").should("exist").and("not.be.visible");
+
+            cy.get("@paginatorSearchbox").click().then(() => {
+                cy.get("@paginatorSearchbox").type("66{enter}");
+
+                cy.wait("@paginatorLastPage").then((interception) => {
+                    expect(interception.response.statusCode).to.eq(200);
+                    expect(interception.response.body.next).to.eq(null);
+                    expect(interception.response.body.previous).to.eq(requestUrl(getOffset(65, POKEMONS_PER_PAGE), POKEMONS_PER_PAGE, "/"));
+                    expect(interception.response.body.results.length).to.eq(2);
+                });
+
+                cy.get("@firstPage").should("exist").and("not.be.visible");
+                cy.get("@sixtyFourthPage").should("exist").and("be.visible");
+                cy.get("@sixtyFifthPage").should("exist").and("be.visible");
+                cy.get("@lastPage").should("exist").and("be.visible");
+            })
+
+            cy.get("@paginatorSearchbox").clear();
+
+            cy.get("@paginatorSearchbox").click().then(() => {
+                cy.get("@paginatorSearchbox").type("1{enter}");
+
+                cy.wait("@paginatorFirstPage").then((interception) => {
+                    expect(interception.response.statusCode).to.eq(200);
+                    expect(interception.response.body.next).to.eq(requestUrl(getOffset(2, POKEMONS_PER_PAGE), POKEMONS_PER_PAGE, "/"));
+                    expect(interception.response.body.previous).to.eq(null);
+                    expect(interception.response.body.results.length).to.eq(20);
+                });
+
+                cy.get("@firstPage").should("exist").and("be.visible");
+                cy.get("@sixtyFourthPage").should("exist").and("not.be.visible");
+                cy.get("@sixtyFifthPage").should("exist").and("not.be.visible");
+                cy.get("@lastPage").should("exist").and("not.be.visible");
+            });
+        });
+    });
 });
