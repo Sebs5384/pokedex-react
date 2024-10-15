@@ -18,14 +18,20 @@ async function getPokemon(name) {
     if(name === null || name === undefined) return;
 
     const pokemonURL = `${URL}/pokemon/${name}`;
-    return await fetch(pokemonURL)
-        .then(response => response.json())
-        .catch((error) => {
-            throw new Error(error);
-        })
-        .finally(() => {
-            console.error(`Warning, using API call URL: ${pokemonURL}`);
-        });
+    try {
+        const response = await fetch(pokemonURL);
+        if(!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        };
+
+        const pokemon = await response.json();
+        return pokemon;
+    } catch(error) {
+        throw new Error(error);
+    } finally {
+        console.error(`Warning, using API call URL: ${pokemonURL}`);
+    };
 };
 
 async function getPokemonSpecies(species, completeName) {
