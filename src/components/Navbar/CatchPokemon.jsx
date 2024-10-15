@@ -13,6 +13,7 @@ function CatchPokemon({ selectPokemon, isShaking, caughtPokemons, caughtPokemonS
                 backgroundImage={pokeBackground}
                 onClick={handlePokeballClick}
                 alt="Pokeball"
+                data-cy={"pokeball-button"}
             />
             <NavContainer className="catch-pokemon">
                 <ImageContainer 
@@ -20,7 +21,7 @@ function CatchPokemon({ selectPokemon, isShaking, caughtPokemons, caughtPokemonS
                     alt="Catch a pokemon"
                 />
             </NavContainer>
-            <NavContainer className="poke-slot">
+            <NavContainer className="poke-slot" data-cy={"navbar-poke-slot"}>
                     {caughtPokemons && caughtPokemons.map((pokemon, index) => (
                         pokemon ? 
                         <ImageContainer 

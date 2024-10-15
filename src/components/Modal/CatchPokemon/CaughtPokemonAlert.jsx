@@ -17,7 +17,7 @@ function CaughtPokemonAlert() {
             size="lg" 
             aria-labelledby="contained-modal-title-vcenter" 
             centered
-            data-cy={"caught-pokemon-alert-modal"}    
+            data-cy={"caught-pokemon-alert-modal"}
         >
             <PokemonContainer className="modal-body">
                 <PokemonContainer className="alert-background d-flex justify-content-center align-items-center">

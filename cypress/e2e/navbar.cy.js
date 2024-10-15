@@ -121,4 +121,67 @@ describe("Navbar interaction testing", () => {
             cy.get("@navbarDropdownMenu").find("a").should("have.length", 0);
         });
     });
+
+    it("Should interact with the pokeball button and catch 3 random pokemons", () => {
+        cy.wait(1000);
+
+        cy.get("[data-cy='navbar-poke-slot']").as("pokeSlots").should("exist").and("be.visible");
+        cy.get("@pokeSlots").find("img").eq(0).should("have.attr", "src").and("include", "pokedex-len");
+        cy.get("@pokeSlots").find("img").eq(1).should("have.attr", "src").and("include", "pokedex-len");
+        cy.get("@pokeSlots").find("img").eq(2).should("have.attr", "src").and("include", "pokedex-len");
+
+        cy.get("[data-cy='pokeball-button']").as("pokeballButton").should("exist");
+        cy.get("@pokeballButton").click().then(() => {
+            cy.get("[data-cy='caught-pokemon-alert-modal']").as("caughtPokemonAlert").should("exist").and("be.visible");
+
+            cy.wait(6500);
+            cy.get("@caughtPokemonAlert").should("not.exist");
+            cy.get("[data-cy='caught-pokemon-summary-modal']").as("caughtPokemonSummaryModal").should("exist").and("be.visible");
+            
+            cy.wait(11000);
+            cy.get("@caughtPokemonAlert").should("not.exist");
+            cy.get("@caughtPokemonSummaryModal").should("not.exist");
+            cy.get("@pokeSlots").find("img").eq(0).should("have.attr", "src").and("not.include", "pokedex-len");
+            cy.get("@pokeSlots").find("img").eq(1).should("have.attr", "src").and("include", "pokedex-len");
+            cy.get("@pokeSlots").find("img").eq(2).should("have.attr", "src").and("include", "pokedex-len");
+        });
+        
+        cy.get("@pokeballButton").click().then(() => {
+            cy.get("@caughtPokemonAlert").should("exist").and("be.visible");
+
+            cy.wait(6500);
+            cy.get("@caughtPokemonAlert").should("not.exist");
+            cy.get("@caughtPokemonSummaryModal").should("exist").and("be.visible");
+            
+            cy.wait(11000);
+            cy.get("@caughtPokemonAlert").should("not.exist");
+            cy.get("@caughtPokemonSummaryModal").should("not.exist");
+            cy.get("@pokeSlots").find("img").eq(0).should("have.attr", "src").and("not.include", "pokedex-len");
+            cy.get("@pokeSlots").find("img").eq(1).should("have.attr", "src").and("not.include", "pokedex-len");
+            cy.get("@pokeSlots").find("img").eq(2).should("have.attr", "src").and("include", "pokedex-len");
+        });
+
+        cy.get("@pokeballButton").click().then(() => {
+            cy.get("@caughtPokemonAlert").should("exist").and("be.visible");
+
+            cy.wait(6500);
+            cy.get("@caughtPokemonAlert").should("not.exist");
+            cy.get("@caughtPokemonSummaryModal").should("exist").and("be.visible");
+
+            cy.wait(11000);
+            cy.get("@caughtPokemonAlert").should("not.exist");
+            cy.get("@caughtPokemonSummaryModal").should("not.exist");
+            cy.get("@pokeSlots").find("img").eq(0).should("have.attr", "src").and("not.include", "pokedex-len");
+            cy.get("@pokeSlots").find("img").eq(1).should("have.attr", "src").and("not.include", "pokedex-len");
+            cy.get("@pokeSlots").find("img").eq(2).should("have.attr", "src").and("not.include", "pokedex-len");
+        });
+
+        cy.get("[data-cy='navbar-section']").click().then(() => {
+            cy.get("@caughtPokemonAlert").should("not.exist");
+            cy.get("@caughtPokemonSummaryModal").should("not.exist");
+            cy.get("@pokeSlots").find("img").eq(0).should("have.attr", "src").and("not.include", "pokedex-len");
+            cy.get("@pokeSlots").find("img").eq(1).should("have.attr", "src").and("not.include", "pokedex-len");
+            cy.get("@pokeSlots").find("img").eq(2).should("have.attr", "src").and("not.include", "pokedex-len");
+        });
+    });
 });
