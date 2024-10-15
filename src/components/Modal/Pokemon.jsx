@@ -10,7 +10,7 @@ const emeraldFontFace = css`
     }
 `;
 
-const PokemonCardModal = styled(Modal)`
+const PokemonCardModal = styled(({ backgroundTexture, ...rest }) => <Modal {...rest} />)`
     .modal-content {
         border: solid gold 12px;
         border-radius: 10px;
