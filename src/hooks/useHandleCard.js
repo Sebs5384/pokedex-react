@@ -2,7 +2,7 @@ import { useEffect, useReducer } from "react";
 import { handleCardReducer, initialHandleCardState } from "../reducers/handleCardReducer";
 import { useGetPokemonSprite } from "../hooks/index";
 
-function useHandleCard(setSelectedCard, loadingCard, cardData, artwork) {
+function useHandleCard(setSelectedCard, loadingCardData, cardData, artwork) {
     const [state, dispatch] = useReducer(handleCardReducer, initialHandleCardState);
     const { loadingSprite, pokemonSprite } = useGetPokemonSprite(cardData, artwork);
 
@@ -17,13 +17,13 @@ function useHandleCard(setSelectedCard, loadingCard, cardData, artwork) {
     };
 
     useEffect(() => {
-        const isLoading = loadingCard || loadingSprite;
+        const isLoading = loadingCardData || loadingSprite;
 
         dispatch({ type: "SET_DEBOUNCE_LOADING", payload: isLoading });
-    }, [loadingCard, loadingSprite]);
+    }, [loadingCardData, loadingSprite]);
 
     return {
-        loading: state.debounceLoading,
+        loadingCard: state.debounceLoading,
         modalVisibility: state.modalVisibility,
         pokemonSprite: pokemonSprite,
         handleSelectedCard,

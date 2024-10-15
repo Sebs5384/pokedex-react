@@ -14,7 +14,7 @@ export function PokedexProvider({ children }) {
 
     const {
         cardData,
-        loadingCard,
+        loadingCardData,
         setSelectedCard
     } = useSelectedCard();
     const {
@@ -33,12 +33,12 @@ export function PokedexProvider({ children }) {
         handleKeyDown
     } = usePagination(POKEMONS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl);
     const {
-        loading,
+        loadingCard,
         modalVisibility,
         pokemonSprite,
         handleSelectedCard,
         handleCloseCard
-    } = useHandleCard(setSelectedCard, loadingCard, cardData, artwork);
+    } = useHandleCard(setSelectedCard, loadingCardData, cardData, artwork);
     const {
         pokemonList,
         searchBoxPokemon,
@@ -66,10 +66,10 @@ export function PokedexProvider({ children }) {
         <PokedexContext.Provider
             value={
                 {
-                    cardData, loadingCard, setSelectedCard,
+                    cardData, loadingCardData, setSelectedCard,
                     currentPage, pokemonsInPage, totalPages, firstPage, lastPage, loadingPokemons, popupMessage, invalidPagePopup,
                     setNextPage, setPreviousPage, setCurrentPage, setItemRange, setSearchboxValue, handleKeyDown,
-                    loading, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,
+                    loadingCard, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,
                     pokemonList, searchBoxPokemon, dropdownVisibility, filteredPokemons, pokemonsCount, handleSearchPokemon, handleInputFocus, handleInputOnBlur,
                     caughtPokemons, caughtPokemon, caughtPokemonSprite, isShaking, caughtModalVisibility, registrationModalVisibility, topText, bottomText, textChange, handlePokeballClick
                 }

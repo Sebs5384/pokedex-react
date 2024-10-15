@@ -11,14 +11,14 @@ function PokemonCard() {
         handleCloseCard,
         cardData,
         pokemonSprite,
-        loading,
+        loadingCard,
         handleSelectedCard,
     } = usePokedexContext();
     if(!cardData) return null;
 
     return(
         <>
-            {loading ? <LoadingPokemonAlert showModal={loading} /> : 
+            {loadingCard ? <LoadingPokemonAlert showModal={loadingCard} /> : 
                 <PokemonCardModal 
                     show={modalVisibility} 
                     onHide={handleCloseCard} 
