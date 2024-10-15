@@ -12,19 +12,19 @@ function PokemonCardFooter({ selectedCard }) {
                     <PokemonCardText className="col-4 text-center status-font">Resistance</PokemonCardText>
                     <PokemonCardText className="col-4 text-end status-font">Retreat Cost</PokemonCardText>
                     <PokemonContainer className="col-4 text-start">
-                        <ImageContainer src={selectedCard.advantageImage.weakness}  className="stats-icon" />
+                        <ImageContainer src={selectedCard?.advantageImage.weakness}  className="stats-icon" />
                     </PokemonContainer>
                     <PokemonContainer className="col-4 text-center">
-                        <ImageContainer src={selectedCard.advantageImage.resistance} className="stats-icon" />
+                        <ImageContainer src={selectedCard?.advantageImage.resistance} className="stats-icon" />
                     </PokemonContainer>
                     <PokemonContainer className="col-4 text-end">
-                        <ImageContainer src={selectedCard.advantageImage.retreat} className="stats-icon" />
+                        <ImageContainer src={selectedCard?.advantageImage.retreat} className="stats-icon" />
                     </PokemonContainer>
                 </PokemonContainer>
             </CardSection>
             <CardSection className="container-fluid mb-2 col-11" data-cy={"pokemon-card-footer-description-section"}>
                 <PokemonContainer className="card text-center description-border">
-                    <PokemonCardText className="footer-font">{selectedCard.description}</PokemonCardText>
+                    <PokemonCardText className="footer-font">{selectedCard?.description}</PokemonCardText>
                 </PokemonContainer>
             </CardSection>
         </PokemonContainer>
