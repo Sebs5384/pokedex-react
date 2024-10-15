@@ -7,7 +7,7 @@ const PokedexContext = createContext();
 
 export function PokedexProvider({ children }) {
     const MAX_LIMIT = 100000;
-    const OFFSET = 0;
+    const INITIAL_PAGE_OFFSET = 0;
     const POKEMONS_PER_PAGE = 20;
     const INITIAL_PAGE_INDEX = 1;
     const artwork = "other/official-artwork/";
@@ -15,6 +15,7 @@ export function PokedexProvider({ children }) {
     const {
         cardData,
         loadingCardData,
+        cardError,
         setSelectedCard
     } = useSelectedCard();
     const {
@@ -48,7 +49,7 @@ export function PokedexProvider({ children }) {
         handleSearchPokemon,
         handleInputFocus,
         handleInputOnBlur
-    } = useHandleSearchbox(MAX_LIMIT, OFFSET, setSelectedCard);
+    } = useHandleSearchbox(MAX_LIMIT, INITIAL_PAGE_OFFSET, setSelectedCard);
     const {
         caughtPokemons,
         caughtPokemon,
@@ -66,7 +67,7 @@ export function PokedexProvider({ children }) {
         <PokedexContext.Provider
             value={
                 {
-                    cardData, loadingCardData, setSelectedCard,
+                    cardData, loadingCardData, cardError, setSelectedCard,
                     currentPage, pokemonsInPage, totalPages, firstPage, lastPage, loadingPokemons, popupMessage, invalidPagePopup,
                     setNextPage, setPreviousPage, setCurrentPage, setItemRange, setSearchboxValue, handleKeyDown,
                     loadingCard, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,

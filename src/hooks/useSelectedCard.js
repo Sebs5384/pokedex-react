@@ -5,7 +5,7 @@ import { parsePokemonData } from "../utils/pokemon";
 
 function useSelectedCard() {
     const [state, dispatch] = useReducer(selectedCardReducer, initialSelectedCardState);
-    const { loading, pokemon } = useFetchPokemon(state.name);
+    const { loading, pokemon, error } = useFetchPokemon(state.name);
     const { species } = useFetchSpecies(state.name);
 
     const setSelectedCard = (name) => {
@@ -22,7 +22,8 @@ function useSelectedCard() {
 
     return {
         cardData: state.data,
-        loadingCard: loading,
+        loadingCardData: loading,
+        cardError: error,
         setSelectedCard
     };
 };
