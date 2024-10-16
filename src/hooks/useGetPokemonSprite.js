@@ -1,5 +1,5 @@
 import { useReducer, useEffect } from "react";
-import { pokemonReducer, initialPokemonState } from "../reducers";
+import { pokemonReducer, initialPokemonState } from "../reducers/index";
 import { getPokemonSprite } from "../service/pokemon";
 
 function useGetPokemonSprite(pokemon, artwork) {

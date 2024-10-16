@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { handleCardReducer, initialHandleCardState } from "../reducers/handleCardReducer";
+import { handleCardReducer, initialHandleCardState } from "../reducers/index";
 import { useGetPokemonSprite } from "../hooks/index";
 
 function useHandleCard(setSelectedCard, loadingCardData, cardData, artwork) {

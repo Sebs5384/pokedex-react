@@ -1,5 +1,5 @@
 import { useReducer, useEffect } from "react";
-import { pokemonReducer, initialPokemonState } from "../reducers/pokemonReducer";
+import { pokemonReducer, initialPokemonState } from "../reducers/index";
 import { getPokemon } from "../service/pokemon";
 
 function useFetchPokemon(name) {
@@ -10,7 +10,7 @@ function useFetchPokemon(name) {
             dispatch({ type: "FETCH_REQUEST" });
         
             try {
-                const pokemonData = await getPokemon(name);
+                const pokemonData = await getPokemon("dsadlsad");
                 dispatch({ type: "FETCH_SUCCESS", payload: pokemonData });
             } catch (error) {
                 dispatch({ type: "FETCH_FAILURE", payload: error });
