@@ -8,6 +8,7 @@ import useGetPokemonSprite from "./useGetPokemonSprite";
 import useHandleCard from "./useHandleCard";
 import useHandleSearchbox from "./useHandleSearchbox";
 import useHandleCatchPokemon from "./useHandleCatchPokemon";
+import useHandleErrorMessage from "./useHandleErrorMessage";
 
 export {
     useFetchPokemons,
@@ -20,4 +21,5 @@ export {
     useHandleCard,
     useHandleSearchbox,
     useHandleCatchPokemon,
+    useHandleErrorMessage,
 };

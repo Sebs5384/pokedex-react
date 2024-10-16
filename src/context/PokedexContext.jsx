@@ -1,5 +1,5 @@
 import { useContext, createContext } from "react";
-import { usePagination, useSelectedCard, useHandleCard, useHandleSearchbox, useHandleCatchPokemon } from "../hooks/index";
+import { usePagination, useSelectedCard, useHandleCard, useHandleSearchbox, useHandleCatchPokemon, useHandleErrorMessage } from "../hooks/index";
 import { setItemRange, getPokemonSpriteUrl } from "../utils/index";
 import PropTypes from "prop-types";
 
@@ -62,6 +62,9 @@ export function PokedexProvider({ children }) {
         textChange,
         handlePokeballClick
     } = useHandleCatchPokemon(pokemonsCount, pokemonList);
+    const {
+        errorMessage,
+    } = useHandleErrorMessage(cardError);
 
     return (
         <PokedexContext.Provider
@@ -72,7 +75,8 @@ export function PokedexProvider({ children }) {
                     setNextPage, setPreviousPage, setCurrentPage, setItemRange, setSearchboxValue, handleKeyDown,
                     loadingCard, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,
                     pokemonList, searchBoxPokemon, dropdownVisibility, filteredPokemons, pokemonsCount, handleSearchPokemon, handleInputFocus, handleInputOnBlur,
-                    caughtPokemons, caughtPokemon, caughtPokemonSprite, isShaking, caughtModalVisibility, registrationModalVisibility, topText, bottomText, textChange, handlePokeballClick
+                    caughtPokemons, caughtPokemon, caughtPokemonSprite, isShaking, caughtModalVisibility, registrationModalVisibility, topText, bottomText, textChange, handlePokeballClick,
+                    errorMessage
                 }
             }
         >

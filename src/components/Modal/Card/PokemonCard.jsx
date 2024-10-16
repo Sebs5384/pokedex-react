@@ -12,6 +12,7 @@ function PokemonCard() {
         handleCloseCard,
         cardData,
         cardError,
+        errorMessage,
         pokemonSprite,
         loadingCard,
         handleSelectedCard,
@@ -25,7 +26,7 @@ function PokemonCard() {
                 /> 
             : cardError ? 
                 <ErrorMessage 
-                    error={cardError}
+                    error={errorMessage}
                 />
             : 
                 <PokemonCardModal 
