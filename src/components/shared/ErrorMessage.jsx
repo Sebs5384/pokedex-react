@@ -42,6 +42,11 @@ const ErrorMessageText = styled.strong`
 `;
 
 const ErrorCloseButton = styled(CloseButton)`
+    border: 2px solid gold;
+    border-style: outset;
+    border-radius: 2px;
+    border-color: gold;
+    opacity: 0.7;
 `;
 
 function ErrorMessage({ error }) {
