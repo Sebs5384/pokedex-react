@@ -27,7 +27,8 @@ async function getPokemons(limit, offset) {
 
 async function getPokemon(name) {
     try {
-        return loadPokemonFromStorage(name);
+        const loadedPokemon =  loadPokemonFromStorage(name);
+        return loadedPokemon;
     } catch(error) {
         const pokemon = await getPokemonFromApi(name);
 
@@ -55,7 +56,8 @@ async function getPokemonSpecies(name, completeName) {
 
 async function getPokemonSprite(pokemon, artwork = "") {
     try {
-        return loadPokemonSpriteFromStorage(pokemon, artwork);
+        const loadedPokemonSprite = await loadPokemonSpriteFromStorage(pokemon, artwork);
+        return loadedPokemonSprite;
     } catch(error) {
         const sprite = await getPokemonSpriteFromApi(pokemon, artwork);
         storePokemonSprite(pokemon, sprite, artwork);

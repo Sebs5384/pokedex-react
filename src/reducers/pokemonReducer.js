@@ -1,5 +1,5 @@
 const initialPokemonState = {
-    loading: false,
+    loading: null,
     data: null,
     error: null
 };
@@ -18,14 +18,14 @@ function pokemonReducer(state = initialPokemonState, action) {
         case "FETCH_SUCCESS":
             return {
                 ...state,
-                loading: false,
+                loading: null,
                 data: payload,
                 error: null
             };
         case "FETCH_FAILURE":
             return {
                 ...state,
-                loading: false,
+                loading: null,
                 data: null,
                 error: payload
             };

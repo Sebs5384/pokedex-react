@@ -8,7 +8,6 @@ function useHandleCard(setSelectedCard, loadingCardData, cardData, artwork) {
 
     const handleSelectedCard = (card) => {
         setSelectedCard(card);
-        dispatch({ type: "SET_MODAL_VISIBILITY", payload: true });
     };
 
     const handleCloseCard = () => {
@@ -20,6 +19,10 @@ function useHandleCard(setSelectedCard, loadingCardData, cardData, artwork) {
         const isLoading = loadingCardData || loadingSprite;
 
         dispatch({ type: "SET_DEBOUNCE_LOADING", payload: isLoading });
+
+        if(isLoading !== null) {
+            dispatch({ type: "SET_MODAL_VISIBILITY", payload: true });
+        };
     }, [loadingCardData, loadingSprite]);
 
     return {

@@ -46,7 +46,7 @@ function loadPokemonSprite(pokemon, artwork) {
         throw new Error(`Invalid pokemon: ${pokemon.name}`);
     };
 
-    const sprite = JSON.parse(localStorage.getItem(getPokemonSpriteKey(pokemon.name, artwork)));
+    const sprite = JSON.parse(localStorage.getItem(getPokemonSpriteKey(pokemon, artwork)));
     if(sprite === null) {
         throw new Error(`Pokemon sprite of given pokemon: ${pokemon.name} not found`);
     };
@@ -83,7 +83,7 @@ function storePokemonSprite(pokemon, sprite, artwork) {
         throw new Error(`Id and sprite must be defined to be stored in localstorage, reading: id: ${pokemon}, sprite: ${sprite}`);
     };
 
-    localStorage.setItem(getPokemonSpriteKey(pokemon, artwork), JSON.stringify(sprite.current));
+    localStorage.setItem(getPokemonSpriteKey(pokemon, artwork), JSON.stringify(sprite));
 };
 
 export {

@@ -1,5 +1,6 @@
 const initialHandleCardState = {
-    modalVisibility: false
+    modalVisibility: false,
+    debounceLoading: false
 };
 
 function handleCardReducer(state = initialHandleCardState, action) {
