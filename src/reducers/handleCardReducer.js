@@ -1,21 +1,21 @@
 const initialHandleCardState = {
-    modalVisibility: false,
-    debounceLoading: false
+    cardModalVisibility: false,
+    isLoading: false
 };
 
 function handleCardReducer(state = initialHandleCardState, action) {
     const { type, payload } = action;
 
     switch(type) {
-        case "SET_MODAL_VISIBILITY":
+        case "SET_CARD_MODAL_VISIBILITY":
             return {
                 ...state,
-                modalVisibility: payload
+                cardModalVisibility: payload
             };
-        case "SET_DEBOUNCE_LOADING":
+        case "SET_IS_LOADING":
             return {
                 ...state,
-                debounceLoading: payload
+                isLoading: payload
             };
         default:
             return state;

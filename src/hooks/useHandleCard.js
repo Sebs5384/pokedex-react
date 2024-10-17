@@ -12,22 +12,25 @@ function useHandleCard(setSelectedCard, loadingCardData, cardData, artwork) {
 
     const handleCloseCard = () => {
         setSelectedCard(null);
-        dispatch({ type: "SET_MODAL_VISIBILITY", payload: false });
+        dispatch({ type: "SET_CARD_MODAL_VISIBILITY", payload: false });
     };
 
     useEffect(() => {
         const isLoading = loadingCardData || loadingSprite;
 
-        dispatch({ type: "SET_DEBOUNCE_LOADING", payload: isLoading });
+        if(!loadingCardData && loadingSprite) {
+            dispatch({ type: "SET_IS_LOADING", payload: false });
+            dispatch({ type: "SET_CARD_MODAL_VISIBILITY", payload: true });
+        };
 
-        if(isLoading !== null) {
-            dispatch({ type: "SET_MODAL_VISIBILITY", payload: true });
+        if(loadingCardData) {
+            dispatch({ type: "SET_IS_LOADING", payload: isLoading }); 
         };
     }, [loadingCardData, loadingSprite]);
 
     return {
-        loadingCard: state.debounceLoading,
-        modalVisibility: state.modalVisibility,
+        loadingCard: state.isLoading,
+        modalVisibility: state.cardModalVisibility,
         pokemonSprite: pokemonSprite,
         handleSelectedCard,
         handleCloseCard
