@@ -38,11 +38,12 @@ describe("Modal interaction testing", () => {
         
         cy.get("[data-cy='loading-pokemon-alert']").as("loadingAlert").should("exist").then(() => {
             cy.get("@loadingAlert").should("be.visible");
-            cy.get("@loadingAlert").should("not.exist");
         });
 
         cy.get("[data-cy='pokemon-card-modal']").as("pokemonCard").should("exist").then(() => {
+            cy.get("@loadingAlert").should("not.exist");
             cy.get("@pokemonCard").should("be.visible");
+            
             cy.get("[data-cy='pokemon-card-close-button']").as("cardCloseButton").should("exist").then(() => {
                 cy.get("@cardCloseButton").should("be.visible");
             });
@@ -229,11 +230,11 @@ describe("Modal interaction testing", () => {
 
         cy.get("[data-cy='squirtle-grid']").as("squirtleCard").should("exist").then(() => {
             cy.get("@squirtleCard").click();
-            cy.get("[data-cy='pokemon-card-modal']").as("pokemonCard").should("exist");
+            cy.get("[data-cy='loading-pokemon-alert']").as("loadingAlert").should("exist");
 
             cy.wait("@squirtle").then((interception) => {
                 expect(interception.response.statusCode).to.eq(200);
-
+                cy.get("[data-cy='pokemon-card-modal']").as("pokemonCard").should("exist");
                 cy.get("[data-cy='pokemon-card-header-genus-section']").as("headerGenusSection").should("exist").then(() => {
                     cy.get("@headerGenusSection").find("strong").eq(0).should("not.have.text", "P.STAGE");
                 });
