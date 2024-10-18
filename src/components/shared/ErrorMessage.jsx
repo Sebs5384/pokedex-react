@@ -49,21 +49,21 @@ const ErrorCloseButton = styled(CloseButton)`
     opacity: 0.7;
 `;
 
-function ErrorMessage({ error }) {
+function ErrorMessage({ errorCauseMessage, errorText, errorMessageVisibility, closeErrorModal }) {
     return (
         <ErrorMessageModal
-            show={error}
+            show={errorMessageVisibility}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
             <PokemonSection className="error-message-background emerald-font" >
                 <PokemonContainer className="modal-header">
-                    <ErrorMessageText className="emerald-font">{error}</ErrorMessageText>
-                    <ErrorCloseButton />
+                    <ErrorMessageText className="emerald-font">{errorCauseMessage}</ErrorMessageText>
+                    <ErrorCloseButton onClick={closeErrorModal} />
                 </PokemonContainer>
                 <PokemonContainer className="modal-body">
-                    <ErrorMessageText className="emerald-font">Something went wrong while loading this resource, please try again later.</ErrorMessageText>
+                    <ErrorMessageText className="emerald-font">{errorText}</ErrorMessageText>
                 </PokemonContainer>
             </PokemonSection>
         </ErrorMessageModal>

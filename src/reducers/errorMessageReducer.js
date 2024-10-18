@@ -1,16 +1,22 @@
 const initialErrorMessageState = {
-    errorMessage: null
+    errorCauseMessage: null,
+    errorMessageVisibility: false
 };
 
 function errorMessageReducer(state = initialErrorMessageState, action) {
     const { type, payload } = action;
 
     switch(type) {
-        case "SET_ERROR_MESSAGE":
+        case "SET_ERROR_CAUSE_MESSAGE":
             return {
                 ...state,
-                errorMessage: payload
+                errorCauseMessage: payload
             };
+        case "SET_ERROR_MESSAGE_VISIBILITY":
+            return {
+                ...state,
+                errorMessageVisibility: payload
+        }
         default:
             return state;
     };

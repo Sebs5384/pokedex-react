@@ -2,7 +2,7 @@ import { useEffect, useReducer } from "react";
 import { handleCardReducer, initialHandleCardState } from "../reducers/index";
 import { useGetPokemonSprite } from "../hooks/index";
 
-function useHandleCard(setSelectedCard, loadingCardData, cardData, artwork) {
+function useHandleCard(setSelectedCard, loadingCardData, cardData, cardError, artwork) {
     const [state, dispatch] = useReducer(handleCardReducer, initialHandleCardState);
     const { loadingSprite, pokemonSprite } = useGetPokemonSprite(cardData, artwork);
 
@@ -16,6 +16,10 @@ function useHandleCard(setSelectedCard, loadingCardData, cardData, artwork) {
     };
 
     useEffect(() => {
+        if(cardError) {
+            dispatch({ type: "SET_IS_LOADING", payload: false });
+        };
+
         const isLoading = loadingCardData || loadingSprite;
 
         if(!loadingCardData && loadingSprite) {

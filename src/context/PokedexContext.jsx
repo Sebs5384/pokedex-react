@@ -39,7 +39,7 @@ export function PokedexProvider({ children }) {
         pokemonSprite,
         handleSelectedCard,
         handleCloseCard
-    } = useHandleCard(setSelectedCard, loadingCardData, cardData, artwork);
+    } = useHandleCard(setSelectedCard, loadingCardData, cardData, cardError, artwork);
     const {
         pokemonList,
         searchBoxPokemon,
@@ -63,7 +63,9 @@ export function PokedexProvider({ children }) {
         handlePokeballClick
     } = useHandleCatchPokemon(pokemonsCount, pokemonList);
     const {
-        errorMessage,
+        errorCauseMessage,
+        errorMessageVisibility,
+        handleCloseErrorMessage
     } = useHandleErrorMessage(cardError);
 
     return (
@@ -76,7 +78,7 @@ export function PokedexProvider({ children }) {
                     loadingCard, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,
                     pokemonList, searchBoxPokemon, dropdownVisibility, filteredPokemons, pokemonsCount, handleSearchPokemon, handleInputFocus, handleInputOnBlur,
                     caughtPokemons, caughtPokemon, caughtPokemonSprite, isShaking, caughtModalVisibility, registrationModalVisibility, topText, bottomText, textChange, handlePokeballClick,
-                    errorMessage
+                    errorCauseMessage, errorMessageVisibility, handleCloseErrorMessage
                 }
             }
         >
