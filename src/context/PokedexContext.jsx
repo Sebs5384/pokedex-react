@@ -15,6 +15,8 @@ export function PokedexProvider({ children }) {
     const {
         cardData,
         loadingCardData,
+        loadingSprite,
+        pokemonSprite,
         cardError,
         setSelectedCard
     } = useSelectedCard();
@@ -36,10 +38,9 @@ export function PokedexProvider({ children }) {
     const {
         loadingCard,
         modalVisibility,
-        pokemonSprite,
         handleSelectedCard,
         handleCloseCard
-    } = useHandleCard(setSelectedCard, loadingCardData, cardData, cardError, artwork);
+    } = useHandleCard(setSelectedCard, loadingCardData, cardData, loadingSprite, pokemonSprite, cardError);
     const {
         pokemonList,
         searchBoxPokemon,

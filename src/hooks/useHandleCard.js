@@ -1,10 +1,8 @@
 import { useEffect, useReducer } from "react";
 import { handleCardReducer, initialHandleCardState } from "../reducers/index";
-import { useGetPokemonSprite } from "../hooks/index";
 
-function useHandleCard(setSelectedCard, loadingCardData, cardData, cardError, artwork) {
+function useHandleCard(setSelectedCard, loadingCardData, cardData, loadingSprite, cardSprite, cardError) {
     const [state, dispatch] = useReducer(handleCardReducer, initialHandleCardState);
-    const { loadingSprite, pokemonSprite } = useGetPokemonSprite(cardData, artwork);
 
     const handleSelectedCard = (card) => {
         setSelectedCard(card);
@@ -22,7 +20,7 @@ function useHandleCard(setSelectedCard, loadingCardData, cardData, cardError, ar
 
         const isLoading = loadingCardData || loadingSprite;
 
-        if(!loadingCardData && !loadingSprite && pokemonSprite && cardData) {
+        if(!loadingCardData && !loadingSprite && cardData && cardSprite) {
             dispatch({ type: "SET_IS_LOADING", payload: false });
             dispatch({ type: "SET_CARD_MODAL_VISIBILITY", payload: true });
         };
@@ -30,12 +28,11 @@ function useHandleCard(setSelectedCard, loadingCardData, cardData, cardError, ar
         if(loadingCardData) {
             dispatch({ type: "SET_IS_LOADING", payload: isLoading }); 
         };
-    }, [loadingCardData, loadingSprite]);
+    }, [loadingCardData, loadingSprite, cardSprite, cardData]);
 
     return {
         loadingCard: state.isLoading,
         modalVisibility: state.cardModalVisibility,
-        pokemonSprite: pokemonSprite,
         handleSelectedCard,
         handleCloseCard
     }
