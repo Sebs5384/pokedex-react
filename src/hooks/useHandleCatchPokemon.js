@@ -5,7 +5,7 @@ import { getRandomPokemon, replaceNullItem, parsePokemonData } from "../utils/in
 
 function useHandleCatchPokemon(pokemonsCount, pokemonList) {
     const [state, dispatch] = useReducer(catchPokemonReducer, initialCatchPokemonState);
-    const { pokemon } = useFetchPokemon(state.randomPokemon);
+    const { pokemon, error } = useFetchPokemon(state.randomPokemon);
     const { species } = useFetchSpecies(state.randomPokemon);
     const { loadingSprite, pokemonSprite } = useGetPokemonSprite(state.caughtPokemon);
 
@@ -19,6 +19,38 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
             setTimeout(() => {
                 dispatch({ type: "SET_SHAKING_EFFECT", payload: false });
             }, 6000);
+        };
+    };
+
+    const handleTextChange = () => {
+        dispatch({type: "SET_TOP_TEXT", payload: "Gotcha !"});
+        dispatch({type: "SET_BOTTOM_TEXT", payload: `${state.randomPokemon.split('-')[0].toUpperCase()} was caught`});
+
+        const textCleanupTimeout = setTimeout(() => {
+            dispatch({type: "SET_TOP_TEXT", payload: ""});
+            dispatch({type: "SET_BOTTOM_TEXT", payload: ""});
+            dispatch({type: "TEXT_CHANGE", payload: false});
+
+            setTimeout(() => {
+                dispatch({type: "TEXT_CHANGE", payload: true});
+                dispatch({type: "SET_TOP_TEXT", payload: `${state.randomPokemon.split('-')[0].toUpperCase()}'S data was`})
+                dispatch({type: "SET_BOTTOM_TEXT", payload: "added to the POKéDEX"});
+
+                setTimeout(() => {
+                    dispatch({type: "SET_MODAL_VISIBILITY", payload: false});
+                    dispatch({type: "SET_REGISTRATION_MODAL_VISIBILITY", payload: true});
+
+                    if(error) dispatch({type: "SET_REGISTRATION_MODAL_VISIBILITY", payload: false});
+
+                    setTimeout(() => {
+                        dispatch({type: "SET_REGISTRATION_MODAL_VISIBILITY", payload: false});
+                    }, 10000);
+                }, 3000);
+            }, 500);
+        }, 3000);
+
+        return () => {
+            clearTimeout(textCleanupTimeout);
         };
     };
 
@@ -40,34 +72,8 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
 
     useEffect(() => {
         if(state.isShaking) {
-            dispatch({type: "SET_TOP_TEXT", payload: "Gotcha !"});
-            dispatch({type: "SET_BOTTOM_TEXT", payload: `${state.randomPokemon.split('-')[0].toUpperCase()} was caught`});
-
-            const firstTimeout = setTimeout(() => {
-                dispatch({type: "SET_TOP_TEXT", payload: ""});
-                dispatch({type: "SET_BOTTOM_TEXT", payload: ""});
-                dispatch({type: "TEXT_CHANGE", payload: false});
-
-                setTimeout(() => {
-                    dispatch({type: "TEXT_CHANGE", payload: true});
-                    dispatch({type: "SET_TOP_TEXT", payload: `${state.randomPokemon.split('-')[0].toUpperCase()}'S data was`})
-                    dispatch({type: "SET_BOTTOM_TEXT", payload: "added to the POKéDEX"});
-
-                    setTimeout(() => {
-                        dispatch({type: "SET_MODAL_VISIBILITY", payload: false});
-                        dispatch({type: "SET_REGISTRATION_MODAL_VISIBILITY", payload: true});
-
-                        setTimeout(() => {
-                            dispatch({type: "SET_REGISTRATION_MODAL_VISIBILITY", payload: false});
-                        }, 10000);
-                    }, 3000);
-                }, 500);
-            }, 3000);
-
-            return () => {
-                clearTimeout(firstTimeout);
-            };
-        }
+            handleTextChange();
+        };
     }, [state.isShaking]);
 
     return {

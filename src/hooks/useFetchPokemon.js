@@ -10,7 +10,7 @@ function useFetchPokemon(name) {
             dispatch({ type: "FETCH_REQUEST" });
         
             try {
-                const pokemonData = await getPokemon(name);
+                const pokemonData = await getPokemon("dsaokdka");
                 dispatch({ type: "FETCH_SUCCESS", payload: pokemonData });
             } catch (error) {
                 dispatch({ type: "FETCH_FAILURE", payload: error });

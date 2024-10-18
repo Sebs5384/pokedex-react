@@ -22,7 +22,7 @@ function useHandleCard(setSelectedCard, loadingCardData, cardData, cardError, ar
 
         const isLoading = loadingCardData || loadingSprite;
 
-        if(!loadingCardData && loadingSprite) {
+        if(!loadingCardData && !loadingSprite && pokemonSprite && cardData) {
             dispatch({ type: "SET_IS_LOADING", payload: false });
             dispatch({ type: "SET_CARD_MODAL_VISIBILITY", payload: true });
         };
