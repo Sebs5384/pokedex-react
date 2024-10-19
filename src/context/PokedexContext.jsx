@@ -67,7 +67,8 @@ export function PokedexProvider({ children }) {
     const {
         errorCauseMessage,
         errorMessage,
-        errorMessageVisibility,
+        cardErrorMessageVisibility,
+        caughtPokemonErrorMessageVisibility,
         handleCloseErrorMessage
     } = useHandleErrorMessage(cardError, caughtPokemonError);
 
@@ -81,7 +82,7 @@ export function PokedexProvider({ children }) {
                     loadingCard, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,
                     pokemonList, searchBoxPokemon, dropdownVisibility, filteredPokemons, pokemonsCount, handleSearchPokemon, handleInputFocus, handleInputOnBlur,
                     caughtPokemons, caughtPokemon, caughtPokemonError, caughtPokemonSprite, isShaking, caughtModalVisibility, registrationModalVisibility, topText, bottomText, textChange, handlePokeballClick,
-                    errorCauseMessage, errorMessage, errorMessageVisibility, handleCloseErrorMessage
+                    errorCauseMessage, errorMessage, cardErrorMessageVisibility, caughtPokemonErrorMessageVisibility, handleCloseErrorMessage
                 }
             }
         >

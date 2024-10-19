@@ -9,6 +9,7 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
     const { species } = useFetchSpecies(state.randomPokemon);
     const { loadingSprite, pokemonSprite } = useGetPokemonSprite(state.caughtPokemon);
 
+
     const handlePokeballClick = () => {
         if(state.caughtPokemons.includes(null)) { 
             const randomPokemon = getRandomPokemon(pokemonsCount, pokemonList);
@@ -24,7 +25,7 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
 
     const handleTextChange = () => {
         dispatch({type: "SET_TOP_TEXT", payload: "Gotcha !"});
-        dispatch({type: "SET_BOTTOM_TEXT", payload: `${state.randomPokemon.split('-')[0].toUpperCase()} was caught`});
+        dispatch({type: "SET_BOTTOM_TEXT", payload: `${state.randomPokemon?.split('-')[0].toUpperCase()} was caught`});
 
         const textCleanupTimeout = setTimeout(() => {
             dispatch({type: "SET_TOP_TEXT", payload: ""});
@@ -33,15 +34,13 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
 
             setTimeout(() => {
                 dispatch({type: "TEXT_CHANGE", payload: true});
-                dispatch({type: "SET_TOP_TEXT", payload: `${state.randomPokemon.split('-')[0].toUpperCase()}'S data was`})
+                dispatch({type: "SET_TOP_TEXT", payload: `${state.randomPokemon?.split('-')[0].toUpperCase()}'S data was`})
                 dispatch({type: "SET_BOTTOM_TEXT", payload: "added to the POKéDEX"});
 
                 setTimeout(() => {
                     dispatch({type: "SET_MODAL_VISIBILITY", payload: false});
                     dispatch({type: "SET_REGISTRATION_MODAL_VISIBILITY", payload: true});
-
-                    if(error) dispatch({type: "SET_REGISTRATION_MODAL_VISIBILITY", payload: false});
-
+                    
                     setTimeout(() => {
                         dispatch({type: "SET_REGISTRATION_MODAL_VISIBILITY", payload: false});
                     }, 10000);
@@ -72,6 +71,7 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
 
     useEffect(() => {
         if(state.isShaking) {
+            if(error) dispatch ({type: "SET_MODAL_VISIBILITY", payload: false});
             handleTextChange();
         };
     }, [state.isShaking]);
@@ -79,6 +79,7 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
     return {
         caughtPokemons: state.caughtPokemons,
         caughtPokemon: state.caughtPokemon,
+        caughtPokemonError: error,
         caughtPokemonSprite: state.caughtPokemonSprite,
         loadingSprite: loadingSprite,
         isShaking: state.isShaking,

@@ -12,7 +12,7 @@ function CaughtPokemonRegistration() {
         caughtPokemonError,
         errorCauseMessage,
         errorMessage,
-        errorMessageVisibility,
+        caughtPokemonErrorMessageVisibility,
         handleCloseErrorMessage
     } = usePokedexContext();
     
@@ -22,7 +22,7 @@ function CaughtPokemonRegistration() {
                 <ErrorMessage 
                     errorCauseMessage={errorCauseMessage}
                     errorText={errorMessage}
-                    errorMessageVisibility={errorMessageVisibility}
+                    errorMessageVisibility={caughtPokemonErrorMessageVisibility}
                     closeErrorModal={handleCloseErrorMessage}
                 />
                 :

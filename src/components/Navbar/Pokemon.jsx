@@ -82,6 +82,8 @@ const PokeballButton = styled(({ backgroundImage, ...rest}) => <Button {...rest}
 
     &.poke-shake {
         animation: poke-shake 5s;
+        pointer-events: none;
+        opacity: 0.5;
     }
 
     @keyFrames poke-shake {

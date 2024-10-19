@@ -1,7 +1,8 @@
 const initialErrorMessageState = {
     errorCauseMessage: null,
     errorMessage: null,
-    errorMessageVisibility: false
+    cardErrorMessageVisibility: false,
+    caughtPokemonErrorMessageVisibility: false
 };
 
 function errorMessageReducer(state = initialErrorMessageState, action) {
@@ -18,10 +19,15 @@ function errorMessageReducer(state = initialErrorMessageState, action) {
                 ...state,
                 errorMessage: payload
             };
-        case "SET_ERROR_MESSAGE_VISIBILITY":
+        case "SET_CARD_ERROR_MESSAGE_VISIBILITY":
             return {
                 ...state,
-                errorMessageVisibility: payload
+                cardErrorMessageVisibility: payload
+            };
+        case "SET_CAUGHT_POKEMON_ERROR_MESSAGE_VISIBILITY":
+            return {
+                ...state,
+                caughtPokemonErrorMessageVisibility: payload
             };
         default:
             return state;
