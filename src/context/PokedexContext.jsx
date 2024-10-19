@@ -19,7 +19,7 @@ export function PokedexProvider({ children }) {
         pokemonSprite,
         cardError,
         setSelectedCard
-    } = useSelectedCard();
+    } = useSelectedCard(artwork);
     const {
         currentPage,
         pokemonsInPage,
@@ -54,6 +54,7 @@ export function PokedexProvider({ children }) {
     const {
         caughtPokemons,
         caughtPokemon,
+        caughtPokemonError,
         caughtPokemonSprite,
         isShaking,
         caughtModalVisibility,
@@ -65,9 +66,10 @@ export function PokedexProvider({ children }) {
     } = useHandleCatchPokemon(pokemonsCount, pokemonList);
     const {
         errorCauseMessage,
+        errorMessage,
         errorMessageVisibility,
         handleCloseErrorMessage
-    } = useHandleErrorMessage(cardError);
+    } = useHandleErrorMessage(cardError, caughtPokemonError);
 
     return (
         <PokedexContext.Provider
@@ -78,8 +80,8 @@ export function PokedexProvider({ children }) {
                     setNextPage, setPreviousPage, setCurrentPage, setItemRange, setSearchboxValue, handleKeyDown,
                     loadingCard, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,
                     pokemonList, searchBoxPokemon, dropdownVisibility, filteredPokemons, pokemonsCount, handleSearchPokemon, handleInputFocus, handleInputOnBlur,
-                    caughtPokemons, caughtPokemon, caughtPokemonSprite, isShaking, caughtModalVisibility, registrationModalVisibility, topText, bottomText, textChange, handlePokeballClick,
-                    errorCauseMessage, errorMessageVisibility, handleCloseErrorMessage
+                    caughtPokemons, caughtPokemon, caughtPokemonError, caughtPokemonSprite, isShaking, caughtModalVisibility, registrationModalVisibility, topText, bottomText, textChange, handlePokeballClick,
+                    errorCauseMessage, errorMessage, errorMessageVisibility, handleCloseErrorMessage
                 }
             }
         >

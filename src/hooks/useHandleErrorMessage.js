@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from "react";
 import { errorMessageReducer, initialErrorMessageState } from "../reducers/index";
 
-function useHandleErrorMessage(error) {
+function useHandleErrorMessage(cardError, caughtPokemonError) {
     const [state, dispatch] = useReducer(errorMessageReducer, initialErrorMessageState);
 
     const handleCloseErrorMessage = () => {
@@ -9,14 +9,22 @@ function useHandleErrorMessage(error) {
     };
 
     useEffect(() => {
-        if(error) {
-            dispatch({ type: "SET_ERROR_CAUSE_MESSAGE", payload: error.message });
-            dispatch({ type: "SET_ERROR_MESSAGE_VISIBILITY", payload: true});
+        if(cardError) {
+            dispatch({ type: "SET_ERROR_CAUSE_MESSAGE", payload: cardError.message });
+            dispatch({ type: "SET_ERROR_MESSAGE", payload: "There was an error while loading the Pokemon Card, please try again later." });
+            dispatch({ type: "SET_ERROR_MESSAGE_VISIBILITY", payload: true });
         };
-    }, [error]);
+
+        if(caughtPokemonError) {
+            dispatch({ type: "SET_ERROR_CAUSE_MESSAGE", payload: caughtPokemonError.message });
+            dispatch({ type: "SET_ERROR_MESSAGE", payload: "There was an error while loading the caught Pokemon, please try again later." });
+            dispatch({ type: "SET_ERROR_MESSAGE_VISIBILITY", payload: true });
+        };
+    }, [cardError, caughtPokemonError]);
 
     return {
         errorCauseMessage: state.errorCauseMessage,
+        errorMessage: state.errorMessage,
         errorMessageVisibility: state.errorMessageVisibility,
         handleCloseErrorMessage
     };

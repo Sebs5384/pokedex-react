@@ -3,11 +3,11 @@ import { selectedCardReducer, initialSelectedCardState } from "../reducers/index
 import { useFetchPokemon, useFetchSpecies, useGetPokemonSprite } from "./index";
 import { parsePokemonData } from "../utils/pokemon";
 
-function useSelectedCard() {
+function useSelectedCard(artwork) {
     const [state, dispatch] = useReducer(selectedCardReducer, initialSelectedCardState);
     const { loading, pokemon, error } = useFetchPokemon(state.name);
     const { species } = useFetchSpecies(state.name);
-    const { loadingSprite, pokemonSprite } = useGetPokemonSprite(state.data, "other/official-artwork/");
+    const { loadingSprite, pokemonSprite } = useGetPokemonSprite(state.data, artwork);
 
     const setSelectedCard = (name) => {
         dispatch({ type: "RESET_CARD_DATA" });
