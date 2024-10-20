@@ -16,11 +16,14 @@ function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPrev
                     <CardTopSeparator className="col-11" />
                 </PokemonContainer>
                 <PokemonTitle className="row" data-cy={"pokemon-card-header-main-section"}>
-                    <ImageContainer 
-                        src={pokemonSprite?.previous} 
-                        onClick={() => selectPreviousEvolution(selectedCard.evolutionGenus.id)} 
-                        className="col-2 align-self-center text-center pokemon-species-image" 
-                    />
+                    { pokemonSprite?.previous ? 
+                        <ImageContainer 
+                            src={pokemonSprite?.previous} 
+                            onClick={() => selectPreviousEvolution(selectedCard.evolutionGenus.id)} 
+                            className="col-2 align-self-center text-center pokemon-species-image" 
+                        />
+                        : <PokemonContainer className="col-2 align-self-center text-center pokemon-species-image" />
+                    }
                     <PokemonCardText className="col-4 align-self-center text-center title-font capitalize" data-cy={"pokemon-card-header-name"}>{selectedCard?.name}</PokemonCardText>
                     <PokemonCardText className="col-4 align-self-center text-end title-font hp-text">{selectedCard?.stats.hp}</PokemonCardText>
                     <ImageContainer 
