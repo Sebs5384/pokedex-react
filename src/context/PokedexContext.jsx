@@ -15,9 +15,11 @@ export function PokedexProvider({ children }) {
     const {
         cardData,
         loadingCardData,
+        loadingSpeciesData,
         loadingSprite,
         pokemonSprite,
         cardError,
+        cardSpeciesError,
         setSelectedCard
     } = useSelectedCard(artwork);
     const {
@@ -40,7 +42,7 @@ export function PokedexProvider({ children }) {
         modalVisibility,
         handleSelectedCard,
         handleCloseCard
-    } = useHandleCard(setSelectedCard, loadingCardData, cardData, loadingSprite, pokemonSprite, cardError);
+    } = useHandleCard(setSelectedCard, loadingCardData, loadingSpeciesData, cardData, loadingSprite, pokemonSprite, cardError, cardSpeciesError);
     const {
         pokemonList,
         searchBoxPokemon,
@@ -76,7 +78,7 @@ export function PokedexProvider({ children }) {
         <PokedexContext.Provider
             value={
                 {
-                    cardData, loadingCardData, cardError, setSelectedCard,
+                    cardData, loadingCardData, cardError, cardSpeciesError, setSelectedCard,
                     currentPage, pokemonsInPage, totalPages, firstPage, lastPage, loadingPokemons, popupMessage, invalidPagePopup,
                     setNextPage, setPreviousPage, setCurrentPage, setItemRange, setSearchboxValue, handleKeyDown,
                     loadingCard, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,

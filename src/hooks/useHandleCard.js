@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from "react";
 import { handleCardReducer, initialHandleCardState } from "../reducers/index";
 
-function useHandleCard(setSelectedCard, loadingCardData, cardData, loadingSprite, cardSprite, cardError) {
+function useHandleCard(setSelectedCard, loadingCardData, loadingSpeciesData, cardData, loadingSprite, cardSprite, cardError, cardSpeciesError) {
     const [state, dispatch] = useReducer(handleCardReducer, initialHandleCardState);
 
     const handleSelectedCard = (card) => {
@@ -14,13 +14,13 @@ function useHandleCard(setSelectedCard, loadingCardData, cardData, loadingSprite
     };
 
     useEffect(() => {
-        if(cardError) {
+        if(cardError || cardSpeciesError) {
             dispatch({ type: "SET_IS_LOADING", payload: false });
         };
 
         const isLoading = loadingCardData || loadingSprite;
 
-        if(!loadingCardData && !loadingSprite && cardData && cardSprite) {
+        if(!loadingCardData && !loadingSpeciesData && !loadingSprite && cardData && cardSprite) {
             dispatch({ type: "SET_IS_LOADING", payload: false });
             dispatch({ type: "SET_CARD_MODAL_VISIBILITY", payload: true });
         };
@@ -28,7 +28,7 @@ function useHandleCard(setSelectedCard, loadingCardData, cardData, loadingSprite
         if(loadingCardData) {
             dispatch({ type: "SET_IS_LOADING", payload: isLoading }); 
         };
-    }, [loadingCardData, loadingSprite, cardSprite, cardData]);
+    }, [loadingCardData, loadingSpeciesData, loadingSprite, cardSprite, cardData]);
 
     return {
         loadingCard: state.isLoading,

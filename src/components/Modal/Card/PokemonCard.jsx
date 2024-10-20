@@ -13,6 +13,7 @@ function PokemonCard() {
         handleCloseCard,
         cardData,
         cardError,
+        cardSpeciesError,
         errorCauseMessage,
         pokemonSprite,
         loadingCard,
@@ -26,7 +27,7 @@ function PokemonCard() {
                 <LoadingPokemonAlert 
                     showModal={loadingCard} 
                 /> 
-            : cardError ? 
+            : cardError || cardSpeciesError ? 
                 <ErrorMessage 
                     errorCauseMessage={errorCauseMessage}
                     errorText={"Something went wrong while loading the Pokemon card, please try again later."}

@@ -23,9 +23,9 @@ function useFetchSpecies(species) {
     }, [species]);
 
     return {
-        loading: state.loading,
+        loadingSpecies: state.loading,
         species: state.data,
-        error: state.error
+        speciesError: state.error,
     };
 };
 
