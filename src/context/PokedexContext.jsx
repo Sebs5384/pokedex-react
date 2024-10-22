@@ -45,10 +45,10 @@ export function PokedexProvider({ children }) {
     } = useHandleCard(setSelectedCard, loadingCardData, loadingSpeciesData, cardData, loadingSprite, pokemonSprite, cardError, cardSpeciesError);
     const {
         pokemonList,
-        searchBoxPokemon,
         dropdownVisibility,
         filteredPokemons,
         pokemonsCount,
+        searchboxError,
         handleSearchPokemon,
         handleInputFocus,
         handleInputOnBlur
@@ -71,8 +71,9 @@ export function PokedexProvider({ children }) {
         errorMessage,
         cardErrorMessageVisibility,
         caughtPokemonErrorMessageVisibility,
+        searchboxErrorMessageVisibility,
         handleCloseErrorMessage
-    } = useHandleErrorMessage(cardError, caughtPokemonError);
+    } = useHandleErrorMessage(cardError, caughtPokemonError, searchboxError);
 
     return (
         <PokedexContext.Provider
@@ -82,9 +83,9 @@ export function PokedexProvider({ children }) {
                     currentPage, pokemonsInPage, totalPages, firstPage, lastPage, loadingPokemons, popupMessage, invalidPagePopup,
                     setNextPage, setPreviousPage, setCurrentPage, setItemRange, setSearchboxValue, handleKeyDown,
                     loadingCard, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,
-                    pokemonList, searchBoxPokemon, dropdownVisibility, filteredPokemons, pokemonsCount, handleSearchPokemon, handleInputFocus, handleInputOnBlur,
+                    pokemonList, dropdownVisibility, filteredPokemons, pokemonsCount, searchboxError, handleSearchPokemon, handleInputFocus, handleInputOnBlur,
                     caughtPokemons, caughtPokemon, caughtPokemonError, caughtPokemonSprite, isShaking, caughtModalVisibility, registrationModalVisibility, topText, bottomText, textChange, handlePokeballClick,
-                    errorCauseMessage, errorMessage, cardErrorMessageVisibility, caughtPokemonErrorMessageVisibility, handleCloseErrorMessage
+                    errorCauseMessage, errorMessage, cardErrorMessageVisibility, caughtPokemonErrorMessageVisibility, searchboxErrorMessageVisibility, handleCloseErrorMessage
                 }
             }
         >

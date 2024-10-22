@@ -1,7 +1,8 @@
 const initialSearchboxState = {
     searchboxPokemon: "",
-    searchBoxItems: null,
-    dropdownVisibility: false
+    searchboxItems: null,
+    dropdownVisibility: false,
+    pokemonCount: null,
 };
 
 function searchboxReducer(state = initialSearchboxState, action) {
@@ -11,7 +12,7 @@ function searchboxReducer(state = initialSearchboxState, action) {
         case "SET_SEARCH_BOX_ITEMS":
             return {
                 ...state,
-                searchBoxItems: payload
+                searchboxItems: payload
             };
         case "SET_SEARCH_BOX_POKEMON":
             return {

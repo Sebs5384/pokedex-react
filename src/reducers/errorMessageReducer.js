@@ -2,7 +2,8 @@ const initialErrorMessageState = {
     errorCauseMessage: null,
     errorMessage: null,
     cardErrorMessageVisibility: false,
-    caughtPokemonErrorMessageVisibility: false
+    caughtPokemonErrorMessageVisibility: false,
+    searchboxErrorMessageVisibility: false
 };
 
 function errorMessageReducer(state = initialErrorMessageState, action) {
@@ -28,6 +29,11 @@ function errorMessageReducer(state = initialErrorMessageState, action) {
             return {
                 ...state,
                 caughtPokemonErrorMessageVisibility: payload
+            };
+        case "SET_SEARCHBOX_ERROR_MESSAGE_VISIBILITY":
+            return {
+                ...state,
+                searchboxErrorMessageVisibility: payload
             };
         default:
             return state;

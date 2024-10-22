@@ -6,33 +6,38 @@ import CatchPokemon from "./CatchPokemon";
 
 function Navbar() {
     const {
-        pokemonList,
-        searchBoxPokemon,
+        filteredPokemons,
         dropdownVisibility,
         handleSearchPokemon,
         handleInputFocus,
         handleInputOnBlur,
         handleSelectedCard,
-        filteredPokemons,
         handlePokeballClick,
         isShaking,
         caughtPokemons,
-        caughtPokemon,
         caughtPokemonSprite,
+        searchboxError,
+        errorCauseMessage,
+        errorMessage,
+        searchboxErrorMessageVisibility,
+        handleCloseErrorMessage
     } = usePokedexContext();
 
     return (
         <Bar data-cy={"navbar-section"}>
             <Logo />
             <Searchbox 
-                pokemonList={pokemonList}  
-                searchItem={searchBoxPokemon}
+                filteredPokemons={filteredPokemons}
                 dropdownVisibility={dropdownVisibility}
                 handleSearchPokemon={handleSearchPokemon}
                 handleInputFocus={handleInputFocus}
                 handleInputOnBlur={handleInputOnBlur}
                 selectPokemon={handleSelectedCard}
-                filteredPokemons={filteredPokemons}
+                searchboxError={searchboxError}
+                errorCauseMessage={errorCauseMessage}
+                errorMessage={errorMessage}
+                searchboxErrorMessageVisibility={searchboxErrorMessageVisibility}
+                handleCloseErrorMessage={handleCloseErrorMessage}
             />
             <CatchPokemon 
                 selectPokemon={handleSelectedCard}

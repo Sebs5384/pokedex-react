@@ -18,7 +18,7 @@ function useFetchPokemon(name, type) {
         };
 
         fetchPokemonData();
-    }, [name,type]);
+    }, [name, type]);
 
     return {
         loading: state.loading,

@@ -1,9 +1,21 @@
 import { NavInputGroup, NavContainer, NavInputGroupText, NavForm, NavDropdown, NavDropdownMenu, NavDropdownItem } from "./Pokemon";
 import ImageContainer from "../shared/ImageContainer";
-import magnifier from "../../assets/img/misc/magnifier.png"
+import ErrorMessage from "../shared/ErrorMessage";
+import magnifier from "../../assets/img/misc/magnifier.png";
 import PropTypes from "prop-types";
 
-function Searchbox({ pokemonList, searchPokemon, dropdownVisibility, handleSearchPokemon, handleInputFocus, handleInputOnBlur, selectPokemon, filteredPokemons }) {
+function Searchbox({ 
+    filteredPokemons, 
+    dropdownVisibility, 
+    handleSearchPokemon, 
+    handleInputFocus, 
+    handleInputOnBlur, 
+    selectPokemon, 
+    searchboxError,
+    errorCauseMessage,
+    errorMessage,
+    searchboxErrorMessageVisibility,
+    handleCloseErrorMessage }) {
     return(
         <>
             <NavContainer >
@@ -21,26 +33,34 @@ function Searchbox({ pokemonList, searchPokemon, dropdownVisibility, handleSearc
                         onBlur={handleInputOnBlur}
                     />
                 </NavInputGroup>
-                { dropdownVisibility && 
-                    <NavDropdown show>
-                        <NavDropdownMenu data-cy={"navbar-dropdown-menu"}>
-                            {
-                                filteredPokemons.map((pokemon) => {
-                                    return (
-                                        <NavDropdownItem
-                                            key={pokemon}
-                                            data-cy={pokemon}
-                                            onMouseDown={() => {
-                                                selectPokemon(pokemon);
-                                            }}
-                                        >
-                                            {pokemon}
-                                        </NavDropdownItem>
-                                    )
-                                })
-                            }
-                        </NavDropdownMenu>
-                    </NavDropdown>
+                {   searchboxError ? 
+                        <ErrorMessage 
+                            errorCauseMessage={errorCauseMessage}
+                            errorText={errorMessage}
+                            errorMessageVisibility={searchboxErrorMessageVisibility}
+                            closeErrorModal={handleCloseErrorMessage}
+                        />
+                    :
+                    dropdownVisibility && 
+                        <NavDropdown show>
+                            <NavDropdownMenu data-cy={"navbar-dropdown-menu"}>
+                                {
+                                    filteredPokemons.map((pokemon) => {
+                                        return (
+                                            <NavDropdownItem
+                                                key={pokemon}
+                                                data-cy={pokemon}
+                                                onMouseDown={() => {
+                                                    selectPokemon(pokemon);
+                                                }}
+                                            >
+                                                {pokemon}
+                                            </NavDropdownItem>
+                                        )
+                                    })
+                                }
+                            </NavDropdownMenu>
+                        </NavDropdown>
                 }
             </NavContainer>
         </>
