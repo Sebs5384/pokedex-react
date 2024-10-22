@@ -5,13 +5,13 @@ import { getRandomPokemon, replaceNullItem, parsePokemonData } from "../utils/in
 
 function useHandleCatchPokemon(pokemonsCount, pokemonList) {
     const [state, dispatch] = useReducer(catchPokemonReducer, initialCatchPokemonState);
-    const { pokemon, error } = useFetchPokemon(state.randomPokemon);
-    const { species } = useFetchSpecies(state.randomPokemon);
-    const { loadingSprite, pokemonSprite } = useGetPokemonSprite(state.caughtPokemon);
+    const { caughtPokemonData, caughtPokemonError } = useFetchPokemon(state.randomPokemon, "caughtPokemon");
+    const { caughtSpeciesData } = useFetchSpecies(state.randomPokemon, "caughtPokemon");
+    const { loadingSprite, caughtPokemonSprite } = useGetPokemonSprite(state.caughtPokemon, "", "caughtPokemon");
 
 
     const handlePokeballClick = () => {
-        if(state.caughtPokemons.includes(null)) { 
+        if(state.caughtPokemons.includes(null)) {
             const randomPokemon = getRandomPokemon(pokemonsCount, pokemonList);
 
             dispatch({ type: "SET_SHAKING_EFFECT", payload: true });
@@ -54,24 +54,25 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
     };
 
     useEffect(() => {
-        if(state.randomPokemon && pokemon && species) {
-            const parsedPokemon = parsePokemonData(pokemon, species);
+        if(state.randomPokemon && caughtPokemonData && caughtSpeciesData) {
+            const parsedPokemon = parsePokemonData(caughtPokemonData, caughtSpeciesData);
             dispatch({ type: "SET_CAUGHT_POKEMON", payload: parsedPokemon });
 
+            console.log(state.caughtPokemons)
             const updatedCaughtPokemons = replaceNullItem(state.caughtPokemons, parsedPokemon);
             dispatch({ type: "SET_CAUGHT_POKEMONS", payload: updatedCaughtPokemons });
         };
-    }, [pokemon, species]);
+    }, [caughtPokemonData, caughtSpeciesData]);
 
     useEffect(() => {
-        if(!loadingSprite && pokemonSprite) {
-            dispatch({ type: "SET_CAUGHT_POKEMON_SPRITE", payload: pokemonSprite });
+        if(!loadingSprite && caughtPokemonSprite) {
+            dispatch({ type: "SET_CAUGHT_POKEMON_SPRITE", payload: caughtPokemonSprite });
         };
-    }, [pokemonSprite, loadingSprite]);
+    }, [caughtPokemonSprite, loadingSprite]);
 
     useEffect(() => {
         if(state.isShaking) {
-            if(error) dispatch ({type: "SET_MODAL_VISIBILITY", payload: false});
+            if(caughtPokemonError) dispatch ({type: "SET_MODAL_VISIBILITY", payload: false});
             handleTextChange();
         };
     }, [state.isShaking]);
@@ -79,7 +80,7 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
     return {
         caughtPokemons: state.caughtPokemons,
         caughtPokemon: state.caughtPokemon,
-        caughtPokemonError: error,
+        caughtPokemonError: caughtPokemonError,
         caughtPokemonSprite: state.caughtPokemonSprite,
         loadingSprite: loadingSprite,
         isShaking: state.isShaking,

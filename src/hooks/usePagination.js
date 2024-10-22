@@ -7,8 +7,8 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) 
     const [state, dispatch] = useReducer(paginationReducer, initialPaginationState);
     const nextOffset = (state.currentPage - INITIAL_PAGE_INDEX) * ITEMS_PER_PAGE;
 
-    const { loading, pokemons, error } = useFetchPokemons(ITEMS_PER_PAGE, nextOffset);
-    const { totalPages, firstPage, lastPage } = useTotalPages(ITEMS_PER_PAGE, pokemons);
+    const { loading, paginatorPokemons, paginatorError } = useFetchPokemons(ITEMS_PER_PAGE, nextOffset, "paginator");
+    const { totalPages, firstPage, lastPage } = useTotalPages(ITEMS_PER_PAGE, paginatorPokemons);
 
     const setCurrentPage = (pageIndex) => {
         const currentPage = pageIndex;
@@ -52,15 +52,15 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) 
 
     useEffect(() => {
         const fetchPokemonsInPage = async () => {
-            if(pokemons) {
-                const pokemonsInPage = await getPokemonsInPage(pokemons, getPokemonSpriteUrl);
+            if(paginatorPokemons) {
+                const pokemonsInPage = await getPokemonsInPage(paginatorPokemons, getPokemonSpriteUrl);
                 dispatch({ type: "SET_POKEMONS_IN_PAGE", payload: pokemonsInPage });
             };  
         };
 
         dispatch({ type: "SET_NEXT_PAGE_ITEMS", payload: nextOffset });
         fetchPokemonsInPage();
-    }, [state.currentPage, ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, nextOffset, pokemons]);
+    }, [state.currentPage, ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, nextOffset, paginatorPokemons]);
 
     return {
         currentPage: state.currentPage,
@@ -68,7 +68,7 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) 
         pokemonsInPage: state.pokemonsInPage,
         popupMessage: state.popupMessage,
         invalidPagePopup: state.invalidPagePopup,
-        errorWhileLoading: error,
+        paginatorError: paginatorError,
         totalPages,
         firstPage,
         lastPage,
