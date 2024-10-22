@@ -10,13 +10,14 @@ function PokemonCard() {
     const {
         modalVisibility,
         cardErrorMessageVisibility,
-        handleCloseCard,
         cardData,
+        pokemonSprite,
+        loadingCard,
         cardError,
         cardSpeciesError,
         errorCauseMessage,
-        pokemonSprite,
-        loadingCard,
+        errorMessage,
+        handleCloseCard,
         handleSelectedCard,
         handleCloseErrorMessage,
     } = usePokedexContext();
@@ -30,7 +31,7 @@ function PokemonCard() {
             : cardError || cardSpeciesError ? 
                 <ErrorMessage 
                     errorCauseMessage={errorCauseMessage}
-                    errorText={"Something went wrong while loading the Pokemon card, please try again later."}
+                    errorText={errorMessage}
                     errorMessageVisibility={cardErrorMessageVisibility}
                     closeErrorModal={handleCloseErrorMessage}
                 />
