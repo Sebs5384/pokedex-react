@@ -1,6 +1,6 @@
 const initialSelectedCardState = {
-    name: null,
-    data: null
+    selectedCardName: null,
+    selectedCardData: null
 };
 
 function selectedCardReducer(state = initialSelectedCardState, action) {
@@ -10,17 +10,22 @@ function selectedCardReducer(state = initialSelectedCardState, action) {
         case "SET_SELECTED_CARD_NAME":
             return {
                 ...state,
-                name: payload
+                selectedCardName: payload
             };
-        case "SET_CARD_DATA": 
+        case "SET_SELECTED_CARD_DATA": 
             return {
                 ...state,
-                data: payload
+                selectedCardData: payload
             };
-        case "RESET_CARD_DATA": 
+        case "RESET_SELECTED_CARD_DATA": 
             return {
                 ...state,
-                data: null
+                selectedCardData: null
+            };
+        case "SET_SELECTED_CARD_ERROR": 
+            return {
+                ...state,
+                selectedCardError: payload
             };
         default:
             return state;
