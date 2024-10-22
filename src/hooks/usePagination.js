@@ -65,6 +65,7 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) 
     return {
         currentPage: state.currentPage,
         loadingPokemons: loading,
+        paginatorError: paginatorError,
         pokemonsInPage: state.pokemonsInPage,
         popupMessage: state.popupMessage,
         invalidPagePopup: state.invalidPagePopup,

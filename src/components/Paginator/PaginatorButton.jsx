@@ -23,6 +23,7 @@ PropTypes.PaginatorButton = {
     children: PropTypes.node,
     isHidden: PropTypes.bool,
     isDisabled: PropTypes.bool,
+    dataAttribute: PropTypes.string,
     onClick: PropTypes.func
 };
 

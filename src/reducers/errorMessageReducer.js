@@ -3,7 +3,8 @@ const initialErrorMessageState = {
     errorMessage: null,
     cardErrorMessageVisibility: false,
     caughtPokemonErrorMessageVisibility: false,
-    searchboxErrorMessageVisibility: false
+    searchboxErrorMessageVisibility: false,
+    paginatorErrorMessageVisibility: false
 };
 
 function errorMessageReducer(state = initialErrorMessageState, action) {
@@ -35,6 +36,11 @@ function errorMessageReducer(state = initialErrorMessageState, action) {
                 ...state,
                 searchboxErrorMessageVisibility: payload
             };
+        case "SET_PAGINATOR_ERROR_MESSAGE_VISIBILITY":
+            return {
+                ...state,
+                paginatorErrorMessageVisibility: payload
+            }
         default:
             return state;
     };

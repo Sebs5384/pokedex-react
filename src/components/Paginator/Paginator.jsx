@@ -2,7 +2,7 @@ import { usePokedexContext } from "../../context/PokedexContext";
 import { Pagination, PaginatorContainer } from "./Pokemon";
 import PaginatorButton from "./PaginatorButton";
 import PaginatorSearchbox from "./PaginatorSearchbox";
-import PropTypes from "prop-types";
+import ErrorMessage from "../shared/ErrorMessage";
 
 function Paginator() { 
     const {
@@ -17,7 +17,12 @@ function Paginator() {
         setSearchboxValue,
         handleKeyDown,
         popupMessage,
-        invalidPagePopup
+        invalidPagePopup,
+        paginatorError,
+        errorCauseMessage,
+        errorMessage,
+        paginatorErrorMessageVisibility,
+        handleCloseErrorMessage
     } = usePokedexContext();
     
     return (
@@ -27,7 +32,14 @@ function Paginator() {
         >
             <Pagination className="page-item">
                 <PaginatorButton onClick={() => setPreviousPage()} isDisabled={currentPage === firstPage} dataAttribute={"paginator-previous-button"}>Previous</PaginatorButton>
-                {totalPages.map((pageNumber) => (
+                { paginatorError ?
+                    <ErrorMessage 
+                        errorCauseMessage={errorCauseMessage}
+                        errorText={errorMessage}
+                        errorMessageVisibility={paginatorErrorMessageVisibility}
+                        closeErrorModal={handleCloseErrorMessage}
+                    />
+                :   totalPages && totalPages.map((pageNumber) => (
                     <PaginatorButton 
                         key={pageNumber} 
                         isHidden={setItemRange(pageNumber, currentPage)}
@@ -47,16 +59,6 @@ function Paginator() {
             />
         </PaginatorContainer>
     );
-};
-PropTypes.Paginator = {
-    totalPages: PropTypes.array,
-    currentPage: PropTypes.number,
-    firstPage: PropTypes.number,
-    lastPage: PropTypes.number,
-    nextPage: PropTypes.func,
-    previousPage: PropTypes.func,
-    setCurrentPage: PropTypes.func,
-    setHiddenRange: PropTypes.func
 };
 
 export default Paginator;

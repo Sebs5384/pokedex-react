@@ -29,6 +29,7 @@ export function PokedexProvider({ children }) {
         firstPage,
         lastPage,
         loadingPokemons,
+        paginatorError,
         popupMessage,
         invalidPagePopup,
         setNextPage,
@@ -72,20 +73,23 @@ export function PokedexProvider({ children }) {
         cardErrorMessageVisibility,
         caughtPokemonErrorMessageVisibility,
         searchboxErrorMessageVisibility,
+        paginatorErrorMessageVisibility,
         handleCloseErrorMessage
-    } = useHandleErrorMessage(cardError, caughtPokemonError, searchboxError);
+    } = useHandleErrorMessage(cardError, caughtPokemonError, searchboxError, paginatorError);
 
     return (
         <PokedexContext.Provider
             value={
                 {
                     cardData, loadingCardData, cardError, cardSpeciesError, setSelectedCard,
-                    currentPage, pokemonsInPage, totalPages, firstPage, lastPage, loadingPokemons, popupMessage, invalidPagePopup,
+                    currentPage, pokemonsInPage, totalPages, firstPage, lastPage, loadingPokemons, paginatorError, popupMessage, invalidPagePopup,
                     setNextPage, setPreviousPage, setCurrentPage, setItemRange, setSearchboxValue, handleKeyDown,
                     loadingCard, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,
                     pokemonList, dropdownVisibility, filteredPokemons, pokemonsCount, searchboxError, handleSearchPokemon, handleInputFocus, handleInputOnBlur,
-                    caughtPokemons, caughtPokemon, caughtPokemonError, caughtPokemonSprite, isShaking, caughtModalVisibility, registrationModalVisibility, topText, bottomText, textChange, handlePokeballClick,
-                    errorCauseMessage, errorMessage, cardErrorMessageVisibility, caughtPokemonErrorMessageVisibility, searchboxErrorMessageVisibility, handleCloseErrorMessage
+                    caughtPokemons, caughtPokemon, caughtPokemonError, caughtPokemonSprite, isShaking, 
+                    caughtModalVisibility, registrationModalVisibility, topText, bottomText, textChange, handlePokeballClick,
+                    errorCauseMessage, errorMessage, cardErrorMessageVisibility, caughtPokemonErrorMessageVisibility, 
+                    searchboxErrorMessageVisibility, paginatorErrorMessageVisibility, handleCloseErrorMessage
                 }
             }
         >
