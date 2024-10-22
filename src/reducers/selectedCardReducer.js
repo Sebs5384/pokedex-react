@@ -22,11 +22,6 @@ function selectedCardReducer(state = initialSelectedCardState, action) {
                 ...state,
                 selectedCardData: null
             };
-        case "SET_SELECTED_CARD_ERROR": 
-            return {
-                ...state,
-                selectedCardError: payload
-            };
         default:
             return state;
     };
