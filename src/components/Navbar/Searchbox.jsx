@@ -34,12 +34,23 @@ function Searchbox({
                     />
                 </NavInputGroup>
                 {   searchboxError ? 
-                        <ErrorMessage 
-                            errorCauseMessage={errorCauseMessage}
-                            errorText={errorMessage}
-                            errorMessageVisibility={searchboxErrorMessageVisibility}
-                            closeErrorModal={handleCloseErrorMessage}
-                        />
+                        <>
+                            <ErrorMessage 
+                                errorCauseMessage={errorCauseMessage}
+                                errorText={errorMessage}
+                                errorMessageVisibility={searchboxErrorMessageVisibility}
+                                closeErrorModal={handleCloseErrorMessage}
+                            />
+                            { dropdownVisibility && 
+                                <NavDropdown show>
+                                    <NavDropdownMenu data-cy={"nav-bar-dropdown-menu"}>
+                                        <NavDropdownItem>
+                                            No pokemons found
+                                        </NavDropdownItem>
+                                    </NavDropdownMenu>
+                                </NavDropdown> 
+                            }
+                        </>
                     :
                     dropdownVisibility && 
                         <NavDropdown show>

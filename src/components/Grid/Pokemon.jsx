@@ -17,7 +17,6 @@ const GridSection = styled.section`
 `;
 
 const GridWrapper = styled.div`
-    width: 100%;
     max-width: 1260px;
     margin: 0 auto;
     padding: 1rem;
@@ -25,6 +24,11 @@ const GridWrapper = styled.div`
     border: 3px solid rgb(250, 239, 176);
     border-style: outset;
     border-radius: 8px;
+    width: 100%;
+
+    &.no-cards-width {
+        width: 40%;
+    };
 `;
 
 const GridBody = styled.div`
