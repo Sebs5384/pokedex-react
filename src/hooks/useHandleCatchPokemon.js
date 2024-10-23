@@ -11,7 +11,7 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
 
 
     const handlePokeballClick = () => {
-        if(state.caughtPokemons.includes(null)) {
+        if(state.caughtPokemons.includes(null) && pokemonList) {
             const randomPokemon = getRandomPokemon(pokemonsCount, pokemonList);
 
             dispatch({ type: "SET_SHAKING_EFFECT", payload: true });
