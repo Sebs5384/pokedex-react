@@ -186,4 +186,42 @@ describe("Grid interaction testing", () => {
             });
         });
     });
+
+    it("Should display the loading components when the server is slow to respond", () => {
+        cy.visit(localHost);
+        window.localStorage.clear();
+    
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, FIRST_PAGE_OFFSET), (req) => {
+            req.reply({
+                delay: 5000,
+                fixture: "pokedexFirstPage.json"
+            });
+        }).as("pokedexSlowResponse")
+
+        cy.get("[data-cy='loading-grid-spinner']").as("loadingSpinner").should("exist").and("be.visible")
+        cy.get("[data-cy='loading-grid-text']").as("loadingText").should("exist").and("be.visible");
+
+        cy.wait("@pokedexSlowResponse").then((interception) => {
+            expect(interception.response.statusCode).to.eq(200);
+            expect(interception.response.body.results).to.not.eq(undefined);
+            expect(interception.response.body.results.length).to.eq(20);
+        
+            cy.get("@loadingSpinner").should("not.exist");
+            cy.get("@loadingText").should("not.exist");
+            cy.get("[data-cy='grid-section']").should("exist");
+            cy.get("[data-cy='grid-board']").as("gridBoard").should("exist");
+            
+            cy.get("@gridBoard").find("div").should("have.length", 20);
+            cy.get("@gridBoard").find("img").should("have.length", 20);
+            cy.get("@gridBoard").find("strong").should("have.length", 20);
+
+            cy.get("@gridBoard").find("img").each(($img, index) => {
+                cy.wrap($img).should("have.attr", "src", pokemonSpriteUrl(interception.response.body.results[index].url.split("/")[6]));
+            });
+
+            cy.get("@gridBoard").find("strong").each(($strong, index) => {
+                cy.wrap($strong).should("have.text", `#${interception.response.body.results[index].url.split("/")[6]} ${interception.response.body.results[index].name}`);
+            });
+        });
+    });
 });
