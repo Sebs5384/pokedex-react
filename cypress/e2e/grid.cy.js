@@ -122,4 +122,68 @@ describe("Grid interaction testing", () => {
             });
         });
     });
+
+    it("Should display the error card when the server returns an error", () => {
+        cy.visit(localHost);
+        window.localStorage.clear();
+
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, FIRST_PAGE_OFFSET), (req) => {
+            req.reply({
+                statusCode: 500
+            });
+        }).as("pokedexFirstPageError");
+
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, NEXT_PAGE_OFFSET), (req) => {
+            req.reply({
+                statusCode: 500
+            });
+        }).as("pokedexNextPageError");
+        
+
+        cy.get("[data-cy='grid-section']").as("gridSection").should("exist").then(() => {
+            cy.wait("@pokedexFirstPageError").then((interception) => {
+                expect(interception.response.statusCode).to.eq(500);
+                expect(interception.body).to.eq(undefined);
+                expect(interception.response.body.results).to.eq(undefined);
+            });
+
+            cy.get("[data-cy='error-message-modal']").as("errorMessage").should("exist").then(() => {
+                cy.get("@errorMessage").find("button").then(($button) => {
+                    cy.wrap($button).click();
+                });
+
+                cy.get("@errorMessage").should("not.exist");
+
+                cy.get("[data-cy='grid-board']").as("gridBoard").should("exist").then(() => {
+                    cy.get("@gridBoard").find("div").should("have.length", 1);
+                    cy.get("@gridBoard").find("img").should("have.length", 1);
+                    cy.get("@gridBoard").find("strong").should("have.length", 1);
+    
+                    cy.get("@gridBoard").find("img").eq(0).should("not.have.attr", "src", pokemonSpriteUrl(1));
+                    cy.get("@gridBoard").find("strong").eq(0).should("not.have.text", "#1 Bulbasaur");
+                });
+            });
+        });
+
+        cy.get("[data-cy='paginator-next-button']").click();
+
+        cy.get("@gridSection").should("exist").then(() => {
+            cy.get("@errorMessage").should("exist").and("be.visible");
+
+            cy.get("@errorMessage").find("button").then(($button) => {
+                cy.wrap($button).click();
+            });
+
+            cy.get("@errorMessage").should("not.exist");
+
+            cy.get("[data-cy='grid-board']").as("gridBoard").should("exist").then(() => {
+                cy.get("@gridBoard").find("div").should("have.length", 1);
+                cy.get("@gridBoard").find("img").should("have.length", 1);
+                cy.get("@gridBoard").find("strong").should("have.length", 1);
+
+                cy.get("@gridBoard").find("img").eq(0).should("not.have.attr", "src", pokemonSpriteUrl(21));
+                cy.get("@gridBoard").find("strong").eq(0).should("not.have.text", "#21 Spearow");
+            });
+        });
+    });
 });

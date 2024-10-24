@@ -56,6 +56,7 @@ function ErrorMessage({ errorCauseMessage, errorText, errorMessageVisibility, cl
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            data-cy="error-message-modal"
         >
             <PokemonSection className="error-message-background emerald-font" >
                 <PokemonContainer className="modal-header">
