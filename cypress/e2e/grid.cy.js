@@ -153,15 +153,12 @@ describe("Grid interaction testing", () => {
                 });
 
                 cy.get("@errorMessage").should("not.exist");
+            });
 
-                cy.get("[data-cy='grid-board']").as("gridBoard").should("exist").then(() => {
-                    cy.get("@gridBoard").find("div").should("have.length", 1);
-                    cy.get("@gridBoard").find("img").should("have.length", 1);
-                    cy.get("@gridBoard").find("strong").should("have.length", 1);
-    
-                    cy.get("@gridBoard").find("img").eq(0).should("not.have.attr", "src", pokemonSpriteUrl(1));
-                    cy.get("@gridBoard").find("strong").eq(0).should("not.have.text", "#1 Bulbasaur");
-                });
+            cy.get("[data-cy='grid-board']").as("gridBoard").should("exist").then(() => {
+                cy.get("[data-cy='grid-error-card']").as("errorCard").should("exist").and("be.visible");
+                cy.get("@errorCard").find("strong").should("have.length", 1);
+                cy.get("@errorCard").find("strong").should("not.have.text", "#1 Bulbasaur");
             });
         });
 
@@ -175,14 +172,11 @@ describe("Grid interaction testing", () => {
             });
 
             cy.get("@errorMessage").should("not.exist");
-
+        
             cy.get("[data-cy='grid-board']").as("gridBoard").should("exist").then(() => {
-                cy.get("@gridBoard").find("div").should("have.length", 1);
-                cy.get("@gridBoard").find("img").should("have.length", 1);
-                cy.get("@gridBoard").find("strong").should("have.length", 1);
-
-                cy.get("@gridBoard").find("img").eq(0).should("not.have.attr", "src", pokemonSpriteUrl(21));
-                cy.get("@gridBoard").find("strong").eq(0).should("not.have.text", "#21 Spearow");
+                cy.get("[data-cy='grid-error-card']").as("errorCard").should("exist").and("be.visible");
+                cy.get("@errorCard").find("strong").should("have.length", 1);
+                cy.get("@errorCard").find("strong").should("not.have.text", "#21 Spearow");    
             });
         });
     });
@@ -223,5 +217,74 @@ describe("Grid interaction testing", () => {
                 cy.wrap($strong).should("have.text", `#${interception.response.body.results[index].url.split("/")[6]} ${interception.response.body.results[index].name}`);
             });
         });
+    });
+
+    it("Should display the error message and error card when the response was empty", () => {
+        cy.visit(localHost);
+        window.localStorage.clear();
+
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, FIRST_PAGE_OFFSET), (req) => {
+            req.reply({
+                statusCode: 204,
+                fixture: "emptyResponse.json"
+            });
+        }).as("pokedexEmptyResponse");
+
+        cy.get("[data-cy='loading-grid-spinner']").as("loadingSpinner").should("exist").and("be.visible");
+        cy.get("[data-cy='loading-grid-text']").as("loadingText").should("exist").and("be.visible");
+
+        cy.wait("@pokedexEmptyResponse").then((interception) => {
+            expect(interception.response.statusCode).to.eq(204);
+            expect(interception.body).to.eq(undefined);
+            expect(interception.response.body.results).to.eq(undefined);
+        });
+        
+        cy.get("@loadingSpinner").should("not.exist");
+        cy.get("@loadingText").should("not.exist");
+
+        cy.get("[data-cy='grid-section']").should("exist").then(() => {
+            cy.get("[data-cy='error-message-modal']").as("errorMessage").should("exist");
+            cy.get("@errorMessage").find("button").then(($button) => {
+                cy.wrap($button).click();
+            });
+
+            cy.wait(1000);
+            cy.get("@errorMessage").should("not.exist");
+
+            cy.get("[data-cy='grid-board']").as("gridBoard").should("exist").then(() => {
+                cy.get("[data-cy='grid-error-card']").as("errorCard").should("exist").and("be.visible");    
+                cy.get("@errorCard").find("strong").should("have.length", 1);
+                cy.get("@errorCard").find("strong").should("not.have.text", "#1 Bulbasaur");
+            });
+        });
+    });
+
+    it("Should display the loading components and no cards component when the response was ok but results were empty", () => {
+        cy.visit(localHost);
+        window.localStorage.clear();
+
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, FIRST_PAGE_OFFSET), (req) => {
+            req.reply({
+                statusCode: 200,
+                fixture: "emptyResponse.json"
+            });
+        }).as("pokedexEmptyResults");
+        cy.wait(1000);
+
+        cy.wait("@pokedexEmptyResults").then((interception) => {
+            expect(interception.response.statusCode).to.eq(200);
+            expect(interception.body).to.eq(undefined);
+            expect(interception.response.body.results).to.eq(undefined);
+        });
+
+        cy.get("[data-cy='grid-section']").as("gridSection").should("exist");
+        cy.get("[data-cy='grid-board']").as("gridBoard").should("exist");
+        cy.get("[data-cy='loading-grid-spinner']").as("loadingSpinner").should("exist").and("be.visible");
+        cy.get("[data-cy='loading-grid-text']").as("loadingText").should("exist").and("be.visible");
+
+        cy.wait(10000);
+        cy.get("[data-cy='grid-error-card']").should("exist").and("be.visible");
+        cy.get("@loadingSpinner").should("not.exist");
+        cy.get("@loadingText").should("not.exist");
     });
 });
