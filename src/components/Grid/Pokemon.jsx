@@ -25,10 +25,6 @@ const GridWrapper = styled.div`
     border-style: outset;
     border-radius: 8px;
     width: 100%;
-
-    &.no-cards-width {
-        width: 40%;
-    };
 `;
 
 const GridBody = styled.div`
@@ -48,7 +44,14 @@ const PokemonCard = styled.div`
     border-radius: 5px;
     height: 280px;
     background-image: url(${props => props.backgroundImage});
-    
+
+    &.error-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-size: cover;
+    }
+
     &.image-size img {
         height: 200px;
         width: 200px;
@@ -60,6 +63,14 @@ const PokemonName = styled.strong`
     font-size: 1.5rem;
     ${emeraldFontFace}
     font-family: "pokemon-emerald";
+
+    &.error-background {
+        background-color: white;
+        border: 3px solid black;
+        border-style: outset;
+        border-radius: 5px;
+        max-width: 350px;
+    }
 `;
 
 const LoadingWrapper = styled.div`

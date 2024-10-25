@@ -4,6 +4,7 @@ const initialPaginationState = {
     pokemonsInPage: [],
     searchboxValue: "",
     popupMessage: "",
+    noCards: false,
     invalidPagePopup: false
 };
 
@@ -40,6 +41,11 @@ function paginationReducer(state = initialPaginationState, action) {
             return {
                 ...state,
                 popupMessage: payload
+            };
+        case "SET_NO_CARDS_IN_PAGE":
+            return {
+                ...state,
+                noCards: payload
             };
         default: 
             return state

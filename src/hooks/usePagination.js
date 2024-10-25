@@ -51,25 +51,29 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) 
     };
 
     useEffect(() => {
-        const fetchPokemonsInPage = async () => {
-            if(paginatorPokemons) {
+        const setPokemonsInPage = async () => {
+            if(paginatorPokemons && paginatorPokemons.results) {
                 const pokemonsInPage = await getPokemonsInPage(paginatorPokemons, getPokemonSpriteUrl);
                 dispatch({ type: "SET_POKEMONS_IN_PAGE", payload: pokemonsInPage });
-            };  
+            } else {
+                setTimeout(() => {
+                    dispatch({ type: "SET_NO_CARDS_IN_PAGE", payload: true });
+                }, 10000);
+            };
         };
 
         dispatch({ type: "SET_NEXT_PAGE_ITEMS", payload: nextOffset });
-        fetchPokemonsInPage();
-    }, [state.currentPage, ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, nextOffset, paginatorPokemons]);
+        setPokemonsInPage();
+    }, [state.currentPage, ITEMS_PER_PAGE, nextOffset, paginatorPokemons]);
 
     return {
-        currentPage: state.currentPage,
         loadingPokemons: loading,
         paginatorError: paginatorError,
+        currentPage: state.currentPage,
         pokemonsInPage: state.pokemonsInPage,
         popupMessage: state.popupMessage,
         invalidPagePopup: state.invalidPagePopup,
-        paginatorError: paginatorError,
+        noCards: state.noCards,
         totalPages,
         firstPage,
         lastPage,

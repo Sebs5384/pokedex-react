@@ -28,6 +28,7 @@ export function PokedexProvider({ children }) {
         totalPages,
         firstPage,
         lastPage,
+        noCards,
         loadingPokemons,
         paginatorError,
         popupMessage,
@@ -82,10 +83,11 @@ export function PokedexProvider({ children }) {
             value={
                 {
                     cardData, loadingCardData, cardError, cardSpeciesError, setSelectedCard,
-                    currentPage, pokemonsInPage, totalPages, firstPage, lastPage, loadingPokemons, paginatorError, popupMessage, invalidPagePopup,
-                    setNextPage, setPreviousPage, setCurrentPage, setItemRange, setSearchboxValue, handleKeyDown,
+                    currentPage, pokemonsInPage, totalPages, firstPage, lastPage, loadingPokemons, paginatorError, popupMessage, invalidPagePopup, 
+                    noCards, setNextPage, setPreviousPage, setCurrentPage, setItemRange, setSearchboxValue, handleKeyDown,
                     loadingCard, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,
-                    pokemonList, dropdownVisibility, filteredPokemons, pokemonsCount, searchboxError, handleSearchPokemon, handleInputFocus, handleInputOnBlur,
+                    pokemonList, dropdownVisibility, filteredPokemons, pokemonsCount, searchboxError, 
+                    handleSearchPokemon, handleInputFocus, handleInputOnBlur,
                     caughtPokemons, caughtPokemon, caughtPokemonError, caughtPokemonSprite, isShaking, 
                     caughtModalVisibility, registrationModalVisibility, topText, bottomText, textChange, handlePokeballClick,
                     errorCauseMessage, errorMessage, cardErrorMessageVisibility, caughtPokemonErrorMessageVisibility, 
