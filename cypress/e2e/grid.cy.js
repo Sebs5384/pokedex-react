@@ -8,6 +8,11 @@ describe("Grid interaction testing", () => {
     const pageUrl = (limit, offset) => {
         return `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
     };
+
+    const requestUrl = (offset, limit, slash = "") => {
+        return `https://pokeapi.co/api/v2/pokemon${slash}?offset=${offset}&limit=${limit}`  
+    };
+
     const pokemonSpriteUrl = (id) => {
         return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
     };
@@ -286,5 +291,76 @@ describe("Grid interaction testing", () => {
         cy.get("[data-cy='grid-error-card']").should("exist").and("be.visible");
         cy.get("@loadingSpinner").should("not.exist");
         cy.get("@loadingText").should("not.exist");
+    });
+
+    it("Should display 20 grid cards if these were successfully stored in the local storage despite an internal error happening in between", () => { 
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, NEXT_PAGE_OFFSET), (req) => {
+            req.reply({
+                statusCode: 500,
+            });
+        }).as("pokedexNextPageError");
+        
+        cy.wait("@pokedexFirstPage").then((interception) => {
+            expect(interception.response.statusCode).to.eq(200);
+            expect(interception.response.body.results.length).to.eq(POKEMONS_PER_PAGE);
+            
+            cy.get("[data-cy='grid-section']").should("exist");
+            cy.get("[data-cy='grid-board']").as("gridBoard").should("exist").then(() => {
+                cy.get("@gridBoard").find("div").should("have.length", interception.response.body.results.length);
+                cy.get("@gridBoard").find("img").should("have.length", interception.response.body.results.length);
+                cy.get("@gridBoard").find("strong").should("have.length", interception.response.body.results.length);
+
+                cy.get("@gridBoard").find("strong").each(($strong, index) => {
+                    cy.wrap($strong).should("have.text", `#${interception.response.body.results[index].url.split("/")[6]} ${interception.response.body.results[index].name}`);
+                });
+                
+                cy.get("@gridBoard").find("img").each(($img, index) => {
+                    cy.wrap($img).should("have.attr", "src", pokemonSpriteUrl(interception.response.body.results[index].url.split("/")[6]));
+                });
+            });
+        });
+
+        cy.get("[data-cy='paginator-next-button']").click();
+        cy.wait("@pokedexNextPageError").then((interception) => {
+            expect(interception.response.statusCode).to.eq(500);
+            expect(interception.response.body).to.eq('');
+            expect(interception.response.body.results).to.eq(undefined);
+        });
+
+        cy.get("[data-cy='error-message-modal']").as("errorMessage").should("exist").and("be.visible");
+        cy.get("@errorMessage").find("button").then(($button) => {
+            cy.wrap($button).click();
+        });
+
+        cy.get("@gridBoard").should("exist").then(() => {
+            cy.get("[data-cy='grid-error-card']").as("errorCard").should("exist").and("be.visible");
+            cy.get("@errorCard").find("strong").should("have.length", 1);
+            cy.get("@errorCard").find("strong").should("not.have.text", "#1 Bulbasaur");
+        });
+
+        cy.get("[data-cy='paginator-previous-button']").click({force: true});
+
+        cy.wait(1000);
+        cy.get("@errorMessage").should("not.exist");
+        cy.get("@gridBoard").should("exist").then(() => {
+            const firstPageData = localStorage.getItem("pokemons_20_0");
+            const parsedFirstPageData = JSON.parse(firstPageData);
+            
+            expect(firstPageData).not.to.be.null;
+            expect(parsedFirstPageData.next).to.eq(requestUrl(POKEMONS_PER_PAGE, NEXT_PAGE_OFFSET, "/"));
+            expect(parsedFirstPageData.previous).to.eq(null);
+
+            cy.get("@gridBoard").find("div").should("have.length", parsedFirstPageData.results.length);
+            cy.get("@gridBoard").find("img").should("have.length", parsedFirstPageData.results.length);
+            cy.get("@gridBoard").find("strong").should("have.length", parsedFirstPageData.results.length);
+
+            cy.get("@gridBoard").find("strong").each(($strong, index) => {
+                cy.wrap($strong).should("have.text", `#${parsedFirstPageData.results[index].url.split("/")[6]} ${parsedFirstPageData.results[index].name}`);
+            });
+            
+            cy.get("@gridBoard").find("img").each(($img, index) => {
+                cy.wrap($img).should("have.attr", "src", pokemonSpriteUrl(parsedFirstPageData.results[index].url.split("/")[6]));
+            });
+        });
     });
 });
