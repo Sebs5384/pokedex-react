@@ -3,7 +3,6 @@ import { GridSection, GridWrapper, GridBody, GridBoard } from "./Pokemon";
 import LoadingGrid from "./LoadingGrid";
 import GridCard from "./GridCard";
 import GridErrorCard from "./GridErrorCard";
-import cx from "classnames";
 
 function Grid() {
     const {

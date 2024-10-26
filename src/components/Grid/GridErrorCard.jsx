@@ -1,5 +1,4 @@
 import { PokemonCard, PokemonName } from "./Pokemon";
-import ImageContainer from "../shared/ImageContainer";
 import errorBackground from "../../assets/img/misc/missingno.png";
 
 function GridErrorCard() {
