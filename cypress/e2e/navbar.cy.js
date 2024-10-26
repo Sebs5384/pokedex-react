@@ -184,4 +184,89 @@ describe("Navbar interaction testing", () => {
             cy.get("@pokeSlots").find("img").eq(2).should("have.attr", "src").and("not.include", "pokedex-len");
         });
     });
+
+    it("Should display an empty list message on the searchbox when the response was internal server error", () => {
+        cy.visit(localHost);
+        window.localStorage.clear();
+
+        cy.intercept("GET", pokemonList, (req) => {
+            req.reply({
+                statusCode: 500,
+            });
+        }).as("pokedexListError");
+
+        cy.wait("@pokedexListError").then((interception) => {
+            expect(interception.response.statusCode).to.eq(500);
+        });
+
+        cy.get("[data-cy='error-message-modal']").as("errorMessage").should("exist");
+        cy.get("@errorMessage").find("button").then(($button) => {
+            cy.wrap($button).click();
+        });
+
+        cy.get("@errorMessage").should("not.exist");
+
+        cy.get("[data-cy='navbar-search-input']").as("searchboxInput").should("exist");
+        cy.get("@searchboxInput").click().then(() => {
+            cy.get("@searchboxInput").type("bLasToIsE");
+            cy.get("[data-cy='blastoise']").should("not.exist");
+
+            cy.get("[data-cy='navbar-dropdown-menu']").as("navbarDropdownMenu").should("exist");
+            cy.get("@navbarDropdownMenu").find("a").should("have.length", 1);
+            cy.get("@navbarDropdownMenu").find("a").should("have.text", "No pokemons found")
+        });
+    });
+
+    it("Should display an empty list when the server is response is delayed", () => {
+        cy.visit(localHost);
+        window.localStorage.clear();
+
+        cy.intercept("GET", pokemonList, (req) => {
+            req.reply({
+                delay: 5000,
+                fixture: "pokemonList.json"
+            });
+        }).as("delayedPokemonList");
+
+        cy.wait("@delayedPokemonList").then((interception) => {
+            expect(interception.response.statusCode).to.eq(200);
+            expect(interception.response.body.results.length).to.eq(1302);
+        
+            cy.get("[data-cy='navbar-search-input']").as("searchboxInput").should("exist");
+            cy.get("@searchboxInput").click().then(() => {
+                cy.get("[data-cy='navbar-dropdown-menu']").as("navbarDropdownMenu").should("exist").and("be.visible");
+                cy.get("@searchboxInput").type("bLasToIsE");
+                cy.get("[data-cy='blastoise']").should("exist");
+                cy.get("@searchboxInput").clear();
+            });
+
+            cy.get("@navbarDropdownMenu").should("exist").and("be.visible");
+            cy.get("@navbarDropdownMenu").find("a").should("have.length", interception.response.body.results.length);
+            cy.get("@navbarDropdownMenu").find("a").eq(8).should("have.text", "blastoise");
+        });
+    });
+
+    it("Should display an empty list when the server response is ok but the results are empty", () => {
+        cy.visit(localHost);
+        window.localStorage.clear();
+
+        cy.intercept("GET", pokemonList, (req) => {
+            req.reply({
+                statusCode: 200,
+                fixture: "emptyResponse.json"
+            });
+        });
+
+        cy.get("[data-cy='navbar-search-input']").as("searchboxInput").should("exist");
+        cy.get("@searchboxInput").click().then(() => {
+            cy.get("[data-cy='navbar-dropdown-menu']").as("navbarDropdownMenu").should("exist").and("be.visible");
+            cy.get("@searchboxInput").type("bLasToIsE");
+            cy.get("[data-cy='blastoise']").should("not.exist");
+            cy.get("@searchboxInput").clear();
+        });
+        
+        cy.get("@navbarDropdownMenu").should("exist").and("be.visible");
+        cy.get("@navbarDropdownMenu").find("a").should("have.length", 1);
+        cy.get("@navbarDropdownMenu").find("a").should("have.text", "No pokemons found");
+    });
 });
