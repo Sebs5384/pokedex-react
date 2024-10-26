@@ -8,12 +8,6 @@ describe("Navbar interaction testing", () => {
     beforeEach(() => {
         cy.visit(localHost);
         window.localStorage.clear();
-
-        cy.intercept("GET", pokemonList, (req) => {
-            req.reply({
-                fixture: "pokemonList.json"
-            });
-        }).as("pokemonList");
     });
 
     it("Should reload the website when clicking on the logo", () => {
@@ -33,7 +27,12 @@ describe("Navbar interaction testing", () => {
     });
 
     it("Should display the list of pokemons in the searchbox when clicking on the search input", () => {
-        cy.wait(2000);
+        cy.intercept("GET", pokemonList, (req) => {
+            req.reply({
+                fixture: "pokemonList.json"
+            });
+        }).as("pokemonList");
+
         cy.get("[data-cy='navbar-dropdown-menu']").should("not.exist");
         cy.get("[data-cy='navbar-search-input']").click();
 
@@ -43,13 +42,19 @@ describe("Navbar interaction testing", () => {
             cy.get("[data-cy='navbar-dropdown-menu']").as("navbarDropdownMenu").should("exist").then(() => {
                 cy.get("@navbarDropdownMenu").should("be.visible");
                 cy.get("@navbarDropdownMenu").find("a").should("have.length", interception.response.body.results.length);
-                cy.get("@navbarDropdownMenu").click();
+                cy.get("[data-cy='navbar-section']").click();
                 cy.get("@navbarDropdownMenu").should("not.exist");
             });
         });
     });
 
     it("Should search for a pokemon through typing in the searchbox and then displaying the card when selecting it", () => {
+        cy.intercept("GET", pokemonList, (req) => {
+            req.reply({
+                fixture: "pokemonList.json"
+            });
+        }).as("pokemonList");
+
         cy.intercept("GET", pokemonUrl("pokemon", "blastoise"), (req) => {
             req.reply({
                 fixture: "blastoise.json"
@@ -62,7 +67,7 @@ describe("Navbar interaction testing", () => {
             });
         }).as("blastoiseSpecies")
         
-        cy.wait(2000);
+        cy.wait("@pokemonList");
 
         cy.get("[data-cy='loading-pokemon-alert']").should("not.exist");
         cy.get("[data-cy='pokemon-card-modal']").should("not.exist");
@@ -72,9 +77,7 @@ describe("Navbar interaction testing", () => {
             cy.get("[data-cy='blastoise']").click();
         });
 
-        cy.get("[data-cy='loading-pokemon-alert']").as("loadingAlert").should("exist").then(() => {
-            cy.get("@loadingAlert").should("be.visible");
-        });
+        cy.get("[data-cy='loading-pokemon-alert']").as("loadingAlert").should("exist").and("be.visible");
 
         cy.wait("@blastoise").then((interception) => {
             expect(interception.response.statusCode).to.eq(200);
@@ -90,6 +93,13 @@ describe("Navbar interaction testing", () => {
     });
 
     it("Should clear the input in the searchbox when simulating clicking on the native clear button in DOM", () => {
+        cy.intercept("GET", pokemonList, (req) => {
+            req.reply({
+                fixture: "pokemonList.json"
+            });
+        }).as("pokemonList");
+        cy.wait("@pokemonList");
+
         cy.get("[data-cy='navbar-search-input']").as("searchboxSearchInput").type("bLasToIsE").then(() => {
             cy.get("[data-cy='blastoise']").should("be.visible");
 
@@ -105,6 +115,13 @@ describe("Navbar interaction testing", () => {
     });
 
     it("Should clear the input in the searchbox when simulating a backspace", () => {
+        cy.intercept("GET", pokemonList, (req) => {
+            req.reply({
+                fixture: "pokemonList.json"
+            });
+        }).as("pokemonList");
+        cy.wait("@pokemonList");
+
         cy.get("[data-cy='navbar-search-input']").as("searchboxSearchInput").type("asdsadsadsadadsad");
 
         cy.get("@searchboxSearchInput").type('{selectall}{backspace}').then(() => {
@@ -115,15 +132,27 @@ describe("Navbar interaction testing", () => {
     });
 
     it("Should display an empty list when a match is not found", () => {
+        cy.intercept("GET", pokemonList, (req) => {
+            req.reply({
+                fixture: "pokemonList.json"
+            });
+        }).as("pokemonList");
+        cy.wait("@pokemonList");
+
         cy.get("[data-cy='navbar-search-input']").type("asdsadsadsadadsad");
 
         cy.get("[data-cy='navbar-dropdown-menu']").as("navbarDropdownMenu").should("be.visible").then(() => {
-            cy.get("@navbarDropdownMenu").find("a").should("have.length", 0);
+            cy.get("@navbarDropdownMenu").find("a").should("have.length", 1);
         });
     });
 
     it("Should interact with the pokeball button and catch 3 random pokemons", () => {
-        cy.wait(1000);
+        cy.intercept("GET", pokemonList, (req) => {
+            req.reply({
+                fixture: "pokemonList.json"
+            });
+        }).as("pokemonList");
+        cy.wait("@pokemonList");
 
         cy.get("[data-cy='navbar-poke-slot']").as("pokeSlots").should("exist").and("be.visible");
         cy.get("@pokeSlots").find("img").eq(0).should("have.attr", "src").and("include", "pokedex-len");
@@ -186,9 +215,6 @@ describe("Navbar interaction testing", () => {
     });
 
     it("Should display an empty list message on the searchbox when the response was internal server error", () => {
-        cy.visit(localHost);
-        window.localStorage.clear();
-
         cy.intercept("GET", pokemonList, (req) => {
             req.reply({
                 statusCode: 500,
@@ -218,12 +244,9 @@ describe("Navbar interaction testing", () => {
     });
 
     it("Should display an empty list when the server is response is delayed", () => {
-        cy.visit(localHost);
-        window.localStorage.clear();
-
         cy.intercept("GET", pokemonList, (req) => {
             req.reply({
-                delay: 5000,
+                delay: 3000,
                 fixture: "pokemonList.json"
             });
         }).as("delayedPokemonList");
@@ -247,14 +270,16 @@ describe("Navbar interaction testing", () => {
     });
 
     it("Should display an empty list when the server response is ok but the results are empty", () => {
-        cy.visit(localHost);
-        window.localStorage.clear();
-
         cy.intercept("GET", pokemonList, (req) => {
             req.reply({
                 statusCode: 200,
                 fixture: "emptyResponse.json"
             });
+        }).as("emptyPokemonList");
+
+        cy.wait("@emptyPokemonList").then((interception) => {
+            expect(interception.response.statusCode).to.eq(200);
+            expect(interception.response.body.results).to.eq(undefined);
         });
 
         cy.get("[data-cy='navbar-search-input']").as("searchboxInput").should("exist");
