@@ -57,8 +57,7 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
         if(state.randomPokemon && caughtPokemonData && caughtSpeciesData) {
             const parsedPokemon = parsePokemonData(caughtPokemonData, caughtSpeciesData);
             dispatch({ type: "SET_CAUGHT_POKEMON", payload: parsedPokemon });
-
-            console.log(state.caughtPokemons)
+            
             const updatedCaughtPokemons = replaceNullItem(state.caughtPokemons, parsedPokemon);
             dispatch({ type: "SET_CAUGHT_POKEMONS", payload: updatedCaughtPokemons });
         };
