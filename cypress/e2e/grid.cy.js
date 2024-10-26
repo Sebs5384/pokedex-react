@@ -20,16 +20,14 @@ describe("Grid interaction testing", () => {
     beforeEach(() => {
         cy.visit(localHost);
         window.localStorage.clear();
+    });
 
+    it("Should display 20 pokemons in the grid", () => {
         cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, FIRST_PAGE_OFFSET), (req) => {
             req.reply({
                 fixture: "pokedexFirstPage.json"
             });
         }).as("pokedexFirstPage");
-    });
-
-    it("Should display 20 pokemons in the grid", () => {
-        cy.wait(1000);
 
         cy.get("[data-cy='grid-section']").as("gridSection").should("exist").then(() => {
             cy.wait("@pokedexFirstPage").then((interception) => {
@@ -53,7 +51,11 @@ describe("Grid interaction testing", () => {
     });
 
     it("Should display the next 20 pokemons in the grid", () => {
-        cy.wait(1000);
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, FIRST_PAGE_OFFSET), (req) => {
+            req.reply({
+                fixture: "pokedexFirstPage.json"
+            });
+        }).as("pokedexFirstPage");
 
         cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, NEXT_PAGE_OFFSET), (req) => {
             req.reply({
@@ -93,7 +95,11 @@ describe("Grid interaction testing", () => {
     });
 
     it("Should display the last two pokemons on the last page in the grid", () => {
-        cy.wait(1000);
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, FIRST_PAGE_OFFSET), (req) => {
+            req.reply({
+                fixture: "pokedexFirstPage.json"
+            });
+        }).as("pokedexFirstPage");
 
         cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, LAST_PAGE_OFFSET), (req) => {
             req.reply({
@@ -129,9 +135,6 @@ describe("Grid interaction testing", () => {
     });
 
     it("Should display the error card when the server returns an error", () => {
-        cy.visit(localHost);
-        window.localStorage.clear();
-
         cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, FIRST_PAGE_OFFSET), (req) => {
             req.reply({
                 statusCode: 500
@@ -187,9 +190,6 @@ describe("Grid interaction testing", () => {
     });
 
     it("Should display the loading components when the server is slow to respond", () => {
-        cy.visit(localHost);
-        window.localStorage.clear();
-    
         cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, FIRST_PAGE_OFFSET), (req) => {
             req.reply({
                 delay: 5000,
@@ -225,9 +225,6 @@ describe("Grid interaction testing", () => {
     });
 
     it("Should display the error message and error card when the response was empty", () => {
-        cy.visit(localHost);
-        window.localStorage.clear();
-
         cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, FIRST_PAGE_OFFSET), (req) => {
             req.reply({
                 statusCode: 204,
@@ -250,7 +247,7 @@ describe("Grid interaction testing", () => {
         cy.get("[data-cy='grid-section']").should("exist").then(() => {
             cy.get("[data-cy='error-message-modal']").as("errorMessage").should("exist");
             cy.get("@errorMessage").find("button").then(($button) => {
-                cy.wrap($button).click();
+                cy.wrap($button).click({force: true});
             });
 
             cy.wait(1000);
@@ -265,9 +262,6 @@ describe("Grid interaction testing", () => {
     });
 
     it("Should display the loading components and no cards component when the response was ok but results were empty", () => {
-        cy.visit(localHost);
-        window.localStorage.clear();
-
         cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, FIRST_PAGE_OFFSET), (req) => {
             req.reply({
                 statusCode: 200,
@@ -294,6 +288,12 @@ describe("Grid interaction testing", () => {
     });
 
     it("Should display 20 grid cards if these were successfully stored in the local storage despite an internal error happening in between", () => { 
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, FIRST_PAGE_OFFSET), (req) => {
+            req.reply({
+                fixture: "pokedexFirstPage.json"
+            });
+        }).as("pokedexFirstPage");
+        
         cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, NEXT_PAGE_OFFSET), (req) => {
             req.reply({
                 statusCode: 500,
