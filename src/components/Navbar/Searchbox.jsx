@@ -43,7 +43,7 @@ function Searchbox({
                             />
                             { dropdownVisibility && 
                                 <NavDropdown show>
-                                    <NavDropdownMenu data-cy={"nav-bar-dropdown-menu"}>
+                                    <NavDropdownMenu data-cy={"navbar-dropdown-menu"}>
                                         <NavDropdownItem>
                                             No pokemons found
                                         </NavDropdownItem>
@@ -56,7 +56,7 @@ function Searchbox({
                         <NavDropdown show>
                             <NavDropdownMenu data-cy={"navbar-dropdown-menu"}>
                                 {
-                                    filteredPokemons.map((pokemon) => {
+                                    filteredPokemons && filteredPokemons.length ? filteredPokemons.map((pokemon) => {
                                         return (
                                             <NavDropdownItem
                                                 key={pokemon}
@@ -69,6 +69,10 @@ function Searchbox({
                                             </NavDropdownItem>
                                         )
                                     })
+                                    :
+                                    <NavDropdownItem>
+                                        No pokemons found
+                                    </NavDropdownItem>
                                 }
                             </NavDropdownMenu>
                         </NavDropdown>
