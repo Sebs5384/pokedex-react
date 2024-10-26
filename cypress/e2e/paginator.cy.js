@@ -433,18 +433,112 @@ describe("Paginator interaction testing", () => {
             expect(interception.response.statusCode).to.eq(200);
             expect(interception.response.body.next).to.eq(requestUrl(getOffset(2, POKEMONS_PER_PAGE), POKEMONS_PER_PAGE, "/"));
             expect(interception.response.body.previous).to.eq(null);
+            expect(interception.response.body.results).not.to.eq(undefined);
             expect(interception.response.body.results.length).to.eq(20);
         });
 
         cy.get("@errorMessage").should("not.exist");
         cy.get("@gridBoard").should("exist").then(() => {
             cy.get("@errorCard").should("not.exist");
+        });
+
+        cy.get("@previousButton").should("have.class", "disabled");
+        cy.get("@nextButton").should("not.have.class", "disabled");
+        cy.get("@paginationSection").find("a").should("have.length", 68);
+        cy.get("[data-cy='page-1']").should("exist").and("be.visible");
+        cy.get("[data-cy='page-2']").should("exist").and("be.visible");
+        cy.get("[data-cy='page-3']").should("exist").and("be.visible");
+    });
+
+    it("Should display the loading components when the server response is slwo", () => {
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, getOffset(1, POKEMONS_PER_PAGE)), (req) => {
+            req.reply({
+                delay: 4000,
+                fixture: "pokedexFirstPage.json"
+            });
+        }).as("paginatorFirstPage");
+
+        cy.get("[data-cy='loading-grid-spinner']").should("exist").and("be.visible");
+        cy.get("[data-cy='loading-grid-text']").should("exist").and("be.visible");
+        cy.get("[data-cy='pagination-section']").as("paginationSection").should("exist").then(() => {
+            cy.get("[data-cy='paginator-previous-button']").as("previousButton").should("exist").and("be.visible");
+            cy.get("[data-cy='paginator-next-button']").as("nextButton").should("exist").and("be.visible");
+            cy.get("[data-cy='page-1']").should("not.exist")
+            cy.get("[data-cy='page-2']").should("not.exist")
+            cy.get("[data-cy='page-3']").should("not.exist")
+        });
+
+        cy.wait(3000);
+        cy.wait("@paginatorFirstPage").then((interception) => {
+            expect(interception.response.statusCode).to.eq(200);
+            expect(interception.response.body.next).to.eq(requestUrl(getOffset(2, POKEMONS_PER_PAGE), POKEMONS_PER_PAGE, "/"));
+            expect(interception.response.body.previous).to.eq(null);
+            expect(interception.response.body.results).not.to.eq(undefined);
+            expect(interception.response.body.results.length).to.eq(20);
+        });
+
+        cy.get("@paginationSection").should("exist").then(() => {
+            cy.get("@previousButton").should("exist").and("be.visible");
+            cy.get("@nextButton").should("exist").and("be.visible");
             cy.get("@previousButton").should("have.class", "disabled");
             cy.get("@nextButton").should("not.have.class", "disabled");
             cy.get("@paginationSection").find("a").should("have.length", 68);
-            cy.get("[data-cy='page-1']").should("exist").and("be.visible");
-            cy.get("[data-cy='page-2']").should("exist").and("be.visible");
-            cy.get("[data-cy='page-3']").should("exist").and("be.visible");
+            cy.get("[data-cy='page-1']").should("exist").and("be.visible")
+            cy.get("[data-cy='page-2']").should("exist").and("be.visible")
+            cy.get("[data-cy='page-3']").should("exist").and("be.visible")
+        });
+    });
+
+    it("Should display the error card when the server response is ok but the body is empty", () => {
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, getOffset(1, POKEMONS_PER_PAGE)), (req) => {
+            req.reply({
+                statusCode: 200,
+                fixture: "emptyResponse.json"
+            });
+        }).as("paginatorEmptyResponse");
+
+        cy.wait("@paginatorEmptyResponse").then((interception) => {
+            expect(interception.response.statusCode).to.eq(200);
+            expect(interception.response.body).to.deep.eq({});
+            expect(interception.response.body.results).to.eq(undefined);
+        });
+
+        cy.wait(9000);
+        cy.get("[data-cy='grid-error-card']").as("errorCard").should("exist").and("be.visible");
+        cy.get("[data-cy='pagination-section']").should("exist").then(() => {
+            cy.get("[data-cy='paginator-previous-button']").should("exist").and("be.visible");
+            cy.get("[data-cy='paginator-next-button']").should("exist").and("be.visible");
+            cy.get("[data-cy='page-1']").should("not.exist");
+            cy.get("[data-cy='page-2']").should("not.exist");
+            cy.get("[data-cy='page-3']").should("not.exist");
+        });
+    });
+
+    it("Should display the error card and error message when the server responds with no content", () => {
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, getOffset(1, POKEMONS_PER_PAGE)), (req) => {
+            req.reply({
+                statusCode: 204
+            });
+        }).as("paginatorNoContentResponse");
+    
+        cy.wait("@paginatorNoContentResponse").then((interception) => {
+            expect(interception.response.statusCode).to.eq(204);
+            expect(interception.response.body).to.eq("");
+            expect(interception.response.body.results).to.eq(undefined);
+        });
+    
+        cy.get("[data-cy='error-message-modal']").as("errorMessage").should("exist").and("be.visible");
+        cy.get("@errorMessage").find("button").then(($button) => {
+            cy.wrap($button).click({force: true});
+        });
+        
+        cy.get("[data-cy='grid-error-card']").as("errorCard").should("exist").and("be.visible");
+        cy.get("[data-cy='pagination-section']").should("exist").then(() => {
+            cy.get("[data-cy='paginator-previous-button']").should("exist").and("be.visible");
+            cy.get("[data-cy='paginator-next-button']").should("exist").and("be.visible");
+            cy.get("[data-cy='page-1']").should("not.exist");
+            cy.get("[data-cy='page-2']").should("not.exist");
+            cy.get("[data-cy='page-3']").should("not.exist");
         });
     });
 });
