@@ -16,16 +16,14 @@ describe("Paginator interaction testing", () => {
     beforeEach(() => {
         cy.visit(localHost);
         window.localStorage.clear();
-
+    });
+    
+    it("Should paginate through the app back and forth", () => {
         cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, getOffset(1, POKEMONS_PER_PAGE)), (req) => {
             req.reply({
                 fixture: "pokedexFirstPage.json"
             });
         }).as("paginatorFirstPage");
-    });
-    
-    it("Should paginate through the app back and forth", () => {
-        cy.wait(1000);
 
         cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, getOffset(2, POKEMONS_PER_PAGE)), (req) => {
             req.reply({
@@ -228,7 +226,11 @@ describe("Paginator interaction testing", () => {
     });
 
     it("Should jump from one page to another by using the page buttons", () => {
-        cy.wait(1000);
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, getOffset(1, POKEMONS_PER_PAGE)), (req) => {
+            req.reply({
+                fixture: "pokedexFirstPage.json"
+            });
+        }).as("paginatorFirstPage");
 
         cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, getOffset(3, POKEMONS_PER_PAGE)), (req) => {
             req.reply({
@@ -286,7 +288,11 @@ describe("Paginator interaction testing", () => {
     });
 
     it("Should jump to the last page using the paginator searchbox and then go back to the first page", () => {
-        cy.wait(1000);
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, getOffset(1, POKEMONS_PER_PAGE)), (req) => {
+            req.reply({
+                fixture: "pokedexFirstPage.json"
+            });
+        }).as("paginatorFirstPage");
 
         cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, getOffset(66, POKEMONS_PER_PAGE)), (req) => {
             req.reply({
@@ -340,6 +346,105 @@ describe("Paginator interaction testing", () => {
                 cy.get("@sixtyFifthPage").should("exist").and("not.be.visible");
                 cy.get("@lastPage").should("exist").and("not.be.visible");
             });
+        });
+    });
+
+    it("Should display no pages and error card while the server responds with internal server errors", () => {
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, getOffset(1, POKEMONS_PER_PAGE)), (req) => {
+            req.reply({
+                statusCode: 500
+            });
+        }).as("paginatorFirstPageError");
+
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, getOffset(2, POKEMONS_PER_PAGE)), (req) => {
+            req.reply({
+                statusCode: 500 
+            });
+        }).as("paginatorSecondPageError");
+
+        cy.wait("@paginatorFirstPageError").then((interception) => {
+            expect(interception.response.statusCode).to.eq(500);
+            expect(interception.response.body).to.eq('');
+            expect(interception.response.body.results).to.eq(undefined);
+        });
+
+        cy.intercept("GET", pageUrl(POKEMONS_PER_PAGE, getOffset(1, POKEMONS_PER_PAGE)), (req) => {
+            req.reply({
+                fixture: "pokedexFirstPage.json"
+            });
+        }).as("paginatorFirstPage");
+
+        cy.get("[data-cy='error-message-modal']").as("errorMessage").should("exist").and("be.visible");
+        cy.get("@errorMessage").find("button").then(($button) => {
+            cy.wrap($button).click({force: true});
+        });
+
+        cy.get("[data-cy='grid-section']").as("gridSection").should("exist").and("be.visible");
+        cy.get("[data-cy='grid-board']").as("gridBoard").should("exist").then(() => {
+            cy.get("[data-cy='grid-error-card']").as("errorCard").should("exist").and("be.visible");
+            cy.get("@errorCard").find("strong").should("have.length", 1);
+            cy.get("@errorCard").find("strong").should("not.have.text", "#1 Bulbasaur");
+        });
+
+        cy.get("[data-cy='pagination-section']").as("paginationSection").should("exist").then(() => {
+            cy.get("[data-cy='paginator-previous-button']").as("previousButton").should("exist").and("be.visible");
+            cy.get("[data-cy='paginator-next-button']").as("nextButton").should("exist").and("be.visible");
+            cy.get("@previousButton").should("have.class", "disabled");
+            cy.get("@nextButton").should("not.have.class", "disabled");
+            cy.get("@paginationSection").find("a").should("have.length", 2);
+            cy.get("[data-cy='page-1']").should("not.exist");
+            cy.get("[data-cy='page-2']").should("not.exist");
+            cy.get("[data-cy='page-3']").should("not.exist");
+        });
+
+        cy.get("@nextButton").click({force: true});
+
+        cy.wait("@paginatorSecondPageError").then((interception) => {
+            expect(interception.response.statusCode).to.eq(500);
+            expect(interception.response.body).to.eq('');
+            expect(interception.response.body.results).to.eq(undefined);
+        });
+
+        cy.get("@errorMessage").should("exist").and("be.visible");
+        cy.get("@errorMessage").find("button").then(($button) => {
+            cy.wrap($button).click();
+        });
+
+        cy.get("@gridBoard").should("exist").then(() => {
+            cy.get("@errorCard").should("exist").and("be.visible");
+            cy.get("@errorCard").find("strong").should("have.length", 1);
+            cy.get("@errorCard").find("strong").should("not.have.text", "#21 Spearow");
+        });
+
+        cy.get("@paginationSection").should("exist").then(() => {
+            cy.get("@previousButton").should("exist").and("be.visible");
+            cy.get("@nextButton").should("exist").and("be.visible");
+            cy.get("@previousButton").should("not.have.class", "disabled");
+            cy.get("@nextButton").should("not.have.class", "disabled");
+            cy.get("@paginationSection").find("a").should("have.length", 2);
+            cy.get("[data-cy='page-1']").should("not.exist");
+            cy.get("[data-cy='page-2']").should("not.exist");
+            cy.get("[data-cy='page-3']").should("not.exist");
+        });
+
+        cy.get("@previousButton").click({force: true});
+
+        cy.wait("@paginatorFirstPage").then((interception) => {
+            expect(interception.response.statusCode).to.eq(200);
+            expect(interception.response.body.next).to.eq(requestUrl(getOffset(2, POKEMONS_PER_PAGE), POKEMONS_PER_PAGE, "/"));
+            expect(interception.response.body.previous).to.eq(null);
+            expect(interception.response.body.results.length).to.eq(20);
+        });
+
+        cy.get("@errorMessage").should("not.exist");
+        cy.get("@gridBoard").should("exist").then(() => {
+            cy.get("@errorCard").should("not.exist");
+            cy.get("@previousButton").should("have.class", "disabled");
+            cy.get("@nextButton").should("not.have.class", "disabled");
+            cy.get("@paginationSection").find("a").should("have.length", 68);
+            cy.get("[data-cy='page-1']").should("exist").and("be.visible");
+            cy.get("[data-cy='page-2']").should("exist").and("be.visible");
+            cy.get("[data-cy='page-3']").should("exist").and("be.visible");
         });
     });
 });
