@@ -1,6 +1,7 @@
 const initialSelectedCardState = {
     selectedCardName: null,
-    selectedCardData: null
+    selectedCardData: null,
+    emptySelectedCardData: null
 };
 
 function selectedCardReducer(state = initialSelectedCardState, action) {
@@ -21,6 +22,11 @@ function selectedCardReducer(state = initialSelectedCardState, action) {
             return {
                 ...state,
                 selectedCardData: null
+            };
+        case "EMPTY_SELECTED_CARD_DATA":
+            return {
+                ...state,
+                emptySelectedCardData: payload
             };
         default:
             return state;

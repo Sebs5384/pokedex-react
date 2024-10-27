@@ -15,6 +15,7 @@ function PokemonCard() {
         loadingCard,
         cardError,
         cardSpeciesError,
+        emptyCardData,
         errorCauseMessage,
         errorMessage,
         handleCloseCard,
@@ -36,6 +37,7 @@ function PokemonCard() {
                     closeErrorModal={handleCloseErrorMessage}
                 />
             : 
+              cardData && cardData.id ? 
                 <PokemonCardModal 
                     show={modalVisibility} 
                     onHide={handleCloseCard} 
@@ -56,6 +58,13 @@ function PokemonCard() {
                         selectedCard={cardData}
                     />
                 </PokemonCardModal>
+            :  
+                emptyCardData && <ErrorMessage 
+                    errorCauseMessage={emptyCardData.emptyErrorCause}
+                    errorText={emptyCardData.emptyErrorMessage}
+                    errorMessageVisibility={true}
+                    closeErrorModal={handleCloseCard}
+                />
             }
         </>
     );

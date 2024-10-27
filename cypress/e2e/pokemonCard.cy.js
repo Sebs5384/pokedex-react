@@ -334,4 +334,38 @@ describe("Modal interaction testing", () => {
             expect(interception.response.statusCode).to.eq(200);
         });
     });
+
+    it("Should display the error message when the server returns an empty response", () => {
+        cy.intercept("GET", pokemonUrl("pokemon", "blastoise"), (req) => {
+            req.reply({
+                fixture: "emptyResponse.json"
+            });
+        }).as("emptyBlastoiseResponse");
+
+        cy.intercept("GET", pokemonUrl("pokemon-species", "blastoise"), (req) => {
+            req.reply({
+                fixture: "emptyResponse.json"
+            });
+        }).as("emptyBlastoiseSpeciesResponse");
+
+        cy.get("[data-cy='grid-board']").as("gridBoard").should("exist");
+        cy.get("[data-cy='blastoise-grid']").as("blastoiseGrid").should("exist").then(() => {
+            cy.get("@blastoiseGrid").click({ force: true });
+        });
+
+        cy.wait("@emptyBlastoiseResponse").then((interception) => {
+            expect(interception.response.statusCode).to.eq(200);
+            expect(interception.response.body).to.deep.eq({});
+            expect(interception.response.body.results).to.eq(undefined);
+        });
+
+        cy.wait("@emptyBlastoiseSpeciesResponse").then((interception) => {
+            expect(interception.response.statusCode).to.eq(200);
+            expect(interception.response.body).to.deep.eq({});
+            expect(interception.response.body.results).to.eq(undefined);
+        });
+
+        cy.get("[data-cy='error-message-modal']").as("errorMessage").should("exist").and("be.visible");
+        cy.get("@errorMessage").find("button").click();
+    });
 });

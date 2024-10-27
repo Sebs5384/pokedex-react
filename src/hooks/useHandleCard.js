@@ -14,7 +14,7 @@ function useHandleCard(setSelectedCard, loadingCardData, loadingSpeciesData, car
     };
 
     useEffect(() => {
-        if(cardError || cardSpeciesError) {
+        if(cardError || cardSpeciesError || !cardData) {
             dispatch({ type: "SET_IS_LOADING", payload: false });
         };
 
@@ -26,7 +26,7 @@ function useHandleCard(setSelectedCard, loadingCardData, loadingSpeciesData, car
         };
 
         if(loadingCardData) {
-            dispatch({ type: "SET_IS_LOADING", payload: isLoading }); 
+            dispatch({ type: "SET_IS_LOADING", payload: isLoading });
         };
     }, [loadingCardData, loadingSpeciesData, loadingSprite, cardSprite, cardData]);
 

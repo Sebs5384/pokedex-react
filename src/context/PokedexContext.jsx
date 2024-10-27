@@ -20,6 +20,7 @@ export function PokedexProvider({ children }) {
         pokemonSprite,
         cardError,
         cardSpeciesError,
+        emptyCardData,
         setSelectedCard
     } = useSelectedCard(artwork);
     const {
@@ -82,7 +83,7 @@ export function PokedexProvider({ children }) {
         <PokedexContext.Provider
             value={
                 {
-                    cardData, loadingCardData, cardError, cardSpeciesError, setSelectedCard,
+                    cardData, loadingCardData, cardError, cardSpeciesError, emptyCardData, setSelectedCard,
                     currentPage, pokemonsInPage, totalPages, firstPage, lastPage, loadingPokemons, paginatorError, popupMessage, invalidPagePopup, 
                     noCards, setNextPage, setPreviousPage, setCurrentPage, setItemRange, setSearchboxValue, handleKeyDown,
                     loadingCard, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,

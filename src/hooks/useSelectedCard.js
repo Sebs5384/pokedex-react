@@ -15,9 +15,15 @@ function useSelectedCard(artwork) {
     };
 
     useEffect(() => {
-        if(pokemonCardData && cardSpeciesData) {
+        if(pokemonCardData && cardSpeciesData && pokemonCardData.id && cardSpeciesData.id) {
             const parsedPokemonName = parsePokemonData(pokemonCardData, cardSpeciesData)
             dispatch({ type: "SET_SELECTED_CARD_DATA", payload: parsedPokemonName }); 
+        } else {
+            dispatch({ type: "SET_SELECTED_CARD_DATA", payload: null });
+            dispatch({ type: "EMPTY_SELECTED_CARD_DATA", payload: { 
+                emptyErrorCause: "Error empty response from the server",
+                emptyErrorMessage: "Seems like there is no card data to display try again later"
+            }});
         };
     }, [pokemonCardData, cardSpeciesData]);
 
@@ -29,6 +35,7 @@ function useSelectedCard(artwork) {
         loadingSprite: loadingSprite,
         cardError: pokemonCardError,
         cardSpeciesError: cardSpeciesError,
+        emptyCardData: state.emptySelectedCardData,
         setSelectedCard
     };
 };
