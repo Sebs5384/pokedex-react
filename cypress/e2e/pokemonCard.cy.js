@@ -11,7 +11,9 @@ describe("Modal interaction testing", () => {
     beforeEach(() => {
         cy.visit(localHost);
         window.localStorage.clear();
+    });
 
+    it("Should search for a pokemon through typing in the searchbox and then display the card correctly when selecting it", () => {
         cy.intercept("GET", pokemonUrl("pokemon", "blastoise"), (req) => {
             req.reply({
                 fixture: "blastoise.json"
@@ -23,10 +25,6 @@ describe("Modal interaction testing", () => {
                 fixture: "blastoiseSpecies.json"
             });
         }).as("blastoiseSpecies")
-    });
-
-    it("Should search for a pokemon through typing in the searchbox and then display the card correctly when selecting it", () => {
-        cy.wait(1000);
 
         cy.get("[data-cy='loading-pokemon-alert']").should("not.exist");
         cy.get("[data-cy='pokemon-card-modal']").should("not.exist");
@@ -143,7 +141,17 @@ describe("Modal interaction testing", () => {
     });
 
     it("Should display the previous evolution card when clicking on the previous evolution button", () => {
-        cy.wait(1000);
+        cy.intercept("GET", pokemonUrl("pokemon", "blastoise"), (req) => {
+            req.reply({
+                fixture: "blastoise.json"
+            });
+        }).as("blastoise");
+
+        cy.intercept("GET", pokemonUrl("pokemon-species", "blastoise"), (req) => {
+            req.reply({
+                fixture: "blastoiseSpecies.json"
+            });
+        }).as("blastoiseSpecies")
 
         cy.intercept("GET", pokemonUrl("pokemon", "8"), (req) => {
             req.reply({
@@ -214,7 +222,17 @@ describe("Modal interaction testing", () => {
     });
 
     it("Should not display the previous evolution button when the previous evolution doesn't exist", () => {
-        cy.wait(1000);
+        cy.intercept("GET", pokemonUrl("pokemon", "blastoise"), (req) => {
+            req.reply({
+                fixture: "blastoise.json"
+            });
+        }).as("blastoise");
+
+        cy.intercept("GET", pokemonUrl("pokemon-species", "blastoise"), (req) => {
+            req.reply({
+                fixture: "blastoiseSpecies.json"
+            });
+        }).as("blastoiseSpecies")
 
         cy.intercept("GET", pokemonUrl("pokemon", "squirtle"), (req) => {
             req.reply({
@@ -240,7 +258,7 @@ describe("Modal interaction testing", () => {
                 });
 
                 cy.get("[data-cy='pokemon-card-header-main-section']").as("headerMainSection").should("exist").then(() => {
-                    cy.get("@headerMainSection").find("img").eq(0).should("not.have.attr", "src");
+                    cy.get("@headerMainSection").find("div").eq(0).should("not.have.attr", "src");
                     cy.get("@headerMainSection").find("strong").eq(0).should("have.text", interception.response.body.name);
                 });
             });
@@ -254,4 +272,66 @@ describe("Modal interaction testing", () => {
             cy.get("@pokemonCard").should("not.exist");
         });
     });
-})
+
+    it("Should not display the card when there's an internal server error, instead the error message should be displayed", () => {
+        cy.intercept("GET", pokemonUrl("pokemon", "blastoise"), (req) => {
+            req.reply({
+                delay: 1000,
+                statusCode: 500
+            });
+        }).as("blastoiseError");
+
+        cy.intercept("GET", pokemonUrl("pokemon-species", "blastoise"), (req) => {
+            req.reply({
+                delay: 1000,
+                statusCode: 500
+            });
+        }).as("blastoiseSpeciesError");
+
+        cy.get("[data-cy='navbar-search-input']").as("searchboxSearchInput").click().then(() => {
+            cy.get("@searchboxSearchInput").type("bLasToIsE");
+            cy.get("[data-cy='blastoise']").click({ force: true });
+        });
+
+        cy.get("[data-cy='loading-pokemon-alert']").as("loadingAlert").should("exist").and("be.visible");
+        cy.get("[data-cy='error-message-modal']").as("errorMessage").should("exist").and("be.visible");
+    
+        cy.get("@errorMessage").find("button").then(($button) => {
+            cy.get($button).click({ force: true });
+        });
+        cy.get("@errorMessage").should("not.exist");
+    });
+
+    it("Should display the card even when the server response is delayed", () => {
+        cy.intercept("GET", pokemonUrl("pokemon", "blastoise"), (req) => {
+            req.reply({
+                delay: 5000,
+                fixture: "blastoise.json"
+            });
+        }).as("blastoise");
+
+        cy.intercept("GET", pokemonUrl("pokemon-species", "blastoise"), (req) => {
+            req.reply({
+                delay: 5000,
+                fixture: "blastoiseSpecies.json"
+            });
+        }).as("blastoiseSpecies");
+
+        cy.get("[data-cy='grid-board']").as("gridBoard").should("exist");
+        cy.get("[data-cy='blastoise-grid']").as("blastoiseGrid").should("exist").then(() => {
+            cy.get("@blastoiseGrid").click({ force: true });
+        });
+
+        cy.wait("@blastoise").then((interception) => {
+            cy.get("[data-cy='pokemon-card-modal']").as("pokemonCard").should("exist");
+            expect(interception.response.statusCode).to.eq(200);
+            cy.get("[data-cy='pokemon-card-header-main-section']").as("headerMainSection").should("exist").then(() => {
+                cy.get("@headerMainSection").find("strong").eq(0).should("have.text", interception.response.body.name);
+            });
+        });
+
+        cy.wait("@blastoiseSpecies").then((interception) => {
+            expect(interception.response.statusCode).to.eq(200);
+        });
+    });
+});
