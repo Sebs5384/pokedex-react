@@ -294,4 +294,26 @@ describe("Navbar interaction testing", () => {
         cy.get("@navbarDropdownMenu").find("a").should("have.length", 1);
         cy.get("@navbarDropdownMenu").find("a").should("have.text", "No pokemons found");
     });
+
+    it("Should display an error message and make the pokeball button unable when there's an internal server error", () => {
+        cy.intercept("GET", pokemonList, (req) => {
+            req.reply({
+                statusCode: 500,
+            });
+        }).as("pokedexListError");
+
+        cy.wait("@pokedexListError").then((interception) => {
+            expect(interception.response.statusCode).to.eq(500);
+        });
+
+        cy.get("[data-cy='error-message-modal']").as("errorMessage").should("exist");
+        cy.get("@errorMessage").find("button").then(($button) => {
+            cy.wrap($button).click({ force: true });
+            cy.wait(1000);
+        });
+
+        cy.get("[data-cy='pokeball-button']").as("pokeballButton").should("exist").then(() => {
+            cy.get("@pokeballButton").click({ force: true });
+        });
+    });
 });
