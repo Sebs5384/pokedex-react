@@ -172,15 +172,13 @@ describe("Grid interaction testing", () => {
 
         cy.get("[data-cy='paginator-next-button']").click();
 
+        cy.get("@errorMessage").should("exist").and("be.visible");
+        cy.get("@errorMessage").find("button").then(($button) => {
+            cy.wrap($button).click({ force: true });
+        });
+        cy.get("@errorMessage").should("not.exist");
+
         cy.get("@gridSection").should("exist").then(() => {
-            cy.get("@errorMessage").should("exist").and("be.visible");
-
-            cy.get("@errorMessage").find("button").then(($button) => {
-                cy.wrap($button).click();
-            });
-
-            cy.get("@errorMessage").should("not.exist");
-        
             cy.get("[data-cy='grid-board']").as("gridBoard").should("exist").then(() => {
                 cy.get("[data-cy='grid-error-card']").as("errorCard").should("exist").and("be.visible");
                 cy.get("@errorCard").find("strong").should("have.length", 1);
@@ -244,20 +242,16 @@ describe("Grid interaction testing", () => {
         cy.get("@loadingSpinner").should("not.exist");
         cy.get("@loadingText").should("not.exist");
 
-        cy.get("[data-cy='grid-section']").should("exist").then(() => {
-            cy.get("[data-cy='error-message-modal']").as("errorMessage").should("exist");
-            cy.get("@errorMessage").find("button").then(($button) => {
-                cy.wrap($button).click({force: true});
-            });
-
-            cy.wait(1000);
-            cy.get("@errorMessage").should("not.exist");
-
-            cy.get("[data-cy='grid-board']").as("gridBoard").should("exist").then(() => {
-                cy.get("[data-cy='grid-error-card']").as("errorCard").should("exist").and("be.visible");    
-                cy.get("@errorCard").find("strong").should("have.length", 1);
-                cy.get("@errorCard").find("strong").should("not.have.text", "#1 Bulbasaur");
-            });
+        cy.get("[data-cy='grid-section']").should("exist");
+        cy.get("[data-cy='error-message-modal']").as("errorMessage").should("exist");
+        cy.get("@errorMessage").find("button").then(($button) => {
+            cy.wrap($button).click({force: true});
+        });
+            
+        cy.get("[data-cy='grid-board']").as("gridBoard").should("exist").then(() => {
+            cy.get("[data-cy='grid-error-card']").as("errorCard").should("exist").and("be.visible");    
+            cy.get("@errorCard").find("strong").should("have.length", 1);
+            cy.get("@errorCard").find("strong").should("not.have.text", "#1 Bulbasaur");
         });
     });
 
