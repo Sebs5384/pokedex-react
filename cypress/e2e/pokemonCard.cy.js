@@ -368,4 +368,31 @@ describe("Modal interaction testing", () => {
         cy.get("[data-cy='error-message-modal']").as("errorMessage").should("exist").and("be.visible");
         cy.get("@errorMessage").find("button").click();
     });
+
+    it("Should display the error message when the server returns a no content response", () => {
+        cy.intercept("GET", pokemonUrl("pokemon", "blastoise"), (req) => {
+            req.reply({
+                delay: 1000,
+                statusCode: 204,
+            });
+        }).as("noContentBlastoise");
+
+        cy.get("[data-cy='grid-board']").as("gridBoard").should("exist");
+        cy.get("[data-cy='blastoise-grid']").as("blastoiseGrid").should("exist").then(() => {
+            cy.get("@blastoiseGrid").click({ force: true });
+        });
+
+        cy.get("[data-cy='loading-pokemon-alert']").should("exist");
+        cy.get("[data-cy='pokemon-card-modal']").should("not.exist");
+
+        cy.wait("@noContentBlastoise").then((interception) => {
+            expect(interception.response.statusCode).to.eq(204);
+        });
+
+        cy.get("[data-cy='error-message-modal']").as("errorMessage").should("exist").and("be.visible").then(() => {
+            cy.get("@errorMessage").find("button").click({ force: true });
+        });
+        
+        cy.get("@errorMessage").should("not.exist");
+    });
 });
