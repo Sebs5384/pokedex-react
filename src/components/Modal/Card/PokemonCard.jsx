@@ -4,7 +4,7 @@ import PokemonCardHeader from "./PokemonCardHeader";
 import PokemonCardBody from "./PokemonCardBody";
 import PokemonCardFooter from "./PokemonCardFooter";
 import LoadingPokemonAlert from "./LoadingPokemonAlert";
-import ErrorMessage from "../../shared/ErrorMessage";
+import ErrorMessage from "../ErrorMessage";
 
 function PokemonCard() {
     const {
@@ -25,7 +25,7 @@ function PokemonCard() {
 
     return(
         <>
-            {loadingCard ? 
+            { loadingCard ? 
                 <LoadingPokemonAlert 
                     showModal={loadingCard} 
                 /> 
@@ -36,8 +36,7 @@ function PokemonCard() {
                     errorMessageVisibility={cardErrorMessageVisibility}
                     closeErrorModal={handleCloseErrorMessage}
                 />
-            : 
-              cardData && cardData.id ? 
+            : cardData && cardData.id ? 
                 <PokemonCardModal 
                     show={modalVisibility} 
                     onHide={handleCloseCard} 
@@ -58,8 +57,7 @@ function PokemonCard() {
                         selectedCard={cardData}
                     />
                 </PokemonCardModal>
-            :  
-              emptyCardData && 
+            : emptyCardData && 
                 <ErrorMessage 
                     errorCauseMessage={emptyCardData.emptyErrorCause}
                     errorText={emptyCardData.emptyErrorMessage}

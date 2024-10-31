@@ -34,6 +34,11 @@ const PokemonCardModal = styled(({ backgroundTexture, ...rest }) => <Modal {...r
         height: 11%;
         margin: 0 auto;
     }
+
+    &.emerald-font {
+        ${emeraldFontFace}
+        font-family: "pokemon-emerald";
+    }
 `;
 
 const PokemonAlertModal = styled(Modal)`
@@ -59,21 +64,50 @@ const PokemonSummaryModal = styled(Modal)`
     }
 `;
 
+const ErrorMessageModal = styled(Modal)`
+    .modal-content {
+        border: solid gold 12px;
+        border-radius: 15px;
+        border-style: outset;
+    }
+
+    &.emerald-font {
+        font-size: 1.5rem;
+        ${emeraldFontFace}
+        font-family: "pokemon-emerald";
+    }
+`;
+
 const PokemonCloseButton = styled(CloseButton)`
     font-size: 0.7rem;
     position: relative;
     right: -20px;
 `;
 
+const ErrorCloseButton = styled(CloseButton)`
+    border: 2px solid gold;
+    border-style: outset;
+    border-radius: 2px;
+    border-color: gold;
+    opacity: 0.7;
+`;
+
 const PokemonTitle = styled(Modal.Title)`
 `;
 
-const CardSection = styled.section`
+const PokemonSection = styled.section`
     &.card-banner {
         border: 2px solid rgb(254, 230, 98);
         background: content-box radial-gradient(rgb(250, 232, 130), rgb(193, 187, 26));
         border-style: inset;
     }
+
+    &.error-message-background {
+        border: 3px solid rgb(24, 184, 142);
+        border-style: outset;
+        border-radius: 2px;
+        background-color: rgb(24, 184, 142);
+    };
 `;
 
 const PokemonContainer = styled.div`
@@ -89,6 +123,10 @@ const PokemonContainer = styled.div`
         border-style: outset;
         border-radius: 0px;
         background-color: transparent;
+    }
+
+    &.modal-header {
+        border-bottom: 2px solid gold;
     }
 
     .stats-icon {
@@ -262,12 +300,6 @@ const PokemonCardText = styled.strong`
     &.footer-font {
         font-size: 10px;
     }
-
-    &.emerald-font {
-        font-size: 3rem;
-        ${emeraldFontFace}
-        font-family: "pokemon-emerald";
-    }
 `;
 
 const PokemonRegistrationText = styled.p`
@@ -308,6 +340,9 @@ const PokemonRegistrationText = styled.p`
     }
 `;
 
+const ErrorMessageText = styled.p`
+`;
+
 const CardTopSeparator = styled.hr`
     border: 1px solid var(--bs-warning);
     opacity: 0.5;
@@ -322,12 +357,15 @@ export {
     PokemonCardModal,
     PokemonCloseButton,
     PokemonTitle,
-    CardSection,
+    PokemonSection,
     PokemonContainer,
     PokemonCardText,
     PokemonRegistrationText,
     CardTopSeparator,
     CardSeparator,
     PokemonAlertModal,
-    PokemonSummaryModal     
+    PokemonSummaryModal,
+    ErrorMessageModal,
+    ErrorCloseButton,
+    ErrorMessageText
 };

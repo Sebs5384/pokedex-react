@@ -1,6 +1,6 @@
 import { NavInputGroup, NavContainer, NavInputGroupText, NavForm, NavDropdown, NavDropdownMenu, NavDropdownItem } from "./Pokemon";
 import ImageContainer from "../shared/ImageContainer";
-import ErrorMessage from "../shared/ErrorMessage";
+import ErrorMessage from "../Modal/ErrorMessage";
 import magnifier from "../../assets/img/misc/magnifier.png";
 import PropTypes from "prop-types";
 

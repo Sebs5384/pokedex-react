@@ -1,11 +1,11 @@
-import { PokemonContainer, CardSection, PokemonCardText, CardTopSeparator, PokemonCloseButton, PokemonTitle } from "../Pokemon";
+import { PokemonContainer, PokemonSection, PokemonCardText, CardTopSeparator, PokemonCloseButton, PokemonTitle } from "../Pokemon";
 import ImageContainer from "../../shared/ImageContainer";
 import PropTypes from "prop-types";
 
 function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPreviousEvolution }) {
     return(
         <PokemonContainer closeButton>
-            <CardSection className="container-fluid species-wrapper">
+            <PokemonSection className="container-fluid species-wrapper">
                 <PokemonContainer className="row species-data-wrapper" data-cy={"pokemon-card-header-genus-section"}>
                     <PokemonCardText className="col-2 align-self-end text-end species-font">{pokemonSprite?.previous ? "P.STAGE" : ""}</PokemonCardText>
                     <PokemonCardText className="col-5 align-self-end text-center species-font">{selectedCard?.evolutionGenus.name}</PokemonCardText>
@@ -32,7 +32,7 @@ function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPrev
                         className="col-1 align-self-center pokemon-species-image text-start" 
                     />
                 </PokemonTitle>
-            </CardSection>
+            </PokemonSection>
         </PokemonContainer>
     );
 };

@@ -3,7 +3,7 @@ import { PokemonSummaryModal } from "../Pokemon";
 import RegistrationHeader from "./RegistrationHeader";
 import RegistrationBody from "./RegistrationBody";
 import RegistrationFooter from "./RegistrationFooter";
-import ErrorMessage from "../../shared/ErrorMessage";
+import ErrorMessage from "../ErrorMessage";
 
 function CaughtPokemonRegistration() {
     const {

@@ -1,11 +1,11 @@
-import { PokemonContainer, CardSection, CardSeparator, PokemonCardText } from "../Pokemon";
+import { PokemonContainer, PokemonSection, CardSeparator, PokemonCardText } from "../Pokemon";
 import ImageContainer from "../../shared/ImageContainer";
 import PropTypes from "prop-types";
 
 function PokemonCardFooter({ selectedCard }) {
     return(
         <PokemonContainer>
-            <CardSection className="container-fluid col-11">
+            <PokemonSection className="container-fluid col-11">
                 <PokemonContainer className="row mb-2" data-cy={"pokemon-card-footer-advantage-section"}>
                     <CardSeparator className="col-12 mt-1"></CardSeparator>
                     <PokemonCardText className="col-4 text-start status-font">Weakness</PokemonCardText>
@@ -21,12 +21,12 @@ function PokemonCardFooter({ selectedCard }) {
                         <ImageContainer src={selectedCard?.advantageImage.retreat} className="stats-icon" />
                     </PokemonContainer>
                 </PokemonContainer>
-            </CardSection>
-            <CardSection className="container-fluid mb-2 col-11" data-cy={"pokemon-card-footer-description-section"}>
+            </PokemonSection>
+            <PokemonSection className="container-fluid mb-2 col-11" data-cy={"pokemon-card-footer-description-section"}>
                 <PokemonContainer className="card text-center description-border">
                     <PokemonCardText className="footer-font">{selectedCard?.description}</PokemonCardText>
                 </PokemonContainer>
-            </CardSection>
+            </PokemonSection>
         </PokemonContainer>
     );
 };

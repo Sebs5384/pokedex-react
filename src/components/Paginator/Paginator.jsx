@@ -2,7 +2,7 @@ import { usePokedexContext } from "../../context/PokedexContext";
 import { Pagination, PaginatorContainer } from "./Pokemon";
 import PaginatorButton from "./PaginatorButton";
 import PaginatorSearchbox from "./PaginatorSearchbox";
-import ErrorMessage from "../shared/ErrorMessage";
+import ErrorMessage from "../Modal/ErrorMessage";
 
 function Paginator() { 
     const {

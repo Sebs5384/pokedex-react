@@ -1,4 +1,4 @@
-import { PokemonContainer, CardSection, PokemonCardText, CardSeparator  } from "../Pokemon";
+import { PokemonContainer, PokemonSection, PokemonCardText, CardSeparator  } from "../Pokemon";
 import { skillIcon, statusIcon, atkIcon, defIcon, speedIcon, spAtkIcon, spDefIcon } from "../../../assets/img/pokemon-stats";
 import ImageContainer from "../../shared/ImageContainer";
 import PropTypes from "prop-types";
@@ -6,20 +6,20 @@ import PropTypes from "prop-types";
 function PokemonCardBody({ selectedCard, pokemonSprite }) {
     return(
         <PokemonContainer>
-            <CardSection className="container-fluid" data-cy={"pokemon-card-modal-image-section"}>
+            <PokemonSection className="container-fluid" data-cy={"pokemon-card-modal-image-section"}>
                 <PokemonContainer className="card card-border col-11 mx-auto" style={{background: selectedCard?.backgroundStyle}}>
                     <PokemonContainer className="row card-body justify-content-center">
                         <ImageContainer src={pokemonSprite?.current} alt={selectedCard?.name} className="col-8"/>
                     </PokemonContainer>
                 </PokemonContainer>
-            </CardSection>
-            <CardSection className="row col-10 mt-2 mx-auto card-banner" data-cy={"pokemon-card-banner-section"}>
+            </PokemonSection>
+            <PokemonSection className="row col-10 mt-2 mx-auto card-banner" data-cy={"pokemon-card-banner-section"}>
                 <ImageContainer src={selectedCard?.typeImage.mainTypeLogo} className="col-2" />
                 <ImageContainer src={selectedCard?.typeImage.secondaryTypeLogo} className="col-2" />
                 <PokemonCardText className="col-4 text-end banner-font">Length: {selectedCard?.height}"</PokemonCardText>
                 <PokemonCardText className="col-4 text-start banner-font">Weight: {selectedCard?.weight} lbs</PokemonCardText>
-            </CardSection>
-            <CardSection className="container-fluid col-11 mt-2" data-cy={"pokemon-card-skill-section"}>
+            </PokemonSection>
+            <PokemonSection className="container-fluid col-11 mt-2" data-cy={"pokemon-card-skill-section"}>
                 <PokemonContainer className="row modal-font">
                     <PokemonContainer className="col-12">
                         <ImageContainer src={skillIcon} className="stats-icon"/>
@@ -35,8 +35,8 @@ function PokemonCardBody({ selectedCard, pokemonSprite }) {
                         <PokemonCardText className="skill-font">{selectedCard?.skills.secondSkill}</PokemonCardText>
                     </PokemonContainer>
                 </PokemonContainer>
-            </CardSection>
-            <CardSection className="container-fluid col-11" data-cy={"pokemon-card-stats-section"}>
+            </PokemonSection>
+            <PokemonSection className="container-fluid col-11" data-cy={"pokemon-card-stats-section"}>
                 <PokemonContainer className="row modal-font">
                     <PokemonContainer className="text-start col-12 mt-2">
                         <ImageContainer src={statusIcon} className="stats-icon" />
@@ -64,7 +64,7 @@ function PokemonCardBody({ selectedCard, pokemonSprite }) {
                         <PokemonCardText className="status-font">{selectedCard?.stats.spDef}</PokemonCardText>
                     </PokemonContainer>
                 </PokemonContainer>
-            </CardSection>
+            </PokemonSection>
         </PokemonContainer>
     );
 };
