@@ -59,7 +59,8 @@ function PokemonCard() {
                     />
                 </PokemonCardModal>
             :  
-                emptyCardData && <ErrorMessage 
+              emptyCardData && 
+                <ErrorMessage 
                     errorCauseMessage={emptyCardData.emptyErrorCause}
                     errorText={emptyCardData.emptyErrorMessage}
                     errorMessageVisibility={true}

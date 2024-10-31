@@ -18,7 +18,8 @@ function useSelectedCard(artwork) {
         if(pokemonCardData && cardSpeciesData && pokemonCardData.id && cardSpeciesData.id) {
             const parsedPokemonName = parsePokemonData(pokemonCardData, cardSpeciesData)
             dispatch({ type: "SET_SELECTED_CARD_DATA", payload: parsedPokemonName }); 
-        } else {
+            
+        } else if(!loading && pokemonCardData && !pokemonCardData.id) {
             dispatch({ type: "SET_SELECTED_CARD_DATA", payload: null });
             dispatch({ type: "EMPTY_SELECTED_CARD_DATA", payload: { 
                 emptyErrorCause: "Error empty response from the server",
