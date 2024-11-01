@@ -3,7 +3,7 @@ import { usePagination, useSelectedCard, useHandleCard, useHandleSearchbox, useH
 import { setItemRange, getPokemonSpriteUrl } from "../utils/index";
 import PropTypes from "prop-types";
 
-const PokedexContext = createContext();
+export const PokedexContext = createContext();
 
 export function PokedexProvider({ children }) {
     const MAX_LIMIT = 100000;

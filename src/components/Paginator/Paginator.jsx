@@ -29,6 +29,7 @@ function Paginator() {
         <PaginatorContainer 
             className="pagination justify-content-center" 
             data-cy={"pagination-section"}
+            data-testid={"pagination-section"}
         >
             <Pagination className="page-item">
                 <PaginatorButton onClick={() => setPreviousPage()} isDisabled={currentPage === firstPage} dataAttribute={"paginator-previous-button"}>Previous</PaginatorButton>
