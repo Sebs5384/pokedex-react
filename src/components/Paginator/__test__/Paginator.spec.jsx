@@ -186,4 +186,20 @@ describe("Paginator", () => {
         expect(mockContextValue.setItemRange).not.toHaveBeenCalledWith(1, 1);
         expect(screen.queryByText("1")).not.toBeInTheDocument();
     });
+
+    it("Should handle a large number of pages correctly", () => {
+        const mockContextValue = {
+            totalPages: Array.from({ length: 50 }, (_, index) => index + 1),
+            setItemRange: jest.fn()
+        };
+        
+        render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+        
+        const paginator = screen.getByTestId("pagination-section");
+        expect(paginator).toBeInTheDocument();
+        const pages = screen.getAllByRole("link");
+        expect(pages.length).toEqual(52);
+        
+        expect(mockContextValue.setItemRange).toHaveBeenCalled();
+    });
 });
