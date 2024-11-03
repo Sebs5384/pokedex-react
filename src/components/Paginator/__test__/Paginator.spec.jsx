@@ -32,20 +32,20 @@ describe("Paginator", () => {
         expect(screen.getByText("Next")).toBeInTheDocument();
         
         expect(screen.getByText("1")).toBeInTheDocument();
-        expect(screen.getByText("1")).not.toHaveClass("hidden")
+        expect(screen.getByText("1")).toBeVisible();
         expect(screen.getByText("2")).toBeInTheDocument();
-        expect(screen.getByText("2")).not.toHaveClass("hidden")
+        expect(screen.getByText("2")).toBeVisible();
         expect(screen.getByText("3")).toBeInTheDocument();
-        expect(screen.getByText("3")).not.toHaveClass("hidden")
+        expect(screen.getByText("3")).toBeVisible();
 
         expect(screen.getByText("4")).toBeInTheDocument();
-        expect(screen.getByText("4")).toHaveClass("hidden")
+        expect(screen.getByText("4")).not.toBeVisible();
         expect(screen.getByText("5")).toBeInTheDocument();
-        expect(screen.getByText("5")).toHaveClass("hidden")
+        expect(screen.getByText("5")).not.toBeVisible();
         expect(mockContextValue.setItemRange).toHaveBeenCalled();
     });
 
-    it("Should change the visibility of pages when paginating", () => {
+    it("Should re-render paginator properly", () => {
         let currentPage = 1;
         const mockContextValue = {
             currentPage,
@@ -54,6 +54,7 @@ describe("Paginator", () => {
                 currentPage = page;
             }),
             setNextPage: jest.fn(),
+            setPreviousPage: jest.fn(),
             setItemRange: jest.fn((item) => {
                 return !(currentPage >= item - 2 && currentPage <= item + 2);
             })
@@ -65,6 +66,7 @@ describe("Paginator", () => {
         expect(mockContextValue.setItemRange).toHaveBeenCalled();
 
         const nextButton = screen.getByText("Next");
+        
         fireEvent.click(nextButton);
         
         mockContextValue.setCurrentPage(2);
@@ -76,5 +78,76 @@ describe("Paginator", () => {
 
         expect(screen.getByText("4")).toBeVisible();
         expect(mockContextValue.setItemRange).toHaveBeenCalled();
+
+        const previousButton = screen.getByText("Previous");
+        fireEvent.click(previousButton);
+        
+        mockContextValue.setCurrentPage(1);
+        expect(mockContextValue.setCurrentPage).toHaveBeenCalled();
+        expect(mockContextValue.setItemRange).toHaveBeenCalledWith(1, 1);
+        expect(currentPage).toEqual(1);
+
+        rerender(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+
+        expect(screen.getByText("4")).not.toBeVisible();
+        expect(mockContextValue.setItemRange).toHaveBeenCalled();
+    });
+
+    it("Should disable previous button on first render", () => {
+        const mockContextValue = {
+            currentPage: 1,
+            totalPages: [1, 2, 3, 4, 5],
+            firstPage: 1,
+            setItemRange: jest.fn()
+        };
+
+        render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+
+        const previousButton = screen.getByText("Previous");
+        expect(previousButton).toHaveClass("disabled");
+    });
+
+    it("Should disable next button on last page", () => {
+        const mockContextValue = {
+            currentPage: 5,
+            totalPages: [1, 2, 3, 4, 5],
+            lastPage: 5,
+            setItemRange: jest.fn()
+        };
+        
+        render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+
+        const nextButton = screen.getByText("Next");
+        expect(nextButton).toHaveClass("disabled");
+    });
+
+    it("Should jump from one page to another by using the numbered buttons", () => {
+        let currentPage = 1;
+        const mockContextValue = {
+            currentPage,
+            totalPages: [1, 2, 3, 4, 5],
+            setCurrentPage: jest.fn((page) => {
+                currentPage = page;
+            }),
+            setItemRange: jest.fn((item) => {
+                return !(currentPage >= item - 2 && currentPage <= item + 2);
+            }),
+        };
+
+        const { rerender } = render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+
+        const thirdPage = screen.getByText("3");
+        fireEvent.click(thirdPage);
+
+        mockContextValue.setCurrentPage(3);
+        expect(mockContextValue.setCurrentPage).toHaveBeenCalled();
+        expect(currentPage).toEqual(3);
+        expect(mockContextValue.setItemRange).toHaveBeenCalledWith(3, 1);
+
+        rerender(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+
+        expect(mockContextValue.setItemRange).toHaveBeenCalled();
+        expect(screen.getByText("4")).toBeVisible();
+        expect(screen.getByText("5")).toBeVisible();
     });
 });
