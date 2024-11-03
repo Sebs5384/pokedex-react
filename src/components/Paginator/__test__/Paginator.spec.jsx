@@ -150,4 +150,40 @@ describe("Paginator", () => {
         expect(screen.getByText("4")).toBeVisible();
         expect(screen.getByText("5")).toBeVisible();
     });
+
+    it("Shouldn't render numbered pages when the total pages is empty", () => {
+        const mockContextValue = {
+           totalPages: [],
+           setItemRange: jest.fn()
+        };
+        
+        render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+
+        expect(mockContextValue.setItemRange).toHaveBeenCalledTimes(0);
+        expect(mockContextValue.setItemRange).not.toHaveBeenCalledWith(1, 1);
+        expect(screen.queryByText("1")).not.toBeInTheDocument();
+    });
+
+    it("Shouldn't render numbered pages when total pages is still empty and a re-render happens", () => {
+        const mockContextValue = {
+            totalPages: [],
+            setItemRange: jest.fn(),
+            setNextPage: jest.fn(),
+        };
+
+        const { rerender } = render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+
+        expect(mockContextValue.setItemRange).toHaveBeenCalledTimes(0);
+        expect(mockContextValue.setItemRange).not.toHaveBeenCalledWith(1, 1);
+        expect(screen.queryByText("1")).not.toBeInTheDocument();
+
+        const nextButton = screen.getByText("Next");
+        fireEvent.click(nextButton);
+
+        rerender(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+
+        expect(mockContextValue.setItemRange).toHaveBeenCalledTimes(0);
+        expect(mockContextValue.setItemRange).not.toHaveBeenCalledWith(1, 1);
+        expect(screen.queryByText("1")).not.toBeInTheDocument();
+    });
 });
