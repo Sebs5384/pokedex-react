@@ -11,8 +11,8 @@ function PaginatorButton({ children, isHidden, isDisabled, dataAttribute, onClic
                   "disabled": isDisabled
                 }
             )} 
-            href="#" 
-            onClick={onClick}
+            href="#"
+            onClick={isDisabled ? () => {} : onClick}
             data-cy={dataAttribute}
         >
             {children}
