@@ -27,6 +27,8 @@ describe("Paginator", () => {
 
         const paginator = screen.getByTestId("pagination-section");
         expect(paginator).toBeInTheDocument();
+        const paginatorSearchbox = screen.getByRole("searchbox");
+        expect(paginatorSearchbox).toBeInTheDocument();
 
         expect(screen.getByText("Previous")).toBeInTheDocument();
         expect(screen.getByText("Next")).toBeInTheDocument();
@@ -141,11 +143,11 @@ describe("Paginator", () => {
 
         mockContextValue.setCurrentPage(3);
         expect(mockContextValue.setCurrentPage).toHaveBeenCalled();
-        expect(currentPage).toEqual(3);
         expect(mockContextValue.setItemRange).toHaveBeenCalledWith(3, 1);
 
         rerender(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
 
+        expect(currentPage).toEqual(3);
         expect(mockContextValue.setItemRange).toHaveBeenCalled();
         expect(screen.getByText("4")).toBeVisible();
         expect(screen.getByText("5")).toBeVisible();
@@ -200,6 +202,34 @@ describe("Paginator", () => {
         const pages = screen.getAllByRole("link");
         expect(pages.length).toEqual(52);
         
+        expect(mockContextValue.setItemRange).toHaveBeenCalled();
+    });
+
+    it("Should jump to the page we input into the paginator searchbox", () => {
+        let currentPage = 1;
+        const mockContextValue = {
+            currentPage,
+            totalPages: [1, 2, 3, 4, 5],
+            setCurrentPage: jest.fn((page) => {
+                return currentPage = page;
+            }),
+            setItemRange: jest.fn(),
+            setSearchboxValue: jest.fn(),
+        };
+
+        const { rerender } = render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+
+        const searchbox = screen.getByRole("searchbox");
+        fireEvent.change(searchbox, { target: { value: "3" } });
+
+        mockContextValue.setCurrentPage(3);
+        expect(mockContextValue.setCurrentPage).toHaveBeenCalledWith(3);
+        expect(mockContextValue.setItemRange).toHaveBeenCalledWith(3, 1);
+        expect(mockContextValue.setSearchboxValue).toHaveBeenCalled();
+    
+        rerender(<Paginator />, { wrapper: ({ children}) => <Wrapper value={mockContextValue}>{children}</Wrapper>});
+
+        expect(currentPage).toEqual(3);
         expect(mockContextValue.setItemRange).toHaveBeenCalled();
     });
 });
