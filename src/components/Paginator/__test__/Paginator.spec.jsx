@@ -232,4 +232,27 @@ describe("Paginator", () => {
         expect(currentPage).toEqual(3);
         expect(mockContextValue.setItemRange).toHaveBeenCalled();
     });
+
+    it("Should remain in the same page if the page we input into the paginator searchbox is invalid", () => {
+        let currentPage = 1;
+        const mockContextValue = {
+            currentPage,
+            totalPages: [1, 2, 3, 4, 5],
+            setCurrentPage: jest.fn((page) => {
+                return currentPage = page;
+            }),
+            setItemRange: jest.fn(),
+            setSearchboxValue: jest.fn(),
+        };
+
+        render(<Paginator />, { wrapper: ({ children}) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+        expect(mockContextValue.setItemRange).toHaveBeenCalled();
+        
+        const searchbox = screen.getByRole("searchbox");
+        fireEvent.change(searchbox, { target: { value: "0" } });
+
+        expect(currentPage).toEqual(1);
+        expect(mockContextValue.setItemRange).toHaveBeenCalledWith(1, 1);
+        expect(mockContextValue.setSearchboxValue).toHaveBeenCalled();
+    });
 });
