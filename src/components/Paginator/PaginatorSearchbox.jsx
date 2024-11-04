@@ -6,8 +6,8 @@ function PaginatorSearchbox({ onChange, onKeyDown, validationMessage, validation
         <PaginationOverlayTrigger 
             show={validationPopup} 
             placement="top" overlay={
-                <PaginationSearchboxPopover id="popover-basic">
-                    <PaginationSearchboxPopoverBody>{validationMessage}</PaginationSearchboxPopoverBody>
+                <PaginationSearchboxPopover id="popover-basic" data-testid="paginator-searchbox-popover">
+                    <PaginationSearchboxPopoverBody data-testid="paginator-popover-message">{validationMessage}</PaginationSearchboxPopoverBody>
                 </PaginationSearchboxPopover>
             }
         >
