@@ -28,6 +28,7 @@ function Searchbox({
                         placeholder="Search Pokemon"
                         className="search-input form-control pokedex-search-box"
                         data-cy={"navbar-search-input"}
+                        data-testid={"navbar-search-input"}
                         onChange={handleSearchPokemon}
                         onFocus={handleInputFocus}
                         onBlur={handleInputOnBlur}
@@ -43,7 +44,7 @@ function Searchbox({
                             />
                             { dropdownVisibility && 
                                 <NavDropdown show>
-                                    <NavDropdownMenu data-cy={"navbar-dropdown-menu"}>
+                                    <NavDropdownMenu data-cy={"navbar-dropdown-menu"} data-testid={"navbar-dropdown-menu"}>
                                         <NavDropdownItem>
                                             No pokemons found
                                         </NavDropdownItem>
@@ -54,7 +55,7 @@ function Searchbox({
                     :
                     dropdownVisibility && 
                         <NavDropdown show>
-                            <NavDropdownMenu data-cy={"navbar-dropdown-menu"}>
+                            <NavDropdownMenu data-cy={"navbar-dropdown-menu"} data-testid={"navbar-dropdown-menu"}>
                                 {
                                     filteredPokemons && filteredPokemons.length ? filteredPokemons.map((pokemon) => {
                                         return (

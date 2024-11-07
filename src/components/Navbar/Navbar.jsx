@@ -24,7 +24,10 @@ function Navbar() {
     } = usePokedexContext();
 
     return (
-        <Bar data-cy={"navbar-section"}>
+        <Bar 
+            data-cy={"navbar-section"}
+            data-testid={"navbar-section"}
+        >
             <Logo />
             <Searchbox 
                 filteredPokemons={filteredPokemons}
