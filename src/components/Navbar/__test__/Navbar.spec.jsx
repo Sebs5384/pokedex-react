@@ -31,15 +31,19 @@ describe("Navbar", () => {
         expect(pokeballButton).toBeInTheDocument();
         const navbarPokeSlot = screen.getByTestId("navbar-poke-slot");
         expect(navbarPokeSlot).toBeInTheDocument();
-        const caughtPokemons = screen.getAllByTestId("caught-pokemon"); 
+        const firstSlot = screen.getByTestId("caught-pokemon-0");
+        expect(firstSlot).toBeInTheDocument();
+        const secondSlot = screen.getByTestId("caught-pokemon-1");
+        expect(secondSlot).toBeInTheDocument();
+        const thirdSlot = screen.getByTestId("caught-pokemon-2");
+        expect(thirdSlot).toBeInTheDocument();
 
         expect(navbar).toBeVisible();
         expect(navbarLogo).toBeVisible();
         expect(navbarSearchbox).toBeVisible();
         expect(pokeballButton).toBeVisible();
         expect(pokeballButton).not.toBeDisabled();
-        expect(navbarPokeSlot).toBeVisible();
-        expect(caughtPokemons).toHaveLength(3); 
+        expect(navbarPokeSlot).toBeVisible(); 
     
         rerender(<Navbar />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
         
@@ -49,7 +53,6 @@ describe("Navbar", () => {
         expect(pokeballButton).toBeVisible();
         expect(pokeballButton).not.toBeDisabled();
         expect(navbarPokeSlot).toBeVisible();
-        expect(caughtPokemons).toHaveLength(3);
     });
 
     it("Should re-direct to home page on click on logo", () => {
@@ -187,5 +190,22 @@ describe("Navbar", () => {
         expect(secondSlot).toHaveAttribute("src", "squirtle.png");
         expect(thirdSlot).toBeInTheDocument();
         expect(thirdSlot).toHaveAttribute("src", "charmander.png");
+    });
+
+    it("Should not render the navbar slots if an empty array is passed", () => {
+        const mockContextValue = {
+            filteredPokemons: [],
+            caughtPokemons: [],
+        };
+
+        render(<Navbar />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+        const navbarPokeSlots = screen.getByTestId("navbar-poke-slot");
+        const pokeballButton = screen.getByTestId("pokeball-button");
+        expect(navbarPokeSlots).toBeInTheDocument();
+        expect(navbarPokeSlots.childElementCount).toBe(0);
+
+        fireEvent.click(pokeballButton);
+
+        expect(navbarPokeSlots.childElementCount).toBe(0);
     });
 });
