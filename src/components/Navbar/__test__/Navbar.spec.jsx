@@ -110,4 +110,82 @@ describe("Navbar", () => {
         expect(noPokemonsFoundMessage).toBeInTheDocument();
         expect(noPokemonsFoundMessage).toBeVisible();
     });
+
+    it("Should fill a pokemon slot upon clicking the pokeball button", () => {
+        const mockContextValue = {
+            filteredPokemons: [],
+            caughtPokemons: [null, null, null],
+            caughtPokemonSprite: [null, null, null],
+            handlePokeballClick: jest.fn(),
+        };
+
+        const { rerender } = render(<Navbar />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+        const pokeballButton = screen.getByTestId("pokeball-button");
+        expect(pokeballButton).toBeInTheDocument();
+
+
+        const firstSlot = screen.getByTestId("caught-pokemon-0");
+        const secondSlot = screen.getByTestId("caught-pokemon-1");
+        const thirdSlot = screen.getByTestId("caught-pokemon-2");
+        expect(firstSlot).toBeInTheDocument();
+        expect(firstSlot).toHaveAttribute("src", "pokedex-len.png");
+        expect(secondSlot).toBeInTheDocument();
+        expect(secondSlot).toHaveAttribute("src", "pokedex-len.png");
+        expect(thirdSlot).toBeInTheDocument();
+        expect(thirdSlot).toHaveAttribute("src", "pokedex-len.png");
+
+        fireEvent.click(pokeballButton);
+        expect(mockContextValue.handlePokeballClick).toHaveBeenCalled();
+        mockContextValue.caughtPokemons[0] = { fullName: "bulbasaur" };
+        mockContextValue.caughtPokemonSprite[0] = { current: "bulbasaur.png" };
+        
+        rerender(<Navbar />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+
+        expect(firstSlot).toBeInTheDocument();
+        expect(firstSlot).toHaveAttribute("src", "bulbasaur.png");
+        expect(secondSlot).toBeInTheDocument();
+        expect(secondSlot).toHaveAttribute("src", "pokedex-len.png");
+        expect(thirdSlot).toBeInTheDocument();
+        expect(thirdSlot).toHaveAttribute("src", "pokedex-len.png");
+
+        fireEvent.click(pokeballButton);
+        expect(mockContextValue.handlePokeballClick).toHaveBeenCalled();
+        mockContextValue.caughtPokemons[1] = { fullName: "squirtle" };
+        mockContextValue.caughtPokemonSprite[1] = { current: "squirtle.png" };
+
+        rerender(<Navbar />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+
+        expect(firstSlot).toBeInTheDocument();
+        expect(firstSlot).toHaveAttribute("src", "bulbasaur.png");
+        expect(secondSlot).toBeInTheDocument();
+        expect(secondSlot).toHaveAttribute("src", "squirtle.png");
+        expect(thirdSlot).toBeInTheDocument();
+        expect(thirdSlot).toHaveAttribute("src", "pokedex-len.png");
+
+        fireEvent.click(pokeballButton);
+        expect(mockContextValue.handlePokeballClick).toHaveBeenCalled();
+        mockContextValue.caughtPokemons[2] = { fullName: "charmander" };
+        mockContextValue.caughtPokemonSprite[2] = { current: "charmander.png" };
+
+        rerender(<Navbar />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+
+        expect(firstSlot).toBeInTheDocument();
+        expect(firstSlot).toHaveAttribute("src", "bulbasaur.png");
+        expect(secondSlot).toBeInTheDocument();
+        expect(secondSlot).toHaveAttribute("src", "squirtle.png");
+        expect(thirdSlot).toBeInTheDocument();
+        expect(thirdSlot).toHaveAttribute("src", "charmander.png");
+
+        fireEvent.click(pokeballButton);
+        expect(mockContextValue.handlePokeballClick).toHaveBeenCalled();
+
+        rerender(<Navbar />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+
+        expect(firstSlot).toBeInTheDocument();
+        expect(firstSlot).toHaveAttribute("src", "bulbasaur.png");
+        expect(secondSlot).toBeInTheDocument();
+        expect(secondSlot).toHaveAttribute("src", "squirtle.png");
+        expect(thirdSlot).toBeInTheDocument();
+        expect(thirdSlot).toHaveAttribute("src", "charmander.png");
+    });
 });

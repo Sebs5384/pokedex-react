@@ -30,13 +30,13 @@ function CatchPokemon({ selectPokemon, isShaking, caughtPokemons, caughtPokemonS
                             src={caughtPokemonSprite[index]?.current || pokemonLen}
                             onClick={() => selectPokemon(pokemon.fullName)}
                             alt={pokemon.fullName}
-                            dataAttribute={"caught-pokemon"}
+                            dataAttribute={`caught-pokemon-${index}`}
                         /> :
                         <ImageContainer 
                             key={index}
                             src={pokemonLen}
                             alt="PokeLen"
-                            dataAttribute={"caught-pokemon"}
+                            dataAttribute={`caught-pokemon-${index}`}
                         />
                     ))}
             </NavContainer>
