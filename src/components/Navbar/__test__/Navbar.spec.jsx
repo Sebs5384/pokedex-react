@@ -19,7 +19,7 @@ describe("Navbar", () => {
             caughtPokemons: [null, null, null],
         };
 
-        const { rerender } =render(<Navbar />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+        const { rerender } = render(<Navbar />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
         
         const navbar = screen.getByTestId("navbar-section");
         expect(navbar).toBeInTheDocument();

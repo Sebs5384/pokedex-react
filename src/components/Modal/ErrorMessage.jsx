@@ -8,6 +8,7 @@ function ErrorMessage({ errorCauseMessage, errorText, errorMessageVisibility, cl
             aria-labelledby="contained-modal-title-vcenter"
             centered
             data-cy="error-message-modal"
+            data-testid="error-message-modal"
             className="emerald-font"
         >
             <PokemonSection className="error-message-background emerald-font" >

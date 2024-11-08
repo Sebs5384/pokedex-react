@@ -41,6 +41,7 @@ function Searchbox({
                                 errorText={errorMessage}
                                 errorMessageVisibility={searchboxErrorMessageVisibility}
                                 closeErrorModal={handleCloseErrorMessage}
+                                data-testid={"searchbox-error-message"}
                             />
                             { dropdownVisibility && 
                                 <NavDropdown show>
@@ -62,6 +63,7 @@ function Searchbox({
                                             <NavDropdownItem
                                                 key={pokemon}
                                                 data-cy={pokemon}
+                                                data-testid={"dropdown-item"}
                                                 onMouseDown={() => {
                                                     selectPokemon(pokemon);
                                                 }}
@@ -71,7 +73,9 @@ function Searchbox({
                                         )
                                     })
                                     :
-                                    <NavDropdownItem>
+                                    <NavDropdownItem
+                                        data-testid={"dropdown-item"}
+                                    >
                                         No pokemons found
                                     </NavDropdownItem>
                                 }
@@ -89,7 +93,7 @@ Searchbox.propTypes = {
     handleInputFocus: PropTypes.func,
     handleInputOnBlur: PropTypes.func,
     selectPokemon: PropTypes.func,
-    searchBoxError: PropTypes.bool,
+    searchboxError: PropTypes.bool,
     errorCauseMessage: PropTypes.string,
     errorMessage: PropTypes.string,
     searchboxErrorMessageVisibility: PropTypes.bool,
