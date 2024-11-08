@@ -21,7 +21,7 @@ function Searchbox({
             <NavContainer >
                 <NavInputGroup>
                     <NavInputGroupText className="magnifier">
-                        <ImageContainer src={magnifier} alt="magnifier" />
+                        <ImageContainer src={magnifier} alt="magnifier" dataAttribute={"navbar-searchbox-icon"}/>
                     </NavInputGroupText>
                     <NavForm 
                         type="search"
@@ -83,14 +83,17 @@ function Searchbox({
     );
 };
 Searchbox.propTypes = {
-    pokemonList: PropTypes.array,
-    searchPokemon: PropTypes.func,
+    filteredPokemons: PropTypes.array,
     dropdownVisibility: PropTypes.bool,
     handleSearchPokemon: PropTypes.func,
     handleInputFocus: PropTypes.func,
     handleInputOnBlur: PropTypes.func,
     selectPokemon: PropTypes.func,
-    filteredPokemons: PropTypes.array
+    searchBoxError: PropTypes.bool,
+    errorCauseMessage: PropTypes.string,
+    errorMessage: PropTypes.string,
+    searchboxErrorMessageVisibility: PropTypes.bool,
+    handleCloseErrorMessage: PropTypes.func
 };
 
 export default Searchbox;
