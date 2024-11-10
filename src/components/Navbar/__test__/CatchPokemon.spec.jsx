@@ -67,3 +67,36 @@ describe("CatchPokemon", () => {
         expect(mockedSelectPokemon).toHaveBeenCalledTimes(1);
         expect(mockedSelectPokemon).toHaveBeenCalledWith("bulbasaur");
     });
+
+    it("Should call the handlePokeballClick function when the pokeball is clicked", () => {
+        let mockedIsShaking = false;
+        const mockedHandlePokeballClick = jest.fn(() => {
+            mockedIsShaking = true;
+        });
+        render(<CatchPokemon
+            handlePokeballClick={mockedHandlePokeballClick}
+            isShaking={mockedIsShaking}
+        />);
+
+        const pokeballButton = screen.getByTestId("pokeball-button");
+        expect(pokeballButton).toBeInTheDocument();
+
+        fireEvent.click(pokeballButton);
+        expect(mockedHandlePokeballClick).toHaveBeenCalledTimes(1);
+        expect(mockedIsShaking).toBe(true);
+    });
+
+    it("Shouldn't render caught pokemons if an empty array is passed as a prop", () => {
+        render(<CatchPokemon
+            caughtPokemons={[]}
+            caughtPokemonSprite={[]}
+        />);
+
+        const navbarPokeSlots = screen.getByTestId("navbar-poke-slot");
+        expect(navbarPokeSlots).toBeInTheDocument();
+
+        expect(navbarPokeSlots.childElementCount).toBe(0);
+        const firstSlot = screen.queryByTestId("caught-pokemon-0");
+        expect(firstSlot).not.toBeInTheDocument();
+    });
+});
