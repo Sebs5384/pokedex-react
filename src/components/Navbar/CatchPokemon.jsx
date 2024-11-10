@@ -20,6 +20,7 @@ function CatchPokemon({ selectPokemon, isShaking, caughtPokemons, caughtPokemonS
                 <ImageContainer 
                     src={catchPokemon}
                     alt="Catch a pokemon"
+                    dataAttribute={"catch-a-pokemon-image"}
                 />
             </NavContainer>
             <NavContainer className="poke-slot" data-cy={"navbar-poke-slot"} data-testid={"navbar-poke-slot"}>
