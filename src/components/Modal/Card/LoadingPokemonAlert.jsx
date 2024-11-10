@@ -27,7 +27,8 @@ function LoadingPokemonAlert({ alertVisibility, alertText }) {
     );
 };
 LoadingPokemonAlert.propTypes = {
-    showModal: PropTypes.bool
+    alertVisibility: PropTypes.bool,
+    alertText: PropTypes.string
 };
 
 export default LoadingPokemonAlert;
