@@ -42,6 +42,7 @@ export function PokedexProvider({ children }) {
     } = usePagination(POKEMONS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl);
     const {
         loadingCard,
+        loadingCardText,
         modalVisibility,
         handleSelectedCard,
         handleCloseCard
@@ -86,7 +87,7 @@ export function PokedexProvider({ children }) {
                     cardData, loadingCardData, cardError, cardSpeciesError, emptyCardData, setSelectedCard,
                     currentPage, pokemonsInPage, totalPages, firstPage, lastPage, loadingPokemons, paginatorError, popupMessage, invalidPagePopup, 
                     noCards, setNextPage, setPreviousPage, setCurrentPage, setItemRange, setSearchboxValue, handleKeyDown,
-                    loadingCard, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,
+                    loadingCard, loadingCardText, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,
                     pokemonList, dropdownVisibility, filteredPokemons, pokemonsCount, searchboxError, 
                     handleSearchPokemon, handleInputFocus, handleInputOnBlur,
                     caughtPokemons, caughtPokemon, caughtPokemonError, caughtPokemonSprite, isShaking, 

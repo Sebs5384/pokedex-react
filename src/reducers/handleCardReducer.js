@@ -15,7 +15,8 @@ function handleCardReducer(state = initialHandleCardState, action) {
         case "SET_IS_LOADING":
             return {
                 ...state,
-                isLoading: payload
+                isLoading: payload,
+                loadingText: "Loading..."
             };
         default:
             return state;

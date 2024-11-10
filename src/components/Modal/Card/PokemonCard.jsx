@@ -13,6 +13,7 @@ function PokemonCard() {
         cardData,
         pokemonSprite,
         loadingCard,
+        loadingCardText,
         cardError,
         cardSpeciesError,
         emptyCardData,
@@ -27,7 +28,8 @@ function PokemonCard() {
         <>
             { loadingCard ? 
                 <LoadingPokemonAlert 
-                    showModal={loadingCard} 
+                    alertVisibility={loadingCard} 
+                    alertText={loadingCardText}
                 /> 
             : cardError || cardSpeciesError ? 
                 <ErrorMessage 

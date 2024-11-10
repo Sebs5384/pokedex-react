@@ -32,6 +32,7 @@ function useHandleCard(setSelectedCard, loadingCardData, loadingSpeciesData, car
 
     return {
         loadingCard: state.isLoading,
+        loadingCardText: state.loadingText,
         modalVisibility: state.cardModalVisibility,
         handleSelectedCard,
         handleCloseCard
