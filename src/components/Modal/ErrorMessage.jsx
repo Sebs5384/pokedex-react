@@ -1,4 +1,5 @@
 import { ErrorMessageModal, PokemonContainer, PokemonSection, ErrorCloseButton, ErrorMessageText } from "./Pokemon.jsx";
+import PropTypes from "prop-types";
 
 function ErrorMessage({ errorCauseMessage, errorText, errorMessageVisibility, closeErrorModal }) {
     return (
@@ -22,6 +23,12 @@ function ErrorMessage({ errorCauseMessage, errorText, errorMessageVisibility, cl
             </PokemonSection>
         </ErrorMessageModal>
     );
+};
+ErrorMessage.propTypes = {
+    errorCauseMessage: PropTypes.string,
+    errorText: PropTypes.string,
+    errorMessageVisibility: PropTypes.bool,
+    closeErrorModal: PropTypes.func
 };
 
 export default ErrorMessage;
