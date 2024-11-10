@@ -24,6 +24,10 @@ describe("CatchPokemon", () => {
         expect(secondSlot).toBeInTheDocument();
         const thirdSlot = screen.getByTestId("caught-pokemon-2");
         expect(thirdSlot).toBeInTheDocument();
+
+        expect(firstSlot).toHaveAttribute("alt", "PokeLen");
+        expect(secondSlot).toHaveAttribute("alt", "PokeLen");
+        expect(thirdSlot).toHaveAttribute("alt", "PokeLen");
     });
 
     it("Should render caught pokemons if a populated array is passed as a prop", () => {
