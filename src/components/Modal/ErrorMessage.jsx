@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 function ErrorMessage({ errorCauseMessage, errorText, errorMessageVisibility, closeErrorModal }) {
     return (
-        <ErrorMessageModal
+        errorMessageVisibility && <ErrorMessageModal
             show={errorMessageVisibility}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
@@ -14,11 +14,15 @@ function ErrorMessage({ errorCauseMessage, errorText, errorMessageVisibility, cl
         >
             <PokemonSection className="error-message-background emerald-font" >
                 <PokemonContainer className="modal-header">
-                    <ErrorMessageText >{errorCauseMessage}</ErrorMessageText>
-                    <ErrorCloseButton onClick={closeErrorModal} />
+                    <ErrorMessageText data-testid="error-cause-message">
+                        {errorCauseMessage}
+                    </ErrorMessageText>
+                    <ErrorCloseButton onClick={closeErrorModal} data-testid="error-close-button"/>
                 </PokemonContainer>
                 <PokemonContainer className="modal-body">
-                    <ErrorMessageText >{errorText}</ErrorMessageText>
+                    <ErrorMessageText data-testid="error-text">
+                        {errorText}
+                    </ErrorMessageText>
                 </PokemonContainer>
             </PokemonSection>
         </ErrorMessageModal>
