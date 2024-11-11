@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 function PokemonCardFooter({ selectedCard }) {
     return(
-        <PokemonContainer>
+        <PokemonContainer data-testid={"pokemon-card-footer"}>
             <PokemonSection className="container-fluid col-11">
                 <PokemonContainer className="row mb-2" data-cy={"pokemon-card-footer-advantage-section"}>
                     <CardSeparator className="col-12 mt-1"></CardSeparator>

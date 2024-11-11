@@ -9,14 +9,14 @@ import ErrorMessage from "../ErrorMessage";
 function PokemonCard() {
     const {
         modalVisibility,
-        cardErrorMessageVisibility,
         cardData,
         pokemonSprite,
         loadingCard,
         loadingCardText,
+        emptyCardData,
         cardError,
         cardSpeciesError,
-        emptyCardData,
+        cardErrorMessageVisibility,
         errorCauseMessage,
         errorMessage,
         handleCloseCard,
@@ -44,6 +44,7 @@ function PokemonCard() {
                     onHide={handleCloseCard} 
                     backgroundTexture={cardData?.backgroundTexture}
                     data-cy={"pokemon-card-modal"}
+                    data-testid={"pokemon-card-modal"}
                 >   
                     <PokemonCardHeader 
                         selectedCard={cardData} 
@@ -64,7 +65,7 @@ function PokemonCard() {
                     errorCauseMessage={emptyCardData.emptyErrorCause}
                     errorText={emptyCardData.emptyErrorMessage}
                     errorMessageVisibility={true}
-                    closeErrorModal={handleCloseCard}
+                    closeErrorModal={handleCloseErrorMessage}
                 />
             }
         </>

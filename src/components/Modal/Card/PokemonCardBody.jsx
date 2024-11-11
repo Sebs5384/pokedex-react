@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 function PokemonCardBody({ selectedCard, pokemonSprite }) {
     return(
-        <PokemonContainer>
+        <PokemonContainer data-testid={"pokemon-card-body"}>
             <PokemonSection className="container-fluid" data-cy={"pokemon-card-modal-image-section"}>
                 <PokemonContainer className="card card-border col-11 mx-auto" style={{background: selectedCard?.backgroundStyle}}>
                     <PokemonContainer className="row card-body justify-content-center">

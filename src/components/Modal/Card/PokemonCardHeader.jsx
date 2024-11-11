@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 
 function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPreviousEvolution }) {
     return(
-        <PokemonContainer closeButton>
+        <PokemonContainer closeButton data-testid={"pokemon-card-header"}>
             <PokemonSection className="container-fluid species-wrapper">
                 <PokemonContainer className="row species-data-wrapper" data-cy={"pokemon-card-header-genus-section"}>
                     <PokemonCardText className="col-2 align-self-end text-end species-font">{pokemonSprite?.previous ? "P.STAGE" : ""}</PokemonCardText>
                     <PokemonCardText className="col-5 align-self-end text-center species-font">{selectedCard?.evolutionGenus.name}</PokemonCardText>
                     <PokemonCardText className="col-4 align-self-end text-end species-font">{selectedCard?.evolutionGenus.genus}</PokemonCardText>
-                    <PokemonCloseButton onClick={closeModal} data-cy={"pokemon-card-close-button"}  />
+                    <PokemonCloseButton onClick={closeModal} data-cy={"pokemon-card-close-button"} data-testid={"pokemon-card-close-button"}/>
                 </PokemonContainer>
                 <PokemonContainer className="row justify-content-center">
                     <CardTopSeparator className="col-11" />
@@ -20,7 +20,8 @@ function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPrev
                         <ImageContainer 
                             src={pokemonSprite?.previous} 
                             onClick={() => selectPreviousEvolution(selectedCard.evolutionGenus.id)} 
-                            className="col-2 align-self-center text-center pokemon-species-image" 
+                            className="col-2 align-self-center text-center pokemon-species-image"
+                            dataAttribute={"previous-evolution-image"}
                         />
                         : <PokemonContainer className="col-2 align-self-center text-center pokemon-species-image" />
                     }
