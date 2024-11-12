@@ -215,14 +215,17 @@ describe("Paginator", () => {
             }),
             setItemRange: jest.fn(),
             setSearchboxValue: jest.fn(),
+            handleKeyDown: jest.fn()
         };
 
         const { rerender } = render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
 
         const searchbox = screen.getByRole("searchbox");
         fireEvent.change(searchbox, { target: { value: "3" } });
+        fireEvent.keyDown(searchbox, { key: "Enter" });
 
         mockContextValue.setCurrentPage(3);
+        expect(mockContextValue.handleKeyDown).toHaveBeenCalled();
         expect(mockContextValue.setCurrentPage).toHaveBeenCalledWith(3);
         expect(mockContextValue.setItemRange).toHaveBeenCalledWith(3, 1);
         expect(mockContextValue.setSearchboxValue).toHaveBeenCalled();
@@ -254,5 +257,26 @@ describe("Paginator", () => {
         expect(currentPage).toEqual(1);
         expect(mockContextValue.setItemRange).toHaveBeenCalledWith(1, 1);
         expect(mockContextValue.setSearchboxValue).toHaveBeenCalled();
+    });
+
+    it("Should display error message when there is an error", () => {
+        const mockContextValue = {
+            paginatorError: true,
+            paginatorErrorMessageVisibility: true,
+            errorCauseMessage: "Some error",
+            errorMessage: "Just happened",
+        };
+
+        render(<Paginator />, { wrapper: ({ children}) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+        const errorMessage = screen.getByTestId("error-message-modal");
+        expect(errorMessage).toBeInTheDocument();
+
+        const errorCauseMessage = screen.getByTestId("error-cause-message");
+        expect(errorCauseMessage).toBeInTheDocument();
+        expect(errorCauseMessage).toHaveTextContent("Some error");
+        
+        const errorText = screen.getByTestId("error-text");
+        expect(errorText).toBeInTheDocument();
+        expect(errorText).toHaveTextContent("Just happened");
     });
 });

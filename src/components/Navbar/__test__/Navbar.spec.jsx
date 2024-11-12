@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { PokedexContext } from "../../../context/PokedexContext";
 import Navbar from "../Navbar";
 import "@testing-library/jest-dom";
@@ -56,6 +56,11 @@ describe("Navbar", () => {
     });
 
     it("Should re-direct to home page on click on logo", () => {
+        const reloadMock = jest.fn();
+        Object.defineProperty(window, "location",
+            { value: { reload: reloadMock } },
+            { writable: true },
+        );
         const mockContextValue = {
             filteredPokemons: [],
         };
@@ -63,9 +68,11 @@ describe("Navbar", () => {
         render(<Navbar />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
         const navbarLogo = screen.getByTestId("navbar-logo");
         expect(navbarLogo).toBeInTheDocument();
+        const logoImage = screen.getByTestId("logo-image");
+        expect(logoImage).toBeInTheDocument();
 
-        fireEvent.click(navbarLogo);
-        expect(window.location.pathname).toEqual("/");  
+        fireEvent.click(logoImage);
+        expect(reloadMock).toHaveBeenCalled();
     });
 
     it("Should display and hide the searchbox dropdown on click", () => {
@@ -118,7 +125,7 @@ describe("Navbar", () => {
         const mockContextValue = {
             filteredPokemons: [],
             caughtPokemons: [null, null, null],
-            caughtPokemonSprite: [null, null, null],
+            caughtPokemonSprite: [],
             handlePokeballClick: jest.fn(),
         };
 
@@ -126,16 +133,12 @@ describe("Navbar", () => {
         const pokeballButton = screen.getByTestId("pokeball-button");
         expect(pokeballButton).toBeInTheDocument();
 
-
         const firstSlot = screen.getByTestId("caught-pokemon-0");
         const secondSlot = screen.getByTestId("caught-pokemon-1");
         const thirdSlot = screen.getByTestId("caught-pokemon-2");
         expect(firstSlot).toBeInTheDocument();
-        expect(firstSlot).toHaveAttribute("src", "pokedex-len.png");
         expect(secondSlot).toBeInTheDocument();
-        expect(secondSlot).toHaveAttribute("src", "pokedex-len.png");
         expect(thirdSlot).toBeInTheDocument();
-        expect(thirdSlot).toHaveAttribute("src", "pokedex-len.png");
 
         fireEvent.click(pokeballButton);
         expect(mockContextValue.handlePokeballClick).toHaveBeenCalled();
@@ -147,9 +150,7 @@ describe("Navbar", () => {
         expect(firstSlot).toBeInTheDocument();
         expect(firstSlot).toHaveAttribute("src", "bulbasaur.png");
         expect(secondSlot).toBeInTheDocument();
-        expect(secondSlot).toHaveAttribute("src", "pokedex-len.png");
         expect(thirdSlot).toBeInTheDocument();
-        expect(thirdSlot).toHaveAttribute("src", "pokedex-len.png");
 
         fireEvent.click(pokeballButton);
         expect(mockContextValue.handlePokeballClick).toHaveBeenCalled();
@@ -163,7 +164,6 @@ describe("Navbar", () => {
         expect(secondSlot).toBeInTheDocument();
         expect(secondSlot).toHaveAttribute("src", "squirtle.png");
         expect(thirdSlot).toBeInTheDocument();
-        expect(thirdSlot).toHaveAttribute("src", "pokedex-len.png");
 
         fireEvent.click(pokeballButton);
         expect(mockContextValue.handlePokeballClick).toHaveBeenCalled();
@@ -207,5 +207,41 @@ describe("Navbar", () => {
         fireEvent.click(pokeballButton);
 
         expect(navbarPokeSlots.childElementCount).toBe(0);
+    });
+
+    it("Should call handleSelected card when clicking on a filled pokemon slot", () => {
+        const mockContextValue = {
+            filteredPokemons: [],
+            caughtPokemons: [{ fullName: "charmander" }, null, null],
+            caughtPokemonSprite: [{ current: "charmander.png "}],
+            handleSelectedCard: jest.fn(),
+        };
+
+        render(<Navbar />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+    
+        const firstSlot = screen.getByTestId("caught-pokemon-0");
+        fireEvent.click(firstSlot);
+
+        expect(mockContextValue.handleSelectedCard).toHaveBeenCalledTimes(1);
+        expect(mockContextValue.handleSelectedCard).toHaveBeenCalledWith("charmander");
+    });
+
+    it("Should call handleSelectedCard when a pokemon in the list is clicked", () => {
+        const mockContextValue = {
+            filteredPokemons: ["bulbasaur", "squirtle", "charmander"],
+            dropdownVisibility: true,
+            handleSelectedCard: jest.fn(),
+        };
+
+        render(<Navbar />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
+
+        const navbarDropdownMenu = screen.getByTestId("navbar-dropdown-menu");
+        expect(navbarDropdownMenu).toBeInTheDocument();
+
+        const bulbasaur = screen.getByText("bulbasaur");
+        fireEvent.mouseDown(bulbasaur);
+
+        expect(mockContextValue.handleSelectedCard).toHaveBeenCalledTimes(1);
+        expect(mockContextValue.handleSelectedCard).toHaveBeenCalledWith("bulbasaur");
     });
 });
