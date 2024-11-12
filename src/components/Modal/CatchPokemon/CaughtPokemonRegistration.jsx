@@ -9,13 +9,14 @@ function CaughtPokemonRegistration() {
     const {
         registrationModalVisibility,
         caughtPokemon,
+        caughtPokemonSprite,
         caughtPokemonError,
         errorCauseMessage,
         errorMessage,
         caughtPokemonErrorMessageVisibility,
         handleCloseErrorMessage
     } = usePokedexContext();
-    
+
     return(
         <>
             { caughtPokemonError ? 
@@ -30,12 +31,18 @@ function CaughtPokemonRegistration() {
                     show={registrationModalVisibility} 
                     className="emerald-font" size="lg" 
                     aria-labelledby="contained-modal-title-vcenter" 
-                    centered
                     data-cy={"caught-pokemon-summary-modal"}
+                    data-testid={"caught-pokemon-summary-modal"}
+                    centered
                 >
                     <RegistrationHeader />
-                    <RegistrationBody pokemon={caughtPokemon} />
-                    <RegistrationFooter pokemon={caughtPokemon} />
+                    <RegistrationBody 
+                        pokemon={caughtPokemon} 
+                        pokemonSprite={caughtPokemonSprite} 
+                    />
+                    <RegistrationFooter 
+                        pokemon={caughtPokemon} 
+                    />
                 </PokemonSummaryModal>
             }
         </>

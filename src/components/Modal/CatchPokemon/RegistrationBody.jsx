@@ -2,13 +2,13 @@ import { PokemonContainer } from "../Pokemon";
 import ImageContainer from "../../shared/ImageContainer";
 import PropTypes from "prop-types";
 
-function RegistrationBody({ pokemon }) {
+function RegistrationBody({ pokemon, pokemonSprite }) {
     return (
         <PokemonContainer className="modal-body row justify-content-center registration-screen-background">
             <PokemonContainer className="col-11 registration-details-background">
                 <PokemonContainer className="row justify-content-center registration-screen">
                     <PokemonContainer className="col-4 registration-image-background registration-image">
-                        <ImageContainer src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon?.id}.png`}/>
+                        <ImageContainer src={pokemonSprite[pokemonSprite.length - 1]?.current} alt={pokemon?.name}/>
                     </PokemonContainer>
                     <PokemonContainer className="col-8 mt-1">
                         <PokemonContainer className="row">
