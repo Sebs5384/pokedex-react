@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function ImageContainer({ src, alt, className, onClick = () => {}, dataAttribute }) {
+function ImageContainer({ src, alt, className, onClick, dataAttribute }) {
     return (
         <img 
             src={src} 

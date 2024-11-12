@@ -32,7 +32,7 @@ function Paginator() {
             data-testid={"pagination-section"}
         >
             <Pagination className="page-item">
-                <PaginatorButton onClick={() => setPreviousPage()} isDisabled={currentPage === firstPage} dataAttribute={"paginator-previous-button"}>Previous</PaginatorButton>
+                <PaginatorButton setPage={() => setPreviousPage()} isDisabled={currentPage === firstPage} dataAttribute={"paginator-previous-button"}>Previous</PaginatorButton>
                 { paginatorError ?
                     <ErrorMessage 
                         errorCauseMessage={errorCauseMessage}
@@ -45,12 +45,12 @@ function Paginator() {
                         key={pageNumber} 
                         isHidden={setItemRange(pageNumber, currentPage)}
                         isActive={pageNumber === currentPage} 
-                        onClick={() => setCurrentPage(pageNumber)}
+                        setPage={() => setCurrentPage(pageNumber)}
                         dataAttribute={`page-${pageNumber}`}>
                         {pageNumber}
                     </PaginatorButton>   
                 ))}
-                <PaginatorButton onClick={() => setNextPage()} isDisabled={currentPage === lastPage} dataAttribute={"paginator-next-button"}>Next</PaginatorButton>
+                <PaginatorButton setPage={() => setNextPage()} isDisabled={currentPage === lastPage} dataAttribute={"paginator-next-button"}>Next</PaginatorButton>
             </Pagination>
             <PaginatorSearchbox 
                 onChange={(event) => setSearchboxValue(event)} 

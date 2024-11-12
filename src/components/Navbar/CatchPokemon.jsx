@@ -28,7 +28,7 @@ function CatchPokemon({ selectPokemon, isShaking, caughtPokemons, caughtPokemonS
                         pokemon ? 
                         <ImageContainer 
                             key={index}
-                            src={caughtPokemonSprite[index]?.current || pokemonLen}
+                            src={caughtPokemonSprite[index]?.current || pokemonLen }
                             onClick={() => selectPokemon(pokemon.fullName)}
                             alt={pokemon.fullName}
                             dataAttribute={`caught-pokemon-${index}`}

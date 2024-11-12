@@ -2,7 +2,7 @@ import { PaginationLink } from "./Pokemon";
 import cx from "classnames";
 import PropTypes from "prop-types";
 
-function PaginatorButton({ children, isHidden, isDisabled, dataAttribute, onClick = () => {} }) {
+function PaginatorButton({ children, isHidden, isDisabled, dataAttribute, setPage }) {
     return (
         <PaginationLink 
             className={cx("page-link", 
@@ -12,7 +12,7 @@ function PaginatorButton({ children, isHidden, isDisabled, dataAttribute, onClic
                 }
             )} 
             href="#"
-            onClick={isDisabled ? () => {} : onClick}
+            onClick={isDisabled ? () => {} : setPage}
             data-cy={dataAttribute}
         >
             {children}
@@ -24,7 +24,7 @@ PropTypes.PaginatorButton = {
     isHidden: PropTypes.bool,
     isDisabled: PropTypes.bool,
     dataAttribute: PropTypes.string,
-    onClick: PropTypes.func
+    setPage: PropTypes.func
 };
 
 
