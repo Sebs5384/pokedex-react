@@ -14,10 +14,16 @@ function Grid() {
     } = usePokedexContext();
 
     return(
-        <GridSection data-cy={"grid-section"}>
+        <GridSection 
+            data-cy={"grid-section"}
+            data-testid={"grid-section"}
+        >
             <GridWrapper >
                 <GridBody>
-                    <GridBoard data-cy={"grid-board"}>
+                    <GridBoard 
+                        data-cy={"grid-board"}
+                        data-testid={"grid-board"}
+                    >
                         {loadingPokemons ? <LoadingGrid /> 
                             :
                             noPokemonsFromPagination ? 

@@ -7,6 +7,7 @@ function GridErrorCard() {
             key={"error"}
             className={"col-2 card-body text-center image-size error-card"}
             data-cy={"grid-error-card"}
+            data-testid={"grid-error-card"}
             backgroundImage={errorBackground}
         >
             <PokemonName className={"error-background"}>

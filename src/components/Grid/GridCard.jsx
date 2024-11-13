@@ -8,9 +8,10 @@ function GridCard({ id, pokemonName, image, selectCard = () => {} }) {
         <PokemonCard 
             key={pokemonName} 
             className={"col-2 card-body text-center image-size"}
-            data-cy={`${pokemonName}-grid`} 
+            data-cy={`${pokemonName}-grid`}
+            data-testid={`${pokemonName}-grid`} 
             backgroundImage={pokeballImage} 
-            onClick={() => selectCard(pokemonName, id)}
+            onClick={() => selectCard(pokemonName)}
         >
             <PokemonName>
                 {`#${id} ${pokemonName}`}
