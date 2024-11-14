@@ -3,7 +3,7 @@ import ImageContainer from "../shared/ImageContainer";
 import pokeballImage from "../../assets/img/misc/pokeball.png";
 import PropTypes from "prop-types";
 
-function GridCard({ id, pokemonName, image, selectCard = () => {} }) {
+function GridCard({ id, pokemonName, image, selectCard }) {
     return (
         <PokemonCard 
             key={pokemonName} 
