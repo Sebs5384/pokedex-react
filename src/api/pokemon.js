@@ -4,14 +4,18 @@ async function getPokemons(limit, offset) {
     if(limit === null || offset === null) return;
 
     const pokemonsURL = `${URL}/pokemon?limit=${limit}&offset=${offset}`;
-    return await fetch(pokemonsURL)
-        .then(response => response.json())
-        .catch((error) => {
-            throw new Error(error);
-        })
-        .finally(() => {
-            console.error(`Warning, using API call URL: ${pokemonsURL}`);
-        });
+    try {
+        const response = await fetch(pokemonsURL);
+        if(!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        };
+
+        const pokemons = await response.json();
+        return pokemons;
+    } catch(error) {
+        throw new Error(error);
+    };
 };
 
 async function getPokemon(name) {
@@ -29,35 +33,39 @@ async function getPokemon(name) {
         return pokemon;
     } catch(error) {
         throw new Error(error);
-    } finally {
-        console.error(`Warning, using API call URL: ${pokemonURL}`);
     };
 };
 
-async function getPokemonSpecies(species, completeName) {
+async function getPokemonSpecies(species, speciesCompleteName) {
     if(species === null) return;
 
     const speciesURL = `${URL}/pokemon-species/${species}`;
-    const completeNameUrl = `${URL}/pokemon-species/${completeName}`;
+    const speciesCompleteNameUrl = `${URL}/pokemon-species/${speciesCompleteName}`;
 
     try {
         const response = await fetch(speciesURL);
 
         if(response.ok) {
-            return await response.json();
-        } else if (response.status === 404 && completeName) {
-            const completeNameResponse = await fetch(completeNameUrl);
+            const pokemonSpecies = await response.json();
+
+            return pokemonSpecies;
+        } else if (response.status === 404 && speciesCompleteName) {
+            const completeNameResponse = await fetch(speciesCompleteNameUrl);
+            
             if(completeNameResponse.ok) {
-                return await completeNameResponse.json();
+                const pokemonSpecies = await completeNameResponse.json();
+
+                return pokemonSpecies;
             };
         };
 
-        throw new Error(`Failed to fetch pokemon species: ${species}`);
+        if(!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        };
+
     } catch(error) {
-        console.error(error);
         throw new Error(error.message);
-    } finally {
-        console.error(`Warning, using API call URL: ${speciesURL}`);
     };
 };
 
@@ -91,7 +99,6 @@ async function getPokemonSprite(pokemon, artwork = "") {
         };
 
         const [currentSprite, previousSprite] = await Promise.all([currentSpritePromise, previousSpritePromise]);
-
         return {
             current: currentSprite,
             previous: previousSprite
@@ -102,6 +109,7 @@ async function getPokemonSprite(pokemon, artwork = "") {
 };
 
 export {
+    URL,
     getPokemons,
     getPokemon,
     getPokemonSpecies,
