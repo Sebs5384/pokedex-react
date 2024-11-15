@@ -69,23 +69,10 @@ async function getPokemonSpecies(species, speciesCompleteName) {
     };
 };
 
-async function getPokemonSprite(pokemon, artwork = "") {
-    const getSpriteUrl = (id) => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${artwork}/${id}.png`; 
-
-    const loadSprite = (url) => 
-        new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => resolve(url);
-            img.onerror = async () => {
-                const fallbackImg = await import("../assets/img/misc/404-shocked.png");
-                resolve(fallbackImg.default);
-            };
-            img.src = url;
-        });
-    
+async function getPokemonSprite(pokemon, artwork = "", getSpriteUrl, loadSpriteUrl) {    
     try {
-        const currentSpriteUrl = getSpriteUrl(pokemon.id);
-        const currentSpritePromise = loadSprite(currentSpriteUrl);
+        const currentSpriteUrl = getSpriteUrl(pokemon.id, artwork);
+        const currentSpritePromise = loadSpriteUrl(currentSpriteUrl);
 
         let previousSpritePromise = Promise.resolve(null);
         
@@ -94,8 +81,8 @@ async function getPokemonSprite(pokemon, artwork = "") {
             previousSpritePromise = Promise.resolve(null);
         } else if(pokemon.evolutionGenus && pokemon.evolutionGenus.id) {
             
-            const previousSpriteUrl = getSpriteUrl(pokemon.evolutionGenus.id);
-            previousSpritePromise = loadSprite(previousSpriteUrl);
+            const previousSpriteUrl = getSpriteUrl(pokemon.evolutionGenus.id, artwork);
+            previousSpritePromise = loadSpriteUrl(previousSpriteUrl);
         };
 
         const [currentSprite, previousSprite] = await Promise.all([currentSpritePromise, previousSpritePromise]);

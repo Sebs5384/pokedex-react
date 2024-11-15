@@ -1,6 +1,6 @@
 import { useContext, createContext } from "react";
 import { usePagination, useSelectedCard, useHandleCard, useHandleSearchbox, useHandleCatchPokemon, useHandleErrorMessage } from "../hooks/index";
-import { setItemRange, getPokemonSpriteUrl } from "../utils/index";
+import { setItemRange } from "../utils/index";
 import PropTypes from "prop-types";
 
 export const PokedexContext = createContext();
@@ -39,7 +39,7 @@ export function PokedexProvider({ children }) {
         setCurrentPage,
         setSearchboxValue,
         handleKeyDown
-    } = usePagination(POKEMONS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl);
+    } = usePagination(POKEMONS_PER_PAGE, INITIAL_PAGE_INDEX);
     const {
         loadingCard,
         loadingCardText,

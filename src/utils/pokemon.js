@@ -73,35 +73,32 @@ function getDescription(entry, language) {
   return pokemonEntry;
 };
 
-async function getPokemonSpriteUrl(url) {
-  const pokemonId = `${url.split("/")[url.split("/").length - 2]}`;
-  const pokemonSpriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
+function getSpriteUrl(id, artwork = "") {
+  const pokemonSpriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${artwork}/${id}.png`;
 
+  return pokemonSpriteUrl;
+};
+
+async function loadSpriteUrl(sprite) {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.onload = () => resolve(pokemonSpriteUrl);
+    img.onload = () => resolve(sprite);
     img.onerror = async () => {
       const fallbackImg = await import("../assets/img/misc/404-shocked.png");
       resolve(fallbackImg.default);
     };
-    img.src = pokemonSpriteUrl;
+    img.src = sprite;
   });
 };
 
-async function getPokemonsInPage(pokemons, getPokemonSpriteUrl) {
-
-  const spriteUrls = await Promise.all(
-      pokemons.results.map(({ url }) => getPokemonSpriteUrl(url))
-  );
-
+async function getPokemonsInPage(pokemons, sprites) {
   return pokemons.results.map((pokemon, index) => {
     return {
       name: pokemon.name,
       id: Number(pokemon.url.split('/')[6]),
-      sprite: spriteUrls[index],
+      sprite: sprites[index],
     };
   });
-
 };
 
 function getBackgroundStyle(types) {
@@ -278,7 +275,8 @@ function parsePokemonData(pokemon, species) {
 
 export {
   parsePokemonData,
-  getPokemonSpriteUrl,
+  getSpriteUrl,
+  loadSpriteUrl,
   getPokemonNames,
   getRandomPokemon,
   getPokemonsInPage,

@@ -14,6 +14,10 @@ import {
     storeSpecies,
     storePokemonSprite,
 } from "../storage/pokemon";
+import {
+    loadSpriteUrl,
+    getSpriteUrl
+} from "../utils/index";
 
 async function getPokemons(limit, offset) {
     try {
@@ -59,7 +63,7 @@ async function getPokemonSprite(pokemon, artwork = "") {
         const loadedPokemonSprite = await loadPokemonSpriteFromStorage(pokemon, artwork);
         return loadedPokemonSprite;
     } catch(error) {
-        const sprite = await getPokemonSpriteFromApi(pokemon, artwork);
+        const sprite = await getPokemonSpriteFromApi(pokemon, artwork, getSpriteUrl, loadSpriteUrl);
         storePokemonSprite(pokemon, sprite, artwork);
         return sprite;
     };

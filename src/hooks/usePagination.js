@@ -1,9 +1,9 @@
 import { useReducer, useEffect } from "react";
 import { paginationReducer, initialPaginationState } from "../reducers/index";
 import { useFetchPokemons, useTotalPages } from "./index";
-import { getPokemonsInPage, validatePageSearchbox } from "../utils/index";
+import { getPokemonsInPage, validatePageSearchbox, getSpriteUrl, loadSpriteUrl } from "../utils/index";
 
-function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) {
+function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
     const [state, dispatch] = useReducer(paginationReducer, initialPaginationState);
     const nextOffset = (state.currentPage - INITIAL_PAGE_INDEX) * ITEMS_PER_PAGE;
 
@@ -53,7 +53,14 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX, getPokemonSpriteUrl) 
     useEffect(() => {
         const setPokemonsInPage = async () => {
             if(paginatorPokemons && paginatorPokemons.results) {
-                const pokemonsInPage = await getPokemonsInPage(paginatorPokemons, getPokemonSpriteUrl);
+                const sprites = await Promise.all(paginatorPokemons.results.map(async (pokemon) => { 
+                    const id = pokemon.url.split('/')[6];
+                    const sprite =  await loadSpriteUrl(getSpriteUrl(id))
+                
+                    return sprite
+                }));
+                const pokemonsInPage = await getPokemonsInPage(paginatorPokemons, sprites);
+                
                 dispatch({ type: "SET_POKEMONS_IN_PAGE", payload: pokemonsInPage });
             } else {
                 setTimeout(() => {
