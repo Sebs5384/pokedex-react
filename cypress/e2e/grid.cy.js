@@ -14,7 +14,7 @@ describe("Grid interaction testing", () => {
     };
 
     const pokemonSpriteUrl = (id) => {
-        return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
+        return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon//${id}.png`
     };
 
     beforeEach(() => {
