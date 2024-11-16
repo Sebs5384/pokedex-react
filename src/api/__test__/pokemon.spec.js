@@ -215,3 +215,57 @@ describe("getPokemonSpecies", () => {
         expect(global.fetch).toHaveBeenCalledWith(`${URL}/pokemon-species/${speciesName}`);
     });
 });
+
+describe("getPokemonSprite", () => {
+    it("Should use getPokemonSprite to return the current sprite of a pokemon", async () => {
+        const pokemon = { id: 1, evolutionGenus: { id: "None" } };
+        const mockedGetSpriteUrl = jest.fn((id, artwork) => `https://mocked-sprite-url/${artwork}/${id}.png`);
+        const mockedLoadSpriteUrl = jest.fn((spriteUrl) => Promise.resolve(spriteUrl));
+        const sprite = await getPokemonSprite(pokemon, "", mockedGetSpriteUrl, mockedLoadSpriteUrl);
+        
+        expect(sprite).toEqual({ current: "https://mocked-sprite-url//1.png", previous: null });
+        expect(mockedGetSpriteUrl).toHaveBeenCalledTimes(1);
+        expect(mockedGetSpriteUrl).toHaveBeenCalledWith(1, "");
+        expect(mockedLoadSpriteUrl).toHaveBeenCalledTimes(1);
+        expect(mockedLoadSpriteUrl).toHaveBeenCalledWith("https://mocked-sprite-url//1.png");
+    });
+
+    it("Should use getPokemonSprite to return the current and previous sprite of a pokemon", async () => {
+        const pokemon = { id: 2, evolutionGenus: { id: 1 } };
+        const mockedGetSpriteUrl = jest.fn((id, artwork) => `https://mocked-sprite-url/${artwork}/${id}.png`);
+        const mockedLoadSpriteUrl = jest.fn((spriteUrl) => Promise.resolve(spriteUrl));
+        const sprite = await getPokemonSprite(pokemon, "", mockedGetSpriteUrl, mockedLoadSpriteUrl);
+        
+        expect(sprite).toEqual({ current: "https://mocked-sprite-url//2.png", previous: "https://mocked-sprite-url//1.png" });
+        expect(mockedGetSpriteUrl).toHaveBeenCalledTimes(2);
+        expect(mockedGetSpriteUrl).toHaveBeenCalledWith(2, "");
+        expect(mockedGetSpriteUrl).toHaveBeenCalledWith(1, "");
+        expect(mockedLoadSpriteUrl).toHaveBeenCalledTimes(2);
+        expect(mockedLoadSpriteUrl).toHaveBeenCalledWith("https://mocked-sprite-url//2.png");
+        expect(mockedLoadSpriteUrl).toHaveBeenCalledWith("https://mocked-sprite-url//1.png");
+    });
+
+    it("Should throw an error when failing to get the sprite url", async () => {
+        const pokemon = { id: 1, evolutionGenus: { id: "None" } };
+        const mockedGetSpriteUrl = jest.fn((id, artwork) => {
+            throw new Error("Error Message");
+        });
+        const mockedLoadSpriteUrl = jest.fn((spriteUrl) => Promise.resolve(spriteUrl));
+
+        expect(getPokemonSprite(pokemon, "", mockedGetSpriteUrl, mockedLoadSpriteUrl)).rejects.toThrow("Error Message");
+        expect(mockedGetSpriteUrl).toHaveBeenCalledTimes(1);
+        expect(mockedGetSpriteUrl).toHaveBeenCalledWith(1, "");
+    });
+
+    it("Should throw an error when failing to load the sprite", async () => {
+        const pokemon = { id: 1, evolutionGenus: { id: "None" } };
+        const mockedGetSpriteUrl = jest.fn((id, artwork) => `https://mocked-sprite-url/${artwork}/${id}.png`);
+        const mockedLoadSpriteUrl = jest.fn((sprite) => {
+            throw new Error("Error Message");
+        });
+
+        expect(getPokemonSprite(pokemon, "", mockedGetSpriteUrl, mockedLoadSpriteUrl)).rejects.toThrow("Error Message");
+        expect(mockedLoadSpriteUrl).toHaveBeenCalledTimes(1);
+        expect(mockedLoadSpriteUrl).toHaveBeenCalledWith("https://mocked-sprite-url//1.png");
+    });
+});
