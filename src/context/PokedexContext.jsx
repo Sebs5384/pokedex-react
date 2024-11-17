@@ -80,23 +80,77 @@ export function PokedexProvider({ children }) {
         handleCloseErrorMessage
     } = useHandleErrorMessage(cardError, caughtPokemonError, searchboxError, paginatorError);
 
+    const contextValue = {
+        card: {
+            cardData,
+            loadingCardData,
+            loadingSpeciesData,
+            loadingSprite,
+            pokemonSprite,
+            cardError,
+            cardSpeciesError,
+            emptyCardData,
+            setSelectedCard,
+            loadingCard,
+            loadingCardText,
+            modalVisibility,
+            handleSelectedCard,
+            handleCloseCard
+        },
+        pagination: {
+            currentPage,
+            pokemonsInPage,
+            totalPages,
+            firstPage,
+            lastPage,
+            noCards,
+            loadingPokemons,
+            paginatorError,
+            popupMessage,
+            invalidPagePopup,
+            setNextPage,
+            setPreviousPage,
+            setCurrentPage,
+            setSearchboxValue,
+            handleKeyDown,
+            setItemRange,
+        },
+        searchbox: {
+            pokemonList,
+            dropdownVisibility,
+            filteredPokemons,
+            pokemonsCount,
+            searchboxError,
+            handleSearchPokemon,
+            handleInputFocus,
+            handleInputOnBlur
+        },
+        catchPokemon: {
+            caughtPokemons,
+            caughtPokemon,
+            caughtPokemonError,
+            caughtPokemonSprite,
+            isShaking,
+            caughtModalVisibility,
+            registrationModalVisibility,
+            topText,
+            bottomText,
+            textChange,
+            handlePokeballClick
+        },
+        error: {
+            errorCauseMessage,
+            errorMessage,
+            cardErrorMessageVisibility,
+            caughtPokemonErrorMessageVisibility,
+            searchboxErrorMessageVisibility,
+            paginatorErrorMessageVisibility,
+            handleCloseErrorMessage
+        },
+    };
+
     return (
-        <PokedexContext.Provider
-            value={
-                {
-                    cardData, loadingCardData, cardError, cardSpeciesError, emptyCardData, setSelectedCard,
-                    currentPage, pokemonsInPage, totalPages, firstPage, lastPage, loadingPokemons, paginatorError, popupMessage, invalidPagePopup, 
-                    noCards, setNextPage, setPreviousPage, setCurrentPage, setItemRange, setSearchboxValue, handleKeyDown,
-                    loadingCard, loadingCardText, modalVisibility, pokemonSprite, handleSelectedCard, handleCloseCard,
-                    pokemonList, dropdownVisibility, filteredPokemons, pokemonsCount, searchboxError, 
-                    handleSearchPokemon, handleInputFocus, handleInputOnBlur,
-                    caughtPokemons, caughtPokemon, caughtPokemonError, caughtPokemonSprite, isShaking, 
-                    caughtModalVisibility, registrationModalVisibility, topText, bottomText, textChange, handlePokeballClick,
-                    errorCauseMessage, errorMessage, cardErrorMessageVisibility, caughtPokemonErrorMessageVisibility, 
-                    searchboxErrorMessageVisibility, paginatorErrorMessageVisibility, handleCloseErrorMessage
-                }
-            }
-        >
+        <PokedexContext.Provider value={contextValue} >
             {children}
         </PokedexContext.Provider>
     )
