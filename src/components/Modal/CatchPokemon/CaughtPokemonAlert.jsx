@@ -3,16 +3,11 @@ import { PokemonRegistrationText, PokemonContainer, PokemonAlertModal } from "..
 import cx from "classnames";
 
 function CaughtPokemonAlert() {
-    const {
-        caughtModalVisibility,
-        textChange,
-        topText,
-        bottomText
-    } = usePokedexContext();
+    const { catchPokemon } = usePokedexContext();
 
     return (
         <PokemonAlertModal 
-            show={caughtModalVisibility} 
+            show={catchPokemon.caughtModalVisibility} 
             className="emerald-font" 
             size="lg" 
             aria-labelledby="contained-modal-title-vcenter" 
@@ -26,19 +21,19 @@ function CaughtPokemonAlert() {
                         <PokemonContainer className="col-12 text-start align-items-start alert-text-background fixed-height d-flex flex-column">
                             <PokemonRegistrationText 
                                 className={cx({
-                                    "typewriter-effect": textChange
+                                    "typewriter-effect": catchPokemon.textChange
                                 })}
                                 data-testid={"registration-top-text"}
                             >
-                                {topText}
+                                {catchPokemon.topText}
                             </PokemonRegistrationText>
                             <PokemonRegistrationText 
                                 className={cx({
-                                    "typewriter-effect-delayed": textChange
+                                    "typewriter-effect-delayed": catchPokemon.textChange
                                 })}
                                 data-testid={"registration-bottom-text"}
                             >
-                                {bottomText}
+                                {catchPokemon.bottomText}
                             </PokemonRegistrationText>
                         </PokemonContainer>
                     </PokemonContainer>

@@ -14,29 +14,33 @@ describe("CaughtPokemonRegistration", () => {
     
     it("Should render CaughtPokemonRegistration correctly", () => {
         const mockedContextValue = {
-            registrationModalVisibility: true,
-            caughtPokemon: {
-                id: 6,
-                name: "super test pokemon",
-                skills: { firstSkill: "test", secondSkill: "test" },
-                stats: { hp: 1, attack: 2, defense: 3, specialAttack: 4, specialDefense: 5, speed: 6 },
-                types: { mainType: "test", secondaryType: "test" },
-                height: 7,
-                weight: 8,
-                typeAdvantage: { weakness: "SOLID", resistance: "bug" },
-                evolutionGenus: { name: "Evolves from Testmeleon", id: "6", genus: "Test pokemon" },
-                description: "A strange test case was planted on its back at birth.",
-                advantageImage: { weakness: "flaky", resistance: "bugs", retreat: "DRY" },
-                typeImage: { mainType: "test", secondaryType: "testing" },
+            catchPokemon: { 
+                registrationModalVisibility: true,
+                caughtPokemon: {
+                    id: 6,
+                    name: "super test pokemon",
+                    skills: { firstSkill: "test", secondSkill: "test" },
+                    stats: { hp: 1, attack: 2, defense: 3, specialAttack: 4, specialDefense: 5, speed: 6 },
+                    types: { mainType: "test", secondaryType: "test" },
+                    height: 7,
+                    weight: 8,
+                    typeAdvantage: { weakness: "SOLID", resistance: "bug" },
+                    evolutionGenus: { name: "Evolves from Testmeleon", id: "6", genus: "Test pokemon" },
+                    description: "A strange test case was planted on its back at birth.",
+                    advantageImage: { weakness: "flaky", resistance: "bugs", retreat: "DRY" },
+                    typeImage: { mainType: "test", secondaryType: "testing" },
+                },
+                caughtPokemonSprite: [
+                    { current: "someRandomSpriteUrl.png" }
+                ],
+                caughtPokemonError: false,
             },
-            caughtPokemonSprite: [
-                { current: "someRandomSpriteUrl.png" }
-            ],
-            caughtPokemonError: false,
-            errorCauseMessage: "",
-            errorMessage: "",
-            caughtPokemonErrorMessageVisibility: false,
-            handleCloseErrorMessage: jest.fn(),
+            error: {
+                errorCauseMessage: "",
+                errorMessage: "",
+                caughtPokemonErrorMessageVisibility: false,
+                handleCloseErrorMessage: jest.fn(),
+            }
         };
 
         render(<CaughtPokemonRegistration />, {
@@ -76,7 +80,9 @@ describe("CaughtPokemonRegistration", () => {
 
     it("Shouldn't render the component when visibility is false", () => {
         const mockedContextValue = {
-            registrationModalVisibility: false,
+            catchPokemon: {
+                registrationModalVisibility: false,
+            }
         };
 
         render(<CaughtPokemonRegistration />, {
@@ -90,8 +96,12 @@ describe("CaughtPokemonRegistration", () => {
 
     it("Should display the error message when the caughtPokemonError prop is true", () => {
         const mockedContextValue = {
-            caughtPokemonError: true,
-            caughtPokemonErrorMessageVisibility: true,
+            catchPokemon: {
+                caughtPokemonError: true,
+            },
+            error: {
+                caughtPokemonErrorMessageVisibility: true,
+            }
         };
 
         render(<CaughtPokemonRegistration />, {

@@ -5,23 +5,7 @@ import Searchbox from "./Searchbox";
 import CatchPokemon from "./CatchPokemon";
 
 function Navbar() {
-    const {
-        filteredPokemons,
-        dropdownVisibility,
-        handleSearchPokemon,
-        handleInputFocus,
-        handleInputOnBlur,
-        handleSelectedCard,
-        handlePokeballClick,
-        isShaking,
-        caughtPokemons,
-        caughtPokemonSprite,
-        searchboxError,
-        errorCauseMessage,
-        errorMessage,
-        searchboxErrorMessageVisibility,
-        handleCloseErrorMessage
-    } = usePokedexContext();
+    const { searchbox, card, catchPokemon, error } = usePokedexContext();
 
     return (
         <Bar 
@@ -30,24 +14,24 @@ function Navbar() {
         >
             <Logo />
             <Searchbox 
-                filteredPokemons={filteredPokemons}
-                dropdownVisibility={dropdownVisibility}
-                handleSearchPokemon={handleSearchPokemon}
-                handleInputFocus={handleInputFocus}
-                handleInputOnBlur={handleInputOnBlur}
-                selectPokemon={handleSelectedCard}
-                searchboxError={searchboxError}
-                errorCauseMessage={errorCauseMessage}
-                errorMessage={errorMessage}
-                searchboxErrorMessageVisibility={searchboxErrorMessageVisibility}
-                handleCloseErrorMessage={handleCloseErrorMessage}
+                filteredPokemons={searchbox.filteredPokemons}
+                dropdownVisibility={searchbox.dropdownVisibility}
+                handleSearchPokemon={searchbox.handleSearchPokemon}
+                handleInputFocus={searchbox.handleInputFocus}
+                handleInputOnBlur={searchbox.handleInputOnBlur}
+                selectPokemon={card.handleSelectedCard}
+                searchboxError={searchbox.searchboxError}
+                errorCauseMessage={error.errorCauseMessage}
+                errorMessage={error.errorMessage}
+                searchboxErrorMessageVisibility={error.searchboxErrorMessageVisibility}
+                handleCloseErrorMessage={error.handleCloseErrorMessage}
             />
             <CatchPokemon 
-                selectPokemon={handleSelectedCard}
-                isShaking={isShaking}
-                caughtPokemons={caughtPokemons}
-                caughtPokemonSprite={caughtPokemonSprite}
-                handlePokeballClick={handlePokeballClick}
+                selectPokemon={card.handleSelectedCard}
+                isShaking={catchPokemon.isShaking}
+                caughtPokemons={catchPokemon.caughtPokemons}
+                caughtPokemonSprite={catchPokemon.caughtPokemonSprite}
+                handlePokeballClick={catchPokemon.handlePokeballClick}
             />
         </Bar>
     );

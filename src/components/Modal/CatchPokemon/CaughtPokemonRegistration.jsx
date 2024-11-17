@@ -6,29 +6,20 @@ import RegistrationFooter from "./RegistrationFooter";
 import ErrorMessage from "../ErrorMessage";
 
 function CaughtPokemonRegistration() {
-    const {
-        registrationModalVisibility,
-        caughtPokemon,
-        caughtPokemonSprite,
-        caughtPokemonError,
-        errorCauseMessage,
-        errorMessage,
-        caughtPokemonErrorMessageVisibility,
-        handleCloseErrorMessage
-    } = usePokedexContext();
+    const { catchPokemon, error } = usePokedexContext();
 
     return(
         <>
-            { caughtPokemonError ? 
+            { catchPokemon.caughtPokemonError ? 
                 <ErrorMessage 
-                    errorCauseMessage={errorCauseMessage}
-                    errorText={errorMessage}
-                    errorMessageVisibility={caughtPokemonErrorMessageVisibility}
-                    closeErrorModal={handleCloseErrorMessage}
+                    errorCauseMessage={error.errorCauseMessage}
+                    errorText={error.errorMessage}
+                    errorMessageVisibility={error.caughtPokemonErrorMessageVisibility}
+                    closeErrorModal={error.handleCloseErrorMessage}
                 />
                 :
                 <PokemonSummaryModal 
-                    show={registrationModalVisibility} 
+                    show={catchPokemon.registrationModalVisibility} 
                     className="emerald-font" size="lg" 
                     aria-labelledby="contained-modal-title-vcenter" 
                     data-cy={"caught-pokemon-summary-modal"}
@@ -37,11 +28,11 @@ function CaughtPokemonRegistration() {
                 >
                     <RegistrationHeader />
                     <RegistrationBody 
-                        pokemon={caughtPokemon} 
-                        pokemonSprite={caughtPokemonSprite} 
+                        pokemon={catchPokemon.caughtPokemon} 
+                        pokemonSprite={catchPokemon.caughtPokemonSprite} 
                     />
                     <RegistrationFooter 
-                        pokemon={caughtPokemon} 
+                        pokemon={catchPokemon.caughtPokemon} 
                     />
                 </PokemonSummaryModal>
             }

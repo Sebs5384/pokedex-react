@@ -15,10 +15,12 @@ describe("CaughtPokemonAlert", () => {
 
     it("Should render CaughtPokemonAlert correctly", () => {
         const mockedContextValue = {
-            caughtModalVisibility: true,
-            textChange: true,
-            topText: "You've caught a test",
-            bottomText: "Test was caught"
+            catchPokemon: {
+                caughtModalVisibility: true,
+                textChange: true,
+                topText: "You've caught a test",
+                bottomText: "Test was caught"
+            }
         };
         
         render(<CaughtPokemonAlert />, { 
@@ -42,7 +44,9 @@ describe("CaughtPokemonAlert", () => {
 
     it("Shouldn't render the component when visibility is false", () => {
         const mockedContextValue = {
-            caughtModalVisibility: false
+            catchPokemon: {
+                caughtModalVisibility: false
+            }
         };
 
         render(<CaughtPokemonAlert />, { 
@@ -55,10 +59,12 @@ describe("CaughtPokemonAlert", () => {
 
     it("Should render an empty message if the text props are empty strings", () => {
         const mockedContextValue = {
-            caughtModalVisibility: true,
-            topText: "",
-            bottomText: "",
-            textChange: true,
+            catchPokemon: {
+                caughtModalVisibility: true,
+                topText: "",
+                bottomText: "",
+                textChange: true,
+            }
         };
 
         render(<CaughtPokemonAlert />, {
@@ -76,10 +82,12 @@ describe("CaughtPokemonAlert", () => {
 
     it("Should change texts successfully", () => {
         const mockedContextValue = {
-            caughtModalVisibility: true,
-            topText: "You've caught a test",
-            bottomText: "Test was caught",
-            textChange: true,
+            catchPokemon: {  
+                caughtModalVisibility: true,
+                topText: "You've caught a test",
+                bottomText: "Test was caught",
+                textChange: true,
+            }
         };
 
         const {rerender } = render(<CaughtPokemonAlert />, {
@@ -94,9 +102,9 @@ describe("CaughtPokemonAlert", () => {
         expect(caughtPokemonBottomText).toBeInTheDocument();
         expect(caughtPokemonBottomText).toHaveTextContent("Test was caught");
 
-        mockedContextValue.textChange = false;
-        mockedContextValue.topText = "Test has been added";
-        mockedContextValue.bottomText = "To the Pokedex";
+        mockedContextValue.catchPokemon.textChange = false;
+        mockedContextValue.catchPokemon.topText = "Test has been added";
+        mockedContextValue.catchPokemon.bottomText = "To the Pokedex";
 
         rerender(<CaughtPokemonAlert />, {
             wrapper: ({ children }) => <Wrapper value={mockedContextValue}>{children}</Wrapper>

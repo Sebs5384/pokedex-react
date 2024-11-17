@@ -5,26 +5,8 @@ import PaginatorSearchbox from "./PaginatorSearchbox";
 import ErrorMessage from "../Modal/ErrorMessage";
 
 function Paginator() { 
-    const {
-        totalPages,
-        currentPage,
-        firstPage,
-        lastPage,
-        setNextPage,
-        setPreviousPage,
-        setCurrentPage,
-        setItemRange,
-        setSearchboxValue,
-        handleKeyDown,
-        popupMessage,
-        invalidPagePopup,
-        paginatorError,
-        errorCauseMessage,
-        errorMessage,
-        paginatorErrorMessageVisibility,
-        handleCloseErrorMessage
-    } = usePokedexContext();
-    
+    const { pagination, error } = usePokedexContext();
+
     return (
         <PaginatorContainer 
             className="pagination justify-content-center" 
@@ -32,31 +14,44 @@ function Paginator() {
             data-testid={"pagination-section"}
         >
             <Pagination className="page-item">
-                <PaginatorButton setPage={() => setPreviousPage()} isDisabled={currentPage === firstPage} dataAttribute={"paginator-previous-button"}>Previous</PaginatorButton>
-                { paginatorError ?
+                <PaginatorButton 
+                    setPage={() => pagination.setPreviousPage()} 
+                    isDisabled={pagination.currentPage === pagination.firstPage} 
+                    dataAttribute={"paginator-previous-button"}
+                >
+                    Previous
+                </PaginatorButton>
+                { pagination.paginatorError ?
                     <ErrorMessage 
-                        errorCauseMessage={errorCauseMessage}
-                        errorText={errorMessage}
-                        errorMessageVisibility={paginatorErrorMessageVisibility}
-                        closeErrorModal={handleCloseErrorMessage}
+                        errorCauseMessage={error.errorCauseMessage}
+                        errorText={error.errorMessage}
+                        errorMessageVisibility={error.paginatorErrorMessageVisibility}
+                        closeErrorModal={error.handleCloseErrorMessage}
                     />
-                :   totalPages && totalPages.map((pageNumber) => (
+                :   pagination.totalPages && pagination.totalPages.map((pageNumber) => (
                     <PaginatorButton 
                         key={pageNumber} 
-                        isHidden={setItemRange(pageNumber, currentPage)}
-                        isActive={pageNumber === currentPage} 
-                        setPage={() => setCurrentPage(pageNumber)}
-                        dataAttribute={`page-${pageNumber}`}>
+                        isHidden={pagination.setItemRange(pageNumber, pagination.currentPage)}
+                        isActive={pageNumber === pagination.currentPage} 
+                        setPage={() => pagination.setCurrentPage(pageNumber)}
+                        dataAttribute={`page-${pageNumber}`}
+                    >
                         {pageNumber}
                     </PaginatorButton>   
                 ))}
-                <PaginatorButton setPage={() => setNextPage()} isDisabled={currentPage === lastPage} dataAttribute={"paginator-next-button"}>Next</PaginatorButton>
+                <PaginatorButton 
+                    setPage={() => pagination.setNextPage()} 
+                    isDisabled={pagination.currentPage === pagination.lastPage} 
+                    dataAttribute={"paginator-next-button"}
+                >
+                    Next
+                </PaginatorButton>
             </Pagination>
             <PaginatorSearchbox 
-                onChange={(event) => setSearchboxValue(event)} 
-                onKeyDown={(event) => handleKeyDown(event)}
-                validationMessage={popupMessage}
-                validationPopup={invalidPagePopup}
+                onChange={(event) => pagination.setSearchboxValue(event)} 
+                onKeyDown={(event) => pagination.handleKeyDown(event)}
+                validationMessage={pagination.popupMessage}
+                validationPopup={pagination.invalidPagePopup}
             />
         </PaginatorContainer>
     );

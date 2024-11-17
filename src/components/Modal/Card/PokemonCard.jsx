@@ -7,65 +7,50 @@ import LoadingPokemonAlert from "./LoadingPokemonAlert";
 import ErrorMessage from "../ErrorMessage";
 
 function PokemonCard() {
-    const {
-        modalVisibility,
-        cardData,
-        pokemonSprite,
-        loadingCard,
-        loadingCardText,
-        emptyCardData,
-        cardError,
-        cardSpeciesError,
-        cardErrorMessageVisibility,
-        errorCauseMessage,
-        errorMessage,
-        handleCloseCard,
-        handleSelectedCard,
-        handleCloseErrorMessage,
-    } = usePokedexContext();
+    const { card, error } = usePokedexContext();
 
     return(
         <>
-            { loadingCard ? 
+            { card.loadingCard ? 
                 <LoadingPokemonAlert 
-                    alertVisibility={loadingCard} 
-                    alertText={loadingCardText}
+                    alertVisibility={card.loadingCard} 
+                    alertText={card.loadingCardText}
                 /> 
-            : cardError || cardSpeciesError ? 
+            : card.cardError || card.cardSpeciesError ? 
                 <ErrorMessage 
-                    errorCauseMessage={errorCauseMessage}
-                    errorText={errorMessage}
-                    errorMessageVisibility={cardErrorMessageVisibility}
-                    closeErrorModal={handleCloseErrorMessage}
+                    errorCauseMessage={error.errorCauseMessage}
+                    errorText={error.errorMessage}
+                    errorMessageVisibility={error.cardErrorMessageVisibility}
+                    closeErrorModal={error.handleCloseErrorMessage}
                 />
-            : cardData && cardData.id ? 
+            : card.cardData && card.cardData.id ? 
                 <PokemonCardModal 
-                    show={modalVisibility} 
-                    onHide={handleCloseCard} 
-                    backgroundTexture={cardData?.backgroundTexture}
+                    show={card.modalVisibility} 
+                    onHide={card.handleCloseCard} 
+                    backgroundTexture={card.cardData?.backgroundTexture}
                     data-cy={"pokemon-card-modal"}
                     data-testid={"pokemon-card-modal"}
                 >   
                     <PokemonCardHeader 
-                        selectedCard={cardData} 
-                        pokemonSprite={pokemonSprite} 
-                        closeModal={handleCloseCard} 
-                        selectPreviousEvolution={handleSelectedCard}
+                        selectedCard={card.cardData} 
+                        pokemonSprite={card.pokemonSprite} 
+                        closeModal={card.handleCloseCard} 
+                        selectPreviousEvolution={card.handleSelectedCard}
                     />
                     <PokemonCardBody 
-                        selectedCard={cardData} 
-                        pokemonSprite={pokemonSprite}
+                        selectedCard={card.cardData} 
+                        pokemonSprite={card.pokemonSprite}
                     />
                     <PokemonCardFooter 
-                        selectedCard={cardData}
+                        selectedCard={card.cardData}
                     />
                 </PokemonCardModal>
-            : emptyCardData && 
+            : card.emptyCardData && 
                 <ErrorMessage 
-                    errorCauseMessage={emptyCardData.emptyErrorCause}
-                    errorText={emptyCardData.emptyErrorMessage}
+                    errorCauseMessage={card.emptyCardData.emptyErrorCause}
+                    errorText={card.emptyCardData.emptyErrorMessage}
                     errorMessageVisibility={true}
-                    closeErrorModal={handleCloseErrorMessage}
+                    closeErrorModal={error.handleCloseErrorMessage}
                 />
             }
         </>

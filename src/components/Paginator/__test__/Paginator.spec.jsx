@@ -14,13 +14,15 @@ const Wrapper = ({ children, value }) => {
 describe("Paginator", () => {
     it("Should render paginator properly", async () => {
         const mockContextValue = {
-            totalPages: [1, 2, 3, 4, 5],
-            setItemRange: jest.fn()
-                .mockReturnValueOnce(false)
-                .mockReturnValueOnce(false)
-                .mockReturnValueOnce(false)
-                .mockReturnValueOnce(true)
-                .mockReturnValueOnce(true)
+            pagination: {
+                totalPages: [1, 2, 3, 4, 5],
+                setItemRange: jest.fn()
+                    .mockReturnValueOnce(false)
+                    .mockReturnValueOnce(false)
+                    .mockReturnValueOnce(false)
+                    .mockReturnValueOnce(true)
+                    .mockReturnValueOnce(true)
+            }
         };
         
         render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
@@ -44,63 +46,67 @@ describe("Paginator", () => {
         expect(screen.getByText("4")).not.toBeVisible();
         expect(screen.getByText("5")).toBeInTheDocument();
         expect(screen.getByText("5")).not.toBeVisible();
-        expect(mockContextValue.setItemRange).toHaveBeenCalled();
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalled();
     });
 
     it("Should re-render paginator properly", () => {
         let currentPage = 1;
         const mockContextValue = {
-            currentPage,
-            totalPages: [1, 2, 3, 4, 5],
-            setCurrentPage: jest.fn((page) => {
-                currentPage = page;
-            }),
-            setNextPage: jest.fn(),
-            setPreviousPage: jest.fn(),
-            setItemRange: jest.fn((item) => {
-                return !(currentPage >= item - 2 && currentPage <= item + 2);
-            })
+            pagination: {
+                currentPage,
+                totalPages: [1, 2, 3, 4, 5],
+                setCurrentPage: jest.fn((page) => {
+                    currentPage = page;
+                }),
+                setNextPage: jest.fn(),
+                setPreviousPage: jest.fn(),
+                setItemRange: jest.fn((item) => {
+                    return !(currentPage >= item - 2 && currentPage <= item + 2);
+                })
+            }
         };
 
         const { rerender } = render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
 
         expect(screen.getByText("4")).not.toBeVisible();
-        expect(mockContextValue.setItemRange).toHaveBeenCalled();
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalled();
 
         const nextButton = screen.getByText("Next");
         
         fireEvent.click(nextButton);
         
-        mockContextValue.setCurrentPage(2);
-        expect(mockContextValue.setCurrentPage).toHaveBeenCalled();
-        expect(mockContextValue.setItemRange).toHaveBeenCalledWith(2, 1);
+        mockContextValue.pagination.setCurrentPage(2);
+        expect(mockContextValue.pagination.setCurrentPage).toHaveBeenCalled();
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalledWith(2, 1);
         expect(currentPage).toEqual(2);
     
         rerender(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
 
         expect(screen.getByText("4")).toBeVisible();
-        expect(mockContextValue.setItemRange).toHaveBeenCalled();
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalled();
 
         const previousButton = screen.getByText("Previous");
         fireEvent.click(previousButton);
         
-        mockContextValue.setCurrentPage(1);
-        expect(mockContextValue.setCurrentPage).toHaveBeenCalled();
-        expect(mockContextValue.setItemRange).toHaveBeenCalledWith(1, 1);
+        mockContextValue.pagination.setCurrentPage(1);
+        expect(mockContextValue.pagination.setCurrentPage).toHaveBeenCalled();
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalledWith(1, 1);
         expect(currentPage).toEqual(1);
 
         rerender(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
 
         expect(screen.getByText("4")).not.toBeVisible();
-        expect(mockContextValue.setItemRange).toHaveBeenCalled();
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalled();
     });
 
     it("Should disable previous button on first render", () => {
         const mockContextValue = {
-            currentPage: 1,
-            totalPages: [1, 2, 3, 4, 5],
-            firstPage: 1,
-            setItemRange: jest.fn()
+            pagination: {
+                currentPage: 1,
+                totalPages: [1, 2, 3, 4, 5],
+                firstPage: 1,
+                setItemRange: jest.fn()
+            }
         };
 
         render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
@@ -111,10 +117,12 @@ describe("Paginator", () => {
 
     it("Should disable next button on last page", () => {
         const mockContextValue = {
-            currentPage: 5,
-            totalPages: [1, 2, 3, 4, 5],
-            lastPage: 5,
-            setItemRange: jest.fn()
+            pagination: {
+                currentPage: 5,
+                totalPages: [1, 2, 3, 4, 5],
+                lastPage: 5,
+                setItemRange: jest.fn()
+            }
         };
         
         render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
@@ -126,14 +134,16 @@ describe("Paginator", () => {
     it("Should jump from one page to another by using the numbered buttons", () => {
         let currentPage = 1;
         const mockContextValue = {
-            currentPage,
-            totalPages: [1, 2, 3, 4, 5],
-            setCurrentPage: jest.fn((page) => {
-                currentPage = page;
-            }),
-            setItemRange: jest.fn((item) => {
-                return !(currentPage >= item - 2 && currentPage <= item + 2);
-            }),
+            pagination: {
+                currentPage,
+                totalPages: [1, 2, 3, 4, 5],
+                setCurrentPage: jest.fn((page) => {
+                    currentPage = page;
+                }),
+                setItemRange: jest.fn((item) => {
+                    return !(currentPage >= item - 2 && currentPage <= item + 2);
+                }),
+            }
         };
 
         const { rerender } = render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
@@ -141,42 +151,46 @@ describe("Paginator", () => {
         const thirdPage = screen.getByText("3");
         fireEvent.click(thirdPage);
 
-        mockContextValue.setCurrentPage(3);
-        expect(mockContextValue.setCurrentPage).toHaveBeenCalled();
-        expect(mockContextValue.setItemRange).toHaveBeenCalledWith(3, 1);
+        mockContextValue.pagination.setCurrentPage(3);
+        expect(mockContextValue.pagination.setCurrentPage).toHaveBeenCalled();
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalledWith(3, 1);
 
         rerender(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
 
         expect(currentPage).toEqual(3);
-        expect(mockContextValue.setItemRange).toHaveBeenCalled();
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalled();
         expect(screen.getByText("4")).toBeVisible();
         expect(screen.getByText("5")).toBeVisible();
     });
 
     it("Shouldn't render numbered pages when the total pages is empty", () => {
         const mockContextValue = {
-           totalPages: [],
-           setItemRange: jest.fn()
+            pagination: {
+                totalPages: [],
+                setItemRange: jest.fn()
+            }
         };
         
         render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
 
-        expect(mockContextValue.setItemRange).toHaveBeenCalledTimes(0);
-        expect(mockContextValue.setItemRange).not.toHaveBeenCalledWith(1, 1);
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalledTimes(0);
+        expect(mockContextValue.pagination.setItemRange).not.toHaveBeenCalledWith(1, 1);
         expect(screen.queryByText("1")).not.toBeInTheDocument();
     });
 
     it("Shouldn't render numbered pages when total pages is still empty and a re-render happens", () => {
         const mockContextValue = {
-            totalPages: [],
-            setItemRange: jest.fn(),
-            setNextPage: jest.fn(),
+            pagination: {
+                totalPages: [],
+                setItemRange: jest.fn(),
+                setNextPage: jest.fn(),
+            }
         };
 
         const { rerender } = render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
 
-        expect(mockContextValue.setItemRange).toHaveBeenCalledTimes(0);
-        expect(mockContextValue.setItemRange).not.toHaveBeenCalledWith(1, 1);
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalledTimes(0);
+        expect(mockContextValue.pagination.setItemRange).not.toHaveBeenCalledWith(1, 1);
         expect(screen.queryByText("1")).not.toBeInTheDocument();
 
         const nextButton = screen.getByText("Next");
@@ -184,15 +198,17 @@ describe("Paginator", () => {
 
         rerender(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
 
-        expect(mockContextValue.setItemRange).toHaveBeenCalledTimes(0);
-        expect(mockContextValue.setItemRange).not.toHaveBeenCalledWith(1, 1);
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalledTimes(0);
+        expect(mockContextValue.pagination.setItemRange).not.toHaveBeenCalledWith(1, 1);
         expect(screen.queryByText("1")).not.toBeInTheDocument();
     });
 
     it("Should handle a large number of pages correctly", () => {
         const mockContextValue = {
-            totalPages: Array.from({ length: 50 }, (_, index) => index + 1),
-            setItemRange: jest.fn()
+            pagination: {
+                totalPages: Array.from({ length: 50 }, (_, index) => index + 1),
+                setItemRange: jest.fn()
+            }
         };
         
         render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
@@ -202,20 +218,22 @@ describe("Paginator", () => {
         const pages = screen.getAllByRole("link");
         expect(pages.length).toEqual(52);
         
-        expect(mockContextValue.setItemRange).toHaveBeenCalled();
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalled();
     });
 
     it("Should jump to the page we input into the paginator searchbox", () => {
         let currentPage = 1;
         const mockContextValue = {
-            currentPage,
-            totalPages: [1, 2, 3, 4, 5],
-            setCurrentPage: jest.fn((page) => {
-                return currentPage = page;
-            }),
-            setItemRange: jest.fn(),
-            setSearchboxValue: jest.fn(),
-            handleKeyDown: jest.fn()
+            pagination: {
+                currentPage,
+                totalPages: [1, 2, 3, 4, 5],
+                setCurrentPage: jest.fn((page) => {
+                    return currentPage = page;
+                }),
+                setItemRange: jest.fn(),
+                setSearchboxValue: jest.fn(),
+                handleKeyDown: jest.fn()
+            }
         };
 
         const { rerender } = render(<Paginator />, { wrapper: ({ children }) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
@@ -224,47 +242,53 @@ describe("Paginator", () => {
         fireEvent.change(searchbox, { target: { value: "3" } });
         fireEvent.keyDown(searchbox, { key: "Enter" });
 
-        mockContextValue.setCurrentPage(3);
-        expect(mockContextValue.handleKeyDown).toHaveBeenCalled();
-        expect(mockContextValue.setCurrentPage).toHaveBeenCalledWith(3);
-        expect(mockContextValue.setItemRange).toHaveBeenCalledWith(3, 1);
-        expect(mockContextValue.setSearchboxValue).toHaveBeenCalled();
+        mockContextValue.pagination.setCurrentPage(3);
+        expect(mockContextValue.pagination.handleKeyDown).toHaveBeenCalled();
+        expect(mockContextValue.pagination.setCurrentPage).toHaveBeenCalledWith(3);
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalledWith(3, 1);
+        expect(mockContextValue.pagination.setSearchboxValue).toHaveBeenCalled();
     
         rerender(<Paginator />, { wrapper: ({ children}) => <Wrapper value={mockContextValue}>{children}</Wrapper>});
 
         expect(currentPage).toEqual(3);
-        expect(mockContextValue.setItemRange).toHaveBeenCalled();
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalled();
     });
 
     it("Should remain in the same page if the page we input into the paginator searchbox is invalid", () => {
         let currentPage = 1;
         const mockContextValue = {
-            currentPage,
-            totalPages: [1, 2, 3, 4, 5],
-            setCurrentPage: jest.fn((page) => {
-                return currentPage = page;
-            }),
-            setItemRange: jest.fn(),
-            setSearchboxValue: jest.fn(),
+            pagination: {
+                currentPage,
+                totalPages: [1, 2, 3, 4, 5],
+                setCurrentPage: jest.fn((page) => {
+                    return currentPage = page;
+                }),
+                setItemRange: jest.fn(),
+                setSearchboxValue: jest.fn(),
+            }
         };
 
         render(<Paginator />, { wrapper: ({ children}) => <Wrapper value={mockContextValue}>{children}</Wrapper> });
-        expect(mockContextValue.setItemRange).toHaveBeenCalled();
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalled();
         
         const searchbox = screen.getByRole("searchbox");
         fireEvent.change(searchbox, { target: { value: "0" } });
 
         expect(currentPage).toEqual(1);
-        expect(mockContextValue.setItemRange).toHaveBeenCalledWith(1, 1);
-        expect(mockContextValue.setSearchboxValue).toHaveBeenCalled();
+        expect(mockContextValue.pagination.setItemRange).toHaveBeenCalledWith(1, 1);
+        expect(mockContextValue.pagination.setSearchboxValue).toHaveBeenCalled();
     });
 
     it("Should display error message when there is an error", () => {
         const mockContextValue = {
-            paginatorError: true,
-            paginatorErrorMessageVisibility: true,
-            errorCauseMessage: "Some error",
-            errorMessage: "Just happened",
+            pagination: {
+                paginatorError: true,
+            },
+            error: {
+                paginatorErrorMessageVisibility: true,
+                errorCauseMessage: "Some error",
+                errorMessage: "Just happened",
+            }
         };
 
         render(<Paginator />, { wrapper: ({ children}) => <Wrapper value={mockContextValue}>{children}</Wrapper> });

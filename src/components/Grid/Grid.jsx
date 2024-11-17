@@ -5,13 +5,7 @@ import GridCard from "./GridCard";
 import GridErrorCard from "./GridErrorCard";
 
 function Grid() {
-    const {
-        pokemonsInPage,
-        handleSelectedCard,
-        loadingPokemons,
-        paginatorError: noPokemonsFromPagination,
-        noCards: noCardsFromPagination,
-    } = usePokedexContext();
+    const { card, pagination } = usePokedexContext();
 
     return(
         <GridSection 
@@ -24,21 +18,21 @@ function Grid() {
                         data-cy={"grid-board"}
                         data-testid={"grid-board"}
                     >
-                        {loadingPokemons ? <LoadingGrid /> 
+                        {   pagination.loadingPokemons ? <LoadingGrid /> 
                             :
-                            noPokemonsFromPagination ? 
+                            pagination.paginatorError ? 
                                 <GridErrorCard />
                             :
-                            pokemonsInPage && pokemonsInPage.length ? pokemonsInPage.map(({ name, sprite, id }) => 
+                            pagination.pokemonsInPage && pagination.pokemonsInPage.length ? pagination.pokemonsInPage.map(({ name, sprite, id }) => 
                                 <GridCard 
                                     key={name}
                                     id={id} 
                                     pokemonName={name} 
                                     image={sprite}
-                                    selectCard={handleSelectedCard}
+                                    selectCard={card.handleSelectedCard}
                                 />)
                             : 
-                            noCardsFromPagination ? 
+                            pagination.noCards ? 
                                 <GridErrorCard />
                             :
                                 <LoadingGrid />

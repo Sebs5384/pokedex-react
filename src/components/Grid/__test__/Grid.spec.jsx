@@ -14,14 +14,18 @@ describe("Grid", () => {
 
     it("Should render Grid properly", () => {
         const mockedContextValue = {
-            pokemonsInPage: [
-                { name: "bulbasaur", sprite: "bulbasaur.png", id: 1 },
-                { name: "charmander", sprite: "charmander.png", id: 2 },
-            ],
-            handleSelectedCard: jest.fn(),
-            loadingPokemons: false,
-            paginatorError: false,
-            noCards: false,
+            pagination: {
+                pokemonsInPage: [
+                    { name: "bulbasaur", sprite: "bulbasaur.png", id: 1 },
+                    { name: "charmander", sprite: "charmander.png", id: 2 },
+                ],
+                loadingPokemons: false,
+                paginatorError: false,
+                noCards: false,
+            },
+            card: {
+                handleSelectedCard: jest.fn(),
+            }
         };
 
         render(<Grid />, { 
@@ -51,10 +55,14 @@ describe("Grid", () => {
 
     it("Should call handleSelectedCard when a pokemon in the Grid is clicked", () => {
         const mockedContextValue = {
-            pokemonsInPage: [
-                { name: "bulbasaur", sprite: "bulbasaur.png", id: 1 },
-            ],
-            handleSelectedCard: jest.fn(),
+            pagination: {
+                pokemonsInPage: [
+                    { name: "bulbasaur", sprite: "bulbasaur.png", id: 1 },
+                ],
+            },
+            card: {
+                handleSelectedCard: jest.fn(),
+            }
         };
         
         render(<Grid />, {
@@ -63,13 +71,15 @@ describe("Grid", () => {
 
         const gridBulbasaur = screen.getByTestId("bulbasaur-grid");
         fireEvent.click(gridBulbasaur);
-        expect(mockedContextValue.handleSelectedCard).toHaveBeenCalledTimes(1);
-        expect(mockedContextValue.handleSelectedCard).toHaveBeenCalledWith("bulbasaur");
+        expect(mockedContextValue.card.handleSelectedCard).toHaveBeenCalledTimes(1);
+        expect(mockedContextValue.card.handleSelectedCard).toHaveBeenCalledWith("bulbasaur");
     }); 
 
     it("Should display the loading animation when loadingPokemons is true", () => {
         const mockedContextValue = {
-            loadingPokemons: true,
+            pagination: {
+                loadingPokemons: true,
+            }
         };
 
         render(<Grid />, {
@@ -91,7 +101,9 @@ describe("Grid", () => {
 
     it("Should display the grid error card when paginatorError is true", () => {
         const mockedContextValue = {
-            paginatorError: true,
+            pagination: {
+                paginatorError: true,
+            }
         };
 
         render(<Grid />, {
@@ -108,8 +120,10 @@ describe("Grid", () => {
 
     it("Should display the error card when noCards is true", () => {
         const mockedContextValue = {
-            pokemonsInPage: [],
-            noCards: false,
+            pagination: {
+                noCards: false,
+                loadingPokemons: true,
+            }
         };
 
         const { rerender } = render(<Grid />, {
@@ -118,7 +132,8 @@ describe("Grid", () => {
 
         const loadingSpinner = screen.queryByTestId("loading-grid-spinner");
         expect(loadingSpinner).toBeInTheDocument();
-        mockedContextValue.noCards = true;
+        mockedContextValue.pagination.loadingPokemons = false;
+        mockedContextValue.pagination.noCards = true;
 
         rerender(<Grid />, {
             wrapper: ({ children }) => <Wrapper value={mockedContextValue}>{children}</Wrapper>
@@ -130,5 +145,5 @@ describe("Grid", () => {
         expect(within(errorCard).getByText((content) => 
             content.includes("Seems like there's no cards to display try again later")
         )).toBeInTheDocument();
-    });
+    });     
 });
