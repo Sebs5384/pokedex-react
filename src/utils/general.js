@@ -1,4 +1,6 @@
 function setItemRange(itemNumber, currentItem) {
+    if(itemNumber === undefined || currentItem === undefined) return;
+
     const ITEM_RANGE_START_OFFSET = 2;
     const ITEM_RANGE_END_OFFSET = 2;
     const isInRange = !(itemNumber >= currentItem - ITEM_RANGE_START_OFFSET && itemNumber <= currentItem + ITEM_RANGE_END_OFFSET);
@@ -19,15 +21,19 @@ function randomizeNumber(number) {
 };
 
 function replaceNullItem(array, item) {
+    if(array === undefined || item === undefined) return;
+    
     const nextIndex = array.findIndex((index) => index === null);
     if(nextIndex !== -1) {
         const updatedArray = [...array];
         updatedArray[nextIndex] = item;
         return updatedArray;
     };
+
+    return array;
 };
 
-function validatePageSearchbox(page, totalPages) {
+function validateSearchboxPage(page, totalPages) {
     if (/^$/.test(page)) return "This field cannot be empty";
     if (!/^[^A-Z-a-z]+$/.test(page)) return "Only numeric characters are allowed";
     if (page > totalPages.length) return `Page Nº${page} does not exist, only ${totalPages.length} out there`;
@@ -43,5 +49,5 @@ export {
     convertGramToLb,
     randomizeNumber,
     replaceNullItem,
-    validatePageSearchbox,
+    validateSearchboxPage,
 };

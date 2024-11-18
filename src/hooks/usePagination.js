@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from "react";
 import { paginationReducer, initialPaginationState } from "../reducers/index";
 import { useFetchPokemons, useTotalPages } from "./index";
-import { getPokemonsInPage, validatePageSearchbox, getSpriteUrl, loadSpriteUrl } from "../utils/index";
+import { getPokemonsInPage, validateSearchboxPage, getSpriteUrl, loadSpriteUrl } from "../utils/index";
 
 function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
     const [state, dispatch] = useReducer(paginationReducer, initialPaginationState);
@@ -33,7 +33,7 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
     const handleKeyDown = (event) => {
         if(event.key === "Enter") {
             const pageNumber = parseInt(state.searchboxValue);
-            const validPage = validatePageSearchbox(pageNumber, totalPages);
+            const validPage = validateSearchboxPage(pageNumber, totalPages);
 
             if(validPage === true) {
                 dispatch({ type: "SET_CURRENT_PAGE", payload: pageNumber });
