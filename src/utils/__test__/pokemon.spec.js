@@ -640,7 +640,7 @@ describe("getRandomPokemon", () => {
 
     it("Should return undefined if the random number is greater than the pokemon list length", () => {
         const pokemonCount = 3;
-        const pokemonList = ["Testsaur", "Testrtle", "Testmeleon"];
+        const pokemonList = ["Testsaur", "Testrtle"];
         const randomIndex = 3;
         randomizeNumber.mockReturnValue(randomIndex);
 

@@ -172,7 +172,7 @@ function getTypeImage(types, pokemonTypeImage) {
 function getRandomPokemon(pokemonsCount, pokemonList) {
   if(pokemonList === undefined || pokemonList === null || !pokemonList.length) return undefined;
   const randomNumber = randomizeNumber(pokemonsCount);
-  const randomPokemon = randomNumber <= pokemonList.length ? pokemonList[randomNumber] : undefined;
+  const randomPokemon = randomNumber < pokemonList.length ? pokemonList[randomNumber] : undefined;
 
   return randomPokemon;
 };
