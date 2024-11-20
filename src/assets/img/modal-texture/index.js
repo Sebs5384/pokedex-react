@@ -35,7 +35,8 @@ const textures = {
     psychic: psychicTexture,
     rock: rockTexture,
     steel: steelTexture,
-    water: waterTexture
+    water: waterTexture,
+    undefined: normalTexture,
 };
 
 export default textures;

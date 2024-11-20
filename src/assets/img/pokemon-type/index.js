@@ -111,6 +111,7 @@ const pokemonTypeImage = {
     },
     undefined: {
         logo: undefinedLogo,
+        icon: normalIcon,
     },
     water: {
         icon: waterIcon,

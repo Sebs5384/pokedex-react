@@ -3,6 +3,8 @@ import pokemonTypeImage from "../assets/img/pokemon-type/index";
 import textures from "../assets/img/modal-texture/index";
 
 function getPokemonNames(pokemons) {
+  if (pokemons === undefined || pokemons === null) return [];
+
   const pokemonNames = pokemons.map((pokemon) => {
     return pokemon.name;
   });
@@ -11,13 +13,17 @@ function getPokemonNames(pokemons) {
 };
 
 function parsePokemonName(name) {
+  if(name === undefined || name === null) return "";
+
   const words = name.split('-');
-  const pokemonName = words[0].lenght === 2 ? `${words[0]}${words[1]}` : words[0];
+  const pokemonName = words[0].length <= 2 ? `${words[0]}${words[1] ? `-${words[1]}` : ""}` : words[0];
 
   return  pokemonName;
 };
 
 function getPokemonSkills(skills) {
+  if(skills === undefined || skills === null) return {};
+
   const pokemonSkills = {
     firstSkill: skills[0].ability.name,
     secondSkill: skills[1] ? skills[1].ability.name : undefined
@@ -27,19 +33,23 @@ function getPokemonSkills(skills) {
 };
 
 function getPokemonStats(stats) {
+  if(stats === undefined || stats === null) return {};
+
   const pokemonStats = {
-    hp: `${stats[0].base_stat} HP`,
-    atk: `ATTACK: ${stats[1].base_stat}`,
-    def: `DEFENSE: ${stats[2].base_stat}`,
-    spAtk: `SP ATK: ${stats[3].base_stat}`,
-    spDef: `SP DEF: ${stats[4].base_stat}`,
-    speed: `SPEED: ${stats[5].base_stat}`
+    hp: `${stats[0].base_stat ? `${stats[0].base_stat} HP`  : ""}`,
+    atk: `${stats[1].base_stat? `ATTACK: ${stats[1].base_stat}` : "" }`,
+    def: `${stats[2].base_stat? `DEFENSE: ${stats[2].base_stat}` : "" }`,
+    spAtk: `${stats[3].base_stat? `SP ATK: ${stats[3].base_stat}` : "" }`,
+    spDef: `${stats[4].base_stat? `SP DEF: ${stats[4].base_stat}` : "" }`,
+    speed: `${stats[5].base_stat? `SPEED: ${stats[5].base_stat}` : "" }`,
   };
 
   return pokemonStats; 
 };
 
 function getPokemonTypes(types) {
+  if(types === undefined || types === null) return {};
+
   const pokemonTypes = {
     mainType: types[0].type.name,
     secondaryType: types[1] ? types[1].type.name : undefined
@@ -49,31 +59,38 @@ function getPokemonTypes(types) {
 };
 
 function getPokemonAdvantage(type, advantageChart) {
+  if(type === undefined || type === null) return {};
+
   const pokemonAdvantage = advantageChart[type];
 
   return pokemonAdvantage;
 };
 
 function getPokemonGenus(species) {
+  if(species === undefined || species === null) return {};
+
   const pokemonGenus = {
     name: species.evolves_from_species ? `Evolves from ${species.evolves_from_species.name}` : 'Basic Pokemon',
     id: species.evolves_from_species ? species.evolves_from_species.url.split('/')[6] : 'None',
-    genus: species.genera.length ? species.genera.find((genus) => genus.language.name === 'en').genus : '',
+    genus: species.genera?.length ? species.genera.find((genus) => genus.language.name === 'en').genus : '',
   };
 
   return pokemonGenus;
 };
 
-function getDescription(entry, language) {
-  const pokemonTextEntry = entry;
-  const textEntry = pokemonTextEntry.find((pokemonEntry) => pokemonEntry.language.name === "en");
-    
-  const pokemonEntry = textEntry ? textEntry.flavor_text.replace(/\u000c/g, ' ') : '';
-    
-  return pokemonEntry;
+function getDescription(entry, language = "en") {
+  if(entry === undefined || entry === null) return "";
+  
+  const pokemonTextEntries = entry;
+  const textEntry = pokemonTextEntries.find((pokemonEntry) => pokemonEntry.language.name === language);
+  const pokemonDescription = textEntry ? textEntry.flavor_text.replace(/\u000c/g, ' ').replace(/\n/g, ' ') : '';  
+  
+  return pokemonDescription;
 };
 
 function getSpriteUrl(id, artwork = "") {
+  if(id === undefined || id === null) return "";
+
   const pokemonSpriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${artwork}/${id}.png`;
 
   return pokemonSpriteUrl;
@@ -92,38 +109,57 @@ async function loadSpriteUrl(sprite) {
 };
 
 async function getPokemonsInPage(pokemons, sprites) {
+  if(pokemons === undefined || pokemons === null) return [];
+
   return pokemons.results.map((pokemon, index) => {
     return {
-      name: pokemon.name,
-      id: Number(pokemon.url.split('/')[6]),
+      name: pokemon.name ? pokemon.name : "",
+      id: pokemon.url ? Number(pokemon.url.split('/')[6]) : "",
       sprite: sprites[index],
     };
   });
 };
 
-function getBackgroundStyle(types) {
-  const backgroundStyle = typeBackground[types.mainType];
+function getBackgroundStyle(types, backgroundChart) {
+  if(types === undefined || types === null) return backgroundChart.undefined;
+
+  const backgroundStyle = backgroundChart[types.mainType];
 
   return backgroundStyle;
 };
 
-function getBackgroundTexture(types) {
+function getBackgroundTexture(types, textures) {
+  if(types === undefined || types === null) return textures.undefined;
+
   const texture = textures[types.mainType];
 
   return texture;
 };
 
-function getAdvantageImage(typeAdvantage) {
-  const advantageImage = {
+function getAdvantageImage(typeAdvantage, pokemonTypeImage) {
+  if(typeAdvantage === undefined || typeAdvantage === null) return { 
+    weakness: pokemonTypeImage.retreat.icon, 
+    resistance: pokemonTypeImage.retreat.icon, 
+    retreat: pokemonTypeImage.retreat.icon 
+  };
+
+
+  const advantageImages = {
     weakness: pokemonTypeImage[typeAdvantage.weakness].icon,
     resistance: pokemonTypeImage[typeAdvantage.resistance].icon,
     retreat: pokemonTypeImage.retreat.icon,
   };
 
-  return advantageImage;
+  return advantageImages;
 };
 
-function getTypeImage(types) {
+function getTypeImage(types, pokemonTypeImage) {
+  if(types === undefined || types === null) return {
+    mainTypeLogo: pokemonTypeImage[undefined].logo,
+    secondaryTypeLogo: pokemonTypeImage[undefined].logo,
+    mainTypeIcon: pokemonTypeImage[undefined].icon
+  };
+
   const typeImage = {
     mainTypeLogo: pokemonTypeImage[types.mainType].logo,
     secondaryTypeLogo: types.secondaryType ? pokemonTypeImage[types.secondaryType].logo : pokemonTypeImage[undefined].logo,
@@ -134,9 +170,11 @@ function getTypeImage(types) {
 };
 
 function getRandomPokemon(pokemonsCount, pokemonList) {
+  if(pokemonList === undefined || pokemonList === null || !pokemonList.length) return undefined;
   const randomNumber = randomizeNumber(pokemonsCount);
+  const randomPokemon = randomNumber <= pokemonList.length ? pokemonList[randomNumber] : undefined;
 
-  return pokemonList[randomNumber];
+  return randomPokemon;
 };
 
 const advantageChart = {
@@ -188,7 +226,7 @@ const advantageChart = {
     resistance: 'normal',
     weakness: 'dark',
   },
-  steel: {
+  steel: { 
     resistance: 'fairy',
     weakness: 'fire',
   },
@@ -214,7 +252,7 @@ const advantageChart = {
   },
 };
 
-const typeBackground = {
+const backgroundChart = {
   water: "linear-gradient(rgb(107, 254, 154), rgb(30, 103, 198), rgb(13, 52, 104), rgb(0, 0, 0))",
   fire: "linear-gradient(rgb(36, 17, 17), rgb(117, 28, 28), rgb(248, 141, 1), rgb(255, 0, 0))",
   bug: "linear-gradient(rgba(172, 211, 110, 0.747), rgb(196, 240, 3), rgb(101, 112, 0))",
@@ -232,7 +270,8 @@ const typeBackground = {
   poison: "linear-gradient(rgba(221, 193, 253, 0.747), rgb(157, 255, 190), rgb(15, 35, 53))",
   psychic: "linear-gradient(rgba(126, 91, 97, 0.747), rgb(247, 1, 95), rgb(0, 0, 0))",
   rock: "linear-gradient(rgba(139, 51, 0, 0.747), rgb(253, 191, 97), rgb(185, 53, 0))",
-  steel: "linear-gradient(rgba(0, 0, 0, 0.747), rgba(133, 133, 133, 0), rgb(255, 255, 255))"
+  steel: "linear-gradient(rgba(0, 0, 0, 0.747), rgba(133, 133, 133, 0), rgb(255, 255, 255))",
+  undefined: "linear-gradient(rgba(51, 50, 45, 0.747), rgb(0, 0, 0), rgb(59, 49, 49))",
 };
 
 function parsePokemonData(pokemon, species) {
@@ -247,10 +286,10 @@ function parsePokemonData(pokemon, species) {
   const typeAdvantage = getPokemonAdvantage(types.mainType, advantageChart);
   const evolutionGenus = getPokemonGenus(species);
   const description = getDescription(species.flavor_text_entries, "en");
-  const backgroundStyle = getBackgroundStyle(types);
-  const backgroundTexture = getBackgroundTexture(types);
-  const advantageImage = getAdvantageImage(typeAdvantage);
-  const typeImage = getTypeImage(types);
+  const backgroundStyle = getBackgroundStyle(types, backgroundChart);
+  const backgroundTexture = getBackgroundTexture(types, textures);
+  const advantageImage = getAdvantageImage(typeAdvantage, pokemonTypeImage);
+  const typeImage = getTypeImage(types, pokemonTypeImage);
 
   const pokemonData = {
     id,
@@ -280,4 +319,16 @@ export {
   getPokemonNames,
   getRandomPokemon,
   getPokemonsInPage,
+  // Exporting directly into Jest tests
+  parsePokemonName,
+  getPokemonSkills,
+  getPokemonStats,
+  getPokemonTypes,
+  getPokemonAdvantage,
+  getPokemonGenus,
+  getDescription,
+  getBackgroundStyle,
+  getBackgroundTexture,
+  getAdvantageImage,
+  getTypeImage,
 };
