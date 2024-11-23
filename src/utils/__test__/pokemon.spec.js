@@ -20,7 +20,6 @@ import {
     parsePokemonData
 } from "../pokemon";
 import {
-    convertDecimeterToFeet,
     randomizeNumber,
 } from "../general";
 
