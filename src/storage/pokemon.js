@@ -94,6 +94,11 @@ export {
     storePokemons,
     storePokemon,
     storeSpecies,
-    storePokemonSprite
+    storePokemonSprite,
+    // Exporting directly into Jest tests
+    getPokemonKey,
+    getPokemonsKey,
+    getPokemonSpriteKey,
+    getPokemonSpeciesKey,
 };
 
