@@ -68,4 +68,10 @@ describe("loadPokemon", () => {
         expect(getItemMock).toHaveBeenCalledTimes(1);
         expect(getItemMock).toHaveBeenCalledWith("pokemon_testmeleon");
     });
+
+    it("Should throw an error if the pokemon is not found", () => {
+        getItemMock.mockReturnValueOnce(null);
+
+        expect(() => loadPokemon("testmeleon")).toThrowError("Pokemon with given name: testmeleon not found");
+    });
 });
