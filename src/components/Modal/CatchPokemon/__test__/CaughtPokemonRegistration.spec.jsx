@@ -91,7 +91,6 @@ describe("CaughtPokemonRegistration", () => {
         
         const summaryModal = screen.queryByTestId("caught-pokemon-summary-modal");
         expect(summaryModal).not.toBeInTheDocument();
-        screen.debug();
     });
 
     it("Should display the error message when the caughtPokemonError prop is true", () => {
