@@ -48,16 +48,11 @@ describe("loadPokemon", () => {
     const getItemMock = jest.fn();
     
     beforeEach(() => {
-        Storage.prototype.getItem = getItemMock;
-
-        jest.mock("../pokemon", () => ({
-            ...jest.requireActual("../pokemon"),
-            getPokemonKey: jest.fn((name) => `pokemon_${name}`),
-        }));
+        jest.spyOn(Storage.prototype, "getItem").mockImplementation(getItemMock);
     });
 
     afterEach(() => {
-        getItemMock.mockRestore();
+        jest.restoreAllMocks();
     });
 
     it("Should load a pokemon from localStorage correctly", () => {
@@ -72,6 +67,7 @@ describe("loadPokemon", () => {
     it("Should throw an error if the pokemon is not found", () => {
         getItemMock.mockReturnValueOnce(null);
 
+        expect(getItemMock).toHaveBeenCalledTimes(1);
         expect(() => loadPokemon("testmeleon")).toThrowError("Pokemon with given name: testmeleon not found");
     });
 });
