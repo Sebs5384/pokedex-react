@@ -43,7 +43,7 @@ function loadPokemonSpecies(name) {
 
 function loadPokemonSprite(pokemon, artwork) {
     if(pokemon === undefined) {
-        throw new Error(`Invalid pokemon: ${pokemon.name}`);
+        throw new Error(`Pokemon is undefined`);
     };
 
     const sprite = JSON.parse(localStorage.getItem(getPokemonSpriteKey(pokemon, artwork)));
