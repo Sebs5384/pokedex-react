@@ -1,7 +1,7 @@
 import { catchPokemonReducer, initialCatchPokemonState } from "../catchPokemonReducer";
 
 describe("catchPokemonReducer", () => {
-    it("Should return the initial state when no action is passed", () => {
+    it("Should return the default state when no action is passed", () => {
         expect(initialCatchPokemonState).toEqual(initialCatchPokemonState);
         const state = catchPokemonReducer(undefined, {});
 
