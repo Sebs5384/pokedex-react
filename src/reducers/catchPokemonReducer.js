@@ -1,5 +1,5 @@
 const initialCatchPokemonState = {
-    randomNumber: null,
+    randomPokemon: null,
     caughtPokemons: [null, null, null],
     caughtPokemon: null,
     caughtPokemonSprite: [],
