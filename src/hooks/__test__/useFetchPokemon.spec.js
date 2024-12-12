@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook, waitFor } from "@testing-library/react";
 import { getPokemon } from "../../service/pokemon";
 import useFetchPokemon  from "../useFetchPokemon";
 
@@ -10,12 +10,12 @@ jest.mock("../../service/pokemon", () => ({
 describe("useFetchPokemon", () => {
     it("Should set loading while fetching data", async () => {
         getPokemon.mockResolvedValue({ name: "testmeleon" });
-        const { result, waitForNextUpdate } = renderHook(() => useFetchPokemon("testmeleon", "card"));
+        const { result } = renderHook(() => useFetchPokemon("testmeleon", "card"));
 
         expect(result.current.loading).toBe(true);
-        await waitForNextUpdate();
-
-        expect(result.current.loading).toBe(null);
+        await waitFor(() => expect(result.current.loading).toBe(null));
+        
+        expect(getPokemon).toHaveBeenCalledTimes(1);
         expect(result.current.pokemonCardData).toEqual({ name: "testmeleon" });
         expect(result.current.pokemonCardError).toBe(null);
     });
@@ -25,9 +25,9 @@ describe("useFetchPokemon", () => {
         const { result, waitForNextUpdate } = renderHook(() => useFetchPokemon("testmeleon", "card"));
 
         expect(result.current.loading).toBe(true);
-        await waitForNextUpdate();
+        await waitFor(() => expect(result.current.loading).toBe(null));
 
-        expect(result.current.loading).toBe(null);
+        expect(getPokemon).toHaveBeenCalledTimes(1);
         expect(result.current.pokemonCardData).toBe(null);
         expect(result.current.pokemonCardError).toEqual(new Error("Pokemon not found"));
     });
