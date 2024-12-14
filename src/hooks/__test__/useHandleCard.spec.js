@@ -80,7 +80,60 @@ describe("useHandleCard", () => {
         expect(result.current.loadingCard).toBe(false);
     });
 
-    it("Should dispatch the loading state to false and modal visibility to true when there's cardData fetching is successful", async () => {
+    it("Should dispatch the loading state to false and modal visibility to true when the cardData fetching is successful", async () => {
+        const { result, rerender } = renderHook(
+            (props) => useHandleCard(
+                props.setSelectedCard,
+                props.loadingCardData,
+                props.loadingSpeciesData,
+                props.cardData,
+                props.loadingSprite,
+                props.cardSprite,
+                props.cardError,
+                props.cardSpeciesError
+            ),
+            {
+                initialProps: initialProps,
+            }
+        );
+
+        expect(result.current.loadingCard).toBe(false);
+        rerender({
+            ...initialProps,
+            loadingCardData: false,
+            loadingSpeciesData: false,
+            loadingSprite: false,
+            cardData: { name: "testmeleon" },
+            cardSprite: { current: "some-random.png", previous: null }
+        });
+
+        expect(result.current.loadingCard).toBe(false);
+        expect(result.current.modalVisibility).toBe(true);
+    });
+
+    it("Should set the state loadingCard to true when the cardData fetching is in progress", async () => {
+        const { result, rerender } = renderHook(
+            (props) => useHandleCard(
+                props.setSelectedCard,
+                props.loadingCardData,
+                props.loadingSpeciesData,
+                props.cardData,
+                props.loadingSprite,
+                props.cardSprite,
+                props.cardError,
+                props.cardSpeciesError
+            ), {
+                initialProps: initialProps,
+            }
+        );
+
+        expect(result.current.loadingCard).toBe(false);
+        rerender({
+            ...initialProps,
+            loadingCardData: true
+        });
         
+        expect(result.current.loadingCard).toBe(true);
+        expect(result.current.loadingCardText).toBe("Loading...");
     });
 });
