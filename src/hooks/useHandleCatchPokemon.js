@@ -9,7 +9,6 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
     const { caughtSpeciesData } = useFetchSpecies(state.randomPokemon, "caughtPokemon");
     const { loadingSprite, caughtPokemonSprite } = useGetPokemonSprite(state.caughtPokemon, "", "caughtPokemon");
 
-
     const handlePokeballClick = () => {
         if(state.caughtPokemons.includes(null) && pokemonList) {
             const randomPokemon = getRandomPokemon(pokemonsCount, pokemonList);
@@ -47,10 +46,6 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
                 }, 3000);
             }, 500);
         }, 3000);
-
-        return () => {
-            clearTimeout(textCleanupTimeout);
-        };
     };
 
     useEffect(() => {
