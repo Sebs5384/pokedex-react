@@ -3,8 +3,8 @@ import { catchPokemonReducer, initialCatchPokemonState } from "../reducers/index
 import { useFetchPokemon, useFetchSpecies, useGetPokemonSprite } from "./index";
 import { getRandomPokemon, replaceNullItem, parsePokemonData } from "../utils/index";
 
-function useHandleCatchPokemon(pokemonsCount, pokemonList) {
-    const [state, dispatch] = useReducer(catchPokemonReducer, initialCatchPokemonState);
+function useHandleCatchPokemon(pokemonsCount, pokemonList, initialStates = initialCatchPokemonState) {
+    const [state, dispatch] = useReducer(catchPokemonReducer, initialStates);
     const { caughtPokemonData, caughtPokemonError } = useFetchPokemon(state.randomPokemon, "caughtPokemon");
     const { caughtSpeciesData } = useFetchSpecies(state.randomPokemon, "caughtPokemon");
     const { loadingSprite, caughtPokemonSprite } = useGetPokemonSprite(state.caughtPokemon, "", "caughtPokemon");
@@ -26,7 +26,7 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
         dispatch({type: "SET_TOP_TEXT", payload: "Gotcha !"});
         dispatch({type: "SET_BOTTOM_TEXT", payload: `${state.randomPokemon?.split('-')[0].toUpperCase()} was caught`});
 
-        const textCleanupTimeout = setTimeout(() => {
+        setTimeout(() => {
             dispatch({type: "SET_TOP_TEXT", payload: ""});
             dispatch({type: "SET_BOTTOM_TEXT", payload: ""});
             dispatch({type: "TEXT_CHANGE", payload: false});
@@ -83,7 +83,8 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList) {
         topText: state.topText,
         bottomText: state.bottomText,
         textChange: state.textChange,
-        handlePokeballClick
+        randomPokemon: state.randomPokemon,
+        handlePokeballClick,
     };
 };
 
