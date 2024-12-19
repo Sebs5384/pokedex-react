@@ -176,4 +176,25 @@ describe("useHandleCatchPokemon", () => {
         expect(replaceNullItem).toHaveBeenCalledTimes(1);
         expect(replaceNullItem).toHaveBeenCalledWith([ { name: "testmeleon", id: 1 }, null, null], { name: "testmeleon", id: 1 });
     });
+
+    it("Should set the modal visibility to false if the fetch pokemon returns an error", async () => {
+        useFetchPokemon.mockReturnValue({ caughtPokemonData: null, caughtPokemonError: new Error("Pokemon not found") });
+        useFetchSpecies.mockReturnValue({ caughtSpeciesData: null, caughtPokemonSpeciesError: null });
+        useGetPokemonSprite.mockReturnValue({ caughtPokemonSprite: null, loadingSprite: false });
+
+        const pokemonsCount = 3;
+        const pokemonList = ["testsaur", "testmander", "testrtle"];
+        const { result } = renderHook(() => useHandleCatchPokemon(pokemonsCount, pokemonList));
+
+        act(() => {
+            result.current.handlePokeballClick();
+        });
+
+        act(() => {
+            jest.advanceTimersByTime(3000);
+        });
+
+        expect(result.current.isShaking).toBe(true);
+        expect(result.current.caughtModalVisibility).toBe(false);
+    });
 }); 
