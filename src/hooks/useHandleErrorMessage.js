@@ -37,7 +37,7 @@ function useHandleErrorMessage(cardError, caughtPokemonError, searchboxError, pa
             paginator: paginatorError
         };
 
-        Object.keys(errors).forEach(key =>{
+        Object.keys(errors).forEach(key => {
             const error = errors[key];
             const { message, visibilityType } = errorSourceMap[key];
 
