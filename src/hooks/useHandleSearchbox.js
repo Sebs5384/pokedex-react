@@ -22,7 +22,9 @@ function useHandleSearchbox(limit, offset) {
 
     useEffect(() => {
         if(!state.searchboxItems && searchboxPokemons && searchboxPokemons.results) {
-            dispatch({ type: "SET_SEARCH_BOX_ITEMS", payload: getPokemonNames(searchboxPokemons.results) });
+            const pokemonNames = getPokemonNames(searchboxPokemons.results);
+
+            dispatch({ type: "SET_SEARCH_BOX_ITEMS", payload: pokemonNames });
             dispatch({ type: "SET_POKEMON_COUNT", payload: searchboxPokemons.count });
         };
     }, [searchboxPokemons, state.searchboxItems]);
@@ -37,6 +39,7 @@ function useHandleSearchbox(limit, offset) {
         filteredPokemons: filteredPokemons,
         pokemonsCount: state.pokemonCount,
         searchboxError: searchboxError,
+        searchboxPokemon: state.searchboxPokemon,
         handleSearchPokemon,
         handleInputFocus,
         handleInputOnBlur,
