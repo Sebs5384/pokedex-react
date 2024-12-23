@@ -108,6 +108,18 @@ async function loadSpriteUrl(sprite) {
   });
 };
 
+async function getPokemonSprites(pokemons) {
+  const sprites = await Promise.all(pokemons.map(async (pokemon) => {
+    const id = pokemon.url.split('/')[6];
+    const spriteUrl = getSpriteUrl(id);
+    const sprite =  await loadSpriteUrl(spriteUrl);
+
+    return sprite;
+  }));
+  
+  return sprites;
+};
+
 async function getPokemonsInPage(pokemons, sprites) {
   if(pokemons === undefined || pokemons === null) return [];
 
@@ -319,6 +331,7 @@ export {
   getPokemonNames,
   getRandomPokemon,
   getPokemonsInPage,
+  getPokemonSprites,
   // Exporting directly into Jest tests
   parsePokemonName,
   getPokemonSkills,
