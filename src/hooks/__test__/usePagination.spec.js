@@ -19,7 +19,7 @@ describe("usePagination", () => {
     const itemsPerPage = 20;
     const initialPageIndex = 1;
 
-    it("Should set the pokemons in page correctly when running side effects", async () => {
+    it("Should run setPokemonsInPage as a side effect on mount", async () => {
         useFetchPokemons.mockReturnValue({
             paginatorPokemons: { 
                 results: [
@@ -56,7 +56,7 @@ describe("usePagination", () => {
         });
     });
 
-    it("Should set the current page when invoking setCurrentPage", async () => {
+    it("Should set the current page when invoking setCurrentPage", () => {
         useFetchPokemons.mockReturnValue({
             paginatorPokemons: {},
         });
@@ -68,7 +68,54 @@ describe("usePagination", () => {
         const { result } = renderHook(() => usePagination(itemsPerPage, initialPageIndex));
         
         act(() => result.current.setCurrentPage(2));
-
         expect(result.current.currentPage).toBe(2);
+    });
+
+    it("Should set the next page when invoking setNextPage", () => {
+        useFetchPokemons.mockReturnValue({
+            paginatorPokemons: {},
+        });
+        useTotalPages.mockReturnValue({
+            totalPages: 3,
+            firstPage: 1,
+            lastPage: 3,
+        });
+        const { result } = renderHook(() => usePagination(itemsPerPage, initialPageIndex));
+  
+        act(() => result.current.setNextPage());
+        expect(result.current.currentPage).toBe(2);
+    });
+
+    it("Should set the previous page when invoking setPreviousPage", () => {
+        useFetchPokemons.mockReturnValue({
+            paginatorPokemons: {},
+        });
+        useTotalPages.mockReturnValue({
+            totalPages: 3,
+            firstPage: 1,
+            lastPage: 3,
+        });
+        const { result } = renderHook(() => usePagination(itemsPerPage, initialPageIndex));
+  
+        act(() => result.current.setCurrentPage(2));
+        act(() => result.current.setPreviousPage());
+        expect(result.current.currentPage).toBe(1);
+    });
+
+    it("Should set the searchbox value when invoking setSearchboxPokemon", async () => {
+        useFetchPokemons.mockReturnValue({
+            paginatorPokemons: {},
+        });
+        useTotalPages.mockReturnValue({
+            totalPages: 3,
+            firstPage: 1,
+            lastPage: 3,
+        });
+        const { result } = renderHook(() => usePagination(itemsPerPage, initialPageIndex));
+        
+        expect(result.current.searchboxValue).toBe("");
+
+        act(() => result.current.setSearchboxValue({ target: { value: 2 } }));
+        expect(result.current.searchboxValue).toBe(2);
     });
 });

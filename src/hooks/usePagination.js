@@ -76,6 +76,7 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
         popupMessage: state.popupMessage,
         invalidPagePopup: state.invalidPagePopup,
         noCards: state.noCards,
+        searchboxValue: state.searchboxValue,
         totalPages,
         firstPage,
         lastPage,
