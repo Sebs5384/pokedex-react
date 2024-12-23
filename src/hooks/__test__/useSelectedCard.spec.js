@@ -51,7 +51,7 @@ describe("useSelectedCard", () => {
         });
 
         useGetPokemonSprite.mockReturnValue({
-            pokemonSprite: { current: "some-random.png", previous: null },
+            pokemonCardSprite: { current: "some-random.png", previous: null },
         });
 
         parsePokemonData.mockReturnValue({
@@ -71,5 +71,10 @@ describe("useSelectedCard", () => {
             id: 2,
             evolves_from: "testmander",
         });
+        expect(result.current.pokemonSprite).toEqual({
+            current: "some-random.png",
+            previous: null,
+        });
+        expect(result.current.emptyCardData).toBe(null);
     });
 });
