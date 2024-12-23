@@ -4,6 +4,7 @@ import { getPokemonsInPage, getPokemonSprites } from "../../utils/pokemon";
 import usePagination from "../usePagination";
 import useFetchPokemons from "../useFetchPokemons";
 import useTotalPages from "../useTotalPages";
+import { use } from "react";
 
 jest.mock("../../utils/general", () => ({
     validateSearchboxPage: jest.fn(),
@@ -117,5 +118,76 @@ describe("usePagination", () => {
 
         act(() => result.current.setSearchboxValue({ target: { value: 2 } }));
         expect(result.current.searchboxValue).toBe(2);
+    });
+
+    it("Should set the current page to the value of searchbox when handleKeyDown is invoked", async () => {
+        useFetchPokemons.mockReturnValue({
+            paginatorPokemons: {},
+        });
+        useTotalPages.mockReturnValue({
+            totalPages: 3,
+            firstPage: 1,
+            lastPage: 3,
+        });
+        validateSearchboxPage.mockReturnValue(true);
+        const { result } = renderHook(() => usePagination(itemsPerPage, initialPageIndex));
+
+        act(() => result.current.setSearchboxValue({ target: { value: 2 } }));
+        expect(result.current.currentPage).toBe(1);
+        expect(result.current.searchboxValue).toBe(2);
+
+        act(() => result.current.handleKeyDown({ key: "Enter" }));
+        expect(result.current.currentPage).toBe(2);
+        expect(result.current.searchboxValue).toBe("");
+    });
+
+    it("Should handle the error through a popup when the page is not valid when invoking handleKeyDown", async () => {
+        jest.useFakeTimers();
+        useFetchPokemons.mockReturnValue({
+            paginatorPokemons: {},
+        });
+        useTotalPages.mockReturnValue({
+            totalPages: 3,
+            firstPage: 1,
+            lastPage: 3,
+        });
+        validateSearchboxPage.mockReturnValue("This is a mock message and page 4 doesn't exist");
+        const { result } = renderHook(() => usePagination(itemsPerPage, initialPageIndex));
+
+        act(() => result.current.setSearchboxValue({ target: { value: 4 } }));
+        expect(result.current.currentPage).toBe(1);
+        expect(result.current.searchboxValue).toBe(4);
+
+        act(() => result.current.handleKeyDown({ key: "Enter" }));
+        expect(result.current.currentPage).toBe(1);
+        expect(result.current.searchboxValue).toBe("");
+        expect(result.current.popupMessage).toBe("This is a mock message and page 4 doesn't exist");
+        expect(result.current.invalidPagePopup).toBe(true);
+
+        act(() => {
+            jest.advanceTimersByTime(2000);
+        });
+
+        expect(result.current.invalidPagePopup).toBe(false);
+    });
+
+    it("Should dispatch no cards state when fetching no results", async () => {
+        jest.useFakeTimers();
+        useFetchPokemons.mockReturnValue({
+            paginatorPokemons: null,
+        });
+        useTotalPages.mockReturnValue({
+            totalPages: [],
+            firstPage: 1,
+            lastPage: 0,
+        });
+        const { result } = renderHook(() => usePagination(itemsPerPage, initialPageIndex));
+        expect(result.current.noCards).toBe(false);
+
+        act(() => {
+            jest.advanceTimersByTime(10000);
+        });
+        expect(result.current.pokemonsInPage).toEqual([]);
+        expect(result.current.noCards).toBe(true);
     });
 });
