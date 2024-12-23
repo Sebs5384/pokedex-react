@@ -17,8 +17,8 @@ function useSelectedCard(artwork) {
     useEffect(() => {
         if(pokemonCardData && cardSpeciesData && pokemonCardData.id && cardSpeciesData.id) {
             const parsedPokemonName = parsePokemonData(pokemonCardData, cardSpeciesData)
-            dispatch({ type: "SET_SELECTED_CARD_DATA", payload: parsedPokemonName }); 
-            
+            dispatch({ type: "SET_SELECTED_CARD_DATA", payload: parsedPokemonName });
+             
         } else if(!loading && pokemonCardData && !pokemonCardData.id) {
             dispatch({ type: "SET_SELECTED_CARD_DATA", payload: null });
             dispatch({ type: "EMPTY_SELECTED_CARD_DATA", payload: { 
@@ -37,6 +37,7 @@ function useSelectedCard(artwork) {
         cardError: pokemonCardError,
         cardSpeciesError: cardSpeciesError,
         emptyCardData: state.emptySelectedCardData,
+        cardName: state.selectedCardName,
         setSelectedCard
     };
 };
