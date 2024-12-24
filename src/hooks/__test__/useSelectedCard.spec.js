@@ -76,5 +76,47 @@ describe("useSelectedCard", () => {
             previous: null,
         });
         expect(result.current.emptyCardData).toBe(null);
+        expect(useFetchPokemon).toHaveBeenCalledTimes(3);
+        expect(useFetchSpecies).toHaveBeenCalledTimes(3);
+        expect(useGetPokemonSprite).toHaveBeenCalledTimes(3);
+        expect(parsePokemonData).toHaveBeenCalledTimes(1);
+    });
+
+    it("Should set empty card data when fetched data is faulty", () => {
+        useFetchPokemon.mockReturnValue("")
+        .mockReturnValueOnce({
+            loading: false,
+        })
+        .mockReturnValueOnce({
+            pokemonCardData: { name: "testmeleon" },
+        });
+
+        useFetchSpecies.mockReturnValue("")
+        .mockReturnValueOnce({
+            loadingSpecies: false,
+        })
+        .mockReturnValueOnce({
+            cardSpeciesData: { evolves_from: "testmander" },
+        });
+
+        useGetPokemonSprite.mockReturnValue({
+            pokemonSprite: { current: "some-random.png", previous: null },
+        });
+        const { result } = renderHook(() => useSelectedCard("official-artwork"));
+        act(() => {
+            result.current.setSelectedCard("testmeleon");
+        });
+
+        expect(result.current.cardName).toBe("testmeleon");
+        expect(result.current.cardData).toBe(null);
+        expect(result.current.pokemonSprite).toBe(undefined);
+        expect(result.current.emptyCardData).toEqual({
+            emptyErrorCause: "Error empty response from the server",
+            emptyErrorMessage: "Seems like there is no card data to display try again later"
+        });
+        expect(useFetchPokemon).toHaveBeenCalledTimes(3);
+        expect(useFetchSpecies).toHaveBeenCalledTimes(3);
+        expect(useGetPokemonSprite).toHaveBeenCalledTimes(3);
+        expect(parsePokemonData).toHaveBeenCalledTimes(0);  
     });
 });
