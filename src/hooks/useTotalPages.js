@@ -17,12 +17,13 @@ function useTotalPages(ITEMS_PER_PAGE, items) {
             const totalItems = items.count;
             setTotalPages(totalItems);
         };
-    }, [items, ITEMS_PER_PAGE]);
+    }, [items?.count, ITEMS_PER_PAGE]);
 
     return {
         totalPages: state.totalPages,
         firstPage: state.firstPage,
-        lastPage: state.lastPage
+        lastPage: state.lastPage,
+        setTotalPages,
     };
 };
 
