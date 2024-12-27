@@ -34,6 +34,8 @@ function getRandomPokemon(pokemonsCount, pokemonList) {
 };
 
 async function getPokemonSprites(pokemons) {
+  if(pokemons === undefined || pokemons === null) return [];
+
   const sprites = await Promise.all(pokemons.map(async (pokemon) => {
     const id = pokemon.url.split('/')[6];
     const spriteUrl = getSpriteUrl(id);

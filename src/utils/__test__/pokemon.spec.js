@@ -58,6 +58,56 @@ jest.mock("../general", () => ({
 jest.mock("../../assets/img/pokemon-type/index", () => jest.fn());
 jest.mock("../../assets/img/modal-texture/index", () => jest.fn());
 
+describe("getPokemonSprites", () => {
+    beforeEach(() => {
+        global.Image = class {
+            constructor() {
+                setTimeout(() => {
+                    if(this.src) {
+                        this.onload();
+                    } else {
+                        this.onerror();
+                    };
+                }, 0);
+            };
+        };
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
+    it("Should get the pokemon sprites correctly", async () => {
+        const pokemonsUrl = [
+            { url: "https://some.random/api/v2/test/1/" },
+        ];
+        getSpriteUrl.mockReturnValue("https://some.random/api/v2/test/1/");
+        loadSpriteUrl.mockResolvedValue("https://some.random/api/v2/test/1/");
+
+        const pokemonSprites = await getPokemonSprites(pokemonsUrl);
+        
+        expect(getSpriteUrl).toHaveBeenCalledTimes(1);
+        expect(loadSpriteUrl).toHaveBeenCalledTimes(1);
+        expect(getSpriteUrl).toHaveBeenCalledWith("1");
+        expect(loadSpriteUrl).toHaveBeenCalledWith("https://some.random/api/v2/test/1/");
+        expect(pokemonSprites).toEqual(["https://some.random/api/v2/test/1/"]);
+    });
+
+    it("Should return an empty array when the parameters are undefined or null", async () =>  {
+        let pokemonsUrl = null;
+        let pokemonSprites = await getPokemonSprites(pokemonsUrl);
+
+        expect(pokemonSprites).toEqual([]);
+
+        pokemonsUrl = undefined;
+        pokemonSprites = await getPokemonSprites(pokemonsUrl);
+
+        expect(pokemonSprites).toEqual([]);
+        expect(getSpriteUrl).not.toHaveBeenCalled();
+        expect(loadSpriteUrl).not.toHaveBeenCalled();
+    });
+});
+
 describe("getRandomPokemon", () => {
     it("Should get a random pokemon off the list", () => {
         const pokemonCount = 3;
