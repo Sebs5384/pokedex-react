@@ -17,8 +17,7 @@ import {
     getTypeImage,
     getRandomPokemon,
     getPokemonsInPage,
-    parsePokemonData
-} from "../pokemon";
+} from "../pokemonDataHandlers";
 import {
     randomizeNumber,
 } from "../general";
@@ -664,61 +663,5 @@ describe("getRandomPokemon", () => {
         pokemonList = [];
         randomPokemon = getRandomPokemon(pokemonCount, pokemonList);
         expect(randomPokemon).toEqual(undefined);
-    });
-});
-
-describe("parsePokemonData", () => {
-    it("Should parse the pokemon data correctly through its helper functions", () => {    
-        const pokemonData = {
-            id: 2,
-            name: "Testmeleon",
-            types: [{ type: { name: "fire" } }, { type: { name: "water" } }],
-            abilities: [{ ability: { name: "SOLID" } }, { ability: { name: "DRY" } }],
-            height: 10,
-            weight: 20,
-            stats: [{ base_stat: 1 }, { base_stat: 2 }, { base_stat: 3 }, { base_stat: 4 }, { base_stat: 5 }, { base_stat: 6 }],
-        };
-        const speciesData = {
-            evolves_from_species: { name: "Testmander", url: "https://pokeapi.co/api/v2/mocked-url/1/" },
-            flavor_text_entries: [{ flavor_text: "A blazing test is on its tail", language: { name: "en" } }],
-            genera: [{ genus: "Test Pokemon", language: { name: "en" } }],
-        };
-
-        const parsedPokemon = parsePokemonData(pokemonData, speciesData);
-        expect(parsedPokemon).toEqual({
-            id: 2,
-            fullName: "Testmeleon",
-            name: "Testmeleon",
-            skills: { firstSkill: "SOLID", secondSkill: "DRY" },
-            stats: {
-                atk: "ATTACK: 2",
-                def: "DEFENSE: 3",
-                hp: "1 HP",
-                spAtk: "SP ATK: 4",
-                spDef: "SP DEF: 5",
-                speed: "SPEED: 6",
-            },
-            types: { mainType: "fire", secondaryType: "water" },
-            height: "3'28",
-            weight: "0.04",
-            typeAdvantage: {
-                resistance: "grass",
-                weakness: "water",
-            },
-            evolutionGenus: { name: "Evolves from Testmander", id: "1", genus: "Test Pokemon" },
-            description: "A blazing test is on its tail",
-            backgroundStyle: "linear-gradient(rgb(36, 17, 17), rgb(117, 28, 28), rgb(248, 141, 1), rgb(255, 0, 0))",
-            backgroundTexture: "fire-texture.png",
-            advantageImage: {
-                weakness: "water-type-icon.png",
-                resistance: "grass-type-icon.png",
-                retreat: "retreat-icon.png"
-            },
-            typeImage: {
-                mainTypeLogo: "fire-type.png",
-                secondaryTypeLogo: "water-type.png",
-                mainTypeIcon: "fire-type-icon.png"
-            },
-        })
     });
 });
