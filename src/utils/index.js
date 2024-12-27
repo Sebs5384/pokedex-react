@@ -1,5 +1,6 @@
-import { parsePokemonData, getSpriteUrl, loadSpriteUrl, getPokemonNames, getRandomPokemon, getPokemonsInPage, getPokemonSprites } from "./pokemon";
+import { getSpriteUrl, loadSpriteUrl, getPokemonNames, getPokemonsInPage } from "./pokemonDataHandlers";
 import { setItemRange, convertDecimeterToFeet, convertGramToLb, randomizeNumber, replaceNullItem, validateSearchboxPage } from "./general";
+import { getRandomPokemon, getPokemonSprites, parsePokemonData } from "./pokemon";
 
 export {
     parsePokemonData,
