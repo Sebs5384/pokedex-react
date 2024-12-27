@@ -1,9 +1,9 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
-import { getPokemonNames } from "../../utils/pokemon";
+import { getPokemonNames } from "../../utils/pokemonDataHandlers";
 import useFetchPokemons from "../useFetchPokemons";
 import useHandleSearchbox from "../useHandleSearchbox";
 
-jest.mock("../../utils/pokemon", () => ({
+jest.mock("../../utils/pokemonDataHandlers", () => ({
     getPokemonNames: jest.fn(),
 }));
 jest.mock("../useFetchPokemons", () => jest.fn());

@@ -24,7 +24,7 @@ import {
 import {
     loadSpriteUrl,
     getSpriteUrl,
-} from "../../utils/pokemon";
+} from "../../utils/pokemonDataHandlers";
 
 jest.mock("../../storage/pokemon", () => ({
     ...jest.requireActual("../../storage/pokemon"),
@@ -44,8 +44,8 @@ jest.mock("../../api/pokemon", () => ({
     getPokemonSpecies: jest.fn(),
     getPokemonSprite: jest.fn(),
 }));
-jest.mock("../../utils/pokemon", () => ({
-    ...jest.requireActual("../../utils/pokemon"),
+jest.mock("../../utils/pokemonDataHandlers", () => ({
+    ...jest.requireActual("../../utils/pokemonDataHandlers"),
     loadSpriteUrl: jest.fn(),
     getSpriteUrl: jest.fn(),
 }));

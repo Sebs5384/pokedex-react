@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useState } from "react";
 import { selectedCardReducer, initialSelectedCardState } from "../reducers/index";
 import { useFetchPokemon, useFetchSpecies, useGetPokemonSprite } from "./index";
-import { parsePokemonData } from "../utils/pokemon";
+import { parsePokemonData } from "../utils/index";
 
 function useSelectedCard(artwork) {
     const [state, dispatch] = useReducer(selectedCardReducer, initialSelectedCardState);
