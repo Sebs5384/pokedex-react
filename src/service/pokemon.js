@@ -53,7 +53,7 @@ async function getPokemonSpecies(name, completeName) {
         return loadPokemonSpeciesFromStorage(name);
     } catch(error) {
         const species = await getPokemonSpeciesFromApi(name, completeName);
-        storeSpecies(name, species);
+        storeSpecies(completeName, species);
         return species;
     };
 };

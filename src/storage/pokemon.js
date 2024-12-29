@@ -11,7 +11,7 @@ function getPokemonSpeciesKey(name) {
 };
 
 function getPokemonSpriteKey(pokemon, artwork = "classic") {
-    return `pokemon_sprite_${pokemon.name}_${artwork}`;
+    return `pokemon_sprite_${pokemon.fullName}_${artwork}`;
 };
 
 function loadPokemons(limit = 20, offset = 0) {
