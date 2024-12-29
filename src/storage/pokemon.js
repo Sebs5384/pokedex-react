@@ -48,7 +48,7 @@ function loadPokemonSprite(pokemon, artwork) {
 
     const sprite = JSON.parse(localStorage.getItem(getPokemonSpriteKey(pokemon, artwork)));
     if(sprite === null) {
-        throw new Error(`Pokemon sprite of given pokemon: ${pokemon.name} not found`);
+        throw new Error(`Pokemon sprite of given pokemon: ${pokemon.fullName} not found`);
     };
 
     return sprite;

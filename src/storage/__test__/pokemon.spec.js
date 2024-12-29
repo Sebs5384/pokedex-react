@@ -37,10 +37,10 @@ describe("Key generator functions", () => {
     });
 
     it("Should return the pokemon sprite key correctly", () => {
-        const pokemon = { name: "testmeleon" };
+        const pokemon = { fullName: "testmeleon" };
         const pokemonSpriteKey = getPokemonSpriteKey(pokemon);
 
-        expect(pokemonSpriteKey).toEqual(`pokemon_sprite_${pokemon.name}_classic`);
+        expect(pokemonSpriteKey).toEqual(`pokemon_sprite_${pokemon.fullName}_classic`);
     });
 });
 
@@ -141,7 +141,7 @@ describe("loadPokemonSprite", () => {
     it("Should load a pokemon sprite from the localStorage correctly", () => {
         getItemMock.mockReturnValueOnce(JSON.stringify({ name: "testmeleon"}, "classic"));
     
-        const sprite = loadPokemonSprite({ name: "testmeleon" }, "classic");
+        const sprite = loadPokemonSprite({ fullName: "testmeleon" }, "classic");
     
         expect(getItemMock).toHaveBeenCalledTimes(1);
         expect(getItemMock).toHaveBeenCalledWith("pokemon_sprite_testmeleon_classic");
@@ -155,7 +155,7 @@ describe("loadPokemonSprite", () => {
     it("Should return an error if the pokemon paramater is null", () => {
         getItemMock.mockReturnValueOnce(null);
 
-        expect(() => loadPokemonSprite({ name: "testmeleon"}, "classic")).toThrowError(
+        expect(() => loadPokemonSprite({ fullName: "testmeleon"}, "classic")).toThrowError(
             "Pokemon sprite of given pokemon: testmeleon not found"
         );
         expect(getItemMock).toHaveBeenCalledTimes(1);
@@ -272,14 +272,14 @@ describe("storePokemonSprite", () => {
     });
 
     it("Should store a pokemon sprite correctly", () => {
-        const pokemon = { name: "testmeleon" };
+        const pokemon = { fullName: "testmeleon" };
         const sprite = { current: "https://mocked-sprite-url//1.png", previous: null };
         const artwork = "classic";
 
         storePokemonSprite(pokemon, sprite, artwork);
 
         expect(setItemMock).toHaveBeenCalledTimes(1);
-        expect(setItemMock).toHaveBeenCalledWith(`pokemon_sprite_${pokemon.name}_${artwork}`, JSON.stringify(sprite));
+        expect(setItemMock).toHaveBeenCalledWith(`pokemon_sprite_${pokemon.fullName}_${artwork}`, JSON.stringify(sprite));
     });
 
     it("Should throw an error if the pokemon or sprite parameters are faulty", () => {
