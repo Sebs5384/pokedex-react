@@ -11,7 +11,7 @@ function GridCard({ id, pokemonName, image, selectCard }) {
             data-cy={`${pokemonName}-grid`}
             data-testid={`${pokemonName}-grid`} 
             backgroundImage={pokeballImage} 
-            onClick={() => selectCard(pokemonName)}
+            onClick={() => typeof selectCard === "function" && selectCard(pokemonName)}
         >
             <PokemonName>
                 {`#${id} ${pokemonName}`}
