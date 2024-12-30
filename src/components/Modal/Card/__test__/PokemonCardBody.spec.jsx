@@ -82,4 +82,20 @@ describe("PokemonCardBody", () => {
         expect(spDefText).toHaveTextContent("7");
         expect(speedText).toHaveTextContent("8");
     });
+
+    it("Should still render the component when props are null", () => {
+        render(<PokemonCardBody selectedCard={null} pokemonSprite={null} />);
+        
+        const cardBody = screen.getByTestId("pokemon-card-body");
+        const cardImageSection = screen.getByTestId("pokemon-card-modal-image-section");
+        const cardBannerSection = screen.getByTestId("pokemon-card-banner-section");
+        const cardSkillSection = screen.getByTestId("pokemon-card-skill-section");
+        const cardStatsSection = screen.getByTestId("pokemon-card-stats-section");
+
+        expect(cardBody).toBeInTheDocument();
+        expect(cardImageSection).toBeInTheDocument();
+        expect(cardBannerSection).toBeInTheDocument();
+        expect(cardSkillSection).toBeInTheDocument();
+        expect(cardStatsSection).toBeInTheDocument();
+    });
 });
