@@ -3,6 +3,7 @@ import ImageContainer from "../../shared/ImageContainer";
 import PropTypes from "prop-types";
 
 function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPreviousEvolution }) {
+    console.log(selectedCard);
     return(
         <PokemonContainer closeButton data-testid={"pokemon-card-header"}>
             <PokemonSection className="container-fluid species-wrapper">
@@ -53,6 +54,7 @@ function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPrev
                         src={selectedCard?.typeImage.mainTypeIcon}
                         alt={selectedCard?.name} 
                         className="col-1 align-self-center pokemon-species-image text-start" 
+                        dataAttribute={"header-type-image"}
                     />
                 </PokemonTitle>
             </PokemonSection>
