@@ -42,7 +42,10 @@ function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPrev
                             className="col-2 align-self-center text-center pokemon-species-image"
                             dataAttribute={"previous-evolution-image"}
                         />
-                        : <PokemonContainer className="col-2 align-self-center text-center pokemon-species-image" />
+                        : <PokemonContainer 
+                            className="col-2 align-self-center text-center pokemon-species-image" 
+                            data-testid={"previous-evolution-placeholder"}
+                        />
                     }
                     <PokemonCardText className="col-4 align-self-center text-center title-font capitalize" data-cy={"pokemon-card-header-name"}>
                         {selectedCard?.name}
