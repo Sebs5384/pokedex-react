@@ -6,7 +6,11 @@ function PokemonCardFooter({ selectedCard }) {
     return(
         <PokemonContainer data-testid={"pokemon-card-footer"}>
             <PokemonSection className="container-fluid col-11">
-                <PokemonContainer className="row mb-2" data-cy={"pokemon-card-footer-advantage-section"}>
+                <PokemonContainer 
+                    className="row mb-2" 
+                    data-cy={"pokemon-card-footer-advantage-section"} 
+                    data-testid={"pokemon-card-footer-advantage-section"}
+                >
                     <CardSeparator className="col-12 mt-1"></CardSeparator>
                     <PokemonCardText className="col-4 text-start status-font">Weakness</PokemonCardText>
                     <PokemonCardText className="col-4 text-center status-font">Resistance</PokemonCardText>
@@ -22,7 +26,11 @@ function PokemonCardFooter({ selectedCard }) {
                     </PokemonContainer>
                 </PokemonContainer>
             </PokemonSection>
-            <PokemonSection className="container-fluid mb-2 col-11" data-cy={"pokemon-card-footer-description-section"}>
+            <PokemonSection 
+                className="container-fluid mb-2 col-11" 
+                data-cy={"pokemon-card-footer-description-section"}
+                data-testid={"pokemon-card-footer-description-section"}
+            >
                 <PokemonContainer className="card text-center description-border">
                     <PokemonCardText className="footer-font">{selectedCard?.description}</PokemonCardText>
                 </PokemonContainer>
