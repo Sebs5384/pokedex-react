@@ -12,7 +12,7 @@ function RegistrationBody({ pokemon, pokemonSprite }) {
                 <PokemonContainer className="row justify-content-center registration-screen">
                     <PokemonContainer className="col-4 registration-image-background registration-image">
                         <ImageContainer 
-                            src={pokemonSprite[pokemonSprite.length - 1]?.current} 
+                            src={pokemonSprite?.[pokemonSprite.length - 1]?.current} 
                             alt={pokemon?.name}
                             dataAttribute={"registration-image"}    
                         />
@@ -46,6 +46,7 @@ function RegistrationBody({ pokemon, pokemonSprite }) {
                                     </PokemonContainer>
                                     <PokemonContainer 
                                         className="mt-2 col-7 text-end description-underline h3"
+                                        data-testid={"registration-pokemon-height"}
                                     >
                                         {pokemon?.height}"
                                     </PokemonContainer>
@@ -56,6 +57,7 @@ function RegistrationBody({ pokemon, pokemonSprite }) {
                                     </PokemonContainer>
                                     <PokemonContainer 
                                         className="col-7 text-end description-underline h3"
+                                        data-testid={"registration-pokemon-weight"}
                                     >
                                         {pokemon?.weight} LBS.
                                     </PokemonContainer>
@@ -75,7 +77,8 @@ function RegistrationBody({ pokemon, pokemonSprite }) {
     );
 };
 RegistrationBody.propTypes = {
-    pokemon: PropTypes.object
+    pokemon: PropTypes.object,
+    pokemonSprite: PropTypes.array,
 };
 
 export default RegistrationBody;
