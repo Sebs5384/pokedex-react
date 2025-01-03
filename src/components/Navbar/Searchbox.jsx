@@ -18,7 +18,7 @@ function Searchbox({
     handleCloseErrorMessage }) {
     return(
         <>
-            <NavContainer >
+            <NavContainer data-cy={"navbar-searchbox"} data-testid={"navbar-searchbox"}>
                 <NavInputGroup>
                     <NavInputGroupText className="magnifier">
                         <ImageContainer src={magnifier} alt="magnifier" dataAttribute={"navbar-searchbox-icon"}/>
@@ -46,7 +46,7 @@ function Searchbox({
                             { dropdownVisibility && 
                                 <NavDropdown show>
                                     <NavDropdownMenu data-cy={"navbar-dropdown-menu"} data-testid={"navbar-dropdown-menu"}>
-                                        <NavDropdownItem>
+                                        <NavDropdownItem data-testid={"dropdown-item"}>
                                             No pokemons found
                                         </NavDropdownItem>
                                     </NavDropdownMenu>
