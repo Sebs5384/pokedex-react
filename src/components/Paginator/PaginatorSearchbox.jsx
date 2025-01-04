@@ -18,6 +18,7 @@ function PaginatorSearchbox({ onChange, onKeyDown, validationMessage, validation
                 onChange={onChange}
                 onKeyDown={onKeyDown}
                 data-cy={"paginator-searchbox"}
+                data-testid={"paginator-searchbox"}
             />
         </PaginationOverlayTrigger>
     );
