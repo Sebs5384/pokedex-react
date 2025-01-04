@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Searchbox from "../Searchbox";
 import "@testing-library/jest-dom";
 
@@ -144,5 +144,42 @@ describe("Searchbox", () => {
         expect(dropdownPokemon).toBeInTheDocument();
         expect(dropdownPokemon).toBeVisible();
         expect(dropdownPokemon).toHaveTextContent("No pokemons found");
+    });
+
+    it("Should call handleSearchPokemon when typing in the searchbox", () => {
+        render(<Searchbox {...propsMock} />);
+        const searchboxInput = screen.getByTestId("navbar-search-input");
+
+        fireEvent.change(searchboxInput, { target: { value: "testmeleon" } });
+        expect(propsMock.handleSearchPokemon).toHaveBeenCalledTimes(1);
+        expect(propsMock.handleSearchPokemon).toHaveBeenCalledWith(expect.objectContaining({ 
+            target: expect.objectContaining({
+                value: "testmeleon"
+            })
+        }));
+    });
+
+    it("Should call handleInputFocus and handleInputOnBlur when interacting in and out of the searchbox", () => {
+        render(<Searchbox {...propsMock} />);
+        const searchboxInput = screen.getByTestId("navbar-search-input");
+        
+        fireEvent.focus(searchboxInput);
+        expect(propsMock.handleInputFocus).toHaveBeenCalledTimes(1);
+
+        fireEvent.blur(searchboxInput);
+        expect(propsMock.handleInputOnBlur).toHaveBeenCalledTimes(1);
+    });
+
+    it("Should call selectPokemon when on mouse down a dropdown item", () => {
+        render(<Searchbox 
+            {...propsMock} 
+            filteredPokemons={["testmeleon"]} 
+            dropdownVisibility={true}    
+        />);
+        const dropdownItem = screen.getByTestId("dropdown-item");
+        
+        fireEvent.mouseDown(dropdownItem);
+        expect(propsMock.selectPokemon).toHaveBeenCalledTimes(1);
+        expect(propsMock.selectPokemon).toHaveBeenCalledWith("testmeleon");
     });
 });
