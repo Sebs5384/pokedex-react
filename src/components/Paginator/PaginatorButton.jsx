@@ -14,6 +14,7 @@ function PaginatorButton({ children, isHidden, isDisabled, dataAttribute, setPag
             href="#"
             onClick={isDisabled ? () => {} : setPage}
             data-cy={dataAttribute}
+            data-testid={dataAttribute}
         >
             {children}
         </PaginationLink>
