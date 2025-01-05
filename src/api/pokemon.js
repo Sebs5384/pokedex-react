@@ -86,10 +86,11 @@ async function getPokemonSprite(pokemon, artwork = "", getSpriteUrl, loadSpriteU
         };
 
         const [currentSprite, previousSprite] = await Promise.all([currentSpritePromise, previousSpritePromise]);
+        
         return {
             current: currentSprite,
             previous: previousSprite
-        }
+        };
     } catch (error) {
         throw new Error(`Error loading sprite: ${error.message}`);
     };

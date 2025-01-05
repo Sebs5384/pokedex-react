@@ -130,7 +130,7 @@ describe("Modal interaction testing", () => {
             cy.get("[data-cy='pokemon-card-footer-description-section']").as("cardDescriptionSection").should("exist").then(() => {
                 cy.get("@cardDescriptionSection")
                     .find("strong")
-                    .should("have.text", `${interception.response.body.flavor_text_entries[0].flavor_text.replace(/\u000c/g, ' ')}`);
+                    .should("have.text", `${interception.response.body.flavor_text_entries[0].flavor_text.replace(/\n/g, ' ').replace(/\u000c/g, ' ')}`);
             });
         });
 
