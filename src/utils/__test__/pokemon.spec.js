@@ -1,58 +1,22 @@
 import { 
     getSpriteUrl, 
     loadSpriteUrl,
-    getPokemonNames,
-    getPokemonsInPage,
-    parsePokemonName,
-    getPokemonSkills,
-    getPokemonStats,
-    getPokemonTypes,
-    getPokemonAdvantage,
-    getPokemonGenus,
-    getDescription,
-    getBackgroundStyle,
-    getBackgroundTexture,
-    getAdvantageImage,
-    getTypeImage,
-    backgroundChart,
-    advantageChart,
 } from "../pokemonDataHandlers";
+import { 
+    randomizeNumber 
+} from "../general";
 import { 
     getPokemonSprites, 
     getRandomPokemon, 
 } from "../pokemon";
-import { 
-    convertDecimeterToFeet, 
-    convertGramToLb, 
-    randomizeNumber 
-} from "../general";
-import pokemonTypeImage from "../../assets/img/pokemon-type/index";
-import textures from "../../assets/img/modal-texture/index";
 
 jest.mock("../pokemonDataHandlers", () => ({
     getSpriteUrl: jest.fn(),
     loadSpriteUrl: jest.fn(),
-    getPokemonNames: jest.fn(),
-    getPokemonsInPage: jest.fn(),
-    parsePokemonName: jest.fn(),
-    getPokemonSkills: jest.fn(),
-    getPokemonStats: jest.fn(),
-    getPokemonTypes: jest.fn(),
-    getPokemonAdvantage: jest.fn(),
-    getPokemonGenus: jest.fn(),
-    getDescription: jest.fn(),
-    getBackgroundStyle: jest.fn(),
-    getBackgroundTexture: jest.fn(),
-    getAdvantageImage: jest.fn(),
-    getTypeImage: jest.fn(),
-    backgroundChart: jest.fn(),
-    advantageChart: jest.fn(),
 }));
 jest.mock("../general", () => ({
     ...jest.requireActual("../general"),
     randomizeNumber: jest.fn(),
-    convertDecimeterToFeet: jest.fn(),
-    convertGramToLb: jest.fn(),
 }));
 jest.mock("../../assets/img/pokemon-type/index", () => jest.fn());
 jest.mock("../../assets/img/modal-texture/index", () => jest.fn());
