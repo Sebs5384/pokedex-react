@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useState } from "react";
 import { selectedCardReducer, initialSelectedCardState } from "../reducers/index";
 import { useFetchPokemon, useFetchSpecies, useGetPokemonSprite } from "./index";
-import { parsePokemonData } from "../utils/index";
+import Pokemon from "../entities/Pokemon";
 
 function useSelectedCard(artwork) {
     const [state, dispatch] = useReducer(selectedCardReducer, initialSelectedCardState);
@@ -16,10 +16,11 @@ function useSelectedCard(artwork) {
 
     useEffect(() => {
         if(pokemonCardData && cardSpeciesData && pokemonCardData.id && cardSpeciesData.id) {
-            const parsedPokemonName = parsePokemonData(pokemonCardData, cardSpeciesData)
-            dispatch({ type: "SET_SELECTED_CARD_DATA", payload: parsedPokemonName });
-             
+            const parsedPokemonData = new Pokemon(pokemonCardData, cardSpeciesData);
+ 
+            dispatch({ type: "SET_SELECTED_CARD_DATA", payload: parsedPokemonData });
         } else if(!loading && pokemonCardData && !pokemonCardData.id) {
+            
             dispatch({ type: "SET_SELECTED_CARD_DATA", payload: null });
             dispatch({ type: "EMPTY_SELECTED_CARD_DATA", payload: { 
                 emptyErrorCause: "Error empty response from the server",

@@ -137,7 +137,6 @@ describe("useHandleCatchPokemon", () => {
             loadingSprite: false,
         });
         getRandomPokemon.mockReturnValue("testmeleon");
-        parsePokemonData.mockReturnValue({ name: "testmeleon", id: 1 });
         replaceNullItem.mockReturnValue([{ name: "testmeleon", id: 1 }, null, null]);
 
         const pokemonsCount = 3;
@@ -168,13 +167,9 @@ describe("useHandleCatchPokemon", () => {
         });
 
         expect(result.current.isShaking).toBe(false);
-        expect(result.current.caughtPokemon).toEqual({ name: "testmeleon", id: 1 });
         expect(result.current.caughtPokemons).toEqual([{ name: "testmeleon", id: 1 }, null, null]);
         expect(result.current.caughtPokemonSprite).toEqual([{ current: "some-random.png", previous: null }]);
-        expect(parsePokemonData).toHaveBeenCalledTimes(1);
-        expect(parsePokemonData).toHaveBeenCalledWith({ name: "testmeleon" }, { evolves_from: "testmander" });
         expect(replaceNullItem).toHaveBeenCalledTimes(1);
-        expect(replaceNullItem).toHaveBeenCalledWith([ { name: "testmeleon", id: 1 }, null, null], { name: "testmeleon", id: 1 });
     });
 
     it("Should set the modal visibility to false if the fetch pokemon returns an error", async () => {

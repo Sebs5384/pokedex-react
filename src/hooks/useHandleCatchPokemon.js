@@ -1,7 +1,8 @@
 import { useReducer, useEffect } from "react";
 import { catchPokemonReducer, initialCatchPokemonState } from "../reducers/index";
 import { useFetchPokemon, useFetchSpecies, useGetPokemonSprite } from "./index";
-import { getRandomPokemon, replaceNullItem, parsePokemonData } from "../utils/index";
+import { getRandomPokemon, replaceNullItem } from "../utils/index";
+import Pokemon from "../entities/Pokemon";
 
 function useHandleCatchPokemon(pokemonsCount, pokemonList, initialStates = initialCatchPokemonState) {
     const [state, dispatch] = useReducer(catchPokemonReducer, initialStates);
@@ -50,7 +51,7 @@ function useHandleCatchPokemon(pokemonsCount, pokemonList, initialStates = initi
 
     useEffect(() => {
         if(state.randomPokemon && caughtPokemonData && caughtSpeciesData) {
-            const parsedPokemon = parsePokemonData(caughtPokemonData, caughtSpeciesData);
+            const parsedPokemon = new Pokemon(caughtPokemonData, caughtSpeciesData);
             dispatch({ type: "SET_CAUGHT_POKEMON", payload: parsedPokemon });
             
             const updatedCaughtPokemons = replaceNullItem(state.caughtPokemons, parsedPokemon);
