@@ -1,16 +1,105 @@
 const URL = "https://pokeapi.co/api/v2";
 
 async function getPokemons(limit, offset) {
-    const pokemonsURL = `${URL}/pokemon?limit=${limit}&offset=${offset}`;
+    if(limit === null || offset === null) return;
 
-    return await fetch(pokemonsURL)
-        .then(response => response.json())
-        .catch((error) => {
-            throw new Error(error);
-        })
-        .finally(() => {
-            console.log(`Warning, using API call URL: ${pokemonsURL}`);
-        });
+    const pokemonsURL = `${URL}/pokemon?limit=${limit}&offset=${offset}`;
+    try {
+        const response = await fetch(pokemonsURL);
+        if(!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        };
+
+        const pokemons = await response.json();
+        return pokemons;
+    } catch(error) {
+        throw new Error(error);
+    };
 };
 
-export default getPokemons;
+async function getPokemon(name) {
+    if(name === null || name === undefined) return;
+
+    const pokemonURL = `${URL}/pokemon/${name}`;
+    try {
+        const response = await fetch(pokemonURL);
+        if(!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        };
+
+        const pokemon = await response.json();
+        return pokemon;
+    } catch(error) {
+        throw new Error(error);
+    };
+};
+
+async function getPokemonSpecies(species, speciesCompleteName) {
+    if(species === null) return;
+
+    const speciesURL = `${URL}/pokemon-species/${species}`;
+    const speciesCompleteNameUrl = `${URL}/pokemon-species/${speciesCompleteName}`;
+
+    try {
+        const response = await fetch(speciesURL);
+
+        if(response.ok) {
+            const pokemonSpecies = await response.json();
+
+            return pokemonSpecies;
+        } else if (response.status === 404 && speciesCompleteName) {
+            const completeNameResponse = await fetch(speciesCompleteNameUrl);
+            
+            if(completeNameResponse.ok) {
+                const pokemonSpecies = await completeNameResponse.json();
+
+                return pokemonSpecies;
+            };
+        };
+
+        if(!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        };
+
+    } catch(error) {
+        throw new Error(error.message);
+    };
+};
+
+async function getPokemonSprite(pokemon, artwork = "", getSpriteUrl, loadSpriteUrl) {    
+    try {
+        const currentSpriteUrl = getSpriteUrl(pokemon.id, artwork);
+        const currentSpritePromise = loadSpriteUrl(currentSpriteUrl);
+
+        let previousSpritePromise = Promise.resolve(null);
+        
+        if(pokemon.evolutionGenus.id === "None") {
+
+            previousSpritePromise = Promise.resolve(null);
+        } else if(pokemon.evolutionGenus && pokemon.evolutionGenus.id) {
+            
+            const previousSpriteUrl = getSpriteUrl(pokemon.evolutionGenus.id, artwork);
+            previousSpritePromise = loadSpriteUrl(previousSpriteUrl);
+        };
+
+        const [currentSprite, previousSprite] = await Promise.all([currentSpritePromise, previousSpritePromise]);
+        
+        return {
+            current: currentSprite,
+            previous: previousSprite
+        };
+    } catch (error) {
+        throw new Error(`Error loading sprite: ${error.message}`);
+    };
+};
+
+export {
+    URL,
+    getPokemons,
+    getPokemon,
+    getPokemonSpecies,
+    getPokemonSprite
+};
