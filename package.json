@@ -1,4 +1,5 @@
 {
+  "homepage": "https://Sebs5384.github.io/pokedex-react",
   "name": "pokedex-react",
   "version": "0.1.0",
   "private": true,
@@ -14,7 +15,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress-dev": "cypress open",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -48,6 +51,7 @@
     "bootstrap": "^5.3.3",
     "classnames": "^2.5.1",
     "cypress": "^13.15.0",
+    "gh-pages": "^6.3.0",
     "prop-types": "^15.8.1",
     "react-bootstrap": "^2.10.4"
   }
