@@ -1,45 +1,46 @@
-import styled from "@emotion/styled";
-import Card from "./Card";
+import { usePokedexContext } from "../../context/PokedexContext";
+import { GridSection, GridWrapper, GridBody, GridBoard } from "./Pokemon";
+import LoadingGrid from "./LoadingGrid";
+import GridCard from "./GridCard";
+import GridErrorCard from "./GridErrorCard";
 
-const Section = styled.section`
-    display: flex;
-    justify-content: center;
-    margin-top: 0.5rem;
-`;
+function Grid() {
+    const { card, pagination } = usePokedexContext();
 
-const Wrapper = styled.div`
-    width: 100%;
-    max-width: 1260px;
-    margin: 0 auto;
-    padding: 1rem;
-    background-color: #fff8dc;
-    border: 3px solid rgb(250, 239, 176);
-    border-style: outset;
-    border-radius: 8px;
-`;
-
-const Body = styled.div`
-    padding: 1rem;
-`;
-
-const Board = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-`;
-
-function Grid({ cards }){
     return(
-        <Section>
-            <Wrapper>
-                <Body>
-                    <Board>
-                        {cards && cards.results.map(({ name, url }) => <Card key={name} cardKey={name} image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${url.split("/")[url.split("/").length - 2]}.png`}/>)}
-                    </Board>
-                </Body>
-            </Wrapper>
-        </Section>
+        <GridSection 
+            data-cy={"grid-section"}
+            data-testid={"grid-section"}
+        >
+            <GridWrapper >
+                <GridBody>
+                    <GridBoard 
+                        data-cy={"grid-board"}
+                        data-testid={"grid-board"}
+                    >
+                        {   pagination.loadingPokemons ? <LoadingGrid /> 
+                            :
+                            pagination.paginatorError ? 
+                                <GridErrorCard />
+                            :
+                            pagination.pokemonsInPage && pagination.pokemonsInPage.length ? pagination.pokemonsInPage.map(({ name, sprite, id }) => 
+                                <GridCard 
+                                    key={name}
+                                    id={id} 
+                                    pokemonName={name} 
+                                    image={sprite}
+                                    selectCard={card.handleSelectedCard}
+                                />)
+                            : 
+                            pagination.noCards ? 
+                                <GridErrorCard />
+                            :
+                                <LoadingGrid />
+                        }
+                    </GridBoard>
+                </GridBody>
+            </GridWrapper>
+        </GridSection>
     );
 };
 

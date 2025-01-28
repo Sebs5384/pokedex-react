@@ -1,0 +1,9 @@
+{
+  "count": 1302,
+  "next": null,
+  "previous": "https://pokeapi.co/api/v2/pokemon/?offset=1280&limit=20",
+  "results": [
+    { "name": "terapagos-terastal", "url": "https://pokeapi.co/api/v2/pokemon/10276/" },
+    { "name": "terapagos-stellar", "url": "https://pokeapi.co/api/v2/pokemon/10277/" }
+  ]
+}

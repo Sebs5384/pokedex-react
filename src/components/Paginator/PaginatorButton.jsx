@@ -1,31 +1,32 @@
-import styled from "@emotion/styled";
+import { PaginationLink } from "./Pokemon";
 import cx from "classnames";
+import PropTypes from "prop-types";
 
-const PaginationLink = styled.a`
-    margin: 0.1rem;
-    color: black;
-    &:focus,
-    &:hover {
-        color: black;
-        border-color: #dc143c;
-        box-shadow: 0 0 10px #dc143c;
-    }
-    &.hidden {
-        display: none;
-    }
-`;
-
-function PaginatorButton({ children, isHidden, onClick = () => {} }) {
+function PaginatorButton({ children, isHidden, isDisabled, dataAttribute, setPage }) {
     return (
         <PaginationLink 
             className={cx("page-link", 
-                { "hidden": isHidden }
+                { 
+                  "hidden": isHidden,
+                  "disabled": isDisabled
+                }
             )} 
-            href="#" 
-            onClick={onClick}>
+            href="#"
+            onClick={isDisabled ? () => {} : setPage}
+            data-cy={dataAttribute}
+            data-testid={dataAttribute}
+        >
             {children}
         </PaginationLink>
     );
 };
+PropTypes.PaginatorButton = {
+    children: PropTypes.node,
+    isHidden: PropTypes.bool,
+    isDisabled: PropTypes.bool,
+    dataAttribute: PropTypes.string,
+    setPage: PropTypes.func
+};
+
 
 export default PaginatorButton;
