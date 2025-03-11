@@ -34,10 +34,10 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
     };
 
     const setPokemonsInPage = async () => {
-        if(paginatorPokemons && paginatorPokemons.results) {
+        if(paginatorPokemons && paginatorPokemons.results.length) {
             const pokemonSprites = await getPokemonSprites(paginatorPokemons.results);
             const pokemonsInPage = await getPokemonsInPage(paginatorPokemons, pokemonSprites);
-
+            
             dispatch({ type: "SET_NO_CARDS_IN_PAGE", payload: false });
             dispatch({ type: "SET_POKEMONS_IN_PAGE", payload: pokemonsInPage });
         };
