@@ -27,6 +27,11 @@ function paginationReducer(state = initialPaginationState, action) {
                 ...state,
                 pokemonsInPage: payload
             };
+        case "CLEAR_POKEMONS_IN_PAGE": 
+            return {
+                ...state,
+                pokemonsInPage: payload
+            };
         case "SET_SEARCHBOX_VALUE":
             return {
                 ...state,

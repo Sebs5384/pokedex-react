@@ -18,7 +18,8 @@ function Grid() {
                         data-cy={"grid-board"}
                         data-testid={"grid-board"}
                     >
-                        {   pagination.loadingPokemons ? <LoadingGrid /> 
+                        {   pagination.loadingPokemons ? 
+                                <LoadingGrid /> 
                             :
                             pagination.paginatorError ? 
                                 <GridErrorCard />
@@ -32,7 +33,7 @@ function Grid() {
                                     selectCard={card.handleSelectedCard}
                                 />)
                             : 
-                            pagination.noCards ? 
+                            pagination.noCards && !pagination.loadingPokemons ? 
                                 <GridErrorCard />
                             :
                                 <LoadingGrid />

@@ -12,16 +12,19 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
 
     const setCurrentPage = (pageIndex) => {
         const currentPage = pageIndex;
+        dispatch({ type: "CLEAR_POKEMONS_IN_PAGE", payload: [] });
         dispatch({ type: "SET_CURRENT_PAGE", payload: currentPage });
     };
 
     const setNextPage = () => {
         const nextPage = state.currentPage + 1;
+        dispatch({ type: "CLEAR_POKEMONS_IN_PAGE", payload: [] });
         dispatch({ type: "SET_CURRENT_PAGE", payload: nextPage });
     };
 
     const setPreviousPage = () => {
         const previousPage = state.currentPage - 1;
+        dispatch({ type: "CLEAR_POKEMONS_IN_PAGE", payload: [] });
         dispatch({ type: "SET_CURRENT_PAGE", payload: previousPage });
     };
 
@@ -35,16 +38,20 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
             const pokemonSprites = await getPokemonSprites(paginatorPokemons.results);
             const pokemonsInPage = await getPokemonsInPage(paginatorPokemons, pokemonSprites);
 
+            dispatch({ type: "SET_NO_CARDS_IN_PAGE", payload: false });
             dispatch({ type: "SET_POKEMONS_IN_PAGE", payload: pokemonsInPage });
-        } else {
-            setTimeout(() => {
-                dispatch({ type: "SET_NO_CARDS_IN_PAGE", payload: true });
-            }, 10000);
         };
+
+        setTimeout(() => {
+            if(paginatorPokemons && !paginatorPokemons.results.length){
+                dispatch({ type: "SET_NO_CARDS_IN_PAGE", payload: true });
+            };
+        }, 10000);
     };
 
     const handleKeyDown = (event) => {
         if(event.key === "Enter") {
+            dispatch({ type: "CLEAR_POKEMONS_IN_PAGE", payload: [] })
             const pageNumber = parseInt(state.searchboxValue);
             const validPage = validateSearchboxPage(pageNumber, totalPages);
 
@@ -65,8 +72,11 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
 
     useEffect(() => {
         dispatch({ type: "SET_NEXT_PAGE_ITEMS", payload: nextOffset });
+    }, [state.currentPage, ITEMS_PER_PAGE, nextOffset]);
+
+    useEffect(() => {
         setPokemonsInPage();
-    }, [state.currentPage, ITEMS_PER_PAGE, nextOffset, paginatorPokemons]);
+    }, [paginatorPokemons]);
 
     return {
         loadingPokemons: loading,
