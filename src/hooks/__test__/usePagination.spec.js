@@ -174,7 +174,9 @@ describe("usePagination", () => {
     it("Should dispatch no cards state when fetching no results", async () => {
         jest.useFakeTimers();
         useFetchPokemons.mockReturnValue({
-            paginatorPokemons: null,
+            paginatorPokemons: {
+                results: [],
+            },
         });
         useTotalPages.mockReturnValue({
             totalPages: [],
@@ -187,6 +189,7 @@ describe("usePagination", () => {
         act(() => {
             jest.advanceTimersByTime(10000);
         });
+        
         expect(result.current.pokemonsInPage).toEqual([]);
         expect(result.current.noCards).toBe(true);
     });
