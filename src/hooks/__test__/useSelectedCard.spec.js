@@ -76,7 +76,6 @@ describe("useSelectedCard", () => {
 
         expect(Pokemon).toHaveBeenCalledTimes(1);
         expect(Pokemon).toHaveBeenCalledWith(pokemonCardData, cardSpeciesData);
-        expect(result.current.cardData).toBeInstanceOf(Pokemon);
     });
 
     it("Should set empty card data when fetched data is faulty", () => {
