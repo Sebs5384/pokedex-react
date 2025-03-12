@@ -59,7 +59,9 @@ describe("usePagination", () => {
 
     it("Should set the current page when invoking setCurrentPage", () => {
         useFetchPokemons.mockReturnValue({
-            paginatorPokemons: {},
+            paginatorPokemons: {
+                results: []
+            },
         });
         useTotalPages.mockReturnValue({
             totalPages: 3,
@@ -74,7 +76,9 @@ describe("usePagination", () => {
 
     it("Should set the next page when invoking setNextPage", () => {
         useFetchPokemons.mockReturnValue({
-            paginatorPokemons: {},
+            paginatorPokemons: {
+                results: []
+            },
         });
         useTotalPages.mockReturnValue({
             totalPages: 3,
@@ -89,7 +93,9 @@ describe("usePagination", () => {
 
     it("Should set the previous page when invoking setPreviousPage", () => {
         useFetchPokemons.mockReturnValue({
-            paginatorPokemons: {},
+            paginatorPokemons: {
+                results: []
+            },
         });
         useTotalPages.mockReturnValue({
             totalPages: 3,
@@ -105,7 +111,9 @@ describe("usePagination", () => {
 
     it("Should set the searchbox value when invoking setSearchboxPokemon", async () => {
         useFetchPokemons.mockReturnValue({
-            paginatorPokemons: {},
+            paginatorPokemons: {
+                results: []
+            },
         });
         useTotalPages.mockReturnValue({
             totalPages: 3,
@@ -122,7 +130,9 @@ describe("usePagination", () => {
 
     it("Should set the current page to the value of searchbox when handleKeyDown is invoked", async () => {
         useFetchPokemons.mockReturnValue({
-            paginatorPokemons: {},
+            paginatorPokemons: {
+                results: []
+            },
         });
         useTotalPages.mockReturnValue({
             totalPages: 3,
@@ -144,7 +154,9 @@ describe("usePagination", () => {
     it("Should handle the error through a popup when the page is not valid when invoking handleKeyDown", async () => {
         jest.useFakeTimers();
         useFetchPokemons.mockReturnValue({
-            paginatorPokemons: {},
+            paginatorPokemons: {
+                results: []
+            },
         });
         useTotalPages.mockReturnValue({
             totalPages: 3,
