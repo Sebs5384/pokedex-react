@@ -14,11 +14,21 @@ function useSelectedCard(artwork) {
         dispatch({ type: "SET_SELECTED_CARD_NAME", payload: name });
     };
 
+    const preloadSelectedCardTexture = (parsedPokemonData, dispatch) => {
+        const texture = parsedPokemonData.backgroundTexture;
+        const preload = new Image();
+        preload.src = texture;
+        
+        preload.onload = () => {
+            dispatch({ type: "SET_SELECTED_CARD_DATA", payload: parsedPokemonData });
+        };
+    };
+
     useEffect(() => {
         if(pokemonCardData && cardSpeciesData && pokemonCardData.id && cardSpeciesData.id) {
             const parsedPokemonData = new Pokemon(pokemonCardData, cardSpeciesData);
- 
-            dispatch({ type: "SET_SELECTED_CARD_DATA", payload: parsedPokemonData });
+            preloadSelectedCardTexture(parsedPokemonData, dispatch);
+
         } else if(!loading && pokemonCardData && !pokemonCardData.id) {
             
             dispatch({ type: "SET_SELECTED_CARD_DATA", payload: null });
