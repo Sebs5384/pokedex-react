@@ -43,6 +43,62 @@ function validateSearchboxPage(page, totalPages) {
     return true;
 };
 
+function levenshteinDistance(sourceString, targetString) {
+    const distanceMatrix = [];
+    const sourceLength = sourceString.length;
+    const targetLength = targetString.length;
+
+    if(sourceLength === 0) return targetLength;
+    if(targetLength === 0) return sourceLength;
+
+    for(let rowIndex = 0; rowIndex <= sourceLength; rowIndex++) {
+        distanceMatrix[rowIndex] = [rowIndex];
+    };
+
+    for(let columnIndex = 0; columnIndex <= targetLength; columnIndex++) {
+        distanceMatrix[0][columnIndex] = columnIndex;
+    };
+
+    for(let rowIndex = 1; rowIndex <= sourceLength; rowIndex++) {
+        const sourceCharacter = sourceString[rowIndex - 1];
+
+        for(let columnIndex = 1; columnIndex <= targetLength; columnIndex++) {
+            const targetCharacter = targetString[columnIndex - 1];
+            const substitutionCost = (sourceCharacter === targetCharacter) ? 0 : 1;
+
+            distanceMatrix[rowIndex][columnIndex] = Math.min(
+                distanceMatrix[rowIndex - 1][columnIndex] + 1,
+                distanceMatrix[rowIndex][columnIndex - 1] + 1,
+                distanceMatrix[rowIndex - 1][columnIndex - 1] + substitutionCost
+            )
+        };
+    };
+
+    return distanceMatrix[sourceLength][targetLength];
+};
+
+const handleProximitySearch = (query, items) => {
+    const threshold = 3;
+    
+    if(!query) return items;
+
+    const lowerCaseQuery = query.toLowerCase();
+    const exactOrPartialMatches = [];
+    const fuzzyMatches = [];
+
+    items?.forEach((item) => {
+        const lowerCaseItem = item.toLowerCase();
+
+        if(lowerCaseItem.includes(lowerCaseQuery)) {
+            exactOrPartialMatches.push(item);
+        } else if(levenshteinDistance(lowerCaseQuery, lowerCaseItem) <= threshold) {
+            fuzzyMatches.push(item);
+        };
+    });
+
+    return [...exactOrPartialMatches, ...fuzzyMatches];
+};
+
 export {
     setItemRange,
     convertDecimeterToFeet,
@@ -50,4 +106,5 @@ export {
     randomizeNumber,
     replaceNullItem,
     validateSearchboxPage,
+    handleProximitySearch,
 };

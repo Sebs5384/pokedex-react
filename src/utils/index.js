@@ -1,5 +1,13 @@
+import { 
+    setItemRange, 
+    convertDecimeterToFeet, 
+    convertGramToLb, 
+    randomizeNumber, 
+    replaceNullItem, 
+    validateSearchboxPage, 
+    handleProximitySearch
+} from "./general";
 import { getSpriteUrl, loadSpriteUrl, getPokemonNames, getPokemonsInPage } from "./pokemonDataHandlers";
-import { setItemRange, convertDecimeterToFeet, convertGramToLb, randomizeNumber, replaceNullItem, validateSearchboxPage } from "./general";
 import { getRandomPokemon, getPokemonSprites } from "./pokemon";
 
 export {
@@ -11,6 +19,7 @@ export {
     convertGramToLb,
     randomizeNumber,
     replaceNullItem,
+    handleProximitySearch,
     getRandomPokemon,
     getPokemonsInPage,
     validateSearchboxPage,

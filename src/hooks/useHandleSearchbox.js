@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from "react";
 import { searchboxReducer, initialSearchboxState } from "../reducers/index";
 import { useFetchPokemons } from "./index";
-import { getPokemonNames } from "../utils/index";
+import { getPokemonNames, handleProximitySearch } from "../utils/index";
 
 function useHandleSearchbox(limit, offset) {
     const [state, dispatch] = useReducer(searchboxReducer, initialSearchboxState);
@@ -29,9 +29,7 @@ function useHandleSearchbox(limit, offset) {
         };
     }, [searchboxPokemons, state.searchboxItems]);
     
-    const filteredPokemons = state.searchboxItems ? state.searchboxItems.filter((item) => {
-        return item.toLowerCase().includes(state.searchboxPokemon.toLowerCase());
-    }) : [];
+    const filteredPokemons = handleProximitySearch(state.searchboxPokemon, state.searchboxItems);
 
     return {
         pokemonList: state.searchboxItems,
