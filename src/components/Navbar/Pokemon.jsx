@@ -9,6 +9,10 @@ const Bar = styled.nav`
     border: 2px solid #dc143c;
     border-style: outset;
     color: #fff;
+
+    @media (max-width: 480px) {
+        height: 60px
+    }
 `;
 
 const NavSection = styled.section`
@@ -41,17 +45,49 @@ const NavContainer = styled.div`
             margin-right: 75px;
         }
     }
+
+    @media (max-width: 480px) {
+        &.poke-logo {
+            width: 75px;
+
+            img {
+                width: 65px;
+                height: 30px;
+                margin-right: 25px;
+            }
+        }
+
+        &.poke-slot {
+            display: flex;
+            img {
+                width: 30px;
+                height: 30px;
+                margin-right: 15px;
+            }
+        }
+
+        &.catch-pokemon {
+            display: none;
+        }
+    }
 `;
 
 const NavInputGroup = styled(InputGroup)`
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
 `;
 
 const NavInputGroupText = styled(InputGroup.Text)`
     &.magnifier {
         img {
-            width: 35px;
-            height: 35px;
+            width: 25px;
+            height: 24px;
         }
+    }
+
+    @media (max-width: 480px) {
+        display: none;
     }
 `;
 
@@ -65,6 +101,18 @@ const NavForm = styled(Form.Control)`
     &.pokedex-search-box {
         width: 400px;
         margin-right: 20px;
+    }
+
+    @media (max-width: 480px) {
+        &.pokedex-search-box {
+            width: 125px;
+            height: 28px;
+            border-radius: 0px;
+
+            &::placeholder {
+                font-size: 10px;
+            }
+        }
     }
 `;
 
@@ -84,6 +132,11 @@ const PokeballButton = styled(({ backgroundImage, ...rest}) => <Button {...rest}
         animation: poke-shake 5s;
         pointer-events: none;
         opacity: 0.5;
+    }
+
+    @media (max-width: 480px) {
+        width: 10px;
+        height: 30px;
     }
 
     @keyFrames poke-shake {
