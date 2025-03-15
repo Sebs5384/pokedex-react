@@ -1,13 +1,13 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
-import { validateSearchboxPage } from "../../utils/general";
+import { validateSearchboxPage, preloadImage } from "../../utils/general";
 import { getPokemonsInPage, getPokemonSprites } from "../../utils/pokemon";
 import usePagination from "../usePagination";
 import useFetchPokemons from "../useFetchPokemons";
 import useTotalPages from "../useTotalPages";
-import { use } from "react";
 
 jest.mock("../../utils/general", () => ({
     validateSearchboxPage: jest.fn(),
+    preloadImage: jest.fn(),
 }));
 jest.mock("../../utils/pokemon", () => ({
     getPokemonsInPage: jest.fn(),
@@ -19,6 +19,20 @@ jest.mock("../useTotalPages", () => jest.fn());
 describe("usePagination", () => {
     const itemsPerPage = 20;
     const initialPageIndex = 1;
+    let mockImage = {};
+
+    beforeEach(() => {
+        preloadImage.mockImplementation(() => {
+            mockImage = {};
+            setTimeout(() => {
+                if(typeof mockImage.onload === "function") {
+                    mockImage.onload();
+                };
+            }, 0);
+
+            return mockImage;
+        });
+    });
 
     it("Should run setPokemonsInPage as a side effect on mount", async () => {
         useFetchPokemons.mockReturnValue({
