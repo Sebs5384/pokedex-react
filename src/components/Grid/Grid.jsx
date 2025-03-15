@@ -30,6 +30,7 @@ function Grid() {
                                     id={id} 
                                     pokemonName={name} 
                                     image={sprite}
+                                    backgroundImage={pagination.cardBackground}
                                     selectCard={card.handleSelectedCard}
                                 />)
                             : 

@@ -1,16 +1,15 @@
 import { PokemonCard, PokemonName } from "./Pokemon";
 import ImageContainer from "../shared/ImageContainer";
-import pokeballImage from "../../assets/img/misc/pokeball.png";
 import PropTypes from "prop-types";
 
-function GridCard({ id, pokemonName, image, selectCard }) {
+function GridCard({ id, pokemonName, image, backgroundImage, selectCard }) {
     return (
         <PokemonCard 
             key={pokemonName} 
             className={"col-2 card-body text-center image-size"}
             data-cy={`${pokemonName}-grid`}
             data-testid={`${pokemonName}-grid`} 
-            backgroundImage={pokeballImage} 
+            backgroundImage={backgroundImage} 
             onClick={() => typeof selectCard === "function" && selectCard(pokemonName)}
         >
             <PokemonName>
