@@ -1,7 +1,8 @@
 import { useReducer, useEffect } from "react";
 import { paginationReducer, initialPaginationState } from "../reducers/index";
 import { useFetchPokemons, useTotalPages } from "./index";
-import { getPokemonsInPage, validateSearchboxPage, getPokemonSprites } from "../utils/index";
+import { getPokemonsInPage, validateSearchboxPage, getPokemonSprites, preloadImage } from "../utils/index";
+import pokeballImage from "../assets/img/misc/pokeball.png";
 
 function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
     const [state, dispatch] = useReducer(paginationReducer, initialPaginationState);
@@ -39,6 +40,7 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
             const pokemonsInPage = await getPokemonsInPage(paginatorPokemons, pokemonSprites);
             
             dispatch({ type: "SET_NO_CARDS_IN_PAGE", payload: false });
+            dispatch({ type: "SET_CARD_BACKGROUND", payload: pokeballImage });
             dispatch({ type: "SET_POKEMONS_IN_PAGE", payload: pokemonsInPage });
         };
 
@@ -75,7 +77,10 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
     }, [state.currentPage, ITEMS_PER_PAGE, nextOffset]);
 
     useEffect(() => {
-        setPokemonsInPage();
+        const backgroundImage = preloadImage(pokeballImage);
+        backgroundImage.onload = () => {
+            setPokemonsInPage();
+        };
     }, [paginatorPokemons]);
 
     return {
@@ -85,6 +90,7 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
         pokemonsInPage: state.pokemonsInPage,
         popupMessage: state.popupMessage,
         invalidPagePopup: state.invalidPagePopup,
+        cardBackground: state.cardBackground,
         noCards: state.noCards,
         searchboxValue: state.searchboxValue,
         totalPages,
