@@ -4,3 +4,18 @@ body {
     background-size: cover;
     overflow-x: hidden;
 };
+
+.modal {
+    overflow-y: auto;
+}
+
+.modal-open {
+    overflow: auto;
+    padding-left: 0px !important;
+}
+
+@media (max-width: 480px) {
+    .modal-open {
+        padding-right: 0px !important;
+    }
+}
