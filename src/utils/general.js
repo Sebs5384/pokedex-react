@@ -99,6 +99,13 @@ const handleProximitySearch = (query, items) => {
     return [...exactOrPartialMatches, ...fuzzyMatches];
 };
 
+function preloadImage(src) {
+    const image = new Image();
+    image.src = src;
+
+    return image;
+};
+
 export {
     setItemRange,
     convertDecimeterToFeet,
@@ -107,4 +114,5 @@ export {
     replaceNullItem,
     validateSearchboxPage,
     handleProximitySearch,
+    preloadImage,
 };

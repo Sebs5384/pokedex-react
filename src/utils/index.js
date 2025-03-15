@@ -5,7 +5,8 @@ import {
     randomizeNumber, 
     replaceNullItem, 
     validateSearchboxPage, 
-    handleProximitySearch
+    handleProximitySearch,
+    preloadImage,
 } from "./general";
 import { getSpriteUrl, loadSpriteUrl, getPokemonNames, getPokemonsInPage } from "./pokemonDataHandlers";
 import { getRandomPokemon, getPokemonSprites } from "./pokemon";
@@ -13,6 +14,7 @@ import { getRandomPokemon, getPokemonSprites } from "./pokemon";
 export {
     getSpriteUrl,
     loadSpriteUrl,
+    preloadImage,
     getPokemonNames,
     setItemRange,
     convertDecimeterToFeet,
