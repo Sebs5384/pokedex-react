@@ -1,8 +1,11 @@
+html, body {
+    overflow-x: hidden;
+}
+
 body {
     background: linear-gradient(to bottom, #fff8dc, #ff466b, #dc143c, #5e0013);
     background-attachment: fixed;
     background-size: cover;
-    overflow-x: hidden;
 };
 
 .modal {
