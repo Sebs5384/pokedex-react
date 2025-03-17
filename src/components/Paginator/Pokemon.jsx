@@ -13,11 +13,16 @@ const Pagination = styled.nav`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 480px) {
+        width: 45%;
+    }
 `;
 
 const PaginationLink = styled.a`
     margin: 0.1rem;
     color: black;
+    
     &:focus,
     &:hover {
         color: black;
@@ -29,6 +34,10 @@ const PaginationLink = styled.a`
     }
     &.disabled {
         cursor: not-allowed;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 6px;
     }
 `;
 
@@ -52,6 +61,12 @@ const PaginatorSearchboxInput = styled(Form.Control)`
         color: black;
         border-color: #dc143c;
         box-shadow: 0 0 10px #dc143c;
+    }
+
+    @media (max-width: 480px) {
+        width: 40px;
+        height: 40px;
+        font-size: 7px;
     }
 `;
 
