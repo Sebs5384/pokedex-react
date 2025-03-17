@@ -53,11 +53,11 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
 
     const handleKeyDown = (event) => {
         if(event.key === "Enter") {
-            dispatch({ type: "CLEAR_POKEMONS_IN_PAGE", payload: [] })
             const pageNumber = parseInt(state.searchboxValue);
             const validPage = validateSearchboxPage(pageNumber, totalPages);
 
             if(validPage === true) {
+                dispatch({ type: "CLEAR_POKEMONS_IN_PAGE", payload: [] });
                 dispatch({ type: "SET_CURRENT_PAGE", payload: pageNumber });
                 dispatch({ type: "SET_SEARCHBOX_VALUE", payload: "" });
             } else {
