@@ -25,6 +25,10 @@ const GridWrapper = styled.div`
     border-style: outset;
     border-radius: 8px;
     width: 100%;
+
+    @media (max-width: 480px) {
+        max-width: 450px;
+    };
 `;
 
 const GridBody = styled.div`
@@ -56,6 +60,19 @@ const PokemonCard = styled.div`
         height: 200px;
         width: 200px;
     }
+
+    @media (max-width: 480px) {
+        width: 120px;
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        &.image-size img {
+            height: 150px;
+            width: 150px;
+        }
+    }
 `;
 
 const PokemonName = styled.strong`
@@ -71,6 +88,10 @@ const PokemonName = styled.strong`
         border-radius: 5px;
         max-width: 350px;
     }
+
+    @media (max-width: 480px) {
+        font-size: 0.7rem;
+    }
 `;
 
 const LoadingWrapper = styled.div`
@@ -84,11 +105,20 @@ const LoadingText = styled.strong`
     font-size: 1.5rem;
     color: red;
     text-align: center;
+
+    @media (max-width: 480px) {
+        font-size: 1rem;
+    }
 `;
 
 const LoadingSpinner = styled(Spinner)`
     width: 10rem;
     height: 10rem;
+
+    @media (max-width: 480px) {
+        width: 5rem;
+        height: 5rem;
+    }
 `;
 
 export {
