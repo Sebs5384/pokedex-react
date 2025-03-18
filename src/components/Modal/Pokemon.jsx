@@ -84,6 +84,12 @@ const ErrorMessageModal = styled(Modal)`
         ${emeraldFontFace}
         font-family: "pokemon-emerald";
     }
+
+    @media (max-width: 480px) {    
+        &.emerald-font {
+            font-size: 1.2rem;
+        }
+    }
 `;
 
 const PokemonCloseButton = styled(CloseButton)`
@@ -102,6 +108,11 @@ const ErrorCloseButton = styled(CloseButton)`
     border-radius: 2px;
     border-color: gold;
     opacity: 0.7;
+
+    @media (max-width: 480px) {
+        width: 10px;
+        height: 10px;
+    }
 `;
 
 const PokemonTitle = styled(Modal.Title)`
@@ -271,6 +282,26 @@ const PokemonContainer = styled.div`
         background-image: linear-gradient(to right, rgb(255, 202, 44), rgb(255, 137, 2));
     }
 
+    @media (max-width: 480px) {
+        &.fixed-height {
+            min-height: 110px;
+        }
+
+        &.registration-image-background {
+            display: flex;
+            align-items: center;
+        }
+
+        &.registration-image img {
+            width: 100px;
+            height: 100px;
+        }
+
+        &.h3 {
+            font-size: 1rem;
+        }
+    }
+
     @keyframes tickAnimationLeft {
         0% {
             background-image: linear-gradient(to left, rgb(211, 211, 211), rgb(57, 57, 57));
@@ -346,6 +377,18 @@ const PokemonRegistrationText = styled.p`
         animation: typing 1s steps(40), cursor 0.75s step-end forwards;
         animation-fill-mode: forwards;
         animation-delay: 1s;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 1.5rem;
+
+        &.registration-title-font {
+            font-size: 1rem;
+        }
+
+        &.h1 {
+            font-size: 1rem;
+        }
     }
 
     @keyframes typing {
