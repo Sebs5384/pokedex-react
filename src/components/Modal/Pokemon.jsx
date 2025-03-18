@@ -39,6 +39,14 @@ const PokemonCardModal = styled(({ backgroundTexture, ...rest }) => <Modal {...r
         ${emeraldFontFace}
         font-family: "pokemon-emerald";
     }
+
+    @media (max-width: 480px) {
+        .modal-dialog {
+            display: flex;
+            align-items: center;
+            min-height: 90vh;
+        }
+    }
 `;
 
 const PokemonAlertModal = styled(Modal)`
@@ -82,6 +90,10 @@ const PokemonCloseButton = styled(CloseButton)`
     font-size: 0.7rem;
     position: relative;
     right: -20px;
+
+    @media (max-width: 480px) {
+        right: -15px;
+    }
 `;
 
 const ErrorCloseButton = styled(CloseButton)`
@@ -299,6 +311,16 @@ const PokemonCardText = styled.strong`
 
     &.footer-font {
         font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        &.title-font {
+            font-size: 25px;
+        }
+
+        &.banner-font {
+            font-size: 10px;
+        }
     }
 `;
 
