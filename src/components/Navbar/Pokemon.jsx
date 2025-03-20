@@ -13,11 +13,6 @@ const Bar = styled.nav`
     @media (max-width: 480px) {
         height: 60px
     }
-
-    @media (min-width: 481px) and (max-width: 768px) {
-        height: 70px;
-        width: 890px;
-    }
 `;
 
 const NavSection = styled.section`
@@ -76,11 +71,12 @@ const NavContainer = styled.div`
         }
     }
 
-    @media (min-width: 481px) and (max-width: 768px) {
+    @media (min-width: 481px) and (max-width: 520px) {
         &.poke-logo {
             img {
-                width: 150px;
-                height: 40px;
+                width: 90px;
+                height: 30px;
+                margin-right: 20px;
             }
         }
 
@@ -89,8 +85,12 @@ const NavContainer = styled.div`
             img {
                 width: 30px;
                 height: 30px;
-                margin-right: 20px;
+                margin-right: 15px;
             }
+        }
+        
+        &.catch-pokemon {
+            display: none;
         }
     }
 `;
@@ -110,6 +110,10 @@ const NavInputGroupText = styled(InputGroup.Text)`
     }
 
     @media (max-width: 480px) {
+        display: none;
+    }
+
+    @media (min-width: 481px) and (max-width: 520px) {
         display: none;
     }
 `;
@@ -138,9 +142,15 @@ const NavForm = styled(Form.Control)`
         }
     }
 
-    @media (min-width: 481px) and (max-width: 768px) {
+    @media (min-width: 481px) and (max-width: 520px) {
         &.pokedex-search-box {
-            width: 200px;
+            width: 150px;
+            height: 28px;
+            border-radius: 0px;
+            
+            &::placeholder {
+                font-size: 11px;
+            }
         }
     }
 `;
@@ -168,9 +178,9 @@ const PokeballButton = styled(({ backgroundImage, ...rest}) => <Button {...rest}
         height: 30px;
     }
 
-    @media (min-width: 481px) and (max-width: 768px) {
-        width: 40px;
-        height: 40px;
+    @media (min-width: 481px) and (max-width: 520px) {
+        width: 30px;
+        height: 30px;
     }
 
     @keyFrames poke-shake {
@@ -217,6 +227,18 @@ const NavDropdownMenu = styled(Dropdown.Menu)`
     max-height: 250px;
     width: 96%;
     overflow-y: scroll;
+
+    @media (max-width: 480px) {
+        width: 88% !important;
+        min-width: unset !important;
+        font-size: 10px;
+    }
+
+    @media (min-width: 481px) and (max-width: 520px) {
+        width: 89% !important;
+        min-width: unset !important;
+        font-size: 11px;
+    }
 `;
 
 const NavDropdownItem = styled(Dropdown.Item)`

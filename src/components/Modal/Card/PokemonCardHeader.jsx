@@ -2,7 +2,7 @@ import { PokemonContainer, PokemonSection, PokemonCardText, CardTopSeparator, Po
 import ImageContainer from "../../shared/ImageContainer";
 import PropTypes from "prop-types";
 
-function PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPreviousEvolution }) {
+function    PokemonCardHeader({ selectedCard, pokemonSprite, closeModal, selectPreviousEvolution }) {
     return(
         <PokemonContainer closeButton data-testid={"pokemon-card-header"}>
             <PokemonSection className="container-fluid species-wrapper">

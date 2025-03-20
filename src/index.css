@@ -21,3 +21,9 @@ html, body {
         padding-right: 0px !important;
     }
 }
+
+@media (min-width: 481px) and (max-width: 1360px) {
+    html, body  {
+        overflow-x: hidden;
+    }
+}

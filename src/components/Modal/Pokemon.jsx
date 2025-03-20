@@ -302,6 +302,26 @@ const PokemonContainer = styled.div`
         }
     }
 
+    @media (min-width: 481px) and (max-width: 520px) {
+        &.fixed-height {
+            min-height: 110px;
+        }
+
+        &.registration-image-background {
+            display: flex;
+            align-items: center;
+        }
+
+        &.registration-image img {
+            width: 110px;
+            height: 110px;
+        }
+
+        &.h3 {
+            font-size: 1.2rem;
+        }
+    }
+
     @keyframes tickAnimationLeft {
         0% {
             background-image: linear-gradient(to left, rgb(211, 211, 211), rgb(57, 57, 57));
@@ -352,6 +372,10 @@ const PokemonCardText = styled.strong`
         &.banner-font {
             font-size: 10px;
         }
+
+        &.species-font {
+            font-size: 10px;
+        }
     }
 `;
 
@@ -380,6 +404,18 @@ const PokemonRegistrationText = styled.p`
     }
 
     @media (max-width: 480px) {
+        font-size: 1.5rem;
+
+        &.registration-title-font {
+            font-size: 1rem;
+        }
+
+        &.h1 {
+            font-size: 1rem;
+        }
+    }
+
+    @media (min-width: 481px) and (max-width: 520px) {
         font-size: 1.5rem;
 
         &.registration-title-font {

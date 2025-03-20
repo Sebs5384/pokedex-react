@@ -17,17 +17,14 @@ const GridSection = styled.section`
 `;
 
 const GridWrapper = styled.div`
-    max-width: 1260px;
-    margin: 0 auto;
-    padding: 1rem;
+    width: 95%;
     background-color: #fff8dc;
     border: 3px solid rgb(250, 239, 176);
     border-style: outset;
     border-radius: 8px;
-    width: 100%;
 
     @media (max-width: 480px) {
-        max-width: 450px;
+        max-width: 425px;
     };
 `;
 
@@ -73,6 +70,19 @@ const PokemonCard = styled.div`
             width: 150px;
         }
     }
+
+    @media (min-width: 481px) and (max-width: 520px) {
+        width: 150px;
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        &.image-size img {
+            height: 150px;
+            width: 150px;
+        }
+    }
 `;
 
 const PokemonName = styled.strong`
@@ -92,6 +102,10 @@ const PokemonName = styled.strong`
     @media (max-width: 480px) {
         font-size: 0.7rem;
     }
+
+    @media (min-width: 481px) and (max-width: 520px) {
+        font-size: 1rem;
+    }
 `;
 
 const LoadingWrapper = styled.div`
@@ -109,6 +123,10 @@ const LoadingText = styled.strong`
     @media (max-width: 480px) {
         font-size: 1rem;
     }
+
+    @media (min-width: 481px) and (max-width: 520px) {
+        font-size: 1.2rem;
+    }
 `;
 
 const LoadingSpinner = styled(Spinner)`
@@ -118,6 +136,11 @@ const LoadingSpinner = styled(Spinner)`
     @media (max-width: 480px) {
         width: 5rem;
         height: 5rem;
+    }
+
+    @media (min-width: 481px) and (max-width: 520px) {
+        width: 7rem;
+        height: 7rem;
     }
 `;
 

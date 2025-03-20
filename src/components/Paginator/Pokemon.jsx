@@ -17,6 +17,10 @@ const Pagination = styled.nav`
     @media (max-width: 480px) {
         width: 45%;
     }
+
+    @media (min-width: 481px) and (max-width: 520px) {
+        width: 50%;
+    }
 `;
 
 const PaginationLink = styled.a`
@@ -38,6 +42,10 @@ const PaginationLink = styled.a`
 
     @media (max-width: 480px) {
         font-size: 6px;
+    }
+
+    @media (min-width: 481px) and (max-width: 520px) {
+        font-size: 7px;
     }
 `;
 
@@ -67,6 +75,12 @@ const PaginatorSearchboxInput = styled(Form.Control)`
         width: 40px;
         height: 40px;
         font-size: 7px;
+    }
+
+    @media (min-width: 481px) and (max-width: 520px) {
+        width: 45px;
+        height: 45px;
+        font-size: 8px;
     }
 `;
 
