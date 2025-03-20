@@ -322,6 +322,26 @@ const PokemonContainer = styled.div`
         }
     }
 
+    @media (min-width: 521px) and (max-width: 580px) {
+        &.fixed-height {
+            min-height: 110px;
+        }
+
+        &.registration-image-background {
+            display: flex;
+            align-items: center;
+        }
+
+        &.registration-image img {
+            width: 120px;
+            height: 120px;
+        }
+
+        &.h3 {
+            font-size: 1.4rem;
+        }
+    }
+
     @keyframes tickAnimationLeft {
         0% {
             background-image: linear-gradient(to left, rgb(211, 211, 211), rgb(57, 57, 57));
@@ -416,6 +436,18 @@ const PokemonRegistrationText = styled.p`
     }
 
     @media (min-width: 481px) and (max-width: 520px) {
+        font-size: 1.5rem;
+
+        &.registration-title-font {
+            font-size: 1rem;
+        }
+
+        &.h1 {
+            font-size: 1rem;
+        }
+    }
+
+    @media (min-width: 521px) and (max-width: 580px) {
         font-size: 1.5rem;
 
         &.registration-title-font {
