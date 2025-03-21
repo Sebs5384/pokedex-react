@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/pokedex-react/static/css/main.4448037f.css",
-    "main.js": "/pokedex-react/static/js/main.95b13cf6.js",
+    "main.css": "/pokedex-react/static/css/main.1dd3ea24.css",
+    "main.js": "/pokedex-react/static/js/main.a1d038cc.js",
     "static/js/215.fa48cbea.chunk.js": "/pokedex-react/static/js/215.fa48cbea.chunk.js",
     "static/media/fairy-texture.png": "/pokedex-react/static/media/fairy-texture.26675d4274e60bf04ea3.png",
     "static/media/water-texture.png": "/pokedex-react/static/media/water-texture.3f9a6ddfcffaf204e5ed.png",
@@ -76,11 +76,11 @@
     "static/media/ice-type.png": "/pokedex-react/static/media/ice-type.6cca9c7290cf384325d9.png",
     "static/media/catch-a-pokemon.png": "/pokedex-react/static/media/catch-a-pokemon.e4c3c6da71360d557e4a.png",
     "index.html": "/pokedex-react/index.html",
-    "main.4448037f.css.map": "/pokedex-react/static/css/main.4448037f.css.map",
-    "main.95b13cf6.js.map": "/pokedex-react/static/js/main.95b13cf6.js.map"
+    "main.1dd3ea24.css.map": "/pokedex-react/static/css/main.1dd3ea24.css.map",
+    "main.a1d038cc.js.map": "/pokedex-react/static/js/main.a1d038cc.js.map"
   },
   "entrypoints": [
-    "static/css/main.4448037f.css",
-    "static/js/main.95b13cf6.js"
+    "static/css/main.1dd3ea24.css",
+    "static/js/main.a1d038cc.js"
   ]
 }
