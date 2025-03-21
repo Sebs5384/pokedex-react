@@ -94,7 +94,7 @@ const NavContainer = styled.div`
         }
     }
 
-    @media (min-width: 521px) and (max-width: 580px) {
+    @media (min-width: 521px) and (max-width: 820px) {
         &.poke-logo {
             img {
                 width: 100px;
@@ -114,6 +114,29 @@ const NavContainer = styled.div`
 
         &.catch-pokemon {
             display: none;
+        }
+    }
+
+    @media (min-width: 821px) and (max-width: 1060px) {
+        &.poke-logo {
+            img {
+                width: 100px;
+                height: 30px;
+                margin-right: 20px;
+            }
+        }
+
+        &.poke-slot {
+            display: flex;
+            img {
+                width: 30px;
+                height: 30px;
+                margin-right: 20px;
+            }
+        }
+
+        &.catch-pokemon {
+            width: 20%;
         }
     }
 `;
@@ -136,11 +159,7 @@ const NavInputGroupText = styled(InputGroup.Text)`
         display: none;
     }
 
-    @media (min-width: 481px) and (max-width: 520px) {
-        display: none;
-    }
-
-    @media (min-width: 521px) and (max-width: 580px) {
+    @media (min-width: 481px) and (max-width: 940px) {
         display: none;
     }
 `;
@@ -192,6 +211,66 @@ const NavForm = styled(Form.Control)`
             }
         }
     }
+
+    @media (min-width: 581px) and (max-width: 640px) {
+        &.pokedex-search-box {
+            width: 200px;
+            height: 32px;
+            border-radius: 0px;
+
+            &::placeholder {
+                font-size: 11px;
+            }
+        }
+    }
+
+    @media (min-width: 641px) and (max-width: 700px) {
+        &.pokedex-search-box {
+            width: 275px;
+            height: 32px;
+            border-radius: 0px;
+            
+            &::placeholder {
+                font-size: 11px;
+            }
+        }
+    }
+
+    @media (min-width: 701px) and (max-width: 820px) {
+        &.pokedex-search-box {
+            width: 300px;
+            height: 32px;
+            border-radius: 0px;
+            
+            &::placeholder {
+                font-size: 11px;
+            }
+        }
+    }
+
+    @media (min-width: 821px) and (max-width: 940px) {
+        &.pokedex-search-box {
+            width: 300px;
+            height: 40px;
+            border-radius: 0px;
+            
+            &::placeholder {
+                font-size: 13px;
+            }
+        }
+    }
+
+    @media (min-width: 941px) and (max-width: 1060px) {
+        &.pokedex-search-box {
+            width: 300px;
+            height: 38px;
+            border-radius: 0px;
+            
+            &::placeholder {
+                font-size: 13px;
+            }
+        }
+    }
 `;
 
 const PokeballButton = styled(({ backgroundImage, ...rest}) => <Button {...rest}/>)`
@@ -225,6 +304,11 @@ const PokeballButton = styled(({ backgroundImage, ...rest}) => <Button {...rest}
     @media (min-width: 521px) and (max-width: 580px) {
         width: 30px;
         height: 30px;
+    }
+
+    @media (min-width: 581px) and (max-width: 1060px) {
+        width: 32px;
+        height: 32px;
     }
 
     @keyFrames poke-shake {
@@ -284,8 +368,20 @@ const NavDropdownMenu = styled(Dropdown.Menu)`
         font-size: 11px;
     }
 
-    @media (min-width: 521px) and (max-width: 580px) {
+    @media (min-width: 521px) and (max-width: 640px) {
         width: 92% !important;
+        min-width: unset !important;
+        font-size: 12px;
+    }
+
+    @media (min-width: 641px) and (max-width: 940px) {
+        width: 94% !important;
+        min-width: unset !important;
+        font-size: 12px;
+    }
+
+    @media (min-width: 941px) and (max-width: 1024px) {
+        width: 95% !important;
         min-width: unset !important;
         font-size: 12px;
     }

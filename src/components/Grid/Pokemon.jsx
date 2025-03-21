@@ -96,7 +96,59 @@ const PokemonCard = styled.div`
             width: 150px;
         }
     }
-`;
+
+    @media (min-width: 581px) and (max-width: 640px) {
+        width: 200px;
+        height: 225px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        &.image-size img {
+            height: 185px;
+            width: 185px;
+        }
+    }
+
+    @media (min-width: 641px) and (max-width: 700px) {
+        width: 200px;
+        height: 275px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        &.image-size img {
+            height: 225px;
+            width: 225px;
+        }
+    }
+
+    @media (min-width: 701px) and (max-width: 820px) {
+        width: 250px;
+        height: 300px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        &.image-size img {
+            height: 250px;
+            width: 250px;
+        }
+    }
+
+    @media (min-width: 821px) and (max-width: 940px) {
+        width: 150px;
+        height: 250px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        &.image-size img {
+            height: 150px;
+            width: 150px;
+        }
+    }
+`
 
 const PokemonName = styled.strong`
     text-transform: capitalize;
@@ -120,9 +172,17 @@ const PokemonName = styled.strong`
         font-size: 1rem;
     }
 
-    @media (min-width: 521px) and (max-width: 580px) {
+    @media (min-width: 521px) and (max-width: 700px) {
         font-size: 1.2rem;
     }   
+
+    @media (min-width: 701px) and (max-width: 820px) {
+        font-size: 1.4rem;
+    }
+
+    @media (min-width: 821px) and (max-width: 940px) {
+        font-size: 0.8rem;
+    }
 `;
 
 const LoadingWrapper = styled.div`
@@ -141,8 +201,8 @@ const LoadingText = styled.strong`
         font-size: 1rem;
     }
 
-    @media (min-width: 481px) and (max-width: 520px) {
-        font-size: 1.2rem;
+    @media (min-width: 481px) and (max-width: 940px) {
+        font-size: 1rem;
     }
 `;
 
@@ -155,7 +215,7 @@ const LoadingSpinner = styled(Spinner)`
         height: 5rem;
     }
 
-    @media (min-width: 481px) and (max-width: 520px) {
+    @media (min-width: 481px) and (max-width: 940px) {
         width: 7rem;
         height: 7rem;
     }

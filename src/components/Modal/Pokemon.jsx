@@ -182,7 +182,7 @@ const PokemonContainer = styled.div`
     &.registration-screen-background {
         background-image: repeating-linear-gradient(0deg, #8dff9e, #0c5010, transparent 6px, transparent 6px);
         background-size: 5px 100%;
-        margin: 0px 0px;
+        margin: 0px 0px;    
     }
 
     &.registration-details-background {
@@ -342,6 +342,66 @@ const PokemonContainer = styled.div`
         }
     }
 
+    @media (min-width: 581px) and (max-width: 700px) {
+        &.fixed-height {
+            min-height: 110px;
+        }
+        
+        &.registration-image-background {
+            display: flex;
+            align-items: center;
+        }
+
+        &.registration-image img {
+            width: 130px;
+            height: 130px;
+        }
+
+        &.h3 {
+            font-size: 1.4rem;
+        }
+    }
+
+    @media (min-width: 701px) and (max-width: 820px) {
+        &.fixed-height {
+            min-height: 110px;
+        }
+        
+        &.registration-image-background {
+            display: flex;
+            align-items: center;
+        }
+
+        &.registration-image img {
+            width: 140px;
+            height: 140px;
+        }
+
+        &.h3 {
+            font-size: 1.4rem;
+        }
+    }
+
+    @media (min-width: 821px) and (max-width: 940px) {
+        &.fixed-height {
+            min-height: 110px;
+        }
+        
+        &.registration-image-background {
+            display: flex;
+            align-items: center;
+        }
+
+        &.registration-image img {
+            width: 100px;
+            height: 100px;
+        }
+
+        &.h3 {
+            font-size: 1.4rem;
+        }
+    }
+
     @keyframes tickAnimationLeft {
         0% {
             background-image: linear-gradient(to left, rgb(211, 211, 211), rgb(57, 57, 57));
@@ -435,7 +495,7 @@ const PokemonRegistrationText = styled.p`
         }
     }
 
-    @media (min-width: 481px) and (max-width: 520px) {
+    @media (min-width: 481px) and (max-width: 820px) {
         font-size: 1.5rem;
 
         &.registration-title-font {
@@ -447,15 +507,15 @@ const PokemonRegistrationText = styled.p`
         }
     }
 
-    @media (min-width: 521px) and (max-width: 580px) {
+    @media (min-width: 821px) and (max-width: 940px) {
         font-size: 1.5rem;
 
         &.registration-title-font {
-            font-size: 1rem;
+            font-size: 1.5rem;
         }
 
         &.h1 {
-            font-size: 1rem;
+            font-size: 1.5rem;
         }
     }
 

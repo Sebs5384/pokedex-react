@@ -18,11 +18,7 @@ const Pagination = styled.nav`
         width: 45%;
     }
 
-    @media (min-width: 481px) and (max-width: 520px) {
-        width: 50%;
-    }
-
-    @media (min-width: 521px) and (max-width: 580px) {
+    @media (min-width: 481px) and (max-width: 940px) {
         width: 50%;
     }
 `;
@@ -52,8 +48,12 @@ const PaginationLink = styled.a`
         font-size: 7px;
     }
 
-    @media (min-width: 521px) and (max-width: 580px) {
+    @media (min-width: 521px) and (max-width: 700px) {
         font-size: 8px;
+    }
+
+    @media (min-width: 701px) and (max-width: 940px) {
+        font-size: 12px;
     }
 `;
 
@@ -91,9 +91,9 @@ const PaginatorSearchboxInput = styled(Form.Control)`
         font-size: 8px;
     }
 
-    @media (min-width: 521px) and (max-width: 580px) {
-        width: 50px;
-        height: 50px;
+    @media (min-width: 521px) and (max-width: 820px) {
+        width: 45px;
+        height: 45px;
         font-size: 9px;
     }
 `;
