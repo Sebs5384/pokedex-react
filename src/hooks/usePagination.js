@@ -12,6 +12,8 @@ function usePagination(ITEMS_PER_PAGE, INITIAL_PAGE_INDEX) {
     const { totalPages, firstPage, lastPage } = useTotalPages(ITEMS_PER_PAGE, paginatorPokemons);
 
     const setCurrentPage = (pageIndex) => {
+        if(pageIndex === state.currentPage) return;
+
         const currentPage = pageIndex;
         dispatch({ type: "CLEAR_POKEMONS_IN_PAGE", payload: [] });
         dispatch({ type: "SET_CURRENT_PAGE", payload: currentPage });
