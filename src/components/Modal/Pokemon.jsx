@@ -39,6 +39,14 @@ const PokemonCardModal = styled(({ backgroundTexture, ...rest }) => <Modal {...r
         ${emeraldFontFace}
         font-family: "pokemon-emerald";
     }
+
+    @media (max-width: 480px) {
+        .modal-dialog {
+            display: flex;
+            align-items: center;
+            min-height: 90vh;
+        }
+    }
 `;
 
 const PokemonAlertModal = styled(Modal)`
@@ -76,12 +84,22 @@ const ErrorMessageModal = styled(Modal)`
         ${emeraldFontFace}
         font-family: "pokemon-emerald";
     }
+
+    @media (max-width: 480px) {    
+        &.emerald-font {
+            font-size: 1.2rem;
+        }
+    }
 `;
 
 const PokemonCloseButton = styled(CloseButton)`
     font-size: 0.7rem;
     position: relative;
     right: -20px;
+
+    @media (max-width: 480px) {
+        right: -15px;
+    }
 `;
 
 const ErrorCloseButton = styled(CloseButton)`
@@ -90,6 +108,11 @@ const ErrorCloseButton = styled(CloseButton)`
     border-radius: 2px;
     border-color: gold;
     opacity: 0.7;
+
+    @media (max-width: 480px) {
+        width: 10px;
+        height: 10px;
+    }
 `;
 
 const PokemonTitle = styled(Modal.Title)`
@@ -159,7 +182,7 @@ const PokemonContainer = styled.div`
     &.registration-screen-background {
         background-image: repeating-linear-gradient(0deg, #8dff9e, #0c5010, transparent 6px, transparent 6px);
         background-size: 5px 100%;
-        margin: 0px 0px;
+        margin: 0px 0px;    
     }
 
     &.registration-details-background {
@@ -259,6 +282,126 @@ const PokemonContainer = styled.div`
         background-image: linear-gradient(to right, rgb(255, 202, 44), rgb(255, 137, 2));
     }
 
+    @media (max-width: 480px) {
+        &.fixed-height {
+            min-height: 110px;
+        }
+
+        &.registration-image-background {
+            display: flex;
+            align-items: center;
+        }
+
+        &.registration-image img {
+            width: 100px;
+            height: 100px;
+        }
+
+        &.h3 {
+            font-size: 1rem;
+        }
+    }
+
+    @media (min-width: 481px) and (max-width: 520px) {
+        &.fixed-height {
+            min-height: 110px;
+        }
+
+        &.registration-image-background {
+            display: flex;
+            align-items: center;
+        }
+
+        &.registration-image img {
+            width: 110px;
+            height: 110px;
+        }
+
+        &.h3 {
+            font-size: 1.2rem;
+        }
+    }
+
+    @media (min-width: 521px) and (max-width: 580px) {
+        &.fixed-height {
+            min-height: 110px;
+        }
+
+        &.registration-image-background {
+            display: flex;
+            align-items: center;
+        }
+
+        &.registration-image img {
+            width: 120px;
+            height: 120px;
+        }
+
+        &.h3 {
+            font-size: 1.4rem;
+        }
+    }
+
+    @media (min-width: 581px) and (max-width: 700px) {
+        &.fixed-height {
+            min-height: 110px;
+        }
+        
+        &.registration-image-background {
+            display: flex;
+            align-items: center;
+        }
+
+        &.registration-image img {
+            width: 130px;
+            height: 130px;
+        }
+
+        &.h3 {
+            font-size: 1.4rem;
+        }
+    }
+
+    @media (min-width: 701px) and (max-width: 820px) {
+        &.fixed-height {
+            min-height: 110px;
+        }
+        
+        &.registration-image-background {
+            display: flex;
+            align-items: center;
+        }
+
+        &.registration-image img {
+            width: 140px;
+            height: 140px;
+        }
+
+        &.h3 {
+            font-size: 1.4rem;
+        }
+    }
+
+    @media (min-width: 821px) and (max-width: 940px) {
+        &.fixed-height {
+            min-height: 110px;
+        }
+        
+        &.registration-image-background {
+            display: flex;
+            align-items: center;
+        }
+
+        &.registration-image img {
+            width: 100px;
+            height: 100px;
+        }
+
+        &.h3 {
+            font-size: 1.4rem;
+        }
+    }
+
     @keyframes tickAnimationLeft {
         0% {
             background-image: linear-gradient(to left, rgb(211, 211, 211), rgb(57, 57, 57));
@@ -300,6 +443,20 @@ const PokemonCardText = styled.strong`
     &.footer-font {
         font-size: 10px;
     }
+
+    @media (max-width: 480px) {
+        &.title-font {
+            font-size: 25px;
+        }
+
+        &.banner-font {
+            font-size: 10px;
+        }
+
+        &.species-font {
+            font-size: 10px;
+        }
+    }
 `;
 
 const PokemonRegistrationText = styled.p`
@@ -324,6 +481,42 @@ const PokemonRegistrationText = styled.p`
         animation: typing 1s steps(40), cursor 0.75s step-end forwards;
         animation-fill-mode: forwards;
         animation-delay: 1s;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 1.5rem;
+
+        &.registration-title-font {
+            font-size: 1rem;
+        }
+
+        &.h1 {
+            font-size: 1rem;
+        }
+    }
+
+    @media (min-width: 481px) and (max-width: 820px) {
+        font-size: 1.5rem;
+
+        &.registration-title-font {
+            font-size: 1rem;
+        }
+
+        &.h1 {
+            font-size: 1rem;
+        }
+    }
+
+    @media (min-width: 821px) and (max-width: 940px) {
+        font-size: 1.5rem;
+
+        &.registration-title-font {
+            font-size: 1.5rem;
+        }
+
+        &.h1 {
+            font-size: 1.5rem;
+        }
     }
 
     @keyframes typing {

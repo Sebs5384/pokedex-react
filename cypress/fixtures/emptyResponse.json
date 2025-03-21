@@ -1,1 +1,6 @@
-{}
+{
+  "count": 1302,
+  "next": "https://pokeapi.co/api/v2/pokemon?offset=100&limit=20",
+  "previous": "https://pokeapi.co/api/v2/pokemon?offset=60&limit=20",
+  "results": []
+}

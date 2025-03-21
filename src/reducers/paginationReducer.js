@@ -4,6 +4,7 @@ const initialPaginationState = {
     pokemonsInPage: [],
     searchboxValue: "",
     popupMessage: "",
+    cardBackground: "",
     noCards: false,
     invalidPagePopup: false
 };
@@ -27,6 +28,11 @@ function paginationReducer(state = initialPaginationState, action) {
                 ...state,
                 pokemonsInPage: payload
             };
+        case "CLEAR_POKEMONS_IN_PAGE": 
+            return {
+                ...state,
+                pokemonsInPage: payload
+            };
         case "SET_SEARCHBOX_VALUE":
             return {
                 ...state,
@@ -41,6 +47,11 @@ function paginationReducer(state = initialPaginationState, action) {
             return {
                 ...state,
                 popupMessage: payload
+            };
+        case "SET_CARD_BACKGROUND": 
+            return {
+                ...state,
+                cardBackground: payload
             };
         case "SET_NO_CARDS_IN_PAGE":
             return {

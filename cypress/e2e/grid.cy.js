@@ -267,7 +267,7 @@ describe("Grid interaction testing", () => {
         cy.wait("@pokedexEmptyResults").then((interception) => {
             expect(interception.response.statusCode).to.eq(200);
             expect(interception.body).to.eq(undefined);
-            expect(interception.response.body.results).to.eq(undefined);
+            expect(interception.response.body.results.length).to.eq(0);
         });
 
         cy.get("[data-cy='grid-section']").as("gridSection").should("exist");

@@ -1,13 +1,13 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
-import { validateSearchboxPage } from "../../utils/general";
+import { validateSearchboxPage, preloadImage } from "../../utils/general";
 import { getPokemonsInPage, getPokemonSprites } from "../../utils/pokemon";
 import usePagination from "../usePagination";
 import useFetchPokemons from "../useFetchPokemons";
 import useTotalPages from "../useTotalPages";
-import { use } from "react";
 
 jest.mock("../../utils/general", () => ({
     validateSearchboxPage: jest.fn(),
+    preloadImage: jest.fn(),
 }));
 jest.mock("../../utils/pokemon", () => ({
     getPokemonsInPage: jest.fn(),
@@ -19,6 +19,20 @@ jest.mock("../useTotalPages", () => jest.fn());
 describe("usePagination", () => {
     const itemsPerPage = 20;
     const initialPageIndex = 1;
+    let mockImage = {};
+
+    beforeEach(() => {
+        preloadImage.mockImplementation(() => {
+            mockImage = {};
+            setTimeout(() => {
+                if(typeof mockImage.onload === "function") {
+                    mockImage.onload();
+                };
+            }, 0);
+
+            return mockImage;
+        });
+    });
 
     it("Should run setPokemonsInPage as a side effect on mount", async () => {
         useFetchPokemons.mockReturnValue({
@@ -59,7 +73,9 @@ describe("usePagination", () => {
 
     it("Should set the current page when invoking setCurrentPage", () => {
         useFetchPokemons.mockReturnValue({
-            paginatorPokemons: {},
+            paginatorPokemons: {
+                results: []
+            },
         });
         useTotalPages.mockReturnValue({
             totalPages: 3,
@@ -74,7 +90,9 @@ describe("usePagination", () => {
 
     it("Should set the next page when invoking setNextPage", () => {
         useFetchPokemons.mockReturnValue({
-            paginatorPokemons: {},
+            paginatorPokemons: {
+                results: []
+            },
         });
         useTotalPages.mockReturnValue({
             totalPages: 3,
@@ -89,7 +107,9 @@ describe("usePagination", () => {
 
     it("Should set the previous page when invoking setPreviousPage", () => {
         useFetchPokemons.mockReturnValue({
-            paginatorPokemons: {},
+            paginatorPokemons: {
+                results: []
+            },
         });
         useTotalPages.mockReturnValue({
             totalPages: 3,
@@ -105,7 +125,9 @@ describe("usePagination", () => {
 
     it("Should set the searchbox value when invoking setSearchboxPokemon", async () => {
         useFetchPokemons.mockReturnValue({
-            paginatorPokemons: {},
+            paginatorPokemons: {
+                results: []
+            },
         });
         useTotalPages.mockReturnValue({
             totalPages: 3,
@@ -122,7 +144,9 @@ describe("usePagination", () => {
 
     it("Should set the current page to the value of searchbox when handleKeyDown is invoked", async () => {
         useFetchPokemons.mockReturnValue({
-            paginatorPokemons: {},
+            paginatorPokemons: {
+                results: []
+            },
         });
         useTotalPages.mockReturnValue({
             totalPages: 3,
@@ -144,7 +168,9 @@ describe("usePagination", () => {
     it("Should handle the error through a popup when the page is not valid when invoking handleKeyDown", async () => {
         jest.useFakeTimers();
         useFetchPokemons.mockReturnValue({
-            paginatorPokemons: {},
+            paginatorPokemons: {
+                results: []
+            },
         });
         useTotalPages.mockReturnValue({
             totalPages: 3,
@@ -174,7 +200,9 @@ describe("usePagination", () => {
     it("Should dispatch no cards state when fetching no results", async () => {
         jest.useFakeTimers();
         useFetchPokemons.mockReturnValue({
-            paginatorPokemons: null,
+            paginatorPokemons: {
+                results: [],
+            },
         });
         useTotalPages.mockReturnValue({
             totalPages: [],
@@ -187,6 +215,7 @@ describe("usePagination", () => {
         act(() => {
             jest.advanceTimersByTime(10000);
         });
+        
         expect(result.current.pokemonsInPage).toEqual([]);
         expect(result.current.noCards).toBe(true);
     });

@@ -2,5 +2,28 @@ body {
     background: linear-gradient(to bottom, #fff8dc, #ff466b, #dc143c, #5e0013);
     background-attachment: fixed;
     background-size: cover;
-    overflow-x: hidden;
 };
+
+html, body {
+    overflow-x: hidden;
+}
+
+.modal {
+    overflow-y: auto;
+}
+
+.modal-open {
+    padding-left: 0px !important;
+}
+
+@media (max-width: 480px) {
+    .modal-open {
+        padding-right: 0px !important;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 1360px) {
+    html, body  {
+        overflow-x: hidden;
+    }
+}

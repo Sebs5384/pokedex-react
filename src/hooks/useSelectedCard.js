@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useState } from "react";
 import { selectedCardReducer, initialSelectedCardState } from "../reducers/index";
 import { useFetchPokemon, useFetchSpecies, useGetPokemonSprite } from "./index";
+import { preloadImage } from "../utils/index";
 import Pokemon from "../entities/Pokemon";
 
 function useSelectedCard(artwork) {
@@ -17,8 +18,10 @@ function useSelectedCard(artwork) {
     useEffect(() => {
         if(pokemonCardData && cardSpeciesData && pokemonCardData.id && cardSpeciesData.id) {
             const parsedPokemonData = new Pokemon(pokemonCardData, cardSpeciesData);
- 
-            dispatch({ type: "SET_SELECTED_CARD_DATA", payload: parsedPokemonData });
+            const cardTexture = preloadImage(parsedPokemonData.backgroundTexture);
+            cardTexture.onload = () => {
+                dispatch({ type: "SET_SELECTED_CARD_DATA", payload: parsedPokemonData });  
+            };
         } else if(!loading && pokemonCardData && !pokemonCardData.id) {
             
             dispatch({ type: "SET_SELECTED_CARD_DATA", payload: null });

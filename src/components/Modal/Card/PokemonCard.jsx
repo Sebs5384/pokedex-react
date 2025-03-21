@@ -28,6 +28,7 @@ function PokemonCard() {
                     show={card.modalVisibility} 
                     onHide={card.handleCloseCard} 
                     backgroundTexture={card.cardData?.backgroundTexture}
+                    backdrop={"static"}
                     data-cy={"pokemon-card-modal"}
                     data-testid={"pokemon-card-modal"}
                 >   
