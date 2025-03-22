@@ -76,7 +76,3 @@ Resembles the UI of Pokemon Emerald registration screen.
 Allows the user to display the information of the already caught Pokemon with a maximum of 3 Pokemons
 
 ![screen6](https://github.com/user-attachments/assets/311bef24-329d-4e0a-a65c-76cf222652d6)
-
-## Future Updates
-
-### `Mobile Responsiveness`
